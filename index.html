@@ -1,119 +1,108 @@
-<script type="text/babel">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Clean Apple Scroll</title>
 
-const { useEffect, useRef, useState } = React;
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
 
-function App() {
-
-  const heroText = useRef();
-  const heroSub = useRef();
-
-  /* SCROLL ENGINE (Apple style) */
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-
-      // PARALLAX TEXT
-      if (heroText.current) {
-        heroText.current.style.transform =
-          `translateY(${scrollY * -0.2}px)`;
-      }
-
-      // SCALE SUBTEXT
-      if (heroSub.current) {
-        const scale = 1 + scrollY * 0.0005;
-        heroSub.current.style.transform = `scale(${scale})`;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  /* FADE IN */
-  useEffect(() => {
-    const els = document.querySelectorAll(".fade");
-
-    const obs = new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          e.target.classList.add("visible");
-        }
-      });
-    });
-
-    els.forEach(el=>obs.observe(el));
-  }, []);
-
-  return (
-    <>
-      <nav>
-        <div>Mobile1x</div>
-      </nav>
-
-      {/* HERO */}
-      <section className="hero">
-        <div className="hero-inner">
-          <h1 ref={heroText}>
-            The Future Is Here.
-          </h1>
-
-          <p ref={heroSub}>
-            Scroll to experience innovation
-          </p>
-        </div>
-      </section>
-
-      {/* STORY */}
-      <section className="section">
-        <div className="sticky">
-          <h1 className="fade">Precision Engineering</h1>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="sticky">
-          <h1 className="fade">Seamless Performance</h1>
-        </div>
-      </section>
-
-      <VideoScroll />
-
-    </>
-  );
+body {
+  font-family: sans-serif;
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
 }
 
-/* VIDEO SCROLL */
-function VideoScroll(){
-  const ref = useRef();
+nav {
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:20px;
+  z-index:100;
+}
 
-  useEffect(()=>{
-    const onScroll = ()=>{
-      const scrollTop = window.scrollY;
-      const duration = 800;
+section {
+  height:200vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-      if(ref.current){
-        ref.current.currentTime = scrollTop / duration;
+h1 {
+  font-size:60px;
+  text-align:center;
+  transition:transform 0.1s linear;
+}
+
+video {
+  width:60%;
+  border-radius:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="module">
+import React, { useEffect, useRef } from "https://esm.sh/react@18";
+import { createRoot } from "https://esm.sh/react-dom@18/client";
+
+function App() {
+  const textRef = useRef(null);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+
+      // PARALLAX
+      if (textRef.current) {
+        textRef.current.style.transform =
+          `translateY(${y * -0.2}px) scale(${1 + y * 0.0005})`;
+      }
+
+      // VIDEO SCROLL SYNC
+      if (videoRef.current) {
+        videoRef.current.currentTime = y / 800;
       }
     };
 
     window.addEventListener("scroll", onScroll);
-    return ()=>window.removeEventListener("scroll", onScroll);
-  },[]);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <section className="section">
-      <div className="sticky">
+    <>
+      <nav>Mobile1x</nav>
+
+      <section>
+        <h1 ref={textRef}>
+          Apple-Level Scroll Experience
+        </h1>
+      </section>
+
+      <section>
         <video
-          ref={ref}
+          ref={videoRef}
           src="https://www.w3schools.com/html/mov_bbb.mp4"
           muted
           playsInline
         />
-      </div>
-    </section>
+      </section>
+
+      <section>
+        <h1>Precision Engineering</h1>
+      </section>
+    </>
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-
+createRoot(document.getElementById("root")).render(<App />);
 </script>
+
+</body>
+</html>
