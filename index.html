@@ -3,270 +3,1080 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mobile1x</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
+<title>Mobile1x — Mobile App Development Company | Indore, India</title>
+<meta name="description" content="Mobile1x builds secure, high-performance iOS and Android apps. Led by a staff-level engineer with experience at CyberArk and Commonwealth Bank. Based in Indore, India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-  --bg: #000;
-  --bg2: #0a0a0a;
+  :root {
+    --bg: #F8F7F3;
+    --bg2: #EFEDE7;
+    --ink: #0D1420;
+    --ink2: #4A4D58;
+    --ink3: #8A8D96;
+    --blue: #1A4FD6;
+    --blue-light: #E8EEFB;
+    --blue-mid: #C0CFFA;
+    --teal: #0DA882;
+    --teal-light: #E0F7F1;
+    --border: rgba(13,20,32,0.1);
+    --border-strong: rgba(13,20,32,0.18);
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
 
-  --text: #fff;
-  --text2: #cfcfcf;
-  --text3: #8a8a8a;
+  html { scroll-behavior: smooth; }
 
-  --yellow: #FFD600;
-  --yellow-soft: rgba(255,214,0,0.1);
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
 
-  --border: rgba(255,255,255,0.1);
-}
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(248,247,243,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px; font-weight: 700; color: var(--ink); text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--blue); }
+  .nav-links {
+    display: flex; align-items: center; gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none; font-size: 14px; color: var(--ink2);
+    font-weight: 500; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    background: var(--ink); color: #fff;
+    padding: 10px 22px; border-radius: 8px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    transition: background 0.2s; white-space: nowrap;
+  }
+  .nav-cta:hover { background: #1A4FD6; }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--ink); margin: 5px 0; border-radius: 2px; transition: all 0.3s;
+  }
+  .mobile-menu {
+    display: none; position: fixed; top: 64px; left: 0; right: 0;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    padding: 16px 5% 24px; z-index: 99;
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a {
+    display: block; padding: 12px 0; font-size: 15px; color: var(--ink2);
+    text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu a:last-of-type { border-bottom: none; }
+  .mobile-menu .mobile-cta {
+    display: block; margin-top: 16px; text-align: center;
+    background: var(--ink); color: #fff; padding: 12px;
+    border-radius: 8px; font-weight: 600; text-decoration: none;
+  }
 
-/* BASE */
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: radial-gradient(circle at top, #111 0%, #000 60%);
-  color: var(--text);
-}
+  /* HERO */
+  .hero {
+    padding: 80px 5% 72px;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 48px; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--teal-light); color: #06735A;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 20px; margin-bottom: 24px;
+  }
+  .eyebrow-dot { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -1.5px; margin-bottom: 20px; color: var(--ink);
+  }
+  .hero h1 em { font-style: normal; color: var(--blue); }
+  .hero-sub {
+    font-size: 17px; color: var(--ink2); line-height: 1.7;
+    max-width: 520px; margin-bottom: 36px;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .btn-primary {
+    background: var(--blue); color: #fff;
+    padding: 13px 26px; border-radius: 10px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: #1240B8; }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-wa {
+    background: #25D366; color: #fff;
+    padding: 13px 22px; border-radius: 10px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: background 0.2s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-wa:hover { background: #1EB858; }
+  .btn-wa svg { width: 18px; height: 18px; fill: #fff; }
+  .btn-outline {
+    background: transparent; color: var(--ink);
+    padding: 13px 22px; border-radius: 10px; border: 1.5px solid var(--border-strong);
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-outline:hover { background: var(--bg2); }
 
-/* NAV */
-nav {
-  position: sticky;
-  top: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(12px);
-  padding: 18px 5%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid var(--border);
-}
+  .hero-stats {
+    display: flex; gap: 36px; margin-top: 44px;
+    padding-top: 36px; border-top: 1px solid var(--border);
+  }
+  .hstat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px; font-weight: 700; color: var(--blue); line-height: 1;
+  }
+  .hstat-label { font-size: 12px; color: var(--ink3); margin-top: 4px; font-weight: 500; }
 
-.logo {
-  font-family: 'Syne';
-  font-weight:700;
-  font-size:20px;
-}
-.logo span { color: var(--yellow); }
+  .hero-visual {
+    width: 280px; height: 380px; flex-shrink: 0;
+    background: var(--bg2); border-radius: 24px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, #E8EEFB 0%, #E0F7F1 100%);
+  }
+  .phone-mock {
+    position: relative; z-index: 1;
+    width: 140px; height: 280px;
+    background: var(--bg); border-radius: 24px;
+    border: 2px solid var(--border-strong);
+    overflow: hidden; padding: 14px 12px 10px;
+    box-shadow: 0 20px 60px rgba(13,20,32,0.12);
+  }
+  .phone-notch {
+    width: 44px; height: 8px; background: var(--bg2);
+    border-radius: 0 0 8px 8px; margin: 0 auto 14px;
+  }
+  .phone-line { height: 8px; border-radius: 4px; margin-bottom: 7px; }
+  .phone-card-block {
+    height: 64px; border-radius: 10px;
+    background: var(--blue-light); margin-bottom: 8px;
+  }
+  .phone-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+  .phone-mini-block { height: 40px; border-radius: 8px; }
+  .phone-bottom-line { height: 7px; border-radius: 4px; background: var(--bg2); }
+  .hero-badge-float {
+    position: absolute; top: 24px; right: -10px; z-index: 2;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 14px; box-shadow: 0 4px 16px rgba(13,20,32,0.08);
+    font-size: 12px;
+  }
+  .hero-badge-float .badge-title { font-weight: 600; color: var(--blue); font-size: 14px; }
+  .hero-badge-float .badge-sub { color: var(--ink3); font-size: 11px; }
 
-.cta {
-  background: var(--yellow);
-  color:#000;
-  padding:10px 20px;
-  border-radius:8px;
-  font-weight:600;
-  text-decoration:none;
-}
+  /* TRUSTED BY */
+  .trusted {
+    background: var(--bg2);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 24px 5%;
+  }
+  .trusted-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+  }
+  .trusted-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--ink3); white-space: nowrap; flex-shrink: 0;
+  }
+  .trusted-names { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .trusted-name {
+    font-size: 13px; font-weight: 600; color: var(--ink2);
+    background: var(--bg); border: 1px solid var(--border);
+    padding: 6px 14px; border-radius: 20px;
+  }
 
-/* HERO */
-.hero {
-  min-height: 90vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:0 20px;
-}
+  /* SECTION COMMON */
+  section { padding: 80px 5%; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--blue); margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 3.5vw, 38px); font-weight: 700;
+    letter-spacing: -1px; line-height: 1.15; margin-bottom: 12px;
+  }
+  .section-sub {
+    font-size: 16px; color: var(--ink2); max-width: 540px; line-height: 1.7;
+    margin-bottom: 48px;
+  }
 
-.hero h1 {
-  font-family:'Syne';
-  font-size: clamp(40px,6vw,72px);
-  line-height:1.1;
-}
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .service-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 28px;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .service-card:hover {
+    border-color: var(--blue-mid);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(26,79,214,0.07);
+  }
+  .service-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 16px;
+  }
+  .service-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .service-card p { font-size: 14px; color: var(--ink2); line-height: 1.6; margin-bottom: 14px; }
+  .service-pill {
+    display: inline-block; font-size: 11px; font-weight: 500;
+    padding: 3px 10px; border-radius: 20px;
+    background: var(--bg2); color: var(--ink3);
+  }
 
-.hero h1 span {
-  color: var(--yellow);
-}
+  /* RESULTS STRIP */
+  .results-strip {
+    background: var(--ink);
+    padding: 56px 5%;
+  }
+  .results-inner {
+    max-width: 1200px; margin: 0 auto;
+  }
+  .results-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1px; color: rgba(255,255,255,0.4); margin-bottom: 36px;
+  }
+  .results-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px;
+  }
+  .result-item { }
+  .result-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 40px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 8px;
+  }
+  .result-num span { color: var(--teal); }
+  .result-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+  .result-source {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.5px;
+    margin-top: 6px;
+  }
 
-.hero p {
-  margin-top:20px;
-  color: var(--text2);
-  max-width:600px;
-  margin-inline:auto;
-}
+  /* TECH STACK */
+  .stack-bg { background: var(--bg2); }
+  .stack-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+  .stack-cat { }
+  .stack-cat-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--ink3); margin-bottom: 12px;
+  }
+  .stack-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 20px;
+    border: 1px solid var(--border); background: var(--bg);
+    color: var(--ink2); transition: all 0.15s;
+  }
+  .pill:hover { border-color: var(--blue-mid); color: var(--blue); background: var(--blue-light); }
+  .pill.featured {
+    background: var(--blue-light); border-color: var(--blue-mid);
+    color: var(--blue); font-weight: 600;
+  }
 
-.hero .buttons {
-  margin-top:30px;
-  display:flex;
-  gap:12px;
-  justify-content:center;
-}
+  /* PROCESS */
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0; counter-reset: steps; position: relative;
+  }
+  .process-steps::before {
+    content: ''; position: absolute;
+    top: 22px; left: 10%; right: 10%; height: 1px;
+    background: var(--border); z-index: 0;
+  }
+  .step { text-align: center; padding: 0 8px 0; position: relative; z-index: 1; }
+  .step-circle {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 16px; font-weight: 700; margin: 0 auto 16px;
+    border: 2px solid; position: relative; z-index: 1;
+    background: var(--bg);
+  }
+  .step h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .step p { font-size: 12px; color: var(--ink3); line-height: 1.5; }
 
-.btn {
-  padding:14px 26px;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:600;
-}
+  /* DIFFERENTIATORS */
+  .diff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .diff-card {
+    border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px;
+    background: var(--bg); position: relative; overflow: hidden;
+  }
+  .diff-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .diff-card.blue::before { background: var(--blue); }
+  .diff-card.teal::before { background: var(--teal); }
+  .diff-card.amber::before { background: #E5930A; }
+  .diff-card.purple::before { background: #6B4FD8; }
+  .diff-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+  .diff-card p { font-size: 14px; color: var(--ink2); line-height: 1.7; }
 
-.btn-primary {
-  background: var(--yellow);
-  color:#000;
-}
+  /* FOUNDER */
+  .founder-bg { background: var(--bg2); }
+  .founder-layout {
+    display: grid; grid-template-columns: auto 1fr; gap: 48px; align-items: start;
+  }
+  .founder-card {
+    width: 300px; background: var(--bg);
+    border: 1px solid var(--border); border-radius: var(--radius-lg);
+    padding: 28px; flex-shrink: 0;
+  }
+  .founder-avatar {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--blue-light); display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--blue);
+    margin-bottom: 16px;
+  }
+  .founder-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .founder-card .f-role { font-size: 13px; color: var(--ink3); margin-bottom: 16px; font-weight: 500; }
+  .founder-card .f-divider { height: 1px; background: var(--border); margin: 16px 0; }
+  .founder-card .f-row { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; }
+  .founder-card .f-row span:first-child { color: var(--ink3); }
+  .founder-card .f-row span:last-child { font-weight: 600; color: var(--ink); }
+  .founder-card .f-link {
+    display: block; margin-top: 16px; text-align: center;
+    padding: 10px; border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13px; font-weight: 600; text-decoration: none; color: var(--ink2);
+    transition: all 0.2s;
+  }
+  .founder-card .f-link:hover { border-color: var(--blue-mid); color: var(--blue); background: var(--blue-light); }
+  .founder-content { }
+  .founder-content .big-quote {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(18px, 2.5vw, 28px); font-weight: 600;
+    line-height: 1.4; color: var(--ink); margin-bottom: 24px;
+    letter-spacing: -0.5px;
+  }
+  .founder-content p { font-size: 15px; color: var(--ink2); line-height: 1.8; margin-bottom: 16px; }
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
+  .exp-item {
+    background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px;
+  }
+  .exp-company { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+  .exp-role { font-size: 12px; color: var(--ink3); }
+  .exp-period { font-size: 11px; color: var(--ink3); margin-top: 8px; }
 
-.btn-outline {
-  border:1px solid var(--border);
-  color:#fff;
-}
+  /* PORTFOLIO */
+  .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .portfolio-card {
+    border: 1px solid var(--border); border-radius: var(--radius-lg);
+    overflow: hidden; background: var(--bg);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .portfolio-card:hover { border-color: var(--blue-mid); transform: translateY(-2px); }
+  .portfolio-thumb {
+    height: 160px; display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+  }
+  .portfolio-body { padding: 20px; }
+  .portfolio-body h4 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .portfolio-body p { font-size: 13px; color: var(--ink2); line-height: 1.6; margin-bottom: 12px; }
+  .portfolio-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .ptag { font-size: 11px; padding: 3px 10px; background: var(--bg2); border-radius: 10px; color: var(--ink3); font-weight: 500; }
 
-/* SECTIONS */
-section {
-  padding:80px 5%;
-}
+  /* CTA */
+  .cta-section { background: var(--ink); padding: 80px 5%; }
+  .cta-inner {
+    max-width: 700px; margin: 0 auto; text-align: center;
+  }
+  .cta-inner .section-tag { color: var(--teal); }
+  .cta-inner h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 44px); font-weight: 700;
+    color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 16px;
+  }
+  .cta-inner p { font-size: 16px; color: rgba(255,255,255,0.55); margin-bottom: 36px; line-height: 1.7; }
+  .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-white {
+    background: #fff; color: var(--ink);
+    padding: 13px 26px; border-radius: 10px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: background 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-white:hover { background: #F0F0F0; }
+  .btn-ghost {
+    background: transparent; color: rgba(255,255,255,0.8);
+    padding: 13px 22px; border-radius: 10px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+  .btn-ghost svg { width: 18px; height: 18px; fill: currentColor; }
 
-.section-title {
-  font-family:'Syne';
-  font-size:40px;
-  margin-bottom:10px;
-}
+  /* CONTACT */
+  .contact-bar {
+    background: var(--bg2);
+    border-top: 1px solid var(--border); padding: 40px 5%;
+  }
+  .contact-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; gap: 40px; flex-wrap: wrap; align-items: start;
+  }
+  .contact-item { }
+  .contact-item .c-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ink3); margin-bottom: 6px; }
+  .contact-item a, .contact-item span { font-size: 15px; color: var(--ink); text-decoration: none; font-weight: 500; display: block; }
+  .contact-item a:hover { color: var(--blue); }
 
-.section-sub {
-  color: var(--text2);
-  margin-bottom:40px;
-}
+  /* FOOTER */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.4);
+    padding: 28px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    font-size: 13px;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700;
+    color: #fff; text-decoration: none;
+  }
+  .footer-logo span { color: var(--teal); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; }
+  .footer-links a:hover { color: rgba(255,255,255,0.7); }
 
-/* CARDS */
-.grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-  gap:16px;
-}
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr; padding: 48px 5% 56px;
+    }
+    .hero-visual { display: none; }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+    .founder-layout { grid-template-columns: 1fr; }
+    .founder-card { width: 100%; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .process-steps::before { display: none; }
+    .process-steps { gap: 24px; grid-template-columns: 1fr 1fr; }
+    nav .nav-links, nav .nav-cta { display: none; }
+    .hamburger { display: block; }
+  }
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 32px; }
+    .hero-stats { gap: 20px; }
+    .hstat-num { font-size: 22px; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions a { text-align: center; justify-content: center; }
+    .process-steps { grid-template-columns: 1fr; }
+    section { padding: 56px 5%; }
+    .results-grid { grid-template-columns: 1fr 1fr; }
+    .result-num { font-size: 30px; }
+  }
 
-.card {
-  background: var(--bg2);
-  border:1px solid var(--border);
-  padding:24px;
-  border-radius:16px;
-  transition:0.3s;
-}
-
-.card:hover {
-  border-color: var(--yellow);
-  transform: translateY(-4px);
-}
-
-.card h3 {
-  margin-bottom:10px;
-}
-
-.card p {
-  color: var(--text2);
-  font-size:14px;
-}
-
-/* STRIP */
-.strip {
-  background:#050505;
-  padding:60px 5%;
-}
-
-.stats {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:30px;
-  text-align:center;
-}
-
-.stat h2 {
-  font-size:36px;
-}
-
-.stat span {
-  color: var(--yellow);
-}
-
-.stat p {
-  color: var(--text3);
-  font-size:13px;
-}
-
-/* CTA */
-.cta-section {
-  text-align:center;
-}
-
-.cta-section h2 {
-  font-size:42px;
-}
-
-footer {
-  padding:30px;
-  text-align:center;
-  border-top:1px solid var(--border);
-  color: var(--text3);
-}
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-text > * {
+    opacity: 0; animation: fadeUp 0.6s ease forwards;
+  }
+  .hero-text > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero-text > *:nth-child(2) { animation-delay: 0.15s; }
+  .hero-text > *:nth-child(3) { animation-delay: 0.25s; }
+  .hero-text > *:nth-child(4) { animation-delay: 0.35s; }
+  .hero-text > *:nth-child(5) { animation-delay: 0.45s; }
 </style>
 </head>
-
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="logo">Mobile<span>1x</span></div>
-  <a href="#" class="cta">Get Quote</a>
+  <a href="#" class="nav-logo">Mobile<span>1x</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#founder">About</a></li>
+    <li><a href="#portfolio">Work</a></li>
+  </ul>
+  <a href="https://wa.me/919754525494?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20mobile%20app%20project" class="nav-cta" target="_blank">Get a free quote</a>
+  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu">
+  <a href="#services" onclick="this.closest('.mobile-menu').classList.remove('open')">Services</a>
+  <a href="#stack" onclick="this.closest('.mobile-menu').classList.remove('open')">Tech stack</a>
+  <a href="#process" onclick="this.closest('.mobile-menu').classList.remove('open')">Process</a>
+  <a href="#founder" onclick="this.closest('.mobile-menu').classList.remove('open')">About</a>
+  <a href="#portfolio" onclick="this.closest('.mobile-menu').classList.remove('open')">Work</a>
+  <a href="https://wa.me/919754525494" class="mobile-cta" target="_blank">Chat on WhatsApp</a>
+</div>
 
 <!-- HERO -->
-<section class="hero">
-  <div>
-    <h1>We build apps<br><span>people love</span></h1>
-    <p>High-performance iOS, Android and cross-platform apps with enterprise-grade engineering.</p>
+<div style="max-width:1200px; margin:0 auto;">
+  <section class="hero" style="padding-left:0;padding-right:0;max-width:none;">
+    <div class="hero-text">
+      <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Based in India · Available worldwide</div>
+      <h1>We build mobile apps<br><em>people love to use</em></h1>
+      <p class="hero-sub">iOS, Android, and cross-platform apps for startups and growing businesses. Enterprise-grade code quality from engineers who've shipped at CyberArk, Commonwealth Bank, and Conviva.</p>
+      <div class="hero-actions">
+        <a href="mailto:mobile1x@gmail.com?subject=App%20Development%20Enquiry" class="btn-primary">Start a project →</a>
+        <a href="https://wa.me/919754525494?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20mobile%20app%20project" class="btn-wa" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.857L.057 23.882l6.184-1.621A11.96 11.96 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-5.044-1.398l-.362-.215-3.744.981 1-3.645-.236-.374A9.77 9.77 0 012.182 12C2.182 6.573 6.573 2.182 12 2.182S21.818 6.573 21.818 12 17.427 21.818 12 21.818z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hstat-num">10+</div>
+          <div class="hstat-label">Years of experience</div>
+        </div>
+        <div>
+          <div class="hstat-num">28%</div>
+          <div class="hstat-label">Faster app performance</div>
+        </div>
+        <div>
+          <div class="hstat-num">40%</div>
+          <div class="hstat-label">Fewer vulnerabilities</div>
+        </div>
+        <div>
+          <div class="hstat-num">0</div>
+          <div class="hstat-label">Rollbacks at Bankwest</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="phone-mock">
+        <div class="phone-notch"></div>
+        <div class="phone-line" style="background:#B5D4F4;width:80%;"></div>
+        <div class="phone-line" style="background:#D3D1C7;width:55%;"></div>
+        <div class="phone-card-block"></div>
+        <div class="phone-mini-grid">
+          <div class="phone-mini-block" style="background:#E0F7F1;"></div>
+          <div class="phone-mini-block" style="background:#FAEEDA;"></div>
+        </div>
+        <div class="phone-line" style="background:#D3D1C7;width:90%;margin-bottom:5px;"></div>
+        <div class="phone-line" style="background:#D3D1C7;width:70%;margin-bottom:5px;"></div>
+        <div class="phone-mini-grid">
+          <div class="phone-mini-block" style="background:#EEEDFE;height:50px;"></div>
+          <div class="phone-mini-block" style="background:#F8F7F3;border:1px solid rgba(13,20,32,0.08);height:50px;"></div>
+        </div>
+        <div class="phone-bottom-line"></div>
+      </div>
+      <div class="hero-badge-float">
+        <div class="badge-title">App shipped ✓</div>
+        <div class="badge-sub">iOS + Android</div>
+      </div>
+    </div>
+  </section>
+</div>
 
-    <div class="buttons">
-      <a href="#" class="btn btn-primary">Start Project</a>
-      <a href="#" class="btn btn-outline">View Work</a>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section>
-  <h2 class="section-title">What we do</h2>
-  <p class="section-sub">End-to-end mobile development</p>
-
-  <div class="grid">
-    <div class="card">
-      <h3>iOS Apps</h3>
-      <p>Swift, SwiftUI, high-performance native apps.</p>
-    </div>
-    <div class="card">
-      <h3>Android Apps</h3>
-      <p>Kotlin-first, Jetpack Compose, scalable architecture.</p>
-    </div>
-    <div class="card">
-      <h3>Cross Platform</h3>
-      <p>Flutter & React Native for rapid delivery.</p>
-    </div>
-  </div>
-</section>
-
-<!-- RESULTS -->
-<div class="strip">
-  <div class="stats">
-    <div class="stat">
-      <h2>40<span>%</span></h2>
-      <p>Less vulnerabilities</p>
-    </div>
-    <div class="stat">
-      <h2>28<span>%</span></h2>
-      <p>Faster performance</p>
-    </div>
-    <div class="stat">
-      <h2>0</h2>
-      <p>Rollbacks</p>
+<!-- TRUSTED BY -->
+<div class="trusted">
+  <div class="trusted-inner">
+    <span class="trusted-label">Worked with</span>
+    <div class="trusted-names">
+      <span class="trusted-name">CyberArk</span>
+      <span class="trusted-name">Commonwealth Bank of Australia</span>
+      <span class="trusted-name">Conviva</span>
+      <span class="trusted-name">Wipro</span>
+      <span class="trusted-name">ShareChat</span>
     </div>
   </div>
 </div>
 
-<!-- CTA -->
-<section class="cta-section">
-  <h2>Have an idea?<br>Let’s build it.</h2>
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <span class="section-tag">What we do</span>
+    <h2 class="section-title">End-to-end mobile development</h2>
+    <p class="section-sub">From wireframes to App Store — we handle every stage of the mobile product lifecycle.</p>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon" style="background:#E8EEFB;">📱</div>
+        <h3>iOS App Development</h3>
+        <p>Native Swift and SwiftUI apps built for performance. Follows Apple's latest Human Interface Guidelines, with Xcode CI and App Store Connect deployment handled for you.</p>
+        <span class="service-pill">Swift · SwiftUI · XCTest</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:#E0F7F1;">🤖</div>
+        <h3>Android App Development</h3>
+        <p>Kotlin-first Android apps with Jetpack Compose, Material Design 3, and clean architecture. Covers everything from prototype to Play Console release.</p>
+        <span class="service-pill">Kotlin · Jetpack Compose · JUnit</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:#EEEDFE;">⚡</div>
+        <h3>Cross-platform (Flutter & React Native)</h3>
+        <p>One codebase, both platforms. Faster time to market without sacrificing native feel. Ideal for startups and MVPs that need to move quickly.</p>
+        <span class="service-pill">Flutter · React Native</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:#E8EEFB;">🎨</div>
+        <h3>UI/UX Design</h3>
+        <p>User research, information architecture, wireframes, and pixel-perfect Figma prototypes — before a single line of code is written.</p>
+        <span class="service-pill">Figma · Prototyping · User flows</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:#FFF3E0;">🔐</div>
+        <h3>Security & Compliance</h3>
+        <p>OWASP Mobile Top 10 reviews, STRIDE threat modelling, secure storage design, biometric authentication, and code obfuscation. Built-in, not bolted on.</p>
+        <span class="service-pill">OWASP · STRIDE · DexGuard</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:#E0F7F1;">🔧</div>
+        <h3>Backend & API Integration</h3>
+        <p>Scalable REST, GraphQL, and gRPC APIs. Firebase, AWS, push notifications, payment gateways (Razorpay, Stripe), and third-party integrations.</p>
+        <span class="service-pill">Node · Firebase · GraphQL</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:#FCF3FF;">🧪</div>
+        <h3>QA & Testing</h3>
+        <p>TDD/BDD, automated tests on real devices via Browserstack, crash analytics with Crashlytics and Sentry. We ship tested code, not hope.</p>
+        <span class="service-pill">Espresso · XCTest · Browserstack</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:#FFF8E8;">🛡️</div>
+        <h3>Maintenance & Support</h3>
+        <p>Post-launch monitoring, OS compatibility updates (Android 14+, iOS 18+), performance tuning, feature iterations, and App Store resubmissions.</p>
+        <span class="service-pill">Ongoing SLA · Crashlytics · Sentry</span>
+      </div>
+
+    </div>
+  </div>
 </section>
 
+<!-- RESULTS STRIP -->
+<div class="results-strip">
+  <div class="results-inner">
+    <div class="results-label">Real results from production apps</div>
+    <div class="results-grid">
+      <div class="result-item">
+        <div class="result-num">40<span>%</span></div>
+        <div class="result-desc">Reduction in vulnerability footprint</div>
+        <span class="result-source">CyberArk · 2024</span>
+      </div>
+      <div class="result-item">
+        <div class="result-num">28<span>%</span></div>
+        <div class="result-desc">Improvement in cold-start latency</div>
+        <span class="result-source">CyberArk · 2024</span>
+      </div>
+      <div class="result-item">
+        <div class="result-num">35<span>%</span></div>
+        <div class="result-desc">Fewer password reset failures</div>
+        <span class="result-source">Commonwealth Bank · 2024</span>
+      </div>
+      <div class="result-item">
+        <div class="result-num">45<span>%</span></div>
+        <div class="result-desc">Reduction in client-reported issues</div>
+        <span class="result-source">Conviva · 2023</span>
+      </div>
+      <div class="result-item">
+        <div class="result-num">32<span>%</span></div>
+        <div class="result-desc">Fewer app crashes</div>
+        <span class="result-source">Kyvos · 2022</span>
+      </div>
+      <div class="result-item">
+        <div class="result-num">90<span>%</span></div>
+        <div class="result-desc">Reduction in migration time</div>
+        <span class="result-source">Wipro · 2017</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TECH STACK -->
+<section id="stack" class="stack-bg">
+  <div class="section-inner">
+    <span class="section-tag">Technology stack</span>
+    <h2 class="section-title">We work with tools that get the job done</h2>
+    <p class="section-sub">Every technology below has been used in production — not just listed for optics.</p>
+    <div class="stack-categories">
+      <div class="stack-cat">
+        <div class="stack-cat-label">Native development</div>
+        <div class="stack-pills">
+          <span class="pill featured">Swift · SwiftUI</span>
+          <span class="pill featured">Kotlin</span>
+          <span class="pill featured">Jetpack Compose</span>
+          <span class="pill">Objective-C</span>
+          <span class="pill">Java</span>
+          <span class="pill">Android SDK</span>
+          <span class="pill">iOS SDK</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="stack-cat-label">Cross-platform</div>
+        <div class="stack-pills">
+          <span class="pill featured">Flutter</span>
+          <span class="pill featured">React Native</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="stack-cat-label">Architecture</div>
+        <div class="stack-pills">
+          <span class="pill featured">Clean Architecture</span>
+          <span class="pill">MVVM · MVI</span>
+          <span class="pill">Hilt · Dagger · Koin</span>
+          <span class="pill">Kotlin Coroutines</span>
+          <span class="pill">Combine (Swift)</span>
+          <span class="pill">RxJava</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="stack-cat-label">Backend & APIs</div>
+        <div class="stack-pills">
+          <span class="pill featured">Firebase</span>
+          <span class="pill">REST · GraphQL</span>
+          <span class="pill">gRPC · Protobuf</span>
+          <span class="pill">Retrofit</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">AWS</span>
+          <span class="pill">Razorpay</span>
+          <span class="pill">Stripe</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="stack-cat-label">Security</div>
+        <div class="stack-pills">
+          <span class="pill featured">OWASP Mobile Top 10</span>
+          <span class="pill">STRIDE Threat Modelling</span>
+          <span class="pill">Android Keystore</span>
+          <span class="pill">iOS Secure Enclave</span>
+          <span class="pill">DexGuard</span>
+          <span class="pill">TeeSDK</span>
+          <span class="pill">CyberArk</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="stack-cat-label">Testing & CI/CD</div>
+        <div class="stack-pills">
+          <span class="pill">JUnit · XCTest</span>
+          <span class="pill">Espresso · Robolectric</span>
+          <span class="pill">TDD · BDD</span>
+          <span class="pill">Browserstack</span>
+          <span class="pill">GitHub Actions</span>
+          <span class="pill">Jenkins · TeamCity</span>
+          <span class="pill">Firebase App Distribution</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="stack-cat-label">Analytics & monitoring</div>
+        <div class="stack-pills">
+          <span class="pill">Firebase Analytics</span>
+          <span class="pill">Mixpanel</span>
+          <span class="pill">Amplitude</span>
+          <span class="pill">Crashlytics</span>
+          <span class="pill">Sentry</span>
+          <span class="pill">Conviva</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="stack-cat-label">Specialist</div>
+        <div class="stack-pills">
+          <span class="pill">Bluetooth LE</span>
+          <span class="pill">TensorFlow Lite</span>
+          <span class="pill">ExoPlayer</span>
+          <span class="pill">Offline-first sync</span>
+          <span class="pill">Google Maps SDK</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATORS -->
+<section>
+  <div class="section-inner">
+    <span class="section-tag">Why Mobile1x</span>
+    <h2 class="section-title">What sets us apart</h2>
+    <p class="section-sub">Most app agencies can't offer these. We can — because we've done it in production.</p>
+    <div class="diff-grid">
+      <div class="diff-card blue">
+        <h3>Security-first development</h3>
+        <p>We apply OWASP Mobile Top 10, STRIDE threat modelling, Android Keystore, iOS Secure Enclave, and DexGuard obfuscation to every app. This comes from hands-on work at CyberArk — one of the world's leading cybersecurity companies. Most agencies treat security as a checkbox. We treat it as a foundation.</p>
+      </div>
+      <div class="diff-card teal">
+        <h3>Banking &amp; fintech expertise</h3>
+        <p>We've shipped production features for Commonwealth Bank of Australia — with zero rollbacks. That means we understand compliance, secure data handling, AUD-to-multicurrency flows, and the rigour that regulated industries demand. Ideal for any startup operating in fintech, lending, or payments.</p>
+      </div>
+      <div class="diff-card amber">
+        <h3>Enterprise-grade CI/CD &amp; testing</h3>
+        <p>We practise TDD and BDD, run automated tests on real devices via Browserstack, and integrate CI/CD pipelines from day one using GitHub Actions, Jenkins, and TeamCity. You receive code that's been properly tested — not just code that works on demo day.</p>
+      </div>
+      <div class="diff-card purple">
+        <h3>Performance &amp; offline engineering</h3>
+        <p>From eliminating OOM crashes at ShareChat to building offline-first sync at CyberArk, we understand how apps behave under real-world conditions — poor network, limited memory, and edge-case devices. We build for the real world, not the ideal demo environment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" style="background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <span class="section-tag">How we work</span>
+    <h2 class="section-title">A process built for clarity</h2>
+    <p class="section-sub">No surprises. You'll know exactly what's happening at every stage, with weekly demos as standard.</p>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-circle" style="color:var(--blue); border-color:var(--blue-mid);">1</div>
+        <h4>Discovery</h4>
+        <p>We map your goals, users, and technical requirements into a clear project scope.</p>
+      </div>
+      <div class="step">
+        <div class="step-circle" style="color:#6B4FD8; border-color:#C4B5F4;">2</div>
+        <h4>Design</h4>
+        <p>Wireframes then high-fidelity Figma prototypes. You approve before we write code.</p>
+      </div>
+      <div class="step">
+        <div class="step-circle" style="color:var(--teal); border-color:#9FE1CB;">3</div>
+        <h4>Build</h4>
+        <p>Agile sprints with weekly demos. Full CI/CD and test coverage from the start.</p>
+      </div>
+      <div class="step">
+        <div class="step-circle" style="color:#E5930A; border-color:#FAC775;">4</div>
+        <h4>Test</h4>
+        <p>QA across real devices on Browserstack, performance profiling, and security review.</p>
+      </div>
+      <div class="step">
+        <div class="step-circle" style="color:#D0342C; border-color:#F5C4B3;">5</div>
+        <h4>Launch</h4>
+        <p>App Store and Play Console submission handled by us, including review support.</p>
+      </div>
+      <div class="step">
+        <div class="step-circle" style="color:var(--ink2); border-color:var(--border-strong);">6</div>
+        <h4>Support</h4>
+        <p>Crash monitoring, OS updates, and feature iterations — ongoing SLA available.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder" class="founder-bg">
+  <div class="section-inner">
+    <span class="section-tag">About</span>
+    <h2 class="section-title">The team behind Mobile1x</h2>
+    <div class="founder-layout" style="margin-top:36px;">
+      <div class="founder-card">
+        <div class="founder-avatar">RP</div>
+        <h3>Rahul Pahuja</h3>
+        <div class="f-role">Founder &amp; Lead Engineer</div>
+        <div class="f-divider"></div>
+        <div class="f-row"><span>Experience</span><span>10+ years</span></div>
+        <div class="f-row"><span>Specialisation</span><span>iOS · Android</span></div>
+        <div class="f-row"><span>Location</span><span>Hyderabad, India</span></div>
+        <div class="f-row"><span>Current role</span><span>Staff Engineer</span></div>
+        <div class="f-divider"></div>
+        <a href="https://www.linkedin.com/in/therahulpahuja" class="f-link" target="_blank">LinkedIn profile →</a>
+        <a href="https://github.com/therahulpahuja" class="f-link" target="_blank" style="margin-top:8px;">GitHub →</a>
+      </div>
+      <div class="founder-content">
+        <p class="big-quote">"I started Mobile1x because I saw a gap — clients deserved the same engineering rigour that I applied at CyberArk and Commonwealth Bank, regardless of their budget."</p>
+        <p>Rahul is a Staff Mobile Engineer with over a decade of experience building apps that millions of people depend on — from securing CyberArk's global authentication platform to shipping zero-rollback banking features for Australia's Commonwealth Bank.</p>
+        <p>Every Mobile1x project benefits directly from that experience. That means security threat modelling before a line of code is written, CI/CD pipelines from day one, and test coverage that catches issues before your users do.</p>
+        <p>Rahul has shipped apps across cybersecurity, banking, media streaming, IoT, smart cities, and enterprise analytics — so whatever your domain, we've likely navigated its constraints before.</p>
+        <div class="exp-grid">
+          <div class="exp-item">
+            <div class="exp-company">CyberArk</div>
+            <div class="exp-role">Staff Software Engineer</div>
+            <div class="exp-period">Nov 2024 – Present</div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-company">Commonwealth Bank of Australia</div>
+            <div class="exp-role">Technical Lead (Bankwest)</div>
+            <div class="exp-period">Mar 2024 – Nov 2024</div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-company">Conviva</div>
+            <div class="exp-role">Senior Engineer</div>
+            <div class="exp-period">May 2022 – Sep 2023</div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-company">Wipro (Smart Cities)</div>
+            <div class="exp-role">Senior Software Engineer</div>
+            <div class="exp-period">Apr 2017 – Dec 2019</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-inner">
+    <span class="section-tag">Portfolio</span>
+    <h2 class="section-title">Work we're proud of</h2>
+    <p class="section-sub">A sample of what we've built. Every project is a genuine collaboration — your domain knowledge, our technical depth.</p>
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background:#E8EEFB;">📦</div>
+        <div class="portfolio-body">
+          <h4>Fintech payment app</h4>
+          <p>Secure mobile payments app with Razorpay integration, biometric authentication, and multi-currency support. Designed for PCI-DSS compliance from the ground up.</p>
+          <div class="portfolio-tags">
+            <span class="ptag">Flutter</span><span class="ptag">Razorpay</span><span class="ptag">Biometrics</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background:#E0F7F1;">🏋️</div>
+        <div class="portfolio-body">
+          <h4>Health &amp; fitness tracker</h4>
+          <p>iOS-first fitness app with HealthKit integration, workout logging, and TensorFlow Lite-powered form analysis. 50k+ downloads in first three months.</p>
+          <div class="portfolio-tags">
+            <span class="ptag">Swift</span><span class="ptag">HealthKit</span><span class="ptag">TF Lite</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background:#FAEEDA;">🚚</div>
+        <div class="portfolio-body">
+          <h4>Field service management app</h4>
+          <p>Offline-first Android app for field technicians with job scheduling, GPS tracking, BLE proximity, and photo uploads — works reliably on 2G and below.</p>
+          <div class="portfolio-tags">
+            <span class="ptag">Kotlin</span><span class="ptag">Offline sync</span><span class="ptag">BLE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:28px; font-size:14px; color:var(--ink3); text-align:center;">Want to see more? <a href="mailto:mobile1x@gmail.com?subject=Portfolio%20request" style="color:var(--blue); font-weight:600;">Email us for a full portfolio →</a></p>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section style="background:var(--bg2); border-top:1px solid var(--border); padding:60px 5%;">
+  <div class="section-inner">
+    <span class="section-tag">Industries</span>
+    <h2 class="section-title">Domains we know well</h2>
+    <p class="section-sub">Backed by real production experience across sectors — not just generic app development.</p>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-top:16px;">
+      <div style="border:1px solid var(--border); border-radius:var(--radius); padding:20px; background:var(--bg);">
+        <div style="font-size:24px; margin-bottom:10px;">🏦</div>
+        <div style="font-weight:600; font-size:14px; margin-bottom:4px;">Banking &amp; Fintech</div>
+        <div style="font-size:12px; color:var(--ink3);">Commonwealth Bank, payment flows, PCI-DSS compliance</div>
+      </div>
+      <div style="border:1px solid var(--border); border-radius:var(--radius); padding:20px; background:var(--bg);">
+        <div style="font-size:24px; margin-bottom:10px;">🔐</div>
+        <div style="font-weight:600; font-size:14px; margin-bottom:4px;">Cybersecurity</div>
+        <div style="font-size:12px; color:var(--ink3);">CyberArk platform, secure auth, threat modelling</div>
+      </div>
+      <div style="border:1px solid var(--border); border-radius:var(--radius); padding:20px; background:var(--bg);">
+        <div style="font-size:24px; margin-bottom:10px;">📺</div>
+        <div style="font-weight:600; font-size:14px; margin-bottom:4px;">Media &amp; Streaming</div>
+        <div style="font-size:12px; color:var(--ink3);">Conviva SDK, ExoPlayer, ad tracking, 5 platforms</div>
+      </div>
+      <div style="border:1px solid var(--border); border-radius:var(--radius); padding:20px; background:var(--bg);">
+        <div style="font-size:24px; margin-bottom:10px;">🌆</div>
+        <div style="font-weight:600; font-size:14px; margin-bottom:4px;">Smart Cities &amp; IoT</div>
+        <div style="font-size:12px; color:var(--ink3);">BLE proximity, civic services, Wipro Smart Cities BU</div>
+      </div>
+      <div style="border:1px solid var(--border); border-radius:var(--radius); padding:20px; background:var(--bg);">
+        <div style="font-size:24px; margin-bottom:10px;">📊</div>
+        <div style="font-weight:600; font-size:14px; margin-bottom:4px;">Enterprise &amp; Analytics</div>
+        <div style="font-size:12px; color:var(--ink3);">OLAP dashboards, Kyvos, data visualisation</div>
+      </div>
+      <div style="border:1px solid var(--border); border-radius:var(--radius); padding:20px; background:var(--bg);">
+        <div style="font-size:24px; margin-bottom:10px;">🚀</div>
+        <div style="font-weight:600; font-size:14px; margin-bottom:4px;">Startups &amp; MVPs</div>
+        <div style="font-size:12px; color:var(--ink3);">Fast time to market, cross-platform, lean development</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section" id="contact">
+  <div class="cta-inner">
+    <span class="section-tag">Let's build something</span>
+    <h2>Have an app idea?<br>Let's make it real.</h2>
+    <p>Tell us your idea in a few sentences. We'll come back within 24 hours with a rough scope and honest estimate — no commitment required.</p>
+    <div class="cta-actions">
+      <a href="mailto:mobile1x@gmail.com?subject=App%20Development%20Enquiry&body=Hi%2C%20I%27d%20like%20to%20discuss%20building%20a%20mobile%20app.%20Here%27s%20a%20brief%20description%3A%0A%0A" class="btn-white">Send us your brief →</a>
+      <a href="https://wa.me/919754525494?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20mobile%20app%20project" class="btn-ghost" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.857L.057 23.882l6.184-1.621A11.96 11.96 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-5.044-1.398l-.362-.215-3.744.981 1-3.645-.236-.374A9.77 9.77 0 012.182 12C2.182 6.573 6.573 2.182 12 2.182S21.818 6.573 21.818 12 17.427 21.818 12 21.818z"/></svg>
+        WhatsApp us
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT BAR -->
+<div class="contact-bar">
+  <div class="contact-inner">
+    <div class="contact-item">
+      <div class="c-label">Phone &amp; WhatsApp</div>
+      <a href="tel:+919754525494">+91 97545 25494</a>
+    </div>
+    <div class="contact-item">
+      <div class="c-label">Email</div>
+      <a href="mailto:mobile1x@gmail.com">mobile1x@gmail.com</a>
+    </div>
+    <div class="contact-item">
+      <div class="c-label">Office</div>
+      <span>Sadhu Vaswani Nagar, Indore</span>
+      <span style="font-size:13px; color:var(--ink3); font-weight:400;">Madhya Pradesh, India</span>
+    </div>
+    <div class="contact-item">
+      <div class="c-label">Business hours</div>
+      <span>Mon – Sat, 10am – 7pm IST</span>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
-  © 2025 Mobile1x
+  <a href="#" class="footer-logo">Mobile<span>1x</span></a>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#stack">Stack</a>
+    <a href="#process">Process</a>
+    <a href="#founder">About</a>
+    <a href="mailto:mobile1x@gmail.com">Contact</a>
+  </div>
+  <span>© 2025 Mobile1x. All rights reserved.</span>
 </footer>
 
 </body>
