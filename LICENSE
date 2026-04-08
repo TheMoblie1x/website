@@ -1,42 +1,48 @@
-**Mobile1x Proprietary License Agreement**
+# Mobile1x Proprietary License
 
 Copyright (c) 2026 Mobile1x. All rights reserved.
 
-This website, its source code, design, content, features, and all associated intellectual property (collectively, the “Software”) are the exclusive property of Mobile1x.
+## Overview
 
-**1. Ownership**
-The Software is owned and maintained solely by Mobile1x. No ownership rights are transferred to any user, developer, or third party under this license.
+This repository, including all source code, assets, documentation, and related materials (collectively, the “Software”), is the exclusive property of Mobile1x.
 
-**2. Restrictions**
-Without explicit prior written permission from Mobile1x, you may NOT:
+## License Grant
 
-* Copy, reproduce, or duplicate the Software in whole or in part
-* Modify, adapt, translate, or create derivative works
-* Distribute, sublicense, lease, sell, or otherwise transfer the Software
+No license is granted to use, copy, modify, or distribute the Software unless explicitly authorized in writing by Mobile1x.
+
+## Restrictions
+
+You may NOT, without prior written permission from Mobile1x:
+
+* Copy, reproduce, or use the Software in whole or in part
+* Modify, adapt, or create derivative works
+* Distribute, sublicense, sell, or share the Software
+* Host or deploy this code publicly or privately
 * Reverse engineer, decompile, or attempt to extract source code
-* Use the Software for any commercial or non-commercial redistribution
+* Engage in any quid pro quo, indirect sharing, or redistribution
 
-Any quid pro quo arrangement, unauthorized sharing, or indirect redistribution is strictly prohibited.
+## Permitted Use
 
-**3. License Grant**
-No license, express or implied, is granted to any individual or entity unless explicitly provided in writing by Mobile1x.
+Viewing this repository for reference purposes only is allowed. No other rights are granted.
 
-**4. No Warranty**
-The Software is provided “AS IS”, without warranty of any kind, express or implied, including but not limited to:
+## No Warranty
 
-* Merchantability
-* Fitness for a particular purpose
-* Non-infringement
-* Availability or error-free operation
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO:
 
-Mobile1x shall not be liable for any damages arising from the use or inability to use the Software.
+* MERCHANTABILITY
+* FITNESS FOR A PARTICULAR PURPOSE
+* NON-INFRINGEMENT
 
-**5. Enforcement**
-Any unauthorized use, reproduction, or distribution of the Software may result in legal action.
+IN NO EVENT SHALL MOBILE1X BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OF THE SOFTWARE.
 
-**6. Contact**
-For licensing inquiries, permissions, or usage rights, contact Mobile1x directly.
+## Enforcement
+
+Unauthorized use, copying, or distribution may result in legal action.
+
+## Contact
+
+For licensing, permissions, or commercial use, contact Mobile1x.
 
 ---
 
-By accessing or using this Software, you agree to abide by the terms stated above.
+By accessing this repository, you agree to the terms of this license.
