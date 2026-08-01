@@ -211,7 +211,7 @@ header.scrolled {
     color: #000;
     font-weight: 600;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 999px;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -287,10 +287,38 @@ header.scrolled {
 }
 
 footer {
-    padding: 40px 0;
+    padding: 60px 0 0;
     text-align: center;
     border-top: 1px solid #222;
     color: #777;
+    overflow: hidden;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 28px;
+}
+
+.footer-wordmark {
+    font-size: clamp(56px, 15vw, 220px);
+    font-weight: 700;
+    letter-spacing: -3px;
+    line-height: 1;
+    text-align: center;
+    background: linear-gradient(135deg, #FFD700, #fff8dc 45%, #FFD700);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding: 50px 20px 20px;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.footer-legal {
+    padding: 20px 0 30px;
+    border-top: 1px solid #222;
 }
 
 /* Portfolio */
@@ -673,14 +701,50 @@ footer {
     </form>
 </section>
 
+<!-- CONTACT US -->
+<section class="section container reveal" id="contact-us">
+    <h2>Contact Us</h2>
+    <p class="section-intro">Prefer to skip the form? Reach us directly through any of these channels.</p>
+    <div class="grid reveal-stagger">
+
+        <div class="card">
+            <h3><span class="material-symbols-outlined">mail</span>Email</h3>
+            <p>Send us the details of your project or query anytime.</p>
+            <div class="card-links">
+                <a class="card-link" href="mailto:hello@mobile1x.com">hello@mobile1x.com<span class="material-symbols-outlined arrow">arrow_forward</span></a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3><span class="material-symbols-outlined">call</span>Call</h3>
+            <p>Speak directly with our team about your requirements.</p>
+            <div class="card-links">
+                <a class="card-link" href="tel:+919754525494">+91 97545 25494<span class="material-symbols-outlined arrow">arrow_forward</span></a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3><svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true" style="color:#FFD700;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.484 3.622 1.401 5.184L2 22l5.01-1.502a9.85 9.85 0 004.997 1.359h.005c5.46 0 9.91-4.45 9.91-9.912 0-2.649-1.03-5.14-2.902-7.013A9.855 9.855 0 0012.04 2zm0 18.146a8.19 8.19 0 01-4.185-1.145l-.3-.178-3.121.836.834-3.043-.196-.312a8.184 8.184 0 01-1.256-4.394c0-4.523 3.68-8.203 8.228-8.203 2.198 0 4.263.857 5.816 2.412a8.157 8.157 0 012.408 5.803c0 4.524-3.68 8.224-8.228 8.224z"/></svg>WhatsApp</h3>
+            <p>Message us for a quick response during business hours.</p>
+            <div class="card-links">
+                <a class="card-link" href="https://wa.me/919754525494" target="_blank" rel="noopener noreferrer">Chat with us<span class="material-symbols-outlined arrow">arrow_forward</span></a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
-    <p>
-        <a href="tel:+919754525494" class="card-link" style="color:#FFD700;"><span class="material-symbols-outlined">call</span>+91 97545 25494</a>
-        &nbsp;|&nbsp;
-        <a href="https://wa.me/919754525494" target="_blank" rel="noopener noreferrer" class="card-link" style="color:#FFD700;"><svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.484 3.622 1.401 5.184L2 22l5.01-1.502a9.85 9.85 0 004.997 1.359h.005c5.46 0 9.91-4.45 9.91-9.912 0-2.649-1.03-5.14-2.902-7.013A9.855 9.855 0 0012.04 2zm0 18.146a8.19 8.19 0 01-4.185-1.145l-.3-.178-3.121.836.834-3.043-.196-.312a8.184 8.184 0 01-1.256-4.394c0-4.523 3.68-8.203 8.228-8.203 2.198 0 4.263.857 5.816 2.412a8.157 8.157 0 012.408 5.803c0 4.524-3.68 8.224-8.228 8.224z"/></svg>WhatsApp</a>
-    </p>
-    <p>© 2026 Mobile1X. All rights reserved.</p>
+    <div class="container footer-top">
+        <a href="mailto:hello@mobile1x.com" class="header-link"><span class="material-symbols-outlined">mail</span>hello@mobile1x.com</a>
+        <a href="tel:+919754525494" class="header-link"><span class="material-symbols-outlined">call</span>+91 97545 25494</a>
+        <a href="https://wa.me/919754525494" target="_blank" rel="noopener noreferrer" class="header-link"><svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.484 3.622 1.401 5.184L2 22l5.01-1.502a9.85 9.85 0 004.997 1.359h.005c5.46 0 9.91-4.45 9.91-9.912 0-2.649-1.03-5.14-2.902-7.013A9.855 9.855 0 0012.04 2zm0 18.146a8.19 8.19 0 01-4.185-1.145l-.3-.178-3.121.836.834-3.043-.196-.312a8.184 8.184 0 01-1.256-4.394c0-4.523 3.68-8.203 8.228-8.203 2.198 0 4.263.857 5.816 2.412a8.157 8.157 0 012.408 5.803c0 4.524-3.68 8.224-8.228 8.224z"/></svg>WhatsApp</a>
+    </div>
+    <div class="footer-wordmark">MOBILE1X</div>
+    <div class="container footer-legal">
+        <p>© 2026 Mobile1X. All rights reserved.</p>
+    </div>
 </footer>
 
 <script>
