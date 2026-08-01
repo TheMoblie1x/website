@@ -4,15 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mobile1X | AI, Fintech & High-Performance Digital Systems</title>
+<title>Mobile1X | AI, Fintech, Mobile Apps & E-Commerce Development</title>
 
-<meta name="description" content="Mobile1X builds high-conversion AI systems, fintech platforms, and performance-driven digital products. Designed for $5K–$100K+ deal flow and global scale.">
+<meta name="description" content="Mobile1X builds high-conversion AI systems, fintech platforms, and consumer products — including the Notes note-taking app, Dedup duplicate file remover, The A2Z Collection e-commerce platform, and Auction Manager software.">
 
 <!-- SEO -->
-<meta name="keywords" content="AI development agency, fintech software development, performance audit, conversion optimization, SaaS development, enterprise web development">
+<meta name="keywords" content="AI development agency, fintech software development, performance audit, conversion optimization, SaaS development, enterprise web development, note taking app for Android, duplicate file remover app, duplicate file finder, storage cleaner app, ecommerce web app development, online store platform, auction management software, online auction platform">
+<link rel="canonical" href="https://www.mobile1x.com/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mobile1X | AI, Fintech, Mobile Apps & E-Commerce Development">
+<meta property="og:description" content="Enterprise AI and fintech systems, plus a growing product portfolio: Notes, Dedup, The A2Z Collection, and Auction Manager.">
+<meta property="og:url" content="https://www.mobile1x.com/">
+<meta property="og:site_name" content="Mobile1X">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mobile1X | AI, Fintech, Mobile Apps & E-Commerce Development">
+<meta name="twitter:description" content="Enterprise AI and fintech systems, plus a growing product portfolio: Notes, Dedup, The A2Z Collection, and Auction Manager.">
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..600,0..1,-50..200&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -26,6 +40,61 @@ body {
     background: #000;
     color: #fff;
     line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Google Material Symbols */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-size: 20px;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Scroll-reveal animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-stagger.visible .card:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger.visible .card:nth-child(2) { transition-delay: 0.15s; }
+.reveal-stagger.visible .card:nth-child(3) { transition-delay: 0.25s; }
+.reveal-stagger.visible .card:nth-child(4) { transition-delay: 0.35s; }
+
+.reveal-stagger .card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.reveal-stagger.visible .card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .container {
@@ -35,14 +104,33 @@ body {
 }
 
 header {
-    padding: 20px 0;
+    padding: 18px 0;
     border-bottom: 1px solid #222;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+header.scrolled {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border-color: #333;
 }
 
 .logo {
     font-size: 24px;
     font-weight: 700;
     color: #FFD700;
+    letter-spacing: 0.5px;
+    transition: letter-spacing 0.3s ease, opacity 0.3s ease;
+}
+
+.logo:hover {
+    letter-spacing: 1px;
+    opacity: 0.85;
 }
 
 .hero {
@@ -53,6 +141,7 @@ header {
 .hero h1 {
     font-size: 48px;
     font-weight: 700;
+    animation: fadeInUp 0.8s ease both;
 }
 
 .hero span {
@@ -63,6 +152,7 @@ header {
     margin-top: 20px;
     font-size: 18px;
     color: #ccc;
+    animation: fadeInUp 0.8s ease 0.15s both;
 }
 
 .cta-btn {
@@ -74,6 +164,17 @@ header {
     font-weight: 600;
     text-decoration: none;
     border-radius: 5px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 215, 0, 0.25);
+}
+
+.cta-btn .material-symbols-outlined {
+    margin-right: 6px;
+    transform: translateY(-1px);
 }
 
 /* Secondary CTA: masked external link */
@@ -177,11 +278,21 @@ header {
     padding: 30px;
     border: 1px solid #222;
     border-radius: 10px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(255, 215, 0, 0.08);
+    border-color: #FFD700;
 }
 
 .card h3 {
     color: #FFD700;
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .form input, .form select, .form textarea {
@@ -208,12 +319,68 @@ footer {
     border-top: 1px solid #222;
     color: #777;
 }
+
+/* Portfolio */
+.card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 15px;
+    color: #FFD700;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: opacity 0.25s ease;
+}
+
+.card-link:hover {
+    opacity: 0.8;
+}
+
+.card-link .material-symbols-outlined {
+    font-size: 18px;
+    transition: transform 0.25s ease;
+}
+
+.card-link:hover .material-symbols-outlined.arrow {
+    transform: translateX(4px);
+}
+
+.card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.badge-soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 15px;
+    padding: 4px 10px;
+    border: 1px solid #FFD700;
+    color: #FFD700;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 999px;
+    animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+.badge-soon .material-symbols-outlined {
+    font-size: 14px;
+}
+
+.section-intro {
+    color: #ccc;
+    max-width: 700px;
+    margin-bottom: 40px;
+}
 </style>
 
 </head>
 <body>
 
-<header class="container">
+<header class="container" id="site-header">
     <div class="logo">Mobile1X</div>
 </header>
 
@@ -227,25 +394,34 @@ footer {
         Access Mobile1X B2B Pharma Platform
         <span class="badge-new">NEW</span>
     </a>
+
+    <div style="margin-top:20px;">
+        <a href="tel:+919754525494" class="card-link" style="margin-right:20px;" aria-label="Call Mobile1X">
+            <span class="material-symbols-outlined">call</span>Call +91 97545 25494
+        </a>
+        <a href="https://wa.me/919754525494" target="_blank" rel="noopener noreferrer" class="card-link" aria-label="Chat with Mobile1X on WhatsApp">
+            <span class="material-symbols-outlined">chat</span>WhatsApp Us
+        </a>
+    </div>
 </section>
 
 <!-- SERVICES -->
-<section class="section container">
+<section class="section container reveal">
     <h2>Core Offerings</h2>
-    <div class="grid">
+    <div class="grid reveal-stagger">
 
         <div class="card">
-            <h3>AI Landing Systems</h3>
+            <h3><span class="material-symbols-outlined">bolt</span>AI Landing Systems</h3>
             <p>Conversion-focused AI funnels engineered to generate high-ticket leads ($5K–$100K+).</p>
         </div>
 
         <div class="card">
-            <h3>Fintech Platforms</h3>
+            <h3><span class="material-symbols-outlined">account_balance</span>Fintech Platforms</h3>
             <p>Secure, scalable fintech systems for banks, startups, and global enterprises.</p>
         </div>
 
         <div class="card">
-            <h3>Performance Audit</h3>
+            <h3><span class="material-symbols-outlined">speed</span>Performance Audit</h3>
             <p>$500 → $5,000 audit funnel identifying revenue leaks and scaling opportunities.</p>
         </div>
 
@@ -253,60 +429,121 @@ footer {
 </section>
 
 <!-- AI PAGE -->
-<section class="section container">
+<section class="section container reveal">
     <h2>AI Growth Engine</h2>
-    <div class="grid">
+    <div class="grid reveal-stagger">
         <div class="card">
-            <h3>Smart Funnels</h3>
+            <h3><span class="material-symbols-outlined">filter_alt</span>Smart Funnels</h3>
             <p>AI-powered landing pages that qualify, segment, and convert leads automatically.</p>
         </div>
         <div class="card">
-            <h3>Lead Scoring AI</h3>
+            <h3><span class="material-symbols-outlined">insights</span>Lead Scoring AI</h3>
             <p>Filter high-value prospects and prioritize deal closing.</p>
         </div>
     </div>
 </section>
 
 <!-- FINTECH -->
-<section class="section container">
+<section class="section container reveal">
     <h2>Fintech Engineering</h2>
-    <div class="grid">
+    <div class="grid reveal-stagger">
         <div class="card">
-            <h3>Banking Integrations</h3>
+            <h3><span class="material-symbols-outlined">sync_alt</span>Banking Integrations</h3>
             <p>Seamless integrations with global financial systems and APIs.</p>
         </div>
         <div class="card">
-            <h3>Secure Architecture</h3>
+            <h3><span class="material-symbols-outlined">shield</span>Secure Architecture</h3>
             <p>Enterprise-grade security and compliance frameworks.</p>
         </div>
     </div>
 </section>
 
 <!-- DEAL FLOW SYSTEM -->
-<section class="section container">
+<section class="section container reveal">
     <h2>Deal Flow System</h2>
-    <div class="grid">
+    <div class="grid reveal-stagger">
 
         <div class="card">
-            <h3>Lead Capture</h3>
+            <h3><span class="material-symbols-outlined">person_add</span>Lead Capture</h3>
             <p>High-converting forms and landing funnels.</p>
         </div>
 
         <div class="card">
-            <h3>Qualification Engine</h3>
+            <h3><span class="material-symbols-outlined">fact_check</span>Qualification Engine</h3>
             <p>Filter serious clients with budget, timeline, and intent.</p>
         </div>
 
         <div class="card">
-            <h3>Closing Pipeline</h3>
+            <h3><span class="material-symbols-outlined">handshake</span>Closing Pipeline</h3>
             <p>Automated follow-ups and CRM integration.</p>
         </div>
 
     </div>
 </section>
 
+<!-- PORTFOLIO -->
+<section class="section container reveal" id="portfolio">
+    <h2>Our Product Portfolio</h2>
+    <p class="section-intro">Mobile1X is expanding its digital ecosystem — from everyday mobile utilities to full-scale e-commerce and enterprise web platforms. Explore what we've built.</p>
+    <div class="grid reveal-stagger">
+
+        <div class="card">
+            <h3><span class="material-symbols-outlined">sticky_note_2</span>Notes</h3>
+            <p>Capture ideas the moment they strike. Notes is a fast, distraction-free note-taking app built for people who think faster than they type — clean organization, instant search, and zero clutter. Whether it's a fleeting thought or a detailed project outline, Notes keeps it accessible and secure.</p>
+            <div class="card-links">
+                <a class="card-link" href="https://play.google.com/store/apps/details?id=com.rp.notes" target="_blank" rel="noopener noreferrer">
+                    <span class="material-symbols-outlined">android</span>Get it on Google Play<span class="material-symbols-outlined arrow">arrow_forward</span>
+                </a>
+            </div>
+            <span class="badge-soon"><span class="material-symbols-outlined">schedule</span>iOS Coming Soon</span>
+        </div>
+
+        <div class="card">
+            <h3><span class="material-symbols-outlined">delete_sweep</span>Dedup</h3>
+            <p>Duplicate files quietly eat away at your storage and your sanity. Dedup scans, detects, and clears redundant files in seconds, giving you back space and clarity across your device. Backed by a dedicated web ecosystem, it's more than an app — it's a complete data hygiene solution.</p>
+            <div class="card-links">
+                <a class="card-link" href="https://play.google.com/store/apps/details?id=com.rp.dedup" target="_blank" rel="noopener noreferrer">
+                    <span class="material-symbols-outlined">android</span>Get it on Google Play<span class="material-symbols-outlined arrow">arrow_forward</span>
+                </a>
+                <a class="card-link" href="https://www.dedup.space" target="_blank" rel="noopener noreferrer">
+                    <span class="material-symbols-outlined">language</span>Visit dedup.space<span class="material-symbols-outlined arrow">arrow_forward</span>
+                </a>
+            </div>
+            <span class="badge-soon"><span class="material-symbols-outlined">schedule</span>iOS Coming Soon</span>
+        </div>
+
+        <div class="card">
+            <h3><span class="material-symbols-outlined">storefront</span>The A2Z Collection</h3>
+            <p>The A2Z Collection is a full-featured e-commerce web app built for seamless shopping from browse to checkout. With intuitive navigation, secure transactions, and a catalog designed for scale, it delivers a retail experience that keeps customers coming back.</p>
+            <div class="card-links">
+                <a class="card-link" href="https://thea2zcollection.com" target="_blank" rel="noopener noreferrer">
+                    <span class="material-symbols-outlined">language</span>Browse the Store<span class="material-symbols-outlined arrow">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3><span class="material-symbols-outlined">gavel</span>Auction Manager</h3>
+            <p>Running auctions demands speed, accuracy, and control — Auction Manager delivers all three. This purpose-built web application streamlines listings, bidding, and settlement, giving auction houses and operators a real-time command center for their entire process.</p>
+            <div class="card-links">
+                <a class="card-link" href="#contact">
+                    Inquire About This App<span class="material-symbols-outlined arrow">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:50px;">
+        <p style="color:#ccc;margin-bottom:20px;">Have a question about one of our apps, or want to discuss a custom build?</p>
+        <a href="https://calendly.com/themobile1x/discovery-call" class="cta-btn" target="_blank" rel="noopener noreferrer" aria-label="Book a Discovery Call via Calendly">
+            <span class="material-symbols-outlined">calendar_month</span>Book a Discovery Call
+        </a>
+    </div>
+</section>
+
 <!-- CONTACT / FUNNEL -->
-<section class="section container" id="contact">
+<section class="section container reveal" id="contact">
     <h2>Start Your Project</h2>
 
     <form class="form">
@@ -335,8 +572,34 @@ footer {
 
 <!-- FOOTER -->
 <footer>
+    <p>
+        <a href="tel:+919754525494" class="card-link" style="color:#FFD700;"><span class="material-symbols-outlined">call</span>+91 97545 25494</a>
+        &nbsp;|&nbsp;
+        <a href="https://wa.me/919754525494" target="_blank" rel="noopener noreferrer" class="card-link" style="color:#FFD700;"><span class="material-symbols-outlined">chat</span>WhatsApp</a>
+    </p>
     <p>© 2026 Mobile1X. All rights reserved.</p>
 </footer>
+
+<script>
+(function () {
+    var header = document.getElementById('site-header');
+    window.addEventListener('scroll', function () {
+        header.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    var revealTargets = document.querySelectorAll('.reveal, .reveal-stagger');
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    revealTargets.forEach(function (el) { observer.observe(el); });
+})();
+</script>
 
 </body>
 </html>
