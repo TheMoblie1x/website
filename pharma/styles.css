@@ -1,0 +1,4 @@
+    html,body,#embed{height:100%;margin:0;background:#000}
+    #embed{border:0;width:100%;height:100vh;display:block}
+    .fallback{position:fixed;left:12px;bottom:12px;background:rgba(0,0,0,0.6);color:#fff;padding:8px 12px;border-radius:6px;font-family:Inter,sans-serif}
+    .fallback a{color:#FFD700;font-weight:700;text-decoration:none}

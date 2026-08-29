@@ -14,33 +14,11 @@
   <link id="canonical" rel="canonical" href="https://www.mobile1x.com/notes/blogs/" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: {
-      50: '#EEF2FF', 100: '#E0E7FF', 400: '#818CF8', 500: '#6366F1', 600: '#4F46E5', 900: '#1E1B4B', 950: '#0F172A'
-    } } } } };
-  </script>
+  <script src="assets/tw-config.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .font-serif-custom { font-family: 'Instrument Serif', Georgia, serif; }
-    .glass { background: rgba(13,20,36,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
-    :root:not(.dark) .glass { background: rgba(255,255,255,0.82); border-color: rgba(226,232,240,0.9); }
-    .prose-notes { line-height: 1.75; }
-    .prose-notes h2 { font-size: 1.6rem; font-weight: 700; margin: 2rem 0 .75rem; }
-    .prose-notes h3 { font-size: 1.25rem; font-weight: 600; margin: 1.6rem 0 .5rem; }
-    .prose-notes p { margin: 0 0 1rem; }
-    .prose-notes ul, .prose-notes ol { margin: 0 0 1rem 1.4rem; }
-    .prose-notes ul { list-style: disc; } .prose-notes ol { list-style: decimal; }
-    .prose-notes li { margin: .3rem 0; }
-    .prose-notes a { color: #6366F1; text-decoration: underline; }
-    .prose-notes code { font-family: 'Space Mono', monospace; font-size: .9em; background: rgba(148,163,184,0.18); padding: .1em .35em; border-radius: .3em; }
-    .prose-notes pre { background: rgba(148,163,184,0.15); padding: 1rem; border-radius: .6rem; overflow-x: auto; margin: 0 0 1rem; }
-    .prose-notes pre code { background: none; padding: 0; }
-    .prose-notes blockquote { border-left: 3px solid #6366F1; padding-left: 1rem; color: inherit; opacity: .85; margin: 0 0 1rem; }
-    .prose-notes img { border-radius: .6rem; margin: 1rem 0; }
-  </style>
+  <link rel="stylesheet" href="assets/post.css">
 </head>
 <body class="bg-[#F8FAFC] dark:bg-[#050811] text-slate-900 dark:text-slate-100 antialiased min-h-screen">
 
@@ -61,108 +39,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
   <script src="assets/blog-common.js"></script>
-  <script>
-  (function () {
-    var B = window.NotesBlog;
-    var root = document.documentElement;
-    try {
-      var saved = localStorage.getItem('m1x_blog_theme');
-      if (saved) root.classList.toggle('dark', saved === 'dark');
-      else root.classList.toggle('dark', !window.matchMedia('(prefers-color-scheme: light)').matches);
-    } catch (e) {}
-
-    var params = new URLSearchParams(location.search);
-    var slug = params.get('slug');
-    var isPreview = params.get('preview') === '1';
-    var elArticle = document.getElementById('article');
-    var CANON = 'https://www.mobile1x.com/notes/blogs/';
-
-    function notFound(msg) {
-      elArticle.innerHTML = '<h1 class="font-serif-custom text-3xl">Post not found</h1>' +
-        '<p class="mt-3 text-slate-600 dark:text-slate-400">' + B.escapeHtml(msg || 'That post does not exist or was unpublished.') + '</p>';
-    }
-
-    function previewBanner() {
-      var bar = document.createElement('div');
-      bar.className = 'fixed top-0 inset-x-0 z-50 bg-amber-500 text-black text-center text-sm font-semibold py-1.5';
-      bar.textContent = 'PREVIEW — draft, not published. Close this tab when done.';
-      document.body.appendChild(bar);
-      document.body.style.paddingTop = '2rem';
-    }
-
-    function renderPost(post) {
-
-      document.title = post.title + ' — Notes by Mobile1X';
-      setMeta('description', post.excerpt || ('A guide from the Notes by Mobile1X blog: ' + post.title));
-      setProp('og:title', post.title);
-      setProp('og:description', post.excerpt || post.title);
-      var url = CANON + 'post.html?slug=' + encodeURIComponent(post.slug);
-      setProp('og:url', url);
-      document.getElementById('canonical').href = url;
-
-      var vid = B.parseYouTubeId(post.youtubeUrl);
-      var videoHTML = vid
-        ? '<div class="relative w-full rounded-xl overflow-hidden bg-black mb-8" style="padding-top:56.25%">' +
-          '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/' + vid + '?rel=0&modestbranding=1" title="' + B.escapeHtml(post.title) + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>'
-        : '';
-
-      var chips = post.platforms.map(function (p) {
-        return '<span class="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-300">' + B.PLATFORM_LABELS[p] + '</span>';
-      }).join(' ');
-
-      elArticle.innerHTML =
-        '<div class="flex items-center gap-2 text-sm text-slate-400 dark:text-slate-500">' +
-          '<span class="font-semibold uppercase tracking-wide ' + (post.type === 'howto' ? 'text-brand-500' : 'text-emerald-500') + '">' +
-          (post.type === 'howto' ? 'How-To' : 'Article') + '</span><span>&middot;</span><span>' + B.formatDate(post.date) + '</span></div>' +
-        '<h1 class="font-serif-custom text-4xl sm:text-5xl mt-3 leading-tight">' + B.escapeHtml(post.title) + '</h1>' +
-        (chips ? '<div class="flex flex-wrap gap-1.5 mt-4">' + chips + '</div>' : '') +
-        '<div class="mt-8">' + videoHTML +
-          '<div class="prose-notes">' + B.renderMarkdown(post.body) + '</div>' +
-        '</div>';
-
-      injectLd({
-        '@context': 'https://schema.org', '@type': 'BlogPosting',
-        headline: post.title, datePublished: post.date, dateModified: post.date,
-        description: post.excerpt || post.title, url: url,
-        author: { '@type': 'Organization', name: 'Mobile1X', url: 'https://www.mobile1x.com/' },
-        publisher: { '@type': 'Organization', name: 'Mobile1X', url: 'https://www.mobile1x.com/' },
-        mainEntityOfPage: url
-      });
-    }
-
-    if (isPreview) {
-      previewBanner();
-      var draft = null;
-      try { draft = JSON.parse(localStorage.getItem('m1x_blog_preview') || 'null'); } catch (e) {}
-      if (!draft) { notFound('No draft to preview. Open the preview from the editor.'); return; }
-      renderPost(B.normalisePost(draft));
-      return;
-    }
-
-    if (!slug) { notFound('No post was specified.'); return; }
-
-    B.loadPosts().then(function (posts) {
-      var post = posts.filter(function (p) { return p.slug === slug && p.published; })[0];
-      if (!post) { notFound(); return; }
-      renderPost(post);
-    }).catch(function (err) { notFound(err.message); });
-
-    function setMeta(name, val) {
-      var m = document.querySelector('meta[name="' + name + '"]');
-      if (m) m.setAttribute('content', val);
-    }
-    function setProp(prop, val) {
-      var m = document.querySelector('meta[property="' + prop + '"]');
-      if (!m) { m = document.createElement('meta'); m.setAttribute('property', prop); document.head.appendChild(m); }
-      m.setAttribute('content', val);
-    }
-    function injectLd(obj) {
-      var s = document.createElement('script');
-      s.type = 'application/ld+json';
-      s.textContent = JSON.stringify(obj);
-      document.head.appendChild(s);
-    }
-  })();
-  </script>
+  <script src="assets/post.js"></script>
 </body>
 </html>
