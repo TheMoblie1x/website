@@ -1,0 +1,9 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Allow the site to be framed by itself and by the notes subdomain.
+    # frame-ancestors is the modern replacement for X-Frame-Options; the
+    # obsolete `X-Frame-Options: ALLOW-FROM` is ignored by browsers, so it
+    # is intentionally not set here (leaving it unset avoids a DENY/SAMEORIGIN
+    # default blocking the iframe and causing the white-out).
+    Content-Security-Policy = "frame-ancestors 'self' https://notes.mobile1x.com"
