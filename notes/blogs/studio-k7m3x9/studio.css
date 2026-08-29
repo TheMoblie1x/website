@@ -1,20 +1,114 @@
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'Space Mono', monospace; }
-    input, textarea, select { color-scheme: dark; }
-    .field { width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:.6rem; padding:.6rem .75rem; font-size:.9rem; }
-    .field:focus { outline:2px solid #6366F1; outline-offset:0; }
-    .tbtn { padding:.35rem .55rem; border:1px solid rgba(255,255,255,0.12); border-radius:.4rem; font-size:.8rem; background:rgba(255,255,255,0.04); }
-    .tbtn:hover { border-color:rgba(255,255,255,0.4); }
-    .prose-preview { line-height:1.75; }
-    .prose-preview h1 { font-size:1.8rem; font-weight:700; margin:1.4rem 0 .6rem; }
-    .prose-preview h2 { font-size:1.4rem; font-weight:700; margin:1.3rem 0 .5rem; }
-    .prose-preview h3 { font-size:1.15rem; font-weight:600; margin:1.1rem 0 .4rem; }
-    .prose-preview p { margin:0 0 .9rem; }
-    .prose-preview ul { list-style:disc; margin:0 0 .9rem 1.4rem; }
-    .prose-preview ol { list-style:decimal; margin:0 0 .9rem 1.4rem; }
-    .prose-preview li { margin:.25rem 0; }
-    .prose-preview a { color:#818CF8; text-decoration:underline; }
-    .prose-preview blockquote { border-left:3px solid #6366F1; padding-left:1rem; opacity:.85; margin:0 0 .9rem; }
-    .prose-preview code { font-family:'Space Mono',monospace; background:rgba(148,163,184,0.2); padding:.1em .3em; border-radius:.3em; font-size:.9em; }
-    .prose-preview pre { background:rgba(148,163,184,0.15); padding:1rem; border-radius:.6rem; overflow-x:auto; margin:0 0 .9rem; }
-    .prose-preview img, .prose-preview video { border-radius:.6rem; margin:.9rem 0; max-width:100%; }
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .mono {
+        font-family: 'Space Mono', monospace;
+    }
+
+    input,
+    textarea,
+    select {
+        color-scheme: dark;
+    }
+
+    .field {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: .6rem;
+        padding: .6rem .75rem;
+        font-size: .9rem;
+    }
+
+    .field:focus {
+        outline: 2px solid #6366F1;
+        outline-offset: 0;
+    }
+
+    .tbtn {
+        padding: .35rem .55rem;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: .4rem;
+        font-size: .8rem;
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tbtn:hover {
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .prose-preview {
+        line-height: 1.75;
+    }
+
+    .prose-preview h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 1.4rem 0 .6rem;
+    }
+
+    .prose-preview h2 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 1.3rem 0 .5rem;
+    }
+
+    .prose-preview h3 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin: 1.1rem 0 .4rem;
+    }
+
+    .prose-preview p {
+        margin: 0 0 .9rem;
+    }
+
+    .prose-preview ul {
+        list-style: disc;
+        margin: 0 0 .9rem 1.4rem;
+    }
+
+    .prose-preview ol {
+        list-style: decimal;
+        margin: 0 0 .9rem 1.4rem;
+    }
+
+    .prose-preview li {
+        margin: .25rem 0;
+    }
+
+    .prose-preview a {
+        color: #818CF8;
+        text-decoration: underline;
+    }
+
+    .prose-preview blockquote {
+        border-left: 3px solid #6366F1;
+        padding-left: 1rem;
+        opacity: .85;
+        margin: 0 0 .9rem;
+    }
+
+    .prose-preview code {
+        font-family: 'Space Mono', monospace;
+        background: rgba(148, 163, 184, 0.2);
+        padding: .1em .3em;
+        border-radius: .3em;
+        font-size: .9em;
+    }
+
+    .prose-preview pre {
+        background: rgba(148, 163, 184, 0.15);
+        padding: 1rem;
+        border-radius: .6rem;
+        overflow-x: auto;
+        margin: 0 0 .9rem;
+    }
+
+    .prose-preview img,
+    .prose-preview video {
+        border-radius: .6rem;
+        margin: .9rem 0;
+        max-width: 100%;
+    }

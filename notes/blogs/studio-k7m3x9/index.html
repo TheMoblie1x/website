@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,9 +10,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../assets/tw-config.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="studio.css">
 </head>
+
 <body class="bg-[#050811] text-slate-100 antialiased min-h-screen">
 
   <!-- ============ LIST VIEW ============ -->
@@ -22,8 +26,11 @@
         <p id="repoLine" class="text-sm text-slate-400 mono mt-1"></p>
       </div>
       <div class="flex items-center gap-2">
-        <a href="../" target="_blank" class="text-sm text-slate-400 hover:text-brand-400 transition">View blog &#8599;</a>
-        <button id="forgetBtn" class="hidden text-sm px-3 py-1.5 rounded-lg border border-white/15 hover:border-white/40 transition">Forget token</button>
+        <a href="../" target="_blank" class="text-sm text-slate-400 hover:text-brand-400 transition">View blog
+          &#8599;</a>
+        <button id="forgetBtn"
+          class="hidden text-sm px-3 py-1.5 rounded-lg border border-white/15 hover:border-white/40 transition">Forget
+          token</button>
       </div>
     </header>
 
@@ -32,20 +39,24 @@
       <h2 class="text-lg font-semibold">Connect GitHub</h2>
       <p class="text-sm text-slate-400 mt-2">
         Paste a <strong>fine-grained personal access token</strong> scoped to this one repository with
-        <span class="mono">Contents: Read and write</span>. It is stored only in this browser's localStorage and is never committed.
+        <span class="mono">Contents: Read and write</span>. It is stored only in this browser's localStorage and is
+        never committed.
       </p>
       <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener"
-         class="inline-block mt-3 text-sm text-brand-400 hover:underline">Create a token &#8599;</a>
+        class="inline-block mt-3 text-sm text-brand-400 hover:underline">Create a token &#8599;</a>
       <input id="tokenInput" type="password" class="field mt-4" placeholder="github_pat_..." autocomplete="off" />
       <p id="gateErr" class="text-sm text-rose-400 mt-2 hidden"></p>
-      <button id="connectBtn" class="mt-4 px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">Connect</button>
+      <button id="connectBtn"
+        class="mt-4 px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">Connect</button>
     </section>
 
     <!-- Post list -->
     <section id="app" class="hidden mt-10">
       <div class="flex items-center justify-between gap-4">
         <h2 class="text-lg font-semibold">Posts <span id="count" class="text-slate-500 font-normal"></span></h2>
-        <button id="newBtn" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">+ New post</button>
+        <button id="newBtn"
+          class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">+ New
+          post</button>
       </div>
       <div id="status" class="hidden mt-3 text-sm rounded-lg px-3 py-2"></div>
       <ul id="list" class="mt-4 space-y-2"></ul>
@@ -55,12 +66,17 @@
   <!-- ============ EDITOR VIEW (full page) ============ -->
   <div id="editorView" class="hidden fixed inset-0 z-30 bg-[#050811] overflow-y-auto">
     <div class="max-w-6xl mx-auto px-5 py-6">
-      <div class="flex items-center justify-between gap-4 sticky top-0 bg-[#050811]/95 backdrop-blur py-3 -mx-5 px-5 border-b border-white/10 z-10">
+      <div
+        class="flex items-center justify-between gap-4 sticky top-0 bg-[#050811]/95 backdrop-blur py-3 -mx-5 px-5 border-b border-white/10 z-10">
         <button id="backBtn" class="text-sm text-slate-400 hover:text-white transition">&larr; Back to posts</button>
         <h2 id="editorTitle" class="font-semibold">New post</h2>
         <div class="flex items-center gap-2">
-          <button id="previewBtn" class="text-sm px-3 py-1.5 rounded-lg border border-white/15 hover:border-white/40 transition">Preview on site &#8599;</button>
-          <button id="saveBtn" class="text-sm px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium">Save &amp; commit</button>
+          <button id="previewBtn"
+            class="text-sm px-3 py-1.5 rounded-lg border border-white/15 hover:border-white/40 transition">Preview on
+            site &#8599;</button>
+          <button id="saveBtn"
+            class="text-sm px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium">Save &amp;
+            commit</button>
         </div>
       </div>
       <div id="editorStatus" class="hidden mt-3 text-sm rounded-lg px-3 py-2"></div>
@@ -90,7 +106,8 @@
           <fieldset class="text-sm">
             <span>Platforms</span>
             <div class="flex gap-4 mt-1.5">
-              <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="android" /> Android</label>
+              <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="android" />
+                Android</label>
               <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="ios" /> iOS</label>
               <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="web" /> Web</label>
             </div>
@@ -102,7 +119,8 @@
 
           <label id="wrap_youtube" class="text-sm">Primary video — YouTube URL
             <input id="f_youtube" type="url" class="field mt-1" placeholder="https://www.youtube.com/watch?v=..." />
-            <span class="text-xs text-slate-500">How-To cards open this in a lightbox. Card thumbnail is taken from it automatically.</span>
+            <span class="text-xs text-slate-500">How-To cards open this in a lightbox. Card thumbnail is taken from it
+              automatically.</span>
           </label>
 
           <label class="text-sm">Card thumbnail URL <span class="text-slate-500">(optional)</span>
@@ -145,7 +163,8 @@
             <div id="pv_video" class="mt-5"></div>
             <div id="pv_body" class="prose-preview mt-5"></div>
           </div>
-          <p class="text-xs text-slate-500 mt-2">&ldquo;Preview on site&rdquo; opens the real post page in a new tab with this unsaved draft.</p>
+          <p class="text-xs text-slate-500 mt-2">&ldquo;Preview on site&rdquo; opens the real post page in a new tab
+            with this unsaved draft.</p>
         </div>
       </div>
     </div>
@@ -171,8 +190,10 @@
         </label>
         <p id="m_status" class="text-xs text-slate-400 hidden"></p>
         <div class="flex gap-2 pt-1">
-          <button id="m_insert" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">Insert</button>
-          <button id="m_cancel" class="px-4 py-2 rounded-lg border border-white/15 hover:border-white/40 transition text-sm">Cancel</button>
+          <button id="m_insert"
+            class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">Insert</button>
+          <button id="m_cancel"
+            class="px-4 py-2 rounded-lg border border-white/15 hover:border-white/40 transition text-sm">Cancel</button>
         </div>
       </div>
     </div>
@@ -182,4 +203,5 @@
   <script src="../assets/blog-common.js"></script>
   <script src="studio.js"></script>
 </body>
+
 </html>
