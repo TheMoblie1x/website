@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes Blog Studio</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#050811" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: {
+      100: '#E0E7FF', 400: '#818CF8', 500: '#6366F1', 600: '#4F46E5', 700: '#4338CA', 950: '#0F172A'
+    } } } } };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .mono { font-family: 'Space Mono', monospace; }
+    input, textarea, select { color-scheme: dark; }
+    .field { width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:.6rem; padding:.6rem .75rem; font-size:.9rem; }
+    .field:focus { outline:2px solid #6366F1; outline-offset:0; }
+    .prose-preview { line-height:1.7; font-size:.9rem; }
+    .prose-preview h2 { font-size:1.3rem; font-weight:700; margin:1.2rem 0 .5rem; }
+    .prose-preview h3 { font-size:1.1rem; font-weight:600; margin:1rem 0 .4rem; }
+    .prose-preview p { margin:0 0 .8rem; }
+    .prose-preview ul { list-style:disc; margin:0 0 .8rem 1.3rem; }
+    .prose-preview ol { list-style:decimal; margin:0 0 .8rem 1.3rem; }
+    .prose-preview a { color:#818CF8; text-decoration:underline; }
+    .prose-preview code { font-family:'Space Mono',monospace; background:rgba(148,163,184,0.2); padding:.1em .3em; border-radius:.3em; }
+  </style>
+</head>
+<body class="bg-[#050811] text-slate-100 antialiased min-h-screen">
+
+  <div class="max-w-5xl mx-auto px-5 py-10">
+    <header class="flex items-center justify-between gap-4">
+      <div>
+        <h1 class="text-2xl font-bold">Notes Blog Studio</h1>
+        <p id="repoLine" class="text-sm text-slate-400 mono mt-1"></p>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="../" target="_blank" class="text-sm text-slate-400 hover:text-brand-400 transition">View blog &#8599;</a>
+        <button id="forgetBtn" class="hidden text-sm px-3 py-1.5 rounded-lg border border-white/15 hover:border-white/40 transition">Forget token</button>
+      </div>
+    </header>
+
+    <!-- Token gate -->
+    <section id="gate" class="hidden mt-12 max-w-lg">
+      <h2 class="text-lg font-semibold">Connect GitHub</h2>
+      <p class="text-sm text-slate-400 mt-2">
+        Paste a <strong>fine-grained personal access token</strong> scoped to this one repository with
+        <span class="mono">Contents: Read and write</span>. It is stored only in this browser's localStorage and is never committed.
+      </p>
+      <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener"
+         class="inline-block mt-3 text-sm text-brand-400 hover:underline">Create a token &#8599;</a>
+      <input id="tokenInput" type="password" class="field mt-4" placeholder="github_pat_..." autocomplete="off" />
+      <p id="gateErr" class="text-sm text-rose-400 mt-2 hidden"></p>
+      <button id="connectBtn" class="mt-4 px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">Connect</button>
+    </section>
+
+    <!-- App -->
+    <section id="app" class="hidden mt-10">
+      <div class="flex items-center justify-between gap-4">
+        <h2 class="text-lg font-semibold">Posts <span id="count" class="text-slate-500 font-normal"></span></h2>
+        <button id="newBtn" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">New post</button>
+      </div>
+      <div id="status" class="hidden mt-3 text-sm rounded-lg px-3 py-2"></div>
+      <ul id="list" class="mt-4 space-y-2"></ul>
+    </section>
+  </div>
+
+  <!-- Editor drawer -->
+  <div id="drawer" class="hidden fixed inset-0 z-40 bg-black/60 flex justify-end">
+    <div class="w-full max-w-2xl h-full overflow-y-auto bg-[#0B1220] border-l border-white/10 p-6">
+      <div class="flex items-center justify-between">
+        <h3 id="drawerTitle" class="text-lg font-semibold">New post</h3>
+        <button id="drawerClose" class="text-slate-400 hover:text-white text-2xl leading-none">&times;</button>
+      </div>
+
+      <div class="mt-5 grid gap-4">
+        <div class="grid grid-cols-2 gap-3">
+          <label class="text-sm">Type
+            <select id="f_type" class="field mt-1">
+              <option value="howto">How-To (video)</option>
+              <option value="blog">Article</option>
+            </select>
+          </label>
+          <label class="text-sm">Date
+            <input id="f_date" type="date" class="field mt-1" />
+          </label>
+        </div>
+
+        <label class="text-sm">Title
+          <input id="f_title" type="text" class="field mt-1" placeholder="How to pin a note" />
+        </label>
+
+        <label class="text-sm">Slug <span class="text-slate-500">(URL)</span>
+          <input id="f_slug" type="text" class="field mt-1 mono" placeholder="how-to-pin-a-note" />
+        </label>
+
+        <fieldset class="text-sm">
+          <span>Platforms</span>
+          <div class="flex gap-4 mt-1.5">
+            <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="android" /> Android</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="ios" /> iOS</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="web" /> Web</label>
+          </div>
+        </fieldset>
+
+        <label class="text-sm">Excerpt
+          <textarea id="f_excerpt" rows="2" class="field mt-1" placeholder="One line shown on the card."></textarea>
+        </label>
+
+        <label id="wrap_youtube" class="text-sm">YouTube URL
+          <input id="f_youtube" type="url" class="field mt-1" placeholder="https://www.youtube.com/watch?v=..." />
+          <span class="text-xs text-slate-500">Thumbnail is taken from the video automatically unless you set one below.</span>
+        </label>
+
+        <label class="text-sm">Thumbnail URL <span class="text-slate-500">(optional)</span>
+          <input id="f_thumb" type="url" class="field mt-1" placeholder="https://..." />
+        </label>
+
+        <label class="text-sm">Body <span class="text-slate-500">(Markdown)</span>
+          <textarea id="f_body" rows="10" class="field mt-1 mono" placeholder="## Steps&#10;1. Open the note&#10;2. ..."></textarea>
+        </label>
+
+        <details class="text-sm">
+          <summary class="cursor-pointer text-slate-400">Preview</summary>
+          <div id="preview" class="prose-preview mt-2 p-3 rounded-lg bg-white/5"></div>
+        </details>
+
+        <label class="flex items-center gap-2 text-sm">
+          <input id="f_published" type="checkbox" checked /> Published
+        </label>
+
+        <div class="flex gap-3 pt-2">
+          <button id="saveBtn" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">Save &amp; commit</button>
+          <button id="cancelBtn" class="px-4 py-2 rounded-lg border border-white/15 hover:border-white/40 transition text-sm">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="../assets/blog-common.js"></script>
+  <script>
+  (function () {
+    var B = window.NotesBlog;
+
+    var REPO = { owner: 'TheMoblie1x', repo: 'website', branch: 'main', path: 'notes/blogs/data/posts.json' };
+    var API = 'https://api.github.com/repos/' + REPO.owner + '/' + REPO.repo + '/contents/' + REPO.path;
+    var TOKEN_KEY = 'm1x_blog_token';
+
+    var els = {};
+    ['gate','app','tokenInput','connectBtn','gateErr','forgetBtn','repoLine','count','list','newBtn','status',
+     'drawer','drawerTitle','drawerClose','cancelBtn','saveBtn','preview',
+     'f_type','f_date','f_title','f_slug','f_excerpt','f_youtube','f_thumb','f_body','f_published','wrap_youtube'
+    ].forEach(function (id) { els[id] = document.getElementById(id); });
+
+    els.repoLine.textContent = REPO.owner + '/' + REPO.repo + ' · ' + REPO.path;
+
+    var state = { token: '', sha: null, posts: [], editingId: null };
+
+    function b64encode(str) { return btoa(unescape(encodeURIComponent(str))); }
+    function b64decode(b64) { return decodeURIComponent(escape(atob(b64.replace(/\s/g, '')))); }
+
+    function ghHeaders() {
+      return { 'Authorization': 'Bearer ' + state.token, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
+    }
+
+    function showStatus(msg, kind) {
+      els.status.textContent = msg;
+      els.status.className = 'mt-3 text-sm rounded-lg px-3 py-2 ' +
+        (kind === 'error' ? 'bg-rose-500/15 text-rose-300' :
+         kind === 'ok' ? 'bg-emerald-500/15 text-emerald-300' : 'bg-white/5 text-slate-300');
+      els.status.classList.remove('hidden');
+    }
+
+    function fetchFile() {
+      showStatus('Loading posts…');
+      return fetch(API + '?ref=' + REPO.branch + '&t=' + Date.now(), { headers: ghHeaders(), cache: 'no-store' })
+        .then(function (r) {
+          if (r.status === 401) throw new Error('Token rejected (401). Check scope and expiry.');
+          if (r.status === 404) { state.sha = null; return { posts: [] }; }
+          if (!r.ok) throw new Error('GitHub ' + r.status);
+          return r.json().then(function (j) {
+            state.sha = j.sha;
+            try { return JSON.parse(b64decode(j.content)); }
+            catch (e) { throw new Error('posts.json is not valid JSON.'); }
+          });
+        })
+        .then(function (data) {
+          state.posts = ((data && data.posts) || []).map(B.normalisePost);
+          renderList();
+          showStatus(state.posts.length + ' post(s) loaded.', 'ok');
+        });
+    }
+
+    function commit(message) {
+      var body = JSON.stringify({ posts: state.posts.map(cleanForSave) }, null, 2) + '\n';
+      var payload = { message: message, content: b64encode(body), branch: REPO.branch };
+      if (state.sha) payload.sha = state.sha;
+      showStatus('Committing…');
+      return fetch(API, { method: 'PUT', headers: ghHeaders(), body: JSON.stringify(payload) })
+        .then(function (r) {
+          if (r.status === 409) throw new Error('Conflict — the file changed elsewhere. Reload the page.');
+          if (!r.ok) return r.json().then(function (j) { throw new Error(j.message || ('GitHub ' + r.status)); });
+          return r.json();
+        })
+        .then(function (j) {
+          state.sha = j.content && j.content.sha;
+          showStatus('Saved. Netlify will redeploy in ~30s.', 'ok');
+        });
+    }
+
+    function cleanForSave(p) {
+      return {
+        id: p.id, type: p.type, title: p.title, slug: p.slug,
+        platforms: p.platforms, excerpt: p.excerpt, thumbnail: p.thumbnail,
+        youtubeUrl: p.youtubeUrl, body: p.body, date: p.date, published: p.published
+      };
+    }
+
+    function renderList() {
+      els.count.textContent = '(' + state.posts.length + ')';
+      var sorted = state.posts.slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+      els.list.innerHTML = sorted.map(function (p) {
+        return '<li class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10" data-id="' + B.escapeHtml(p.id) + '">' +
+          '<span class="text-[11px] font-semibold uppercase px-2 py-0.5 rounded ' + (p.type === 'howto' ? 'bg-brand-500/20 text-brand-400' : 'bg-emerald-500/20 text-emerald-400') + '">' + (p.type === 'howto' ? 'How-To' : 'Article') + '</span>' +
+          '<div class="flex-1 min-w-0">' +
+            '<div class="font-medium truncate">' + B.escapeHtml(p.title) + '</div>' +
+            '<div class="text-xs text-slate-500 mono truncate">' + B.escapeHtml(p.slug) + ' &middot; ' + p.date + ' &middot; ' + (p.platforms.join(', ') || 'no platforms') + '</div>' +
+          '</div>' +
+          '<button class="js-pub text-xs px-2 py-1 rounded border ' + (p.published ? 'border-emerald-500/40 text-emerald-400' : 'border-white/15 text-slate-400') + '">' + (p.published ? 'Published' : 'Draft') + '</button>' +
+          '<button class="js-edit text-xs px-2 py-1 rounded border border-white/15 hover:border-white/40">Edit</button>' +
+          '<button class="js-del text-xs px-2 py-1 rounded border border-rose-500/30 text-rose-400 hover:border-rose-500/60">Delete</button>' +
+        '</li>';
+      }).join('') || '<li class="text-slate-500 text-sm p-3">No posts yet. Click “New post”.</li>';
+
+      els.list.querySelectorAll('li[data-id]').forEach(function (li) {
+        var id = li.dataset.id;
+        li.querySelector('.js-edit').addEventListener('click', function () { openDrawer(id); });
+        li.querySelector('.js-pub').addEventListener('click', function () {
+          var p = byId(id); p.published = !p.published;
+          commit((p.published ? 'Publish' : 'Unpublish') + ' post: ' + p.title).then(renderList).catch(function (e) { showStatus(e.message, 'error'); });
+        });
+        li.querySelector('.js-del').addEventListener('click', function () {
+          var p = byId(id);
+          if (!confirm('Delete "' + p.title + '"? This commits immediately.')) return;
+          state.posts = state.posts.filter(function (x) { return x.id !== id; });
+          commit('Delete post: ' + p.title).then(renderList).catch(function (e) { showStatus(e.message, 'error'); });
+        });
+      });
+    }
+
+    function byId(id) { return state.posts.filter(function (p) { return p.id === id; })[0]; }
+
+    /* drawer */
+    function openDrawer(id) {
+      state.editingId = id || null;
+      var p = id ? byId(id) : B.normalisePost({ type: 'howto', platforms: ['android', 'ios', 'web'] });
+      els.drawerTitle.textContent = id ? 'Edit post' : 'New post';
+      els.f_type.value = p.type;
+      els.f_date.value = p.date;
+      els.f_title.value = p.title === 'Untitled' && !id ? '' : p.title;
+      els.f_slug.value = id ? p.slug : '';
+      els.f_excerpt.value = p.excerpt;
+      els.f_youtube.value = p.youtubeUrl;
+      els.f_thumb.value = p.thumbnail;
+      els.f_body.value = p.body;
+      els.f_published.checked = p.published;
+      document.querySelectorAll('.f_plat').forEach(function (cb) { cb.checked = p.platforms.indexOf(cb.value) !== -1; });
+      syncType();
+      updatePreview();
+      els.drawer.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      els.drawer.classList.add('hidden');
+      document.body.style.overflow = '';
+      state.editingId = null;
+    }
+
+    function syncType() { els.wrap_youtube.style.display = els.f_type.value === 'howto' ? '' : 'none'; }
+    function updatePreview() {
+      els.preview.innerHTML = window.marked ? marked.parse(els.f_body.value || '') : B.escapeHtml(els.f_body.value || '');
+    }
+
+    els.f_type.addEventListener('change', syncType);
+    els.f_body.addEventListener('input', updatePreview);
+    els.f_title.addEventListener('input', function () {
+      if (!state.editingId && (!els.f_slug.value || els.f_slug.dataset.auto !== 'off')) {
+        els.f_slug.value = B.slugify(els.f_title.value);
+      }
+    });
+    els.f_slug.addEventListener('input', function () { els.f_slug.dataset.auto = 'off'; });
+    els.f_youtube.addEventListener('blur', function () {
+      if (!els.f_thumb.value) {
+        var t = B.youTubeThumb(els.f_youtube.value);
+        if (t) els.f_thumb.placeholder = 'auto: ' + t;
+      }
+    });
+
+    els.saveBtn.addEventListener('click', function () {
+      var title = els.f_title.value.trim();
+      if (!title) { alert('Title is required.'); return; }
+      var slug = B.slugify(els.f_slug.value || title);
+      var dupe = state.posts.filter(function (p) { return p.slug === slug && p.id !== state.editingId; })[0];
+      if (dupe) { alert('Another post already uses the slug "' + slug + '".'); return; }
+      var type = els.f_type.value;
+      var youtubeUrl = els.f_youtube.value.trim();
+      if (type === 'howto' && !B.parseYouTubeId(youtubeUrl)) {
+        if (!confirm('This How-To has no valid YouTube URL. Save anyway (it will open as an article)?')) return;
+      }
+
+      var rec = {
+        id: state.editingId || String(Date.now()),
+        type: type,
+        title: title,
+        slug: slug,
+        platforms: Array.prototype.map.call(document.querySelectorAll('.f_plat:checked'), function (cb) { return cb.value; }),
+        excerpt: els.f_excerpt.value.trim(),
+        thumbnail: els.f_thumb.value.trim(),
+        youtubeUrl: youtubeUrl,
+        body: els.f_body.value,
+        date: els.f_date.value || new Date().toISOString().slice(0, 10),
+        published: els.f_published.checked
+      };
+
+      if (state.editingId) {
+        state.posts = state.posts.map(function (p) { return p.id === rec.id ? rec : p; });
+      } else {
+        state.posts.push(rec);
+      }
+      els.saveBtn.disabled = true;
+      commit((state.editingId ? 'Update' : 'Add') + ' post: ' + title)
+        .then(function () { renderList(); closeDrawer(); })
+        .catch(function (e) { showStatus(e.message, 'error'); })
+        .then(function () { els.saveBtn.disabled = false; });
+    });
+
+    els.drawerClose.addEventListener('click', closeDrawer);
+    els.cancelBtn.addEventListener('click', closeDrawer);
+    els.newBtn.addEventListener('click', function () { openDrawer(null); });
+
+    /* token */
+    function connect(token) {
+      state.token = token;
+      els.gateErr.classList.add('hidden');
+      fetchFile()
+        .then(function () {
+          try { localStorage.setItem(TOKEN_KEY, token); } catch (e) {}
+          els.gate.classList.add('hidden');
+          els.app.classList.remove('hidden');
+          els.forgetBtn.classList.remove('hidden');
+        })
+        .catch(function (e) {
+          state.token = '';
+          els.gateErr.textContent = e.message;
+          els.gateErr.classList.remove('hidden');
+        });
+    }
+
+    els.connectBtn.addEventListener('click', function () {
+      var t = els.tokenInput.value.trim();
+      if (t) connect(t);
+    });
+    els.tokenInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') els.connectBtn.click(); });
+    els.forgetBtn.addEventListener('click', function () {
+      try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+      location.reload();
+    });
+
+    var stored = '';
+    try { stored = localStorage.getItem(TOKEN_KEY) || ''; } catch (e) {}
+    if (stored) connect(stored);
+    else els.gate.classList.remove('hidden');
+  })();
+  </script>
+</body>
+</html>

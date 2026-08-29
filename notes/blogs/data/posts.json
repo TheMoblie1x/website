@@ -1,0 +1,17 @@
+{
+  "posts": [
+    {
+      "id": "1756456800000",
+      "type": "blog",
+      "title": "Welcome to the Notes blog",
+      "slug": "welcome-to-the-notes-blog",
+      "platforms": ["android", "ios", "web"],
+      "excerpt": "Guides, release notes, and tips for getting more out of Notes by Mobile1X.",
+      "thumbnail": "",
+      "youtubeUrl": "",
+      "body": "## Why this blog exists\n\nNotes is built to stay out of your way. This blog is where we share the small things that make it faster to use — keyboard shortcuts, sync tips, organisation ideas — plus what changed in each release.\n\n## What to expect\n\n- **How-to videos** for Android, iOS, and Web, each under two minutes.\n- **Written guides** for the workflows that don't fit in a short clip.\n- **Release notes** whenever something ships.\n\nUse the platform filter at the top of the [blog home](./) to see only what applies to the device you're on.\n\n_This is a sample post. Delete it from the editor once you've published your own._",
+      "date": "2026-08-29",
+      "published": true
+    }
+  ]
+}
