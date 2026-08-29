@@ -581,6 +581,59 @@ footer {
     max-width: 520px;
     margin-bottom: 22px;
 }
+
+/* Contact form status + honeypot */
+.form .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.form-status {
+    margin: 16px 0 0;
+    padding: 14px 16px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.form-status.is-success {
+    border-color: #FFD700;
+    background: rgba(255, 215, 0, 0.08);
+    color: #FFD700;
+}
+
+.form-status.is-error {
+    border-color: #b3261e;
+    background: rgba(179, 38, 30, 0.1);
+    color: #ff6b6b;
+}
+
+.form button[disabled] {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+/* Calendly inline scheduler */
+.schedule-block {
+    margin-top: 70px;
+}
+
+.schedule-block h3 {
+    color: #FFD700;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.calendly-inline-widget {
+    min-width: 320px;
+    height: 700px;
+    border: 1px solid #222;
+    border-radius: 10px;
+    overflow: hidden;
+}
 </style>
 
 </head>
@@ -903,28 +956,53 @@ footer {
 <section class="section container reveal" id="contact">
     <h2>Start Your Project</h2>
 
-    <form class="form">
-        <input type="text" placeholder="Full Name" required>
-        <input type="email" placeholder="Email" required>
+    <!--
+      Submits to the Google Form "Requirement for Software" via a no-cors POST to
+      .../formResponse (see the script near the end of this file).
+      Field -> Google Forms question id:
+        entry.377463523  Full Name                  (Short answer, required)
+        entry.1052227321 Email                      (Short answer, required)
+        entry.459134996  Project Budget             (Dropdown, required)
+        entry.387959439  Project Type               (Dropdown, required)
+        entry.2106583205 Tell us about your project (Paragraph, required)
+      Dropdown <option> text below must match the Google Form options EXACTLY or
+      Google silently rejects the whole submission.
+    -->
+    <form class="form" id="project-form" novalidate>
+        <input type="text" name="entry.377463523" placeholder="Full Name" required>
+        <input type="email" name="entry.1052227321" placeholder="Email" required>
 
-        <select required>
+        <select name="entry.459134996" required>
             <option value="">Project Budget</option>
-            <option>$5K - $10K</option>
-            <option>$10K - $50K</option>
-            <option>$50K+</option>
+            <option>5K USD</option>
+            <option>10K USD</option>
+            <option>20K USD</option>
+            <option>50K USD or above</option>
         </select>
 
-        <select required>
+        <select name="entry.387959439" required>
             <option value="">Project Type</option>
             <option>AI System</option>
             <option>Fintech Platform</option>
             <option>Performance Audit</option>
         </select>
 
-        <textarea placeholder="Tell us about your project"></textarea>
+        <textarea name="entry.2106583205" placeholder="Tell us about your project" required></textarea>
+
+        <div class="hp-field" aria-hidden="true">
+            <label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label>
+        </div>
 
         <button type="submit">Submit Inquiry</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
     </form>
+
+    <div class="schedule-block reveal">
+        <h3>Prefer to book a call directly?</h3>
+        <p class="section-intro">Pick a 30-minute discovery slot that works for you — no back-and-forth.</p>
+        <div class="calendly-inline-widget"
+             data-url="https://calendly.com/themobile1x/30min?hide_gdpr_banner=1&background_color=0d0d0d&text_color=ffffff&primary_color=ffd700"></div>
+    </div>
 </section>
 
 <!-- CONTACT US -->
@@ -972,6 +1050,59 @@ footer {
         <p>© 2026 Mobile1X. All rights reserved.</p>
     </div>
 </footer>
+
+<!-- Calendly inline scheduler -->
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+<!-- Contact form -> Google Forms -->
+<script>
+(function () {
+    var GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeaPjcwVv3HQNo3SUTxMLAs449rchnquXw4jTybsp93HvFJkg/formResponse';
+
+    var form = document.getElementById('project-form');
+    if (!form) return;
+
+    var statusEl = document.getElementById('form-status');
+    var button = form.querySelector('button[type="submit"]');
+    var honeypot = form.elements['company_website'];
+
+    function setStatus(message, kind) {
+        statusEl.textContent = message;
+        statusEl.className = 'form-status is-' + kind;
+        statusEl.hidden = false;
+    }
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        if (honeypot && honeypot.value) return; // bot trap
+
+        if (!form.checkValidity()) {
+            setStatus('Please fill in every field, including a valid email and both dropdowns.', 'error');
+            form.reportValidity();
+            return;
+        }
+
+        button.disabled = true;
+        setStatus('Sending…', 'success');
+
+        // Opaque (no-cors) POST: Google accepts it but the response is unreadable,
+        // so success is assumed once the request resolves.
+        fetch(GOOGLE_FORM_ACTION, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: new FormData(form)
+        }).then(function () {
+            form.reset();
+            setStatus('Thanks — your inquiry is in. We’ll be in touch within one business day.', 'success');
+        }).catch(function () {
+            setStatus('Something went wrong. Email us at hello@mobile1x.com and we’ll pick it up.', 'error');
+        }).then(function () {
+            button.disabled = false;
+        });
+    });
+})();
+</script>
 
 <script>
 (function () {
