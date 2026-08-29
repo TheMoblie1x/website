@@ -1,9 +1,20 @@
+# Serve the notes.mobile1x.com subdomain directly from /notes (no iframe,
+# no registrar masking). Requires notes.mobile1x.com to be added as a
+# domain alias on this Netlify site and its DNS pointed here (CNAME -> the
+# Netlify site). This rewrite (status 200) keeps the URL on the subdomain
+# while serving the /notes content over HTTPS, avoiding the mixed-content
+# frameset that was causing the white-out.
+[[redirects]]
+  from = "/*"
+  to = "/notes/:splat"
+  status = 200
+  force = true
+  conditions = {Host = ["notes.mobile1x.com"]}
+
 [[headers]]
   for = "/*"
   [headers.values]
-    # Allow the site to be framed by itself and by the notes subdomain.
-    # frame-ancestors is the modern replacement for X-Frame-Options; the
-    # obsolete `X-Frame-Options: ALLOW-FROM` is ignored by browsers, so it
-    # is intentionally not set here (leaving it unset avoids a DENY/SAMEORIGIN
-    # default blocking the iframe and causing the white-out).
+    # Modern replacement for X-Frame-Options. Kept as a fallback in case any
+    # embedding/iframe of the site is still used; the obsolete
+    # `X-Frame-Options: ALLOW-FROM` is ignored by browsers so it is not set.
     Content-Security-Policy = "frame-ancestors 'self' https://notes.mobile1x.com"
