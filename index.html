@@ -11,8 +11,14 @@
 <!-- SEO -->
 <meta name="keywords" content="AI development agency, fintech software development, performance audit, conversion optimization, SaaS development, enterprise web development, note taking app for Android, duplicate file remover app, duplicate file finder, storage cleaner app, ecommerce web app development, online store platform, sports auction software, IPL player auction app, cricket team auction tool, point of sale software">
 <link rel="canonical" href="https://www.mobile1x.com/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Mobile1X">
+<meta name="theme-color" content="#0d0d0d">
+<link rel="alternate" type="text/plain" href="https://www.mobile1x.com/llms.txt" title="llms.txt">
+<link rel="sitemap" type="application/xml" href="https://www.mobile1x.com/sitemap.xml">
 
 <!-- Open Graph -->
+<meta property="og:locale" content="en_US">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mobile1X | AI, Fintech, Mobile Apps & E-Commerce Development">
 <meta property="og:description" content="Enterprise AI and fintech systems, plus a growing product portfolio: Notes, Dedup, The A2Z Collection, and Auction Manager.">
@@ -634,7 +640,170 @@ footer {
     border-radius: 10px;
     overflow: hidden;
 }
+
+/* FAQ accordion */
+.faq-list {
+    max-width: 820px;
+}
+
+.faq-item {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.faq-item[open] {
+    border-color: #FFD700;
+}
+
+.faq-item summary {
+    cursor: pointer;
+    padding: 20px 24px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: "add";
+    font-family: "Material Symbols Outlined";
+    color: #FFD700;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.faq-item[open] summary::after {
+    content: "remove";
+}
+
+.faq-item .faq-answer {
+    padding: 0 24px 22px;
+    color: #ccc;
+    line-height: 1.7;
+}
 </style>
+
+<!-- Structured data for search engines and AI assistants (schema.org).
+     TODO: add real profile URLs to "sameAs" (LinkedIn, X/Twitter, GitHub,
+     Play Store, Crunchbase) and a "logo" URL once a logo asset exists. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "ProfessionalService"],
+      "@id": "https://www.mobile1x.com/#org",
+      "name": "Mobile1X",
+      "alternateName": "Mobile1X Studio",
+      "url": "https://www.mobile1x.com/",
+      "description": "Mobile1X is a software development studio that builds AI systems, fintech platforms, and performance-driven digital products for clients worldwide, and ships its own products including the Notes app, Dedup, The A2Z Collection, and Auction Manager.",
+      "email": "hello@mobile1x.com",
+      "telephone": "+91-97545-25494",
+      "priceRange": "$500 - $100,000+",
+      "areaServed": { "@type": "Place", "name": "Worldwide" },
+      "foundingLocation": { "@type": "Place", "name": "India" },
+      "knowsAbout": [
+        "AI systems",
+        "Conversational AI and LLM applications",
+        "AI-driven lead generation and conversion funnels",
+        "Fintech platform development",
+        "Banking and payment API integrations",
+        "Web performance optimization",
+        "Conversion rate optimization",
+        "SaaS and enterprise web development",
+        "Android app development",
+        "E-commerce platform development"
+      ],
+      "sameAs": [],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "email": "hello@mobile1x.com",
+          "telephone": "+91-97545-25494",
+          "availableLanguage": ["English", "Hindi"]
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Mobile1X Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Systems & Automation", "description": "Conversion-focused AI funnels, lead-scoring and qualification engines, AI landing systems, and automation workflows for high-ticket lead generation." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fintech Platform Engineering", "description": "Secure, scalable fintech systems for banks, startups, and enterprises, including banking and payment API integrations and compliance architecture." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web Performance Audit", "description": "Audits from $500 to around $5,000 that identify revenue leaks, speed problems, and scaling opportunities in existing web platforms." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Conversion Funnels & Landing Systems", "description": "High-converting forms, qualification logic, and automated follow-up and CRM pipelines." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SaaS & Enterprise Web Development", "description": "Full-stack product and platform engineering for SaaS and enterprise web applications." } }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.mobile1x.com/#website",
+      "url": "https://www.mobile1x.com/",
+      "name": "Mobile1X",
+      "publisher": { "@id": "https://www.mobile1x.com/#org" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Notes",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Android",
+      "description": "A fast, distraction-free note-taking app for Android by Mobile1X.",
+      "url": "https://notes.mobile1x.com/",
+      "publisher": { "@id": "https://www.mobile1x.com/#org" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Dedup",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Android",
+      "description": "A duplicate file remover and storage cleaner for Android by Mobile1X.",
+      "publisher": { "@id": "https://www.mobile1x.com/#org" }
+    },
+    {
+      "@type": "WebApplication",
+      "name": "The A2Z Collection",
+      "applicationCategory": "ShoppingApplication",
+      "description": "An e-commerce platform built by Mobile1X.",
+      "publisher": { "@id": "https://www.mobile1x.com/#org" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Auction Manager",
+      "applicationCategory": "BusinessApplication",
+      "description": "Software for running cricket and sports player auctions, built by Mobile1X.",
+      "publisher": { "@id": "https://www.mobile1x.com/#org" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.mobile1x.com/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is Mobile1X?", "acceptedAnswer": { "@type": "Answer", "text": "Mobile1X is a software development studio that builds AI systems, fintech platforms, and performance-driven digital products for clients worldwide. It also ships its own products, including the Notes note-taking app, the Dedup duplicate file remover, The A2Z Collection e-commerce platform, and Auction Manager sports-auction software." } },
+        { "@type": "Question", "name": "What services does Mobile1X offer?", "acceptedAnswer": { "@type": "Answer", "text": "Mobile1X offers AI system design and automation, fintech platform engineering, web performance audits, conversion funnel and landing-system development, and full-stack SaaS and enterprise web development." } },
+        { "@type": "Question", "name": "What kind of AI systems does Mobile1X build?", "acceptedAnswer": { "@type": "Answer", "text": "Mobile1X builds conversion-focused AI funnels, lead-scoring and qualification engines, AI-powered landing systems, and automation workflows that capture, segment, and convert high-ticket leads in the $5,000 to $100,000-plus range." } },
+        { "@type": "Question", "name": "Does Mobile1X build fintech platforms?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Mobile1X engineers secure, scalable fintech systems for banks, startups, and enterprises, including banking and payment API integrations and enterprise-grade security and compliance architecture." } },
+        { "@type": "Question", "name": "What is a Mobile1X performance audit and what does it cost?", "acceptedAnswer": { "@type": "Answer", "text": "A Mobile1X performance audit identifies revenue leaks, speed problems, and scaling opportunities in an existing web platform. Audits start at $500 and scale to around $5,000 depending on scope." } },
+        { "@type": "Question", "name": "How much do Mobile1X projects cost?", "acceptedAnswer": { "@type": "Answer", "text": "Product and platform engagements typically range from $5,000 to $100,000 and above, depending on scope. Standalone web performance audits start at $500." } },
+        { "@type": "Question", "name": "What products has Mobile1X built?", "acceptedAnswer": { "@type": "Answer", "text": "Mobile1X has built the Notes note-taking app for Android, the Dedup duplicate file remover and storage cleaner, The A2Z Collection e-commerce platform, Auction Manager software for cricket and sports player auctions, and a B2B pharma trading platform." } },
+        { "@type": "Question", "name": "Where is Mobile1X based and who does it work with?", "acceptedAnswer": { "@type": "Answer", "text": "Mobile1X operates from India and works with startups, agencies, and enterprises globally. The team can be reached by email at hello@mobile1x.com, by phone or WhatsApp at +91 97545 25494, or by booking a discovery call." } },
+        { "@type": "Question", "name": "How do I start a project with Mobile1X?", "acceptedAnswer": { "@type": "Answer", "text": "Submit the project form on mobile1x.com with your budget, project type, and a short brief, or book a 30-minute discovery call. The team typically responds within one business day." } }
+      ]
+    }
+  ]
+}
+</script>
 
 </head>
 <body>
@@ -949,6 +1118,50 @@ footer {
         <a href="mailto:hello@mobile1x.com?subject=Notify%20me%20when%20the%20blog%20launches" class="cta-btn">
             <span class="material-symbols-outlined">mail</span>Get Notified
         </a>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section container reveal" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <p class="section-intro">What Mobile1X does, what it costs, and how to get started.</p>
+    <div class="faq-list">
+        <details class="faq-item">
+            <summary>What is Mobile1X?</summary>
+            <div class="faq-answer">Mobile1X is a software development studio that builds AI systems, fintech platforms, and performance-driven digital products for clients worldwide. It also ships its own products, including the Notes note-taking app, the Dedup duplicate file remover, The A2Z Collection e-commerce platform, and Auction Manager sports-auction software.</div>
+        </details>
+        <details class="faq-item">
+            <summary>What services does Mobile1X offer?</summary>
+            <div class="faq-answer">Mobile1X offers AI system design and automation, fintech platform engineering, web performance audits, conversion funnel and landing-system development, and full-stack SaaS and enterprise web development.</div>
+        </details>
+        <details class="faq-item">
+            <summary>What kind of AI systems does Mobile1X build?</summary>
+            <div class="faq-answer">Mobile1X builds conversion-focused AI funnels, lead-scoring and qualification engines, AI-powered landing systems, and automation workflows that capture, segment, and convert high-ticket leads in the $5,000 to $100,000-plus range.</div>
+        </details>
+        <details class="faq-item">
+            <summary>Does Mobile1X build fintech platforms?</summary>
+            <div class="faq-answer">Yes. Mobile1X engineers secure, scalable fintech systems for banks, startups, and enterprises, including banking and payment API integrations and enterprise-grade security and compliance architecture.</div>
+        </details>
+        <details class="faq-item">
+            <summary>What is a Mobile1X performance audit and what does it cost?</summary>
+            <div class="faq-answer">A Mobile1X performance audit identifies revenue leaks, speed problems, and scaling opportunities in an existing web platform. Audits start at $500 and scale to around $5,000 depending on scope.</div>
+        </details>
+        <details class="faq-item">
+            <summary>How much do Mobile1X projects cost?</summary>
+            <div class="faq-answer">Product and platform engagements typically range from $5,000 to $100,000 and above, depending on scope. Standalone web performance audits start at $500.</div>
+        </details>
+        <details class="faq-item">
+            <summary>What products has Mobile1X built?</summary>
+            <div class="faq-answer">Mobile1X has built the Notes note-taking app for Android, the Dedup duplicate file remover and storage cleaner, The A2Z Collection e-commerce platform, Auction Manager software for cricket and sports player auctions, and a B2B pharma trading platform.</div>
+        </details>
+        <details class="faq-item">
+            <summary>Where is Mobile1X based and who does it work with?</summary>
+            <div class="faq-answer">Mobile1X operates from India and works with startups, agencies, and enterprises globally. The team can be reached by email at hello@mobile1x.com, by phone or WhatsApp at +91 97545 25494, or by booking a discovery call.</div>
+        </details>
+        <details class="faq-item">
+            <summary>How do I start a project with Mobile1X?</summary>
+            <div class="faq-answer">Submit the project form on mobile1x.com with your budget, project type, and a short brief, or book a 30-minute discovery call. The team typically responds within one business day.</div>
+        </details>
     </div>
 </section>
 
