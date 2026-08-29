@@ -1,0 +1,32 @@
+# Mobile1X
+
+> Mobile1X is a software development studio that builds AI systems, fintech platforms, and performance-driven digital products for clients worldwide, and ships its own products including the Notes app, Dedup, The A2Z Collection, and Auction Manager.
+
+Mobile1X works with startups, agencies, and enterprises globally and operates from India. Engagements typically run from $5,000 to $100,000+, with standalone web performance audits from $500. Contact: hello@mobile1x.com, +91 97545 25494 (phone/WhatsApp), or book a 30-minute discovery call at https://calendly.com/themobile1x/30min.
+
+## Services
+
+- [AI Systems & Automation](https://www.mobile1x.com/#services): Conversion-focused AI funnels, lead-scoring and qualification engines, AI landing systems, and automation workflows for high-ticket lead generation ($5K–$100K+ deals).
+- [Fintech Platform Engineering](https://www.mobile1x.com/#fintech): Secure, scalable fintech systems for banks, startups, and enterprises; banking and payment API integrations; enterprise-grade security and compliance architecture.
+- [Web Performance Audit](https://www.mobile1x.com/#services): Audits from $500 to about $5,000 that identify revenue leaks, speed issues, and scaling opportunities in an existing web platform.
+- [Conversion Funnels & Landing Systems](https://www.mobile1x.com/#contact): High-converting forms, qualification logic, and automated follow-up and CRM pipelines.
+- [SaaS & Enterprise Web Development](https://www.mobile1x.com/#portfolio): Full-stack product and platform engineering.
+
+## Products
+
+- [Notes](https://notes.mobile1x.com/): Fast, distraction-free note-taking app for Android.
+- Dedup: Duplicate file remover and storage cleaner for Android.
+- The A2Z Collection: E-commerce platform.
+- Auction Manager: Cricket and sports player auction software.
+- [B2B Pharma Platform](https://www.mobile1x.com/pharma/): Platform connecting pharmaceutical suppliers and buyers with catalog browsing, pricing, and ordering.
+
+## Contact
+
+- Website: https://www.mobile1x.com/
+- Email: hello@mobile1x.com
+- Phone / WhatsApp: +91 97545 25494
+- Book a discovery call: https://calendly.com/themobile1x/30min
+
+## Optional
+
+- [FAQ](https://www.mobile1x.com/#faq): Answers on what Mobile1X does, pricing, and how to start a project.

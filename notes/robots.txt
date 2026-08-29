@@ -1,0 +1,5 @@
+# notes.mobile1x.com — every crawler is welcome, including AI / LLM assistants.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.mobile1x.com/sitemap.xml
