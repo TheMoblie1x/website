@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog &amp; How-To — Notes by Mobile1X</title>
+  <meta name="description" content="Guides, release notes, and short how-to videos for Notes by Mobile1X — filter by Android, iOS, or Web." />
+  <link rel="canonical" href="https://www.mobile1x.com/notes/blogs/" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Mobile1X" />
+  <meta name="theme-color" content="#050811" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Blog &amp; How-To — Notes by Mobile1X" />
+  <meta property="og:description" content="Guides, release notes, and short how-to videos for Notes by Mobile1X." />
+  <meta property="og:url" content="https://www.mobile1x.com/notes/blogs/" />
+  <meta property="og:site_name" content="Mobile1X" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: {
+      50: '#EEF2FF', 100: '#E0E7FF', 400: '#818CF8', 500: '#6366F1', 600: '#4F46E5', 900: '#1E1B4B', 950: '#0F172A'
+    } } } } };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-serif-custom { font-family: 'Instrument Serif', Georgia, serif; }
+    .glass { background: rgba(13,20,36,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+    :root:not(.dark) .glass { background: rgba(255,255,255,0.82); border-color: rgba(226,232,240,0.9); }
+    .card-hover { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+    .card-hover:hover { transform: translateY(-4px); border-color: rgba(99,102,241,0.6); box-shadow: 0 18px 40px rgba(79,70,229,0.18); }
+  </style>
+</head>
+<body class="bg-[#F8FAFC] dark:bg-[#050811] text-slate-900 dark:text-slate-100 antialiased min-h-screen">
+
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
+
+    <header class="flex items-start justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+          <a href="../" class="hover:text-brand-500 transition">Notes</a>
+          <span>/</span>
+          <span class="text-slate-700 dark:text-slate-300">Blog &amp; How-To</span>
+        </div>
+        <h1 class="font-serif-custom text-4xl sm:text-5xl mt-3 leading-tight">Blog &amp; How-To</h1>
+        <p class="mt-3 text-slate-600 dark:text-slate-400 max-w-xl">Short how-to videos and written guides for Notes. Filter by the platform you use.</p>
+      </div>
+      <button id="themeToggle" aria-label="Toggle theme"
+        class="glass rounded-full p-2.5 shrink-0 hover:text-brand-500 transition" title="Toggle light / dark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg>
+      </button>
+    </header>
+
+    <!-- Filters -->
+    <div class="mt-9 flex flex-wrap items-center gap-3">
+      <div id="platformFilter" class="inline-flex glass rounded-full p-1" role="tablist" aria-label="Filter by platform">
+        <button data-platform="all"     class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">All platforms</button>
+        <button data-platform="android" class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">Android</button>
+        <button data-platform="ios"     class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">iOS</button>
+        <button data-platform="web"     class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">Web</button>
+      </div>
+      <div id="typeFilter" class="inline-flex glass rounded-full p-1" role="tablist" aria-label="Filter by type">
+        <button data-type="all"   class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">All</button>
+        <button data-type="howto" class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">How-To</button>
+        <button data-type="blog"  class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">Articles</button>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <main id="grid" class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-live="polite"></main>
+
+    <p id="emptyState" class="hidden text-center text-slate-500 dark:text-slate-400 py-20">Nothing here yet for this filter.</p>
+
+    <footer class="mt-16 pt-8 border-t border-slate-200 dark:border-white/10 text-sm text-slate-500 dark:text-slate-400 flex flex-wrap gap-x-6 gap-y-2">
+      <a href="../" class="hover:text-brand-500 transition">&larr; Back to Notes</a>
+      <a href="https://www.mobile1x.com/" class="hover:text-brand-500 transition">Mobile1X</a>
+    </footer>
+  </div>
+
+  <!-- Video lightbox -->
+  <div id="lightbox" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="How-to video">
+    <div class="w-full max-w-4xl">
+      <div class="flex justify-between items-center mb-3">
+        <h2 id="lightboxTitle" class="text-white font-medium pr-4 truncate"></h2>
+        <button id="lightboxClose" aria-label="Close video" class="text-white/70 hover:text-white text-2xl leading-none shrink-0">&times;</button>
+      </div>
+      <div class="relative w-full rounded-xl overflow-hidden bg-black" style="padding-top:56.25%">
+        <iframe id="lightboxFrame" class="absolute inset-0 w-full h-full" src="" title="How-to video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    <p style="padding:1rem">The Notes blog needs JavaScript to load posts. Visit <a href="https://www.mobile1x.com/">mobile1x.com</a>.</p>
+  </noscript>
+
+  <script src="assets/blog-common.js"></script>
+  <script>
+  (function () {
+    var B = window.NotesBlog;
+    var grid = document.getElementById('grid');
+    var emptyState = document.getElementById('emptyState');
+    var state = { platform: 'all', type: 'all', posts: [] };
+
+    /* theme */
+    var root = document.documentElement;
+    try {
+      var saved = localStorage.getItem('m1x_blog_theme');
+      if (saved) root.classList.toggle('dark', saved === 'dark');
+      else root.classList.toggle('dark', !window.matchMedia('(prefers-color-scheme: light)').matches);
+    } catch (e) {}
+    document.getElementById('themeToggle').addEventListener('click', function () {
+      root.classList.toggle('dark');
+      try { localStorage.setItem('m1x_blog_theme', root.classList.contains('dark') ? 'dark' : 'light'); } catch (e) {}
+    });
+
+    function activeBtnClasses(btn, on) {
+      btn.classList.toggle('bg-brand-600', on);
+      btn.classList.toggle('text-white', on);
+      btn.classList.toggle('text-slate-600', !on);
+      btn.classList.toggle('dark:text-slate-300', !on);
+    }
+
+    function wireFilter(containerId, key) {
+      var btns = document.querySelectorAll('#' + containerId + ' .filter-btn');
+      btns.forEach(function (btn) {
+        var val = btn.dataset.platform || btn.dataset.type;
+        activeBtnClasses(btn, val === state[key]);
+        btn.addEventListener('click', function () {
+          state[key] = val;
+          btns.forEach(function (b) { activeBtnClasses(b, (b.dataset.platform || b.dataset.type) === val); });
+          render();
+        });
+      });
+    }
+
+    function platformChip(p) {
+      return '<span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-slate-200/70 dark:bg-white/10 text-slate-600 dark:text-slate-300">' +
+        B.PLATFORM_LABELS[p] + '</span>';
+    }
+
+    function cardHTML(post) {
+      var thumb = B.cardThumb(post);
+      var isHowto = post.type === 'howto';
+      var media = thumb
+        ? '<div class="relative aspect-video bg-slate-200 dark:bg-white/5 overflow-hidden">' +
+            '<img src="' + B.escapeHtml(thumb) + '" alt="" loading="lazy" class="w-full h-full object-cover">' +
+            (isHowto ? '<span class="absolute inset-0 flex items-center justify-center">' +
+              '<span class="w-14 h-14 rounded-full bg-black/60 flex items-center justify-center">' +
+              '<svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span>' : '') +
+          '</div>'
+        : '<div class="aspect-video bg-gradient-to-br from-brand-600/25 to-brand-400/10"></div>';
+
+      var chips = post.platforms.map(platformChip).join(' ');
+      var badge = '<span class="text-[11px] font-semibold uppercase tracking-wide ' +
+        (isHowto ? 'text-brand-500' : 'text-emerald-500') + '">' + (isHowto ? 'How-To' : 'Article') + '</span>';
+
+      return '' +
+        '<article class="filtered-card glass card-hover rounded-2xl overflow-hidden cursor-pointer flex flex-col" ' +
+          'data-id="' + B.escapeHtml(post.id) + '" data-type="' + post.type + '">' +
+          media +
+          '<div class="p-5 flex flex-col gap-2 flex-1">' +
+            '<div class="flex items-center gap-2">' + badge + '<span class="text-slate-400 dark:text-slate-500 text-xs">' + B.formatDate(post.date) + '</span></div>' +
+            '<h3 class="font-semibold text-lg leading-snug">' + B.escapeHtml(post.title) + '</h3>' +
+            (post.excerpt ? '<p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-3">' + B.escapeHtml(post.excerpt) + '</p>' : '') +
+            (chips ? '<div class="flex flex-wrap gap-1.5 mt-auto pt-2">' + chips + '</div>' : '') +
+          '</div>' +
+        '</article>';
+    }
+
+    function render() {
+      var list = state.posts.filter(function (p) {
+        if (!p.published) return false;
+        if (state.type !== 'all' && p.type !== state.type) return false;
+        if (state.platform !== 'all' && p.platforms.indexOf(state.platform) === -1) return false;
+        return true;
+      });
+      grid.innerHTML = list.map(cardHTML).join('');
+      emptyState.classList.toggle('hidden', list.length > 0);
+
+      grid.querySelectorAll('.filtered-card').forEach(function (el) {
+        el.addEventListener('click', function () {
+          var post = state.posts.filter(function (p) { return p.id === el.dataset.id; })[0];
+          if (!post) return;
+          if (post.type === 'howto' && B.parseYouTubeId(post.youtubeUrl)) openLightbox(post);
+          else window.location.href = 'post.html?slug=' + encodeURIComponent(post.slug);
+        });
+      });
+    }
+
+    /* lightbox */
+    var lightbox = document.getElementById('lightbox');
+    var frame = document.getElementById('lightboxFrame');
+    function openLightbox(post) {
+      document.getElementById('lightboxTitle').textContent = post.title;
+      frame.src = B.youTubeEmbed(post.youtubeUrl);
+      lightbox.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      frame.src = '';
+      document.body.style.overflow = '';
+    }
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) closeLightbox(); });
+
+    wireFilter('platformFilter', 'platform');
+    wireFilter('typeFilter', 'type');
+
+    B.loadPosts().then(function (posts) {
+      state.posts = posts.sort(function (a, b) { return (a.date < b.date ? 1 : -1); });
+      render();
+    }).catch(function (err) {
+      grid.innerHTML = '<p class="text-slate-500 dark:text-slate-400 col-span-full">Could not load posts. ' + B.escapeHtml(err.message) + '</p>';
+    });
+  })();
+  </script>
+</body>
+</html>
