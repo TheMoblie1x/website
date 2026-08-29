@@ -71,6 +71,17 @@
     return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   }
 
+  function renderMarkdown(md) {
+    if (root.marked) {
+      if (!renderMarkdown._init) {
+        root.marked.setOptions({ gfm: true, breaks: true });
+        renderMarkdown._init = true;
+      }
+      return root.marked.parse(md || '');
+    }
+    return escapeHtml(md || '');
+  }
+
   function loadPosts(url) {
     return fetch(url || 'data/posts.json', { cache: 'no-store' })
       .then(function (r) {
@@ -94,6 +105,7 @@
     slugify: slugify,
     cardThumb: cardThumb,
     formatDate: formatDate,
+    renderMarkdown: renderMarkdown,
     loadPosts: loadPosts
   };
 })(typeof window !== 'undefined' ? window : this);

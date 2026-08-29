@@ -20,19 +20,27 @@
     input, textarea, select { color-scheme: dark; }
     .field { width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:.6rem; padding:.6rem .75rem; font-size:.9rem; }
     .field:focus { outline:2px solid #6366F1; outline-offset:0; }
-    .prose-preview { line-height:1.7; font-size:.9rem; }
-    .prose-preview h2 { font-size:1.3rem; font-weight:700; margin:1.2rem 0 .5rem; }
-    .prose-preview h3 { font-size:1.1rem; font-weight:600; margin:1rem 0 .4rem; }
-    .prose-preview p { margin:0 0 .8rem; }
-    .prose-preview ul { list-style:disc; margin:0 0 .8rem 1.3rem; }
-    .prose-preview ol { list-style:decimal; margin:0 0 .8rem 1.3rem; }
+    .tbtn { padding:.35rem .55rem; border:1px solid rgba(255,255,255,0.12); border-radius:.4rem; font-size:.8rem; background:rgba(255,255,255,0.04); }
+    .tbtn:hover { border-color:rgba(255,255,255,0.4); }
+    .prose-preview { line-height:1.75; }
+    .prose-preview h1 { font-size:1.8rem; font-weight:700; margin:1.4rem 0 .6rem; }
+    .prose-preview h2 { font-size:1.4rem; font-weight:700; margin:1.3rem 0 .5rem; }
+    .prose-preview h3 { font-size:1.15rem; font-weight:600; margin:1.1rem 0 .4rem; }
+    .prose-preview p { margin:0 0 .9rem; }
+    .prose-preview ul { list-style:disc; margin:0 0 .9rem 1.4rem; }
+    .prose-preview ol { list-style:decimal; margin:0 0 .9rem 1.4rem; }
+    .prose-preview li { margin:.25rem 0; }
     .prose-preview a { color:#818CF8; text-decoration:underline; }
-    .prose-preview code { font-family:'Space Mono',monospace; background:rgba(148,163,184,0.2); padding:.1em .3em; border-radius:.3em; }
+    .prose-preview blockquote { border-left:3px solid #6366F1; padding-left:1rem; opacity:.85; margin:0 0 .9rem; }
+    .prose-preview code { font-family:'Space Mono',monospace; background:rgba(148,163,184,0.2); padding:.1em .3em; border-radius:.3em; font-size:.9em; }
+    .prose-preview pre { background:rgba(148,163,184,0.15); padding:1rem; border-radius:.6rem; overflow-x:auto; margin:0 0 .9rem; }
+    .prose-preview img, .prose-preview video { border-radius:.6rem; margin:.9rem 0; max-width:100%; }
   </style>
 </head>
 <body class="bg-[#050811] text-slate-100 antialiased min-h-screen">
 
-  <div class="max-w-5xl mx-auto px-5 py-10">
+  <!-- ============ LIST VIEW ============ -->
+  <div id="listView" class="max-w-5xl mx-auto px-5 py-10">
     <header class="flex items-center justify-between gap-4">
       <div>
         <h1 class="text-2xl font-bold">Notes Blog Studio</h1>
@@ -58,84 +66,138 @@
       <button id="connectBtn" class="mt-4 px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">Connect</button>
     </section>
 
-    <!-- App -->
+    <!-- Post list -->
     <section id="app" class="hidden mt-10">
       <div class="flex items-center justify-between gap-4">
         <h2 class="text-lg font-semibold">Posts <span id="count" class="text-slate-500 font-normal"></span></h2>
-        <button id="newBtn" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">New post</button>
+        <button id="newBtn" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">+ New post</button>
       </div>
       <div id="status" class="hidden mt-3 text-sm rounded-lg px-3 py-2"></div>
       <ul id="list" class="mt-4 space-y-2"></ul>
     </section>
   </div>
 
-  <!-- Editor drawer -->
-  <div id="drawer" class="hidden fixed inset-0 z-40 bg-black/60 flex justify-end">
-    <div class="w-full max-w-2xl h-full overflow-y-auto bg-[#0B1220] border-l border-white/10 p-6">
-      <div class="flex items-center justify-between">
-        <h3 id="drawerTitle" class="text-lg font-semibold">New post</h3>
-        <button id="drawerClose" class="text-slate-400 hover:text-white text-2xl leading-none">&times;</button>
+  <!-- ============ EDITOR VIEW (full page) ============ -->
+  <div id="editorView" class="hidden fixed inset-0 z-30 bg-[#050811] overflow-y-auto">
+    <div class="max-w-6xl mx-auto px-5 py-6">
+      <div class="flex items-center justify-between gap-4 sticky top-0 bg-[#050811]/95 backdrop-blur py-3 -mx-5 px-5 border-b border-white/10 z-10">
+        <button id="backBtn" class="text-sm text-slate-400 hover:text-white transition">&larr; Back to posts</button>
+        <h2 id="editorTitle" class="font-semibold">New post</h2>
+        <div class="flex items-center gap-2">
+          <button id="previewBtn" class="text-sm px-3 py-1.5 rounded-lg border border-white/15 hover:border-white/40 transition">Preview on site &#8599;</button>
+          <button id="saveBtn" class="text-sm px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium">Save &amp; commit</button>
+        </div>
       </div>
+      <div id="editorStatus" class="hidden mt-3 text-sm rounded-lg px-3 py-2"></div>
 
-      <div class="mt-5 grid gap-4">
-        <div class="grid grid-cols-2 gap-3">
-          <label class="text-sm">Type
-            <select id="f_type" class="field mt-1">
-              <option value="howto">How-To (video)</option>
-              <option value="blog">Article</option>
-            </select>
+      <div class="mt-5 grid lg:grid-cols-2 gap-8">
+        <!-- LEFT: form -->
+        <div class="grid gap-4 content-start">
+          <div class="grid grid-cols-2 gap-3">
+            <label class="text-sm">Type
+              <select id="f_type" class="field mt-1">
+                <option value="howto">How-To (video)</option>
+                <option value="blog">Article</option>
+              </select>
+            </label>
+            <label class="text-sm">Date
+              <input id="f_date" type="date" class="field mt-1" />
+            </label>
+          </div>
+
+          <label class="text-sm">Title
+            <input id="f_title" type="text" class="field mt-1" placeholder="How to pin a note" />
           </label>
-          <label class="text-sm">Date
-            <input id="f_date" type="date" class="field mt-1" />
+          <label class="text-sm">Slug <span class="text-slate-500">(URL)</span>
+            <input id="f_slug" type="text" class="field mt-1 mono" placeholder="how-to-pin-a-note" />
+          </label>
+
+          <fieldset class="text-sm">
+            <span>Platforms</span>
+            <div class="flex gap-4 mt-1.5">
+              <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="android" /> Android</label>
+              <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="ios" /> iOS</label>
+              <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="web" /> Web</label>
+            </div>
+          </fieldset>
+
+          <label class="text-sm">Excerpt <span class="text-slate-500">(card summary)</span>
+            <textarea id="f_excerpt" rows="2" class="field mt-1"></textarea>
+          </label>
+
+          <label id="wrap_youtube" class="text-sm">Primary video — YouTube URL
+            <input id="f_youtube" type="url" class="field mt-1" placeholder="https://www.youtube.com/watch?v=..." />
+            <span class="text-xs text-slate-500">How-To cards open this in a lightbox. Card thumbnail is taken from it automatically.</span>
+          </label>
+
+          <label class="text-sm">Card thumbnail URL <span class="text-slate-500">(optional)</span>
+            <input id="f_thumb" type="url" class="field mt-1" placeholder="https://..." />
+            <button id="thumbUploadBtn" type="button" class="tbtn mt-2">Upload image…</button>
+          </label>
+
+          <div class="text-sm">
+            <div class="flex items-center justify-between">
+              <span>Body <span class="text-slate-500">(Markdown)</span></span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 mt-1.5" id="toolbar">
+              <button type="button" class="tbtn" data-cmd="bold"><b>B</b></button>
+              <button type="button" class="tbtn" data-cmd="italic"><i>I</i></button>
+              <button type="button" class="tbtn" data-cmd="h2">H2</button>
+              <button type="button" class="tbtn" data-cmd="h3">H3</button>
+              <button type="button" class="tbtn" data-cmd="quote">&ldquo; &rdquo;</button>
+              <button type="button" class="tbtn" data-cmd="ul">&bull; List</button>
+              <button type="button" class="tbtn" data-cmd="ol">1. List</button>
+              <button type="button" class="tbtn" data-cmd="code">&lt;/&gt;</button>
+              <button type="button" class="tbtn" data-cmd="link">Link</button>
+              <button type="button" class="tbtn" data-cmd="image">Image</button>
+              <button type="button" class="tbtn" data-cmd="video">Video</button>
+            </div>
+            <textarea id="f_body" rows="16" class="field mt-1.5 mono"></textarea>
+          </div>
+
+          <label class="flex items-center gap-2 text-sm">
+            <input id="f_published" type="checkbox" checked /> Published
           </label>
         </div>
 
-        <label class="text-sm">Title
-          <input id="f_title" type="text" class="field mt-1" placeholder="How to pin a note" />
-        </label>
-
-        <label class="text-sm">Slug <span class="text-slate-500">(URL)</span>
-          <input id="f_slug" type="text" class="field mt-1 mono" placeholder="how-to-pin-a-note" />
-        </label>
-
-        <fieldset class="text-sm">
-          <span>Platforms</span>
-          <div class="flex gap-4 mt-1.5">
-            <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="android" /> Android</label>
-            <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="ios" /> iOS</label>
-            <label class="flex items-center gap-2"><input type="checkbox" class="f_plat" value="web" /> Web</label>
+        <!-- RIGHT: live preview -->
+        <div class="lg:sticky lg:top-20 h-max">
+          <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Live preview</div>
+          <div class="rounded-xl border border-white/10 bg-white/[0.03] p-5 max-h-[70vh] overflow-y-auto">
+            <div id="pv_meta" class="text-xs text-slate-400"></div>
+            <h1 id="pv_title" class="text-3xl font-bold mt-2 leading-tight"></h1>
+            <div id="pv_chips" class="flex flex-wrap gap-1.5 mt-3"></div>
+            <div id="pv_video" class="mt-5"></div>
+            <div id="pv_body" class="prose-preview mt-5"></div>
           </div>
-        </fieldset>
+          <p class="text-xs text-slate-500 mt-2">&ldquo;Preview on site&rdquo; opens the real post page in a new tab with this unsaved draft.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <label class="text-sm">Excerpt
-          <textarea id="f_excerpt" rows="2" class="field mt-1" placeholder="One line shown on the card."></textarea>
+  <!-- Insert media dialog -->
+  <div id="mediaDlg" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-[#0B1220] border border-white/10 rounded-xl p-5">
+      <div class="flex items-center justify-between">
+        <h3 id="mediaTitle" class="font-semibold">Insert image</h3>
+        <button id="mediaClose" class="text-slate-400 hover:text-white text-2xl leading-none">&times;</button>
+      </div>
+      <div class="mt-4 grid gap-3 text-sm">
+        <label>Upload a file <span class="text-slate-500">(committed to the repo)</span>
+          <input id="m_file" type="file" class="field mt-1" />
         </label>
-
-        <label id="wrap_youtube" class="text-sm">YouTube URL
-          <input id="f_youtube" type="url" class="field mt-1" placeholder="https://www.youtube.com/watch?v=..." />
-          <span class="text-xs text-slate-500">Thumbnail is taken from the video automatically unless you set one below.</span>
+        <div class="text-center text-xs text-slate-500">or</div>
+        <label>Paste a URL
+          <input id="m_url" type="url" class="field mt-1" placeholder="https://..." />
         </label>
-
-        <label class="text-sm">Thumbnail URL <span class="text-slate-500">(optional)</span>
-          <input id="f_thumb" type="url" class="field mt-1" placeholder="https://..." />
+        <label id="m_altWrap">Alt text
+          <input id="m_alt" type="text" class="field mt-1" placeholder="Describe the image" />
         </label>
-
-        <label class="text-sm">Body <span class="text-slate-500">(Markdown)</span>
-          <textarea id="f_body" rows="10" class="field mt-1 mono" placeholder="## Steps&#10;1. Open the note&#10;2. ..."></textarea>
-        </label>
-
-        <details class="text-sm">
-          <summary class="cursor-pointer text-slate-400">Preview</summary>
-          <div id="preview" class="prose-preview mt-2 p-3 rounded-lg bg-white/5"></div>
-        </details>
-
-        <label class="flex items-center gap-2 text-sm">
-          <input id="f_published" type="checkbox" checked /> Published
-        </label>
-
-        <div class="flex gap-3 pt-2">
-          <button id="saveBtn" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">Save &amp; commit</button>
-          <button id="cancelBtn" class="px-4 py-2 rounded-lg border border-white/15 hover:border-white/40 transition text-sm">Cancel</button>
+        <p id="m_status" class="text-xs text-slate-400 hidden"></p>
+        <div class="flex gap-2 pt-1">
+          <button id="m_insert" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 transition font-medium text-sm">Insert</button>
+          <button id="m_cancel" class="px-4 py-2 rounded-lg border border-white/15 hover:border-white/40 transition text-sm">Cancel</button>
         </div>
       </div>
     </div>
@@ -146,41 +208,37 @@
   <script>
   (function () {
     var B = window.NotesBlog;
-
     var REPO = { owner: 'TheMoblie1x', repo: 'website', branch: 'main', path: 'notes/blogs/data/posts.json' };
-    var API = 'https://api.github.com/repos/' + REPO.owner + '/' + REPO.repo + '/contents/' + REPO.path;
+    var CONTENTS = 'https://api.github.com/repos/' + REPO.owner + '/' + REPO.repo + '/contents/';
+    var API = CONTENTS + REPO.path;
     var TOKEN_KEY = 'm1x_blog_token';
+    var PREVIEW_KEY = 'm1x_blog_preview';
 
-    var els = {};
-    ['gate','app','tokenInput','connectBtn','gateErr','forgetBtn','repoLine','count','list','newBtn','status',
-     'drawer','drawerTitle','drawerClose','cancelBtn','saveBtn','preview',
-     'f_type','f_date','f_title','f_slug','f_excerpt','f_youtube','f_thumb','f_body','f_published','wrap_youtube'
-    ].forEach(function (id) { els[id] = document.getElementById(id); });
-
-    els.repoLine.textContent = REPO.owner + '/' + REPO.repo + ' · ' + REPO.path;
-
+    var $ = function (id) { return document.getElementById(id); };
     var state = { token: '', sha: null, posts: [], editingId: null };
 
+    $('repoLine').textContent = REPO.owner + '/' + REPO.repo + ' · ' + REPO.path;
+
+    /* ---------- base64 / GitHub ---------- */
     function b64encode(str) { return btoa(unescape(encodeURIComponent(str))); }
     function b64decode(b64) { return decodeURIComponent(escape(atob(b64.replace(/\s/g, '')))); }
-
     function ghHeaders() {
       return { 'Authorization': 'Bearer ' + state.token, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
     }
 
-    function showStatus(msg, kind) {
-      els.status.textContent = msg;
-      els.status.className = 'mt-3 text-sm rounded-lg px-3 py-2 ' +
+    function setStatus(el, msg, kind) {
+      el.textContent = msg;
+      el.className = 'mt-3 text-sm rounded-lg px-3 py-2 ' +
         (kind === 'error' ? 'bg-rose-500/15 text-rose-300' :
          kind === 'ok' ? 'bg-emerald-500/15 text-emerald-300' : 'bg-white/5 text-slate-300');
-      els.status.classList.remove('hidden');
+      el.classList.remove('hidden');
     }
 
     function fetchFile() {
-      showStatus('Loading posts…');
+      setStatus($('status'), 'Loading posts…');
       return fetch(API + '?ref=' + REPO.branch + '&t=' + Date.now(), { headers: ghHeaders(), cache: 'no-store' })
         .then(function (r) {
-          if (r.status === 401) throw new Error('Token rejected (401). Check scope and expiry.');
+          if (r.status === 401) throw new Error('Token rejected (401). Check the token scope and expiry.');
           if (r.status === 404) { state.sha = null; return { posts: [] }; }
           if (!r.ok) throw new Error('GitHub ' + r.status);
           return r.json().then(function (j) {
@@ -192,181 +250,311 @@
         .then(function (data) {
           state.posts = ((data && data.posts) || []).map(B.normalisePost);
           renderList();
-          showStatus(state.posts.length + ' post(s) loaded.', 'ok');
+          setStatus($('status'), state.posts.length + ' post(s) loaded.', 'ok');
         });
     }
 
-    function commit(message) {
+    function cleanForSave(p) {
+      return { id: p.id, type: p.type, title: p.title, slug: p.slug, platforms: p.platforms,
+        excerpt: p.excerpt, thumbnail: p.thumbnail, youtubeUrl: p.youtubeUrl, body: p.body,
+        date: p.date, published: p.published };
+    }
+
+    function commit(message, statusEl) {
       var body = JSON.stringify({ posts: state.posts.map(cleanForSave) }, null, 2) + '\n';
       var payload = { message: message, content: b64encode(body), branch: REPO.branch };
       if (state.sha) payload.sha = state.sha;
-      showStatus('Committing…');
+      setStatus(statusEl, 'Committing…');
       return fetch(API, { method: 'PUT', headers: ghHeaders(), body: JSON.stringify(payload) })
         .then(function (r) {
-          if (r.status === 409) throw new Error('Conflict — the file changed elsewhere. Reload the page.');
+          if (r.status === 409) throw new Error('Conflict — posts.json changed elsewhere. Reload the page.');
           if (!r.ok) return r.json().then(function (j) { throw new Error(j.message || ('GitHub ' + r.status)); });
           return r.json();
         })
         .then(function (j) {
           state.sha = j.content && j.content.sha;
-          showStatus('Saved. Netlify will redeploy in ~30s.', 'ok');
+          setStatus(statusEl, 'Saved. Netlify redeploys in ~30s.', 'ok');
         });
     }
 
-    function cleanForSave(p) {
-      return {
-        id: p.id, type: p.type, title: p.title, slug: p.slug,
-        platforms: p.platforms, excerpt: p.excerpt, thumbnail: p.thumbnail,
-        youtubeUrl: p.youtubeUrl, body: p.body, date: p.date, published: p.published
-      };
+    /* Upload a binary file to notes/blogs/assets/uploads/, return the path relative to notes/blogs/ */
+    function uploadAsset(file, statusEl) {
+      if (file.size > 40 * 1024 * 1024) return Promise.reject(new Error('File is over 40 MB — too big for this uploader.'));
+      if (file.size > 20 * 1024 * 1024) setStatus(statusEl, 'Large file (' + Math.round(file.size / 1048576) + ' MB), this may take a while…');
+      var name = Date.now() + '-' + file.name.toLowerCase().replace(/[^a-z0-9.\-]+/g, '-').replace(/^-+|-+$/g, '');
+      var repoPath = 'notes/blogs/assets/uploads/' + name;
+      return new Promise(function (res, rej) {
+        var fr = new FileReader();
+        fr.onerror = function () { rej(new Error('Could not read the file.')); };
+        fr.onload = function () {
+          var b64 = String(fr.result).split(',')[1];
+          setStatus(statusEl, 'Uploading ' + file.name + '…');
+          fetch(CONTENTS + repoPath, { method: 'PUT', headers: ghHeaders(), body: JSON.stringify({
+            message: 'Upload blog asset: ' + name, content: b64, branch: REPO.branch
+          }) }).then(function (r) {
+            if (!r.ok) return r.json().then(function (j) { throw new Error(j.message || ('GitHub ' + r.status)); });
+            return r.json();
+          }).then(function () { res('assets/uploads/' + name); }).catch(rej);
+        };
+        fr.readAsDataURL(file);
+      });
     }
 
+    /* ---------- list view ---------- */
+    function byId(id) { return state.posts.filter(function (p) { return p.id === id; })[0]; }
+
     function renderList() {
-      els.count.textContent = '(' + state.posts.length + ')';
+      $('count').textContent = '(' + state.posts.length + ')';
       var sorted = state.posts.slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
-      els.list.innerHTML = sorted.map(function (p) {
+      $('list').innerHTML = sorted.map(function (p) {
         return '<li class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10" data-id="' + B.escapeHtml(p.id) + '">' +
           '<span class="text-[11px] font-semibold uppercase px-2 py-0.5 rounded ' + (p.type === 'howto' ? 'bg-brand-500/20 text-brand-400' : 'bg-emerald-500/20 text-emerald-400') + '">' + (p.type === 'howto' ? 'How-To' : 'Article') + '</span>' +
-          '<div class="flex-1 min-w-0">' +
-            '<div class="font-medium truncate">' + B.escapeHtml(p.title) + '</div>' +
-            '<div class="text-xs text-slate-500 mono truncate">' + B.escapeHtml(p.slug) + ' &middot; ' + p.date + ' &middot; ' + (p.platforms.join(', ') || 'no platforms') + '</div>' +
-          '</div>' +
+          '<div class="flex-1 min-w-0"><div class="font-medium truncate">' + B.escapeHtml(p.title) + '</div>' +
+          '<div class="text-xs text-slate-500 mono truncate">' + B.escapeHtml(p.slug) + ' · ' + p.date + ' · ' + (p.platforms.join(', ') || 'no platforms') + '</div></div>' +
           '<button class="js-pub text-xs px-2 py-1 rounded border ' + (p.published ? 'border-emerald-500/40 text-emerald-400' : 'border-white/15 text-slate-400') + '">' + (p.published ? 'Published' : 'Draft') + '</button>' +
           '<button class="js-edit text-xs px-2 py-1 rounded border border-white/15 hover:border-white/40">Edit</button>' +
-          '<button class="js-del text-xs px-2 py-1 rounded border border-rose-500/30 text-rose-400 hover:border-rose-500/60">Delete</button>' +
-        '</li>';
-      }).join('') || '<li class="text-slate-500 text-sm p-3">No posts yet. Click “New post”.</li>';
+          '<button class="js-del text-xs px-2 py-1 rounded border border-rose-500/30 text-rose-400 hover:border-rose-500/60">Delete</button></li>';
+      }).join('') || '<li class="text-slate-500 text-sm p-3">No posts yet. Click &ldquo;New post&rdquo;.</li>';
 
-      els.list.querySelectorAll('li[data-id]').forEach(function (li) {
+      $('list').querySelectorAll('li[data-id]').forEach(function (li) {
         var id = li.dataset.id;
-        li.querySelector('.js-edit').addEventListener('click', function () { openDrawer(id); });
+        li.querySelector('.js-edit').addEventListener('click', function () { openEditor(id); });
         li.querySelector('.js-pub').addEventListener('click', function () {
           var p = byId(id); p.published = !p.published;
-          commit((p.published ? 'Publish' : 'Unpublish') + ' post: ' + p.title).then(renderList).catch(function (e) { showStatus(e.message, 'error'); });
+          commit((p.published ? 'Publish' : 'Unpublish') + ' post: ' + p.title, $('status')).then(renderList).catch(function (e) { setStatus($('status'), e.message, 'error'); });
         });
         li.querySelector('.js-del').addEventListener('click', function () {
           var p = byId(id);
           if (!confirm('Delete "' + p.title + '"? This commits immediately.')) return;
           state.posts = state.posts.filter(function (x) { return x.id !== id; });
-          commit('Delete post: ' + p.title).then(renderList).catch(function (e) { showStatus(e.message, 'error'); });
+          commit('Delete post: ' + p.title, $('status')).then(renderList).catch(function (e) { setStatus($('status'), e.message, 'error'); });
         });
       });
     }
 
-    function byId(id) { return state.posts.filter(function (p) { return p.id === id; })[0]; }
+    /* ---------- editor view ---------- */
+    function showEditor(on) {
+      $('editorView').classList.toggle('hidden', !on);
+      $('listView').classList.toggle('hidden', on);
+      document.body.style.overflow = on ? 'hidden' : '';
+      if (on) $('editorView').scrollTop = 0;
+    }
 
-    /* drawer */
-    function openDrawer(id) {
+    function openEditor(id) {
       state.editingId = id || null;
       var p = id ? byId(id) : B.normalisePost({ type: 'howto', platforms: ['android', 'ios', 'web'] });
-      els.drawerTitle.textContent = id ? 'Edit post' : 'New post';
-      els.f_type.value = p.type;
-      els.f_date.value = p.date;
-      els.f_title.value = p.title === 'Untitled' && !id ? '' : p.title;
-      els.f_slug.value = id ? p.slug : '';
-      els.f_excerpt.value = p.excerpt;
-      els.f_youtube.value = p.youtubeUrl;
-      els.f_thumb.value = p.thumbnail;
-      els.f_body.value = p.body;
-      els.f_published.checked = p.published;
+      $('editorTitle').textContent = id ? 'Edit post' : 'New post';
+      $('f_type').value = p.type;
+      $('f_date').value = p.date;
+      $('f_title').value = (p.title === 'Untitled' && !id) ? '' : p.title;
+      $('f_slug').value = id ? p.slug : '';
+      $('f_slug').dataset.auto = id ? 'off' : '';
+      $('f_excerpt').value = p.excerpt;
+      $('f_youtube').value = p.youtubeUrl;
+      $('f_thumb').value = p.thumbnail;
+      $('f_body').value = p.body;
+      $('f_published').checked = p.published;
       document.querySelectorAll('.f_plat').forEach(function (cb) { cb.checked = p.platforms.indexOf(cb.value) !== -1; });
+      $('editorStatus').classList.add('hidden');
       syncType();
       updatePreview();
-      els.drawer.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeDrawer() {
-      els.drawer.classList.add('hidden');
-      document.body.style.overflow = '';
-      state.editingId = null;
+      showEditor(true);
+      history.pushState({ v: 'edit' }, '');
     }
 
-    function syncType() { els.wrap_youtube.style.display = els.f_type.value === 'howto' ? '' : 'none'; }
-    function updatePreview() {
-      els.preview.innerHTML = window.marked ? marked.parse(els.f_body.value || '') : B.escapeHtml(els.f_body.value || '');
-    }
-
-    els.f_type.addEventListener('change', syncType);
-    els.f_body.addEventListener('input', updatePreview);
-    els.f_title.addEventListener('input', function () {
-      if (!state.editingId && (!els.f_slug.value || els.f_slug.dataset.auto !== 'off')) {
-        els.f_slug.value = B.slugify(els.f_title.value);
-      }
-    });
-    els.f_slug.addEventListener('input', function () { els.f_slug.dataset.auto = 'off'; });
-    els.f_youtube.addEventListener('blur', function () {
-      if (!els.f_thumb.value) {
-        var t = B.youTubeThumb(els.f_youtube.value);
-        if (t) els.f_thumb.placeholder = 'auto: ' + t;
-      }
-    });
-
-    els.saveBtn.addEventListener('click', function () {
-      var title = els.f_title.value.trim();
-      if (!title) { alert('Title is required.'); return; }
-      var slug = B.slugify(els.f_slug.value || title);
-      var dupe = state.posts.filter(function (p) { return p.slug === slug && p.id !== state.editingId; })[0];
-      if (dupe) { alert('Another post already uses the slug "' + slug + '".'); return; }
-      var type = els.f_type.value;
-      var youtubeUrl = els.f_youtube.value.trim();
-      if (type === 'howto' && !B.parseYouTubeId(youtubeUrl)) {
-        if (!confirm('This How-To has no valid YouTube URL. Save anyway (it will open as an article)?')) return;
-      }
-
-      var rec = {
+    function currentDraft() {
+      return {
         id: state.editingId || String(Date.now()),
-        type: type,
-        title: title,
-        slug: slug,
+        type: $('f_type').value,
+        title: $('f_title').value.trim() || 'Untitled',
+        slug: B.slugify($('f_slug').value || $('f_title').value || 'untitled'),
         platforms: Array.prototype.map.call(document.querySelectorAll('.f_plat:checked'), function (cb) { return cb.value; }),
-        excerpt: els.f_excerpt.value.trim(),
-        thumbnail: els.f_thumb.value.trim(),
-        youtubeUrl: youtubeUrl,
-        body: els.f_body.value,
-        date: els.f_date.value || new Date().toISOString().slice(0, 10),
-        published: els.f_published.checked
+        excerpt: $('f_excerpt').value.trim(),
+        thumbnail: $('f_thumb').value.trim(),
+        youtubeUrl: $('f_youtube').value.trim(),
+        body: $('f_body').value,
+        date: $('f_date').value || new Date().toISOString().slice(0, 10),
+        published: $('f_published').checked
       };
+    }
 
-      if (state.editingId) {
-        state.posts = state.posts.map(function (p) { return p.id === rec.id ? rec : p; });
-      } else {
-        state.posts.push(rec);
-      }
-      els.saveBtn.disabled = true;
-      commit((state.editingId ? 'Update' : 'Add') + ' post: ' + title)
-        .then(function () { renderList(); closeDrawer(); })
-        .catch(function (e) { showStatus(e.message, 'error'); })
-        .then(function () { els.saveBtn.disabled = false; });
+    function syncType() { $('wrap_youtube').style.display = $('f_type').value === 'howto' ? '' : 'none'; }
+
+    /* preview pane: rewrite repo-relative asset paths so they resolve from this sub-folder */
+    function fixAssetPaths(html) {
+      return html.replace(/((?:src|href)=")assets\//g, '$1../assets/');
+    }
+    function updatePreview() {
+      var d = currentDraft();
+      $('pv_meta').textContent = (d.type === 'howto' ? 'How-To' : 'Article') + ' · ' + B.formatDate(d.date);
+      $('pv_title').textContent = d.title;
+      $('pv_chips').innerHTML = d.platforms.map(function (p) {
+        return '<span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-white/10 text-slate-300">' + B.PLATFORM_LABELS[p] + '</span>';
+      }).join(' ');
+      var vid = B.parseYouTubeId(d.youtubeUrl);
+      $('pv_video').innerHTML = vid
+        ? '<div class="relative w-full rounded-xl overflow-hidden bg-black" style="padding-top:56.25%"><iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/' + vid + '?rel=0" allowfullscreen></iframe></div>'
+        : '';
+      $('pv_body').innerHTML = fixAssetPaths(B.renderMarkdown(d.body));
+    }
+
+    /* ---------- markdown toolbar ---------- */
+    function surround(pre, post) {
+      var t = $('f_body'), s = t.selectionStart, e = t.selectionEnd, v = t.value;
+      var sel = v.slice(s, e) || 'text';
+      t.value = v.slice(0, s) + pre + sel + post + v.slice(e);
+      t.focus(); t.selectionStart = s + pre.length; t.selectionEnd = s + pre.length + sel.length;
+      updatePreview();
+    }
+    function linePrefix(fn) {
+      var t = $('f_body'), s = t.selectionStart, e = t.selectionEnd, v = t.value;
+      var ls = v.lastIndexOf('\n', s - 1) + 1;
+      var le = v.indexOf('\n', e); if (le === -1) le = v.length;
+      var lines = v.slice(ls, le).split('\n');
+      var i = 0;
+      var out = lines.map(function (ln) { return fn(ln, i++); }).join('\n');
+      t.value = v.slice(0, ls) + out + v.slice(le);
+      t.focus(); t.selectionStart = ls; t.selectionEnd = ls + out.length;
+      updatePreview();
+    }
+    function insertText(text) {
+      var t = $('f_body'), s = t.selectionStart, v = t.value;
+      t.value = v.slice(0, s) + text + v.slice(t.selectionEnd);
+      t.focus(); t.selectionStart = t.selectionEnd = s + text.length;
+      updatePreview();
+    }
+
+    var TOOLBAR = {
+      bold: function () { surround('**', '**'); },
+      italic: function () { surround('*', '*'); },
+      code: function () { surround('`', '`'); },
+      h2: function () { linePrefix(function (l) { return '## ' + l.replace(/^#+\s*/, ''); }); },
+      h3: function () { linePrefix(function (l) { return '### ' + l.replace(/^#+\s*/, ''); }); },
+      quote: function () { linePrefix(function (l) { return '> ' + l.replace(/^>\s*/, ''); }); },
+      ul: function () { linePrefix(function (l) { return '- ' + l.replace(/^[-*]\s+/, ''); }); },
+      ol: function () { linePrefix(function (l, i) { return (i + 1) + '. ' + l.replace(/^\d+\.\s+/, ''); }); },
+      link: function () {
+        var u = prompt('Link URL', 'https://'); if (!u) return;
+        surround('[', '](' + u + ')');
+      },
+      image: function () { openMedia('image'); },
+      video: function () { openMedia('video'); }
+    };
+    $('toolbar').addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-cmd]'); if (!btn) return;
+      (TOOLBAR[btn.dataset.cmd] || function () {})();
     });
 
-    els.drawerClose.addEventListener('click', closeDrawer);
-    els.cancelBtn.addEventListener('click', closeDrawer);
-    els.newBtn.addEventListener('click', function () { openDrawer(null); });
+    /* ---------- media dialog ---------- */
+    var mediaMode = 'image', mediaTarget = 'body';
+    function openMedia(mode, target) {
+      mediaMode = mode; mediaTarget = target || 'body';
+      $('mediaTitle').textContent = mode === 'image' ? 'Insert image' : 'Insert video';
+      $('m_altWrap').style.display = mode === 'image' ? '' : 'none';
+      $('m_file').value = ''; $('m_url').value = ''; $('m_alt').value = '';
+      $('m_status').classList.add('hidden');
+      $('m_file').setAttribute('accept', mode === 'image' ? 'image/*' : 'video/*');
+      $('mediaDlg').classList.remove('hidden');
+    }
+    function closeMedia() { $('mediaDlg').classList.remove; $('mediaDlg').classList.add('hidden'); }
+    $('mediaClose').addEventListener('click', closeMedia);
+    $('m_cancel').addEventListener('click', closeMedia);
 
-    /* token */
+    $('m_insert').addEventListener('click', function () {
+      var file = $('m_file').files[0];
+      var url = $('m_url').value.trim();
+      var done = function (finalUrl) {
+        if (mediaTarget === 'thumb') { $('f_thumb').value = finalUrl; updatePreview(); closeMedia(); return; }
+        if (mediaMode === 'image') {
+          insertText('\n![' + ($('m_alt').value.trim() || 'image') + '](' + finalUrl + ')\n');
+        } else {
+          var yt = B.parseYouTubeId(finalUrl);
+          if (yt) insertText('\n<iframe width="100%" style="aspect-ratio:16/9;border:0;border-radius:.6rem" src="https://www.youtube-nocookie.com/embed/' + yt + '?rel=0" allowfullscreen></iframe>\n');
+          else insertText('\n<video controls playsinline preload="metadata" src="' + finalUrl + '" style="width:100%;border-radius:.6rem"></video>\n');
+        }
+        closeMedia();
+      };
+      if (file) {
+        $('m_insert').disabled = true;
+        setStatus($('m_status') && ($('m_status').classList.remove('hidden'), $('m_status')), 'Uploading…');
+        uploadAsset(file, $('m_status'))
+          .then(done)
+          .catch(function (e) { $('m_status').classList.remove('hidden'); $('m_status').textContent = e.message; })
+          .then(function () { $('m_insert').disabled = false; });
+      } else if (url) {
+        done(url);
+      } else {
+        $('m_status').classList.remove('hidden'); $('m_status').textContent = 'Choose a file or paste a URL.';
+      }
+    });
+
+    $('thumbUploadBtn').addEventListener('click', function () { openMedia('image', 'thumb'); });
+
+    /* ---------- editor wiring ---------- */
+    $('f_type').addEventListener('change', function () { syncType(); updatePreview(); });
+    ['f_title', 'f_date', 'f_excerpt', 'f_youtube', 'f_thumb', 'f_body'].forEach(function (id) {
+      $(id).addEventListener('input', updatePreview);
+    });
+    document.querySelectorAll('.f_plat').forEach(function (cb) { cb.addEventListener('change', updatePreview); });
+    $('f_title').addEventListener('input', function () {
+      if (!state.editingId && $('f_slug').dataset.auto !== 'off') $('f_slug').value = B.slugify($('f_title').value);
+    });
+    $('f_slug').addEventListener('input', function () { $('f_slug').dataset.auto = 'off'; });
+
+    $('backBtn').addEventListener('click', function () { history.back(); });
+    window.addEventListener('popstate', function () {
+      if (!$('editorView').classList.contains('hidden')) showEditor(false);
+    });
+
+    $('previewBtn').addEventListener('click', function () {
+      try { localStorage.setItem(PREVIEW_KEY, JSON.stringify(currentDraft())); }
+      catch (e) { alert('Could not open preview: ' + e.message); return; }
+      window.open('../post.html?preview=1', '_blank', 'noopener');
+    });
+
+    $('saveBtn').addEventListener('click', function () {
+      var title = $('f_title').value.trim();
+      if (!title) { setStatus($('editorStatus'), 'Title is required.', 'error'); return; }
+      var d = currentDraft();
+      var dupe = state.posts.filter(function (p) { return p.slug === d.slug && p.id !== state.editingId; })[0];
+      if (dupe) { setStatus($('editorStatus'), 'Another post already uses the slug "' + d.slug + '".', 'error'); return; }
+      if (d.type === 'howto' && !B.parseYouTubeId(d.youtubeUrl) &&
+          !confirm('This How-To has no valid YouTube URL — its card will open the article page instead. Save anyway?')) return;
+
+      if (state.editingId) state.posts = state.posts.map(function (p) { return p.id === d.id ? d : p; });
+      else state.posts.push(d);
+
+      $('saveBtn').disabled = true;
+      commit((state.editingId ? 'Update' : 'Add') + ' post: ' + title, $('editorStatus'))
+        .then(function () { renderList(); showEditor(false); })
+        .catch(function (e) { setStatus($('editorStatus'), e.message, 'error'); })
+        .then(function () { $('saveBtn').disabled = false; });
+    });
+
+    $('newBtn').addEventListener('click', function () { openEditor(null); });
+
+    /* ---------- token / connect ---------- */
     function connect(token) {
       state.token = token;
-      els.gateErr.classList.add('hidden');
+      $('gateErr').classList.add('hidden');
       fetchFile()
         .then(function () {
           try { localStorage.setItem(TOKEN_KEY, token); } catch (e) {}
-          els.gate.classList.add('hidden');
-          els.app.classList.remove('hidden');
-          els.forgetBtn.classList.remove('hidden');
+          $('gate').classList.add('hidden');
+          $('app').classList.remove('hidden');
+          $('forgetBtn').classList.remove('hidden');
         })
         .catch(function (e) {
           state.token = '';
-          els.gateErr.textContent = e.message;
-          els.gateErr.classList.remove('hidden');
+          $('gateErr').textContent = e.message;
+          $('gateErr').classList.remove('hidden');
         });
     }
-
-    els.connectBtn.addEventListener('click', function () {
-      var t = els.tokenInput.value.trim();
-      if (t) connect(t);
+    $('connectBtn').addEventListener('click', function () {
+      var t = $('tokenInput').value.trim(); if (t) connect(t);
     });
-    els.tokenInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') els.connectBtn.click(); });
-    els.forgetBtn.addEventListener('click', function () {
+    $('tokenInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('connectBtn').click(); });
+    $('forgetBtn').addEventListener('click', function () {
       try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
       location.reload();
     });
@@ -374,7 +562,7 @@
     var stored = '';
     try { stored = localStorage.getItem(TOKEN_KEY) || ''; } catch (e) {}
     if (stored) connect(stored);
-    else els.gate.classList.remove('hidden');
+    else $('gate').classList.remove('hidden');
   })();
   </script>
 </body>
