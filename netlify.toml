@@ -16,6 +16,16 @@
   status = 200
   force = true
 
+# Fallback for share links generated without the /Collab prefix (e.g. from a
+# stale tab still running a pre-migration bundle). Proxies straight to the
+# app's own /share/* route rather than its root, since these links have no
+# /Collab segment for the app's rewrite rules to key off of.
+[[redirects]]
+  from = "/share/*"
+  to = "https://prismatic-paprenjak-55c52f.netlify.app/share/:splat"
+  status = 200
+  force = true
+
 # Serve the notes.mobile1x.com subdomain directly from /notes (no iframe,
 # no registrar masking). Requires notes.mobile1x.com to be added as a
 # domain alias on this Netlify site and its DNS pointed here (CNAME -> the
