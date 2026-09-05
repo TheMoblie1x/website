@@ -1,3 +1,14 @@
+# Proxy /Collab to the Collab task/kanban app, hosted as its own Netlify
+# site. Status 200 + force keeps the URL on mobile1x.com/Collab instead of
+# redirecting to the netlify.app domain. That app is built with Vite
+# `base: '/Collab/'`, so its own asset URLs already carry the /Collab
+# prefix and resolve correctly through this proxy.
+[[redirects]]
+  from = "/Collab/*"
+  to = "https://prismatic-paprenjak-55c52f.netlify.app/:splat"
+  status = 200
+  force = true
+
 # Serve the notes.mobile1x.com subdomain directly from /notes (no iframe,
 # no registrar masking). Requires notes.mobile1x.com to be added as a
 # domain alias on this Netlify site and its DNS pointed here (CNAME -> the
