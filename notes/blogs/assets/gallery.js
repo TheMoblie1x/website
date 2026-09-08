@@ -84,7 +84,13 @@
       el.addEventListener('click', function () {
         var post = state.posts.filter(function (p) { return p.id === el.dataset.id; })[0];
         if (!post) return;
-        if (post.type === 'howto' && B.parseYouTubeId(post.youtubeUrl)) openLightbox(post);
+        var isVideo = post.type === 'howto' && B.parseYouTubeId(post.youtubeUrl);
+        if (window.notesTrack) {
+          window.notesTrack(isVideo ? 'video_play' : 'blog_post_open', {
+            post_title: post.title, post_slug: post.slug, post_type: post.type
+          });
+        }
+        if (isVideo) openLightbox(post);
         else window.location.href = 'post.html?slug=' + encodeURIComponent(post.slug);
       });
     });
