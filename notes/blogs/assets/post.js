@@ -28,6 +28,12 @@
 
   function renderPost(post) {
 
+    if (window.notesTrack) {
+      window.notesTrack('blog_post_view', {
+        post_title: post.title, post_slug: post.slug, post_type: post.type
+      });
+    }
+
     document.title = post.title + ' — Notes by Mobile1X';
     setMeta('description', post.excerpt || ('A guide from the Notes by Mobile1X blog: ' + post.title));
     setProp('og:title', post.title);
