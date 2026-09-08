@@ -410,6 +410,106 @@
       );
     };
 
+    // --- Product Hunt Scheduled Launch ---
+    const PH_LAUNCH = {
+      name: "Notes - Archive & Reflect",
+      tagline: "Keep everything. Rediscover anything.",
+      postId: 1245088,
+      url: "https://www.producthunt.com/products/notes-archive-reflect?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-notes-archive-reflect",
+      // Scheduled: 9 Sep 2026, 12:01 AM PT (UTC-07:00) — featured on the homepage for 24 hours
+      launchAt: "2026-09-09T00:01:00-07:00",
+      featuredHours: 24,
+      launchLabel: "September 9, 2026 · 12:01 AM PT"
+    };
+
+    const useCountdown = (targetIso, activeHours = 0) => {
+      const target = useMemo(() => new Date(targetIso).getTime(), [targetIso]);
+      const [now, setNow] = useState(() => Date.now());
+
+      useEffect(() => {
+        const id = setInterval(() => setNow(Date.now()), 1000);
+        return () => clearInterval(id);
+      }, []);
+
+      const totalSeconds = Math.max(0, Math.floor((target - now) / 1000));
+      const reached = now >= target;
+      return {
+        reached,
+        ended: reached && now >= target + activeHours * 3600 * 1000,
+        days: Math.floor(totalSeconds / 86400),
+        hours: Math.floor((totalSeconds % 86400) / 3600),
+        minutes: Math.floor((totalSeconds % 3600) / 60),
+        seconds: totalSeconds % 60
+      };
+    };
+
+    const ProductHuntLaunch = () => {
+      const { theme } = useTheme();
+      const { reached, ended, days, hours, minutes, seconds } = useCountdown(PH_LAUNCH.launchAt, PH_LAUNCH.featuredHours);
+      const badgeTheme = theme === 'dark' ? 'dark' : 'light';
+      const status = ended ? "Featured on Product Hunt" : reached ? "Live now on Product Hunt" : "Launching soon";
+
+      const units = [
+        { label: "Days", value: days },
+        { label: "Hours", value: hours },
+        { label: "Minutes", value: minutes },
+        { label: "Seconds", value: seconds }
+      ];
+
+      return (
+        <section id="product-hunt" className="py-20 px-6 relative border-t border-slate-200 dark:border-slate-800/80">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className={`max-w-4xl mx-auto rounded-[40px] p-8 md:p-12 text-center ${theme === 'dark' ? 'glass-card-dark' : 'glass-card-light'} shadow-xl`}
+          >
+            <span className="inline-flex items-center gap-2 text-xs font-mono-custom tracking-widest text-[#DA552F] font-bold uppercase">
+              <i data-lucide="rocket" className="w-3.5 h-3.5"></i>
+              Scheduled on Product Hunt
+            </span>
+
+            <h2 className="mt-4 text-4xl md:text-5xl font-serif-custom font-bold text-slate-900 dark:text-white">
+              {PH_LAUNCH.name}
+            </h2>
+            <p className="mt-2 text-slate-600 dark:text-slate-400 text-sm md:text-base font-light">
+              {PH_LAUNCH.tagline} — going live{' '}
+              <span className="font-semibold text-slate-800 dark:text-slate-200">{PH_LAUNCH.launchLabel}</span>
+            </p>
+
+            {!reached && (
+              <div className="mt-8 flex items-stretch justify-center gap-3 md:gap-4">
+                {units.map((u) => (
+                  <div key={u.label} className="flex-1 max-w-[110px] rounded-2xl bg-white dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 px-2 py-4 shadow-sm">
+                    <p className="text-3xl md:text-4xl font-serif-custom font-bold text-slate-900 dark:text-white tabular-nums">
+                      {String(u.value).padStart(2, '0')}
+                    </p>
+                    <p className="text-[10px] font-mono-custom uppercase tracking-wider text-slate-400 dark:text-slate-500 mt-1">{u.label}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <p className="mt-6 text-xs font-mono-custom uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+              {status}
+            </p>
+
+            <div className="mt-8 flex justify-center">
+              <a href={PH_LAUNCH.url} target="_blank" rel="noopener noreferrer" className="inline-block transition-transform hover:scale-105 active:scale-95">
+                <img
+                  alt="Notes - Archive & Reflect - Keep everything. Rediscover anything. | Product Hunt"
+                  width="250"
+                  height="54"
+                  src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${PH_LAUNCH.postId}&theme=${badgeTheme}&t=1788894788093`}
+                />
+              </a>
+            </div>
+          </motion.div>
+        </section>
+      );
+    };
+
     // --- Horizontal Spatial Kinetic Deck ---
     const KineticDeck = () => {
       const { theme } = useTheme();
@@ -648,6 +748,9 @@
                 </motion.div>
               </div>
             </section>
+
+            {/* Product Hunt Scheduled Launch */}
+            <ProductHuntLaunch />
 
             {/* Kinetic Manuscripts Section */}
             <section id="kinetic-deck" className="py-24 relative border-t border-slate-200 dark:border-slate-800/80 bg-slate-100/50 dark:bg-slate-950/40 transition-colors duration-300">
