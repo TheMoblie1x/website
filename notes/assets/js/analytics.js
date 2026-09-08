@@ -23,13 +23,26 @@
     { host: 'producthunt.com', event: 'product_hunt_click' }
   ];
 
+  // Which of the (repeated) store buttons was clicked — nav, footer, a
+  // section id ('download', 'product-hunt'), else the hero.
+  function linkLocation(link) {
+    if (link.closest('header')) return 'nav';
+    if (link.closest('footer')) return 'footer';
+    var section = link.closest('section[id]');
+    return section ? section.id : 'hero';
+  }
+
   document.addEventListener('click', function (e) {
     var link = e.target.closest && e.target.closest('a[href]');
     if (!link) return;
     var href = link.href || '';
     for (var i = 0; i < OUTBOUND.length; i++) {
       if (href.indexOf(OUTBOUND[i].host) !== -1) {
-        track(OUTBOUND[i].event, { link_url: href, link_domain: OUTBOUND[i].host });
+        track(OUTBOUND[i].event, {
+          link_url: href,
+          link_domain: OUTBOUND[i].host,
+          link_location: linkLocation(link)
+        });
         return;
       }
     }
