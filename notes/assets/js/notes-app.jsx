@@ -709,11 +709,11 @@
                   </div>
 
                   <h1 className="text-5xl md:text-7xl font-serif-custom font-bold text-slate-900 dark:text-white tracking-tight leading-[1.06]">
-                    Preserve your thoughts in <span className="italic text-indigo-600 dark:text-indigo-400 font-normal">three dimensions.</span>
+                    Your private AI brain, <span className="italic text-indigo-600 dark:text-indigo-400 font-normal">wherever you think.</span>
                   </h1>
 
                   <p className="text-base md:text-xl text-slate-600 dark:text-slate-400 max-w-xl font-light leading-relaxed">
-                    A high-craft notes workspace merging physical typography, fluid gesture springs, and hardware-level biometric encryption.
+                    A high-craft notes workspace for Android and iOS, merging physical typography, fluid gesture springs, and hardware-level biometric encryption.
                   </p>
 
                   {/* Direct App Store & Play Store Links */}
