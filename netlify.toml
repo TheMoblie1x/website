@@ -16,19 +16,6 @@
   status = 200
   force = true
 
-# Proxy /english to the BhashaSetu app, its own Netlify site (Vite
-# `base: '/english/'`). Status 200 + force keeps the URL on mobile1x.com/english.
-[[redirects]]
-  from = "/english"
-  to = "/english/"
-  status = 301
-
-[[redirects]]
-  from = "/english/*"
-  to = "https://thebhashasetu.netlify.app/:splat"
-  status = 200
-  force = true
-
 # Fallback for share links generated without the /Collab prefix (e.g. from a
 # stale tab still running a pre-migration bundle). Proxies straight to the
 # app's own /share/* route rather than its root, since these links have no
