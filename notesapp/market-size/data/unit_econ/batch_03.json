@@ -1,0 +1,98 @@
+[
+  {
+    "c": "Goodnotes",
+    "primaryRevenue": "Subscription (annual)",
+    "secondaryRevenue": "AI Pass add-on, legacy one-time purchase (Special Edition), third-party template/sticker marketplace",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 15,
+    "cacHighUSD": 55,
+    "ltvLowUSD": 55,
+    "ltvHighUSD": 190,
+    "demographics": "Students and knowledge workers, 16-30, iPad-heavy"
+  },
+  {
+    "c": "Notability",
+    "primaryRevenue": "Subscription (Lite/Plus/Pro tiers)",
+    "secondaryRevenue": "Grandfathered legacy one-time-purchase users, free education institutional access",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 10,
+    "cacHighUSD": 45,
+    "ltvLowUSD": 50,
+    "ltvHighUSD": 150,
+    "demographics": "Students K-12/college, Apple-ecosystem, US-skewed"
+  },
+  {
+    "c": "NotePlan",
+    "primaryRevenue": "Subscription (monthly/annual, no permanent free tier)",
+    "secondaryRevenue": "None identified",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 10,
+    "cacHighUSD": 40,
+    "ltvLowUSD": 150,
+    "ltvHighUSD": 350,
+    "demographics": "PKM power users and knowledge workers, 25-45, US/Europe"
+  },
+  {
+    "c": "Amplenote",
+    "primaryRevenue": "Subscription (Pro/Unlimited/Founder tiers)",
+    "secondaryRevenue": "Tiered feature upsells (Graph View, calendar sync, encryption, publishing), Founder early-adopter tier",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 10,
+    "cacHighUSD": 40,
+    "ltvLowUSD": 100,
+    "ltvHighUSD": 300,
+    "demographics": "PKM/productivity power users, 25-45, global with US skew"
+  },
+  {
+    "c": "MyScript / Nebo",
+    "primaryRevenue": "B2B SDK/technology licensing (Interactive Ink engine to OEMs)",
+    "secondaryRevenue": "Direct-to-consumer Nebo app sales (hybrid one-time/subscription)",
+    "growthModel": "Sales-led enterprise",
+    "adSupported": false,
+    "cacLowUSD": 10000,
+    "cacHighUSD": 25000,
+    "ltvLowUSD": 50000,
+    "ltvHighUSD": 150000,
+    "demographics": "Device OEMs and enterprise software vendors (B2B); secondarily students/professionals on stylus devices"
+  },
+  {
+    "c": "Noteshelf",
+    "primaryRevenue": "One-time purchase (app unlock)",
+    "secondaryRevenue": "Repeat purchases across major version upgrades, emerging subscription tiers",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 5,
+    "cacHighUSD": 30,
+    "ltvLowUSD": 20,
+    "ltvHighUSD": 60,
+    "demographics": "Budget-conscious students and general consumers, cross-platform, global incl. India/Asia"
+  },
+  {
+    "c": "CollaNote",
+    "primaryRevenue": "One-time in-app purchase (Pro unlock)",
+    "secondaryRevenue": "None identified",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 5,
+    "cacHighUSD": 25,
+    "ltvLowUSD": 10,
+    "ltvHighUSD": 30,
+    "demographics": "Students/study groups needing real-time collaboration, iPad-focused, niche"
+  },
+  {
+    "c": "MarginNote",
+    "primaryRevenue": "Subscription (annual)",
+    "secondaryRevenue": "Lifetime-purchase tier, credit-based AI feature consumption",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 10,
+    "cacHighUSD": 40,
+    "ltvLowUSD": 40,
+    "ltvHighUSD": 120,
+    "demographics": "Graduate students and researchers, 20-35, China + global academic skew"
+  }
+]

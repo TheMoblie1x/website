@@ -1,0 +1,98 @@
+[
+  {
+    "c": "Heptabase",
+    "primaryRevenue": "Per-user subscription (Pro/Premium/Premium+ tiers)",
+    "secondaryRevenue": "Tiered upsells for AI features and storage; no enterprise/ads disclosed",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 15,
+    "cacHighUSD": 40,
+    "ltvLowUSD": 250,
+    "ltvHighUSD": 450,
+    "demographics": "Students, PhD candidates, and researchers, 20-35"
+  },
+  {
+    "c": "Reflect",
+    "primaryRevenue": "Single-tier subscription",
+    "secondaryRevenue": "None disclosed",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 30,
+    "cacHighUSD": 80,
+    "ltvLowUSD": 300,
+    "ltvHighUSD": 600,
+    "demographics": "Privacy-conscious knowledge workers, 28-45"
+  },
+  {
+    "c": "Mem",
+    "primaryRevenue": "Per-user subscription (freemium plus Pro/Agent tiers)",
+    "secondaryRevenue": "Upsell to AI 'agent'/chief-of-staff tier",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 40,
+    "cacHighUSD": 110,
+    "ltvLowUSD": 150,
+    "ltvHighUSD": 300,
+    "demographics": "Knowledge workers (founders, execs, consultants), 28-45"
+  },
+  {
+    "c": "RemNote",
+    "primaryRevenue": "Per-user subscription (Pro / Pro with AI)",
+    "secondaryRevenue": "AI-credit-based tier upsell",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 10,
+    "cacHighUSD": 35,
+    "ltvLowUSD": 150,
+    "ltvHighUSD": 350,
+    "demographics": "University/med/law students, 18-28"
+  },
+  {
+    "c": "Supernotes",
+    "primaryRevenue": "Per-user subscription (Unlimited plan)",
+    "secondaryRevenue": "Bundled AI features and API access in paid tier",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 5,
+    "cacHighUSD": 25,
+    "ltvLowUSD": 100,
+    "ltvHighUSD": 250,
+    "demographics": "Students and knowledge-management enthusiasts, 20-35"
+  },
+  {
+    "c": "Workflowy",
+    "primaryRevenue": "Per-user subscription (Pro plan)",
+    "secondaryRevenue": "None disclosed",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 5,
+    "cacHighUSD": 20,
+    "ltvLowUSD": 200,
+    "ltvHighUSD": 400,
+    "demographics": "General individual productivity users, 25-45"
+  },
+  {
+    "c": "Zettlr",
+    "primaryRevenue": "Donations (Patreon/PayPal)",
+    "secondaryRevenue": "None",
+    "growthModel": "Donation-funded",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Academics, researchers, and technical writers, 25-50"
+  },
+  {
+    "c": "xTiles",
+    "primaryRevenue": "Per-user/plan subscription (Plus/Family/Team)",
+    "secondaryRevenue": "Tiered plan upsell across individual/family/team",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 15,
+    "cacHighUSD": 45,
+    "ltvLowUSD": 200,
+    "ltvHighUSD": 450,
+    "demographics": "Individuals, families, and small teams, 22-40"
+  }
+]

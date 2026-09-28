@@ -1,0 +1,98 @@
+[
+  {
+    "c": "Linear",
+    "primaryRevenue": "Per-seat SaaS subscription",
+    "secondaryRevenue": "Enterprise tier, Linear Agent AI automation",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 300,
+    "cacHighUSD": 900,
+    "ltvLowUSD": 3000,
+    "ltvHighUSD": 9000,
+    "demographics": "Software product/eng teams at startups and scale-ups, global"
+  },
+  {
+    "c": "Airtable",
+    "primaryRevenue": "Per-seat (editor) SaaS subscription",
+    "secondaryRevenue": "Portals add-on, AI credit packs, Enterprise Scale contracts",
+    "growthModel": "Self-serve + inside sales (PLG), blending into sales-led enterprise",
+    "adSupported": false,
+    "cacLowUSD": 400,
+    "cacHighUSD": 1200,
+    "ltvLowUSD": 8000,
+    "ltvHighUSD": 20000,
+    "demographics": "SMB-to-enterprise ops/product/IT teams, ~80% of Fortune 100, global"
+  },
+  {
+    "c": "Basecamp",
+    "primaryRevenue": "Flat-rate / per-user SaaS subscription",
+    "secondaryRevenue": "None (no upsell tiers or add-ons by design)",
+    "growthModel": "Organic + freemium conversion (free trial, content-marketing led)",
+    "adSupported": false,
+    "cacLowUSD": 150,
+    "cacHighUSD": 400,
+    "ltvLowUSD": 4000,
+    "ltvHighUSD": 8000,
+    "demographics": "SMBs, agencies, freelancers seeking simple all-in-one PM"
+  },
+  {
+    "c": "Height",
+    "primaryRevenue": "Per-seat SaaS subscription",
+    "secondaryRevenue": "AI-driven workflow automation (never fully monetized before shutdown)",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 400,
+    "cacHighUSD": 1200,
+    "ltvLowUSD": 1500,
+    "ltvHighUSD": 3000,
+    "demographics": "Startups and product/eng teams (same profile as Linear/Asana)"
+  },
+  {
+    "c": "Fibery",
+    "primaryRevenue": "Per-seat SaaS subscription",
+    "secondaryRevenue": "AI features for product discovery (summarization, sentiment analysis)",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 150,
+    "cacHighUSD": 600,
+    "ltvLowUSD": 3600,
+    "ltvHighUSD": 6000,
+    "demographics": "Product, research, and ops teams at startups/scale-ups, niche"
+  },
+  {
+    "c": "Otter.ai",
+    "primaryRevenue": "Per-seat SaaS subscription with usage-based minute caps",
+    "secondaryRevenue": "Enterprise tier, AI meeting agents (proactive AI upsell)",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 30,
+    "cacHighUSD": 100,
+    "ltvLowUSD": 200,
+    "ltvHighUSD": 500,
+    "demographics": "Broad professionals, sales/CS teams, growing enterprise, US-skewed"
+  },
+  {
+    "c": "Fireflies.ai",
+    "primaryRevenue": "Per-seat SaaS subscription",
+    "secondaryRevenue": "AI-credit system, CRM-native conversation intelligence add-ons",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 25,
+    "cacHighUSD": 90,
+    "ltvLowUSD": 200,
+    "ltvHighUSD": 600,
+    "demographics": "Sales/CS/RevOps teams, broad freemium base, global"
+  },
+  {
+    "c": "Fathom",
+    "primaryRevenue": "Per-seat SaaS subscription",
+    "secondaryRevenue": "CRM sync (Salesforce/HubSpot), AI scorecards/Deal View",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 15,
+    "cacHighUSD": 60,
+    "ltvLowUSD": 200,
+    "ltvHighUSD": 500,
+    "demographics": "Individual professionals and HubSpot-centric SMB sales teams, US-skewed"
+  }
+]

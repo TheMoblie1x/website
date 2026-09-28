@@ -1,0 +1,50 @@
+[
+  {
+    "c": "Heptabase",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Taiwan", "United Kingdom", "Canada"]
+  },
+  {
+    "c": "Reflect",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Germany"]
+  },
+  {
+    "c": "Mem",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "United Kingdom", "India"]
+  },
+  {
+    "c": "RemNote",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Germany", "United Kingdom", "India", "Netherlands"]
+  },
+  {
+    "c": "Supernotes",
+    "region": "Europe",
+    "primaryCountry": "United Kingdom",
+    "topCountries": ["United Kingdom", "United States", "Germany", "Netherlands"]
+  },
+  {
+    "c": "WorkFlowy",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Germany"]
+  },
+  {
+    "c": "Zettlr",
+    "region": "Europe",
+    "primaryCountry": "Germany",
+    "topCountries": ["Germany", "United States", "United Kingdom", "Netherlands"]
+  },
+  {
+    "c": "xTiles",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Ukraine", "Poland", "United Kingdom"]
+  }
+]

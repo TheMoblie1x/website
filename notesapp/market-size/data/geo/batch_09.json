@@ -1,0 +1,50 @@
+[
+  {
+    "c": "Dropbox Paper",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Germany", "India", "Australia"]
+  },
+  {
+    "c": "Google Docs",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "Brazil", "United Kingdom", "Indonesia"]
+  },
+  {
+    "c": "Microsoft Loop",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Germany", "Japan", "India"]
+  },
+  {
+    "c": "Coda",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "India", "Australia"]
+  },
+  {
+    "c": "Quip",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Australia", "Germany", "Japan"]
+  },
+  {
+    "c": "ClickUp",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "United Kingdom", "Brazil", "Canada"]
+  },
+  {
+    "c": "Asana",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Japan", "United Kingdom", "Australia", "Germany"]
+  },
+  {
+    "c": "Monday.com",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Israel", "Australia", "Germany"]
+  }
+]

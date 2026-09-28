@@ -1,0 +1,50 @@
+[
+  {
+    "c": "tl;dv",
+    "region": "Europe",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Germany", "United Kingdom", "France"]
+  },
+  {
+    "c": "Avoma",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "United Kingdom", "India"]
+  },
+  {
+    "c": "Grain",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "United Kingdom", "Australia"]
+  },
+  {
+    "c": "Supernormal",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Australia"]
+  },
+  {
+    "c": "Granola",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Germany"]
+  },
+  {
+    "c": "Read AI",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "United Kingdom", "India"]
+  },
+  {
+    "c": "Zoom AI Companion",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Japan", "Germany", "India"]
+  },
+  {
+    "c": "NotebookLM (Gemini Notebook)",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "United Kingdom", "Brazil", "Germany"]
+  }
+]

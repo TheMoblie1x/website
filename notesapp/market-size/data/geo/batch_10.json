@@ -1,0 +1,50 @@
+[
+  {
+    "c": "Linear",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Germany"]
+  },
+  {
+    "c": "Airtable",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Australia"]
+  },
+  {
+    "c": "Basecamp",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Australia"]
+  },
+  {
+    "c": "Height",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Germany"]
+  },
+  {
+    "c": "Fibery",
+    "region": "Europe",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Russia", "Cyprus", "Georgia", "United Kingdom"]
+  },
+  {
+    "c": "Otter.ai",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "United Kingdom", "Australia"]
+  },
+  {
+    "c": "Fireflies.ai",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "United Kingdom", "Canada"]
+  },
+  {
+    "c": "Fathom",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "United Kingdom", "Australia"]
+  }
+]

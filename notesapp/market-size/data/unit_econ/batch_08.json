@@ -1,0 +1,98 @@
+[
+  {
+    "c": "GitBook",
+    "primaryRevenue": "Per-seat/per-editor SaaS subscription",
+    "secondaryRevenue": "Enterprise add-ons (SSO, advanced permissions, higher AI limits)",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 500,
+    "cacHighUSD": 1800,
+    "ltvLowUSD": 3000,
+    "ltvHighUSD": 9000,
+    "demographics": "Small-to-mid software teams, DevRel/engineering, startups and scale-ups"
+  },
+  {
+    "c": "Bloomfire",
+    "primaryRevenue": "Enterprise/team-wide contract SaaS (scope-based pricing)",
+    "secondaryRevenue": "Expanded deployment scope, acquired feature modules (e.g., Seva AI)",
+    "growthModel": "Sales-led enterprise",
+    "adSupported": false,
+    "cacLowUSD": 10000,
+    "cacHighUSD": 25000,
+    "ltvLowUSD": 75000,
+    "ltvHighUSD": 180000,
+    "demographics": "Mid-market to large enterprises, internal KM/L&D/support teams, US-centric"
+  },
+  {
+    "c": "Glean",
+    "primaryRevenue": "Enterprise SaaS (per-seat licensing + Enterprise Flex contract)",
+    "secondaryRevenue": "Pay-per-use AI/agent credits, professional services",
+    "growthModel": "Sales-led enterprise",
+    "adSupported": false,
+    "cacLowUSD": 15000,
+    "cacHighUSD": 60000,
+    "ltvLowUSD": 300000,
+    "ltvHighUSD": 1000000,
+    "demographics": "Large enterprises, IT/knowledge management and AI platform buyers, US/global enterprise"
+  },
+  {
+    "c": "Trainual",
+    "primaryRevenue": "Per-seat SaaS subscription (tiered, annual billing)",
+    "secondaryRevenue": "Compliance/training content add-ons, one-time implementation fee",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 2500,
+    "cacHighUSD": 8000,
+    "ltvLowUSD": 9000,
+    "ltvHighUSD": 20000,
+    "demographics": "SMBs (franchises, trades, healthcare, agencies), ops/HR/L&D buyers, US-centric"
+  },
+  {
+    "c": "Outline",
+    "primaryRevenue": "Per-seat SaaS subscription for hosted Outline Cloud (open-core)",
+    "secondaryRevenue": "Business/Enterprise tier upgrades (SSO, priority support)",
+    "growthModel": "Organic (dev-tool virality/content)",
+    "adSupported": false,
+    "cacLowUSD": 300,
+    "cacHighUSD": 1200,
+    "ltvLowUSD": 2000,
+    "ltvHighUSD": 5000,
+    "demographics": "Small-to-mid engineering/product teams, startups, self-host-minded developers, global"
+  },
+  {
+    "c": "ReadMe",
+    "primaryRevenue": "Per-project/per-seat SaaS subscription for API doc hosting",
+    "secondaryRevenue": "Enterprise add-ons (custom domains, analytics, SSO)",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 800,
+    "cacHighUSD": 2500,
+    "ltvLowUSD": 4000,
+    "ltvHighUSD": 12000,
+    "demographics": "API-first software companies, DevRel/developer experience teams, US/tech-hub mid-market"
+  },
+  {
+    "c": "Mintlify",
+    "primaryRevenue": "Freemium SaaS with metered AI-credit consumption",
+    "secondaryRevenue": "Usage-based AI credit packs, Enterprise contracts",
+    "growthModel": "Organic (dev-tool virality/content)",
+    "adSupported": false,
+    "cacLowUSD": 300,
+    "cacHighUSD": 1500,
+    "ltvLowUSD": 2500,
+    "ltvHighUSD": 10000,
+    "demographics": "Dev-tool/API-first startups to mid-market, engineering/DevRel buyers, global tech-hub skew"
+  },
+  {
+    "c": "Docusaurus",
+    "primaryRevenue": "Free open-source project (no monetization)",
+    "secondaryRevenue": "None",
+    "growthModel": "Free/no monetization",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Individual developers and engineering/DevRel teams building docs, global React/JS ecosystem"
+  }
+]

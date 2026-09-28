@@ -1,0 +1,98 @@
+[
+  {
+    "c": "Confluence",
+    "primaryRevenue": "Per-seat SaaS subscription (Cloud tiers, plus legacy Data Center licensing)",
+    "secondaryRevenue": "Rovo AI credit add-ons, Marketplace app revenue share, bundling with Jira",
+    "growthModel": "Sales-led enterprise + Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 3000,
+    "cacHighUSD": 12000,
+    "ltvLowUSD": 15000,
+    "ltvHighUSD": 60000,
+    "demographics": "SMB through enterprise, concentrated in 1,001-5,000 employee band, engineering-led orgs on Jira"
+  },
+  {
+    "c": "Slite",
+    "primaryRevenue": "Per-seat SaaS subscription with freemium entry",
+    "secondaryRevenue": "Tier upgrades gating AI features (Slite AI) and admin controls",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 300,
+    "cacHighUSD": 1200,
+    "ltvLowUSD": 2000,
+    "ltvHighUSD": 6000,
+    "demographics": "SMB/startups, 10-200 employees, remote-first tech companies and agencies"
+  },
+  {
+    "c": "Slab",
+    "primaryRevenue": "Per-seat SaaS subscription (Startup/Business tiers)",
+    "secondaryRevenue": "AI feature add-ons and admin/security features (SSO, SCIM) on Business tier",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 500,
+    "cacHighUSD": 2000,
+    "ltvLowUSD": 3000,
+    "ltvHighUSD": 9000,
+    "demographics": "SMB/mid-market tech companies, engineering/product teams, US-centric"
+  },
+  {
+    "c": "Nuclino",
+    "primaryRevenue": "Per-seat SaaS subscription (Starter/Business tiers) with free entry tier",
+    "secondaryRevenue": "Minimal; essentially none beyond tier upsell",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 200,
+    "cacHighUSD": 800,
+    "ltvLowUSD": 1000,
+    "ltvHighUSD": 3000,
+    "demographics": "Micro/small teams, 1-50 employees, tech/gaming/consulting/SaaS, US/Germany/Canada"
+  },
+  {
+    "c": "Tettra",
+    "primaryRevenue": "Per-account tiered SaaS subscription (Basic/Scaling/Professional)",
+    "secondaryRevenue": "Professional-tier add-ons (SSO, SCIM); emerging cross-sell into GSoft employee-experience suite",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 800,
+    "cacHighUSD": 2500,
+    "ltvLowUSD": 4000,
+    "ltvHighUSD": 10000,
+    "demographics": "Small/mid-market Slack-centric teams, 10-250 users, Support/HR/Ops/Engineering buyers"
+  },
+  {
+    "c": "Guru",
+    "primaryRevenue": "Per-seat SaaS subscription",
+    "secondaryRevenue": "Premium/enterprise tier add-ons, CRM/helpdesk integrations, Guru AI features",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 2000,
+    "cacHighUSD": 6000,
+    "ltvLowUSD": 12000,
+    "ltvHighUSD": 35000,
+    "demographics": "Mid-market to enterprise, ops/CS/sales enablement teams, US-heavy"
+  },
+  {
+    "c": "Document360",
+    "primaryRevenue": "Quote-based enterprise/sales-assisted SaaS contract",
+    "secondaryRevenue": "Eddy AI module add-on, onboarding/professional services, localization add-ons",
+    "growthModel": "Sales-led enterprise",
+    "adSupported": false,
+    "cacLowUSD": 2500,
+    "cacHighUSD": 8000,
+    "ltvLowUSD": 10000,
+    "ltvHighUSD": 30000,
+    "demographics": "SMB through enterprise, technical writers/product/support buyers, US-heavy with UK/India presence"
+  },
+  {
+    "c": "Helpjuice",
+    "primaryRevenue": "Flat-fee tiered SaaS subscription (band-based by user count)",
+    "secondaryRevenue": "Minimal; support/onboarding bundled into base price rather than separate upsell",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 600,
+    "cacHighUSD": 2000,
+    "ltvLowUSD": 5000,
+    "ltvHighUSD": 15000,
+    "demographics": "SMB to mid-market, 50-200 employees typical, support teams (30+ users), US-based"
+  }
+]

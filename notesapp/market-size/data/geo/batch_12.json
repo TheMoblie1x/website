@@ -1,0 +1,44 @@
+[
+  {
+    "c": "MyMind",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Germany"]
+  },
+  {
+    "c": "Kortex",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada"]
+  },
+  {
+    "c": "BookStack",
+    "region": "Europe",
+    "primaryCountry": "United Kingdom",
+    "topCountries": ["United Kingdom", "United States", "Germany"]
+  },
+  {
+    "c": "XWiki",
+    "region": "Europe",
+    "primaryCountry": "France",
+    "topCountries": ["France", "Germany", "United Kingdom"]
+  },
+  {
+    "c": "MediaWiki",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "Germany", "Brazil", "Japan"]
+  },
+  {
+    "c": "GitHub Wiki/Discussions",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "Germany", "United Kingdom", "Brazil"]
+  },
+  {
+    "c": "Jira (context only)",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Australia", "Germany", "India"]
+  }
+]

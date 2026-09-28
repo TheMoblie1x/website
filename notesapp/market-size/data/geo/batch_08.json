@@ -1,0 +1,50 @@
+[
+  {
+    "c": "GitBook",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "France", "Germany", "United Kingdom"]
+  },
+  {
+    "c": "Bloomfire",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "United Kingdom"]
+  },
+  {
+    "c": "Glean",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "India"]
+  },
+  {
+    "c": "Trainual",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "Australia"]
+  },
+  {
+    "c": "Outline",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "Germany", "United Kingdom"]
+  },
+  {
+    "c": "ReadMe",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "India", "Canada"]
+  },
+  {
+    "c": "Mintlify",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "United Kingdom", "Germany"]
+  },
+  {
+    "c": "Docusaurus",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "Brazil", "China"]
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "c": "mymind",
+    "primaryRevenue": "Pure subscription",
+    "secondaryRevenue": "None (explicitly anti-ads)",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 25,
+    "cacHighUSD": 90,
+    "ltvLowUSD": 150,
+    "ltvHighUSD": 400,
+    "demographics": "Privacy-conscious creatives and knowledge workers, 25-45"
+  },
+  {
+    "c": "kortex",
+    "primaryRevenue": "Freemium subscription (tiered AI usage/storage)",
+    "secondaryRevenue": "Custom enterprise/team tier",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 30,
+    "cacHighUSD": 100,
+    "ltvLowUSD": 120,
+    "ltvHighUSD": 350,
+    "demographics": "Writers, creators, students, and marketers, skewing 20s-30s"
+  },
+  {
+    "c": "bookstack",
+    "primaryRevenue": "Donations (free open-source, no official paid tier)",
+    "secondaryRevenue": "Third-party managed hosting resale; GitHub Sponsors",
+    "growthModel": "Donation-funded",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Technical IT teams and self-hosting/homelab individuals"
+  },
+  {
+    "c": "xwiki",
+    "primaryRevenue": "Open-core cloud+support",
+    "secondaryRevenue": "Enterprise support contracts, migration toolkits",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 800,
+    "cacHighUSD": 2500,
+    "ltvLowUSD": 3000,
+    "ltvHighUSD": 15000,
+    "demographics": "Mid-to-large European/public-sector organizations, IT/knowledge-management buyers"
+  },
+  {
+    "c": "mediawiki",
+    "primaryRevenue": "Donations",
+    "secondaryRevenue": "Wikimedia Enterprise API (paid, commercial reusers)",
+    "growthModel": "Donation-funded",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Global, broad — from hobbyist wiki operators to large enterprises and AI/search companies"
+  },
+  {
+    "c": "GitHub Wiki/Discussions",
+    "primaryRevenue": "Free bundled feature",
+    "secondaryRevenue": "None (indirect retention support for GitHub subscriptions)",
+    "growthModel": "Free/bundled",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Global developers and organizations of any size on GitHub"
+  },
+  {
+    "c": "Jira (context only)",
+    "primaryRevenue": "SaaS subscription (bundled/adjacent to Confluence suite)",
+    "secondaryRevenue": "Data Center legacy licenses, suite/AI add-ons",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Software development and IT teams, global enterprise and SMB"
+  }
+]
