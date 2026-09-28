@@ -1,0 +1,98 @@
+[
+  {
+    "c": "Milanote",
+    "primaryRevenue": "Per-user subscription (Individual ~$9.99-12.50/mo)",
+    "secondaryRevenue": "Flat-rate Team plan (~$49-99/mo)",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 20,
+    "cacHighUSD": 40,
+    "ltvLowUSD": 180,
+    "ltvHighUSD": 240,
+    "demographics": "Individual creative professionals, 25-45, US/UK/Australia skew"
+  },
+  {
+    "c": "AppFlowy",
+    "primaryRevenue": "Open-core cloud upsell (AppFlowy Cloud Pro ~$10-12.50/user/mo)",
+    "secondaryRevenue": "AI add-ons (AI MAX, Vault Workspace) and custom Enterprise plans",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 40,
+    "cacHighUSD": 120,
+    "ltvLowUSD": 200,
+    "ltvHighUSD": 350,
+    "demographics": "Developers and technical teams, 25-40, global"
+  },
+  {
+    "c": "AFFiNE",
+    "primaryRevenue": "Open-core cloud upsell (Pro ~$5.99/mo, Believer ~$8/mo)",
+    "secondaryRevenue": "Self-hosted Team license (~$10/seat/mo) and Enterprise/Installable License",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 60,
+    "cacHighUSD": 150,
+    "ltvLowUSD": 120,
+    "ltvHighUSD": 220,
+    "demographics": "Privacy-focused knowledge workers/developers, 25-40, Europe/Asia skew"
+  },
+  {
+    "c": "SiYuan",
+    "primaryRevenue": "One-time purchase (PRO ~$64, lifetime ~$148)",
+    "secondaryRevenue": "None",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 5,
+    "cacHighUSD": 20,
+    "ltvLowUSD": 64,
+    "ltvHighUSD": 148,
+    "demographics": "Privacy-first individuals, 20-35, China-skewed"
+  },
+  {
+    "c": "Memos",
+    "primaryRevenue": "None (free, self-hosted)",
+    "secondaryRevenue": "None",
+    "growthModel": "Pure open-source (no commercial model)",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Self-hosting developers/tinkerers, 20-40"
+  },
+  {
+    "c": "TriliumNext",
+    "primaryRevenue": "None (free, self-hosted)",
+    "secondaryRevenue": "None",
+    "growthModel": "Pure open-source (no commercial model)",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Technical power users, 25-45"
+  },
+  {
+    "c": "Recall",
+    "primaryRevenue": "Per-user subscription (Free/Plus ~$10/mo, Max ~$38/mo)",
+    "secondaryRevenue": "Max power-tier upsell, student discount",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 10,
+    "cacHighUSD": 30,
+    "ltvLowUSD": 100,
+    "ltvHighUSD": 200,
+    "demographics": "Knowledge workers/students, 20-35, English-speaking early adopters"
+  },
+  {
+    "c": "Fabric",
+    "primaryRevenue": "Per-user subscription (Basic ~$6/mo, Pro/Premium ~$16/mo)",
+    "secondaryRevenue": "Use-case-tailored paid modes (student/founder)",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 10,
+    "cacHighUSD": 30,
+    "ltvLowUSD": 100,
+    "ltvHighUSD": 200,
+    "demographics": "Students/founders/knowledge workers, 20-35, US/NY skew"
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "c": "Notion",
+    "primaryRevenue": "Per-user subscription (freemium)",
+    "secondaryRevenue": "Notion AI add-on, Enterprise contracts, education licensing",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 100,
+    "cacHighUSD": 300,
+    "ltvLowUSD": 350,
+    "ltvHighUSD": 900,
+    "demographics": "Knowledge workers, students, startups, 18-34, majority outside US"
+  },
+  {
+    "c": "Obsidian",
+    "primaryRevenue": "Optional paid add-ons (Sync/Publish subscriptions)",
+    "secondaryRevenue": "Commercial-use license",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 5,
+    "cacHighUSD": 20,
+    "ltvLowUSD": 150,
+    "ltvHighUSD": 350,
+    "demographics": "Developers, writers, PKM/Zettelkasten enthusiasts, 25-45"
+  },
+  {
+    "c": "Joplin",
+    "primaryRevenue": "Donations/sponsorships plus Joplin Cloud subscription",
+    "secondaryRevenue": "None",
+    "growthModel": "Donation-funded",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 10,
+    "ltvLowUSD": 120,
+    "ltvHighUSD": 250,
+    "demographics": "Developers, open-source and privacy enthusiasts, 25-45"
+  },
+  {
+    "c": "Standard Notes",
+    "primaryRevenue": "Per-user subscription (freemium)",
+    "secondaryRevenue": "Cross-sell into Proton Unlimited bundle, extensions",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 15,
+    "cacHighUSD": 60,
+    "ltvLowUSD": 200,
+    "ltvHighUSD": 450,
+    "demographics": "Privacy/security-conscious consumers, 25-45, Europe-skewed"
+  },
+  {
+    "c": "Notesnook",
+    "primaryRevenue": "Per-user subscription (freemium)",
+    "secondaryRevenue": "Discounted student/teacher tier",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 5,
+    "cacHighUSD": 30,
+    "ltvLowUSD": 120,
+    "ltvHighUSD": 250,
+    "demographics": "Privacy purists, open-source enthusiasts, students, 20-40"
+  },
+  {
+    "c": "UpNote",
+    "primaryRevenue": "Hybrid subscription-or-one-time purchase (freemium)",
+    "secondaryRevenue": "None",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 5,
+    "cacHighUSD": 25,
+    "ltvLowUSD": 40,
+    "ltvHighUSD": 90,
+    "demographics": "General consumers/prosumers, subscription-averse, 25-45, global"
+  },
+  {
+    "c": "Craft",
+    "primaryRevenue": "Per-user subscription (freemium)",
+    "secondaryRevenue": "Business/team tier, Craft Assistant AI features",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 80,
+    "cacHighUSD": 220,
+    "ltvLowUSD": 150,
+    "ltvHighUSD": 350,
+    "demographics": "Design-conscious prosumers, Apple-ecosystem professionals, 25-45"
+  },
+  {
+    "c": "Notejoy",
+    "primaryRevenue": "Per-user subscription (freemium)",
+    "secondaryRevenue": "None",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 200,
+    "cacHighUSD": 500,
+    "ltvLowUSD": 150,
+    "ltvHighUSD": 350,
+    "demographics": "Small-team/startup knowledge workers, 25-40, US-skewed"
+  }
+]

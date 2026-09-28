@@ -1,0 +1,98 @@
+[
+  {
+    "c": "Apple Notes",
+    "primaryRevenue": "Free, bundled OS app",
+    "secondaryRevenue": "None (drives iCloud+ upgrades/hardware loyalty)",
+    "growthModel": "Free/bundled",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 15,
+    "ltvHighUSD": 40,
+    "demographics": "General consumer, all ages, Apple ecosystem users"
+  },
+  {
+    "c": "Microsoft OneNote",
+    "primaryRevenue": "Bundled Microsoft 365 subscription",
+    "secondaryRevenue": "Upsell to higher M365 tiers, Copilot AI add-ons, enterprise seat expansion",
+    "growthModel": "Organic + freemium conversion / Sales-led enterprise",
+    "adSupported": false,
+    "cacLowUSD": 150,
+    "cacHighUSD": 600,
+    "ltvLowUSD": 200,
+    "ltvHighUSD": 900,
+    "demographics": "Students, knowledge workers, and enterprise IT-managed users on Windows/M365"
+  },
+  {
+    "c": "Google Keep",
+    "primaryRevenue": "Free, bundled Google account app",
+    "secondaryRevenue": "None (indirect Workspace/Google One upsell)",
+    "growthModel": "Free/bundled",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 5,
+    "ltvHighUSD": 20,
+    "demographics": "Mass-market mobile-first consumers doing lightweight capture"
+  },
+  {
+    "c": "Evernote",
+    "primaryRevenue": "Per-user subscription (Starter/Advanced)",
+    "secondaryRevenue": "Custom-priced Enterprise tier",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 40,
+    "cacHighUSD": 120,
+    "ltvLowUSD": 300,
+    "ltvHighUSD": 500,
+    "demographics": "Prosumers and small-business/team knowledge workers, ages 25-44"
+  },
+  {
+    "c": "Samsung Notes",
+    "primaryRevenue": "Free, bundled with Galaxy hardware",
+    "secondaryRevenue": "None (drives S Pen-equipped hardware sales)",
+    "growthModel": "Free/bundled",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 10,
+    "ltvHighUSD": 30,
+    "demographics": "Samsung Galaxy owners, especially S Pen/stylus users, students and creatives"
+  },
+  {
+    "c": "Simplenote",
+    "primaryRevenue": "None (fully free, no monetization)",
+    "secondaryRevenue": "None",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 2,
+    "cacHighUSD": 10,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Technical/minimalist users, writers, developers, and students"
+  },
+  {
+    "c": "Bear",
+    "primaryRevenue": "Per-user subscription (Bear Pro)",
+    "secondaryRevenue": "None",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 10,
+    "cacHighUSD": 40,
+    "ltvLowUSD": 60,
+    "ltvHighUSD": 100,
+    "demographics": "Apple-ecosystem writers and developers, ages 25-45"
+  },
+  {
+    "c": "Zoho Notebook",
+    "primaryRevenue": "Free standalone app, bundled Zoho Workplace/Zoho One for business",
+    "secondaryRevenue": "Cross-sell into Zoho ecosystem, brand affinity funnel",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 5,
+    "cacHighUSD": 20,
+    "ltvLowUSD": 10,
+    "ltvHighUSD": 40,
+    "demographics": "Individual consumers plus SMB/enterprise users on Zoho's CRM/Workplace stack"
+  }
+]

@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Interactive comparison of 94 note-taking, PKM, and knowledge-management companies — business model, funding, revenue, ownership, unit economics, geography, and market size across 7 segments.">
+<title>Notes Market Landscape</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --surface-2:      #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+    --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+    --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --surface-2:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+      --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+      --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --surface-2:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+      --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+      --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#e66767;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    background: var(--surface-2);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 24px 16px 64px; }
+
+  header.page-head { padding: 8px 0 20px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--s1); margin: 0 0 8px; }
+  h1 { font-size: clamp(24px, 4vw, 34px); margin: 0 0 10px; letter-spacing: -0.01em; }
+  .lede { color: var(--text-secondary); font-size: 15px; line-height: 1.55; max-width: 820px; margin: 0 0 4px; }
+  .theme-toggle {
+    position: fixed; top: 16px; right: 16px; z-index: 50;
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 999px;
+    padding: 7px 14px; font-size: 12px; font-weight: 600; color: var(--text-secondary);
+    cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .theme-toggle:hover { color: var(--text-primary); }
+
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 22px 0 10px; }
+  @media (max-width: 900px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  .stat { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .stat .label { font-size: 11.5px; color: var(--text-muted); margin-bottom: 6px; }
+  .stat .value { font-size: 24px; font-weight: 650; letter-spacing: -0.01em; }
+  .stat .sub { font-size: 11.5px; color: var(--text-secondary); margin-top: 3px; }
+  .stat.callout { background: color-mix(in srgb, var(--good) 10%, var(--surface-1)); border-color: color-mix(in srgb, var(--good) 30%, var(--border)); }
+  .stat.callout .value { color: var(--good); }
+
+  section.panel { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px 22px; margin: 18px 0; }
+  .panel h2 { font-size: 15px; margin: 0 0 2px; font-weight: 650; }
+  .panel .panel-sub { font-size: 12.5px; color: var(--text-muted); margin: 0 0 16px; }
+  .section-divider { margin: 34px 0 6px; padding-top: 14px; border-top: 1px solid var(--gridline); }
+  .section-divider h2 { font-size: 18px; margin: 0 0 4px; }
+  .section-divider p { font-size: 13px; color: var(--text-secondary); margin: 0; max-width: 760px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+  .three-col { display: grid; grid-template-columns: 1.1fr 1fr; gap: 18px; align-items: start; }
+  @media (max-width: 860px) { .three-col { grid-template-columns: 1fr; } }
+
+  .bar-row { display: grid; grid-template-columns: 168px 1fr 72px; align-items: center; gap: 10px; margin: 9px 0; }
+  .bar-row.wide-label { grid-template-columns: 220px 1fr 72px; }
+  .bar-row .bar-label { font-size: 12.5px; color: var(--text-secondary); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { position: relative; height: 20px; background: transparent; }
+  .bar-fill { height: 20px; border-radius: 4px; background: var(--s1); position: relative; min-width: 3px; transition: width .4s ease; cursor: default; }
+  .bar-row .bar-value { font-size: 12px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+
+  .range-row { display: grid; grid-template-columns: 168px 1fr 150px; align-items: center; gap: 10px; margin: 12px 0; }
+  .range-row .range-label { font-size: 12.5px; color: var(--text-secondary); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .range-track { position: relative; height: 8px; background: var(--gridline); border-radius: 4px; }
+  .range-span { position: absolute; top: -6px; height: 20px; border-radius: 10px; background: color-mix(in srgb, var(--s2) 22%, transparent); border: 1px solid var(--s2); cursor: default; }
+  .range-row .range-value { font-size: 11.5px; color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .range-scale-note { font-size: 11px; color: var(--text-muted); margin-top: 10px; }
+
+  .stack-bar { display: flex; height: 34px; border-radius: 6px; overflow: hidden; width: 100%; gap: 2px; }
+  .stack-seg { height: 100%; min-width: 4px; cursor: default; }
+  .legend { display: flex; flex-wrap: wrap; gap: 12px 18px; margin-top: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+
+  /* donut chart */
+  .donut-wrap { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .donut { width: 168px; height: 168px; border-radius: 50%; flex: none; position: relative; }
+  .donut::after { content: ''; position: absolute; inset: 26px; border-radius: 50%; background: var(--surface-1); }
+  .donut-center { position: absolute; inset: 26px; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 1; }
+  .donut-center .n { font-size: 20px; font-weight: 700; }
+  .donut-center .l { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; }
+  .donut-legend { flex: 1; min-width: 200px; }
+
+  .tooltip { position: fixed; pointer-events: none; background: var(--text-primary); color: var(--surface-1); font-size: 11.5px; padding: 6px 9px; border-radius: 6px; z-index: 100; opacity: 0; transition: opacity .1s; max-width: 260px; line-height: 1.4; }
+  .tooltip.show { opacity: 1; }
+
+  .events-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (max-width: 900px) { .events-grid { grid-template-columns: 1fr; } }
+  .event-card { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; background: var(--surface-2); }
+  .event-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 8px; border-radius: 999px; margin-bottom: 8px; }
+  .event-tag.critical { color: var(--critical); background: color-mix(in srgb, var(--critical) 14%, transparent); }
+  .event-tag.serious { color: var(--serious); background: color-mix(in srgb, var(--serious) 16%, transparent); }
+  .event-tag.good { color: var(--good); background: color-mix(in srgb, var(--good) 14%, transparent); }
+  .event-card .ec-title { font-weight: 650; font-size: 13.5px; margin-bottom: 4px; }
+  .event-card .ec-body { font-size: 12px; color: var(--text-secondary); line-height: 1.45; }
+
+  .callout-box { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; background: color-mix(in srgb, var(--good) 8%, var(--surface-2)); border: 1px solid color-mix(in srgb, var(--good) 25%, var(--border)); font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; }
+  .callout-box strong { color: var(--text-primary); }
+  .callout-icon { font-size: 20px; flex: none; }
+  .note-box { padding: 10px 14px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); font-size: 12px; color: var(--text-muted); margin-top: 10px; }
+
+  /* explorer */
+  .explorer-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; margin-bottom: 14px; }
+  .search-input { flex: 1 1 220px; min-width: 180px; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text-primary); font-size: 13px; }
+  .search-input:focus { outline: 2px solid var(--s1); outline-offset: -1px; }
+
+  .dd { position: relative; }
+  .dd-btn {
+    font-size: 12.5px; font-weight: 600; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 6px;
+    white-space: nowrap;
+  }
+  .dd-btn:hover, .dd-btn.open { border-color: var(--s1); color: var(--text-primary); }
+  .dd-btn .dd-count { background: var(--s1); color: white; border-radius: 999px; font-size: 10px; padding: 1px 6px; }
+  .dd-btn .dd-caret { font-size: 9px; opacity: .6; }
+  .dd-panel {
+    display: none; position: absolute; top: calc(100% + 6px); left: 0; z-index: 30; min-width: 240px; max-height: 320px; overflow-y: auto;
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.14); padding: 6px;
+  }
+  .dd-panel.open { display: block; }
+  .dd-opt { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: 12.5px; color: var(--text-secondary); }
+  .dd-opt:hover { background: var(--surface-2); }
+  .dd-opt input { accent-color: var(--s1); }
+  .dd-opt .chip-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .dd-opt-count { margin-left: auto; font-size: 10.5px; color: var(--text-muted); }
+  .dd-clear { font-size: 11px; color: var(--s1); cursor: pointer; padding: 6px 8px; border-top: 1px solid var(--gridline); margin-top: 4px; }
+
+  .result-count { font-size: 12px; color: var(--text-muted); margin: 2px 0 10px; }
+
+  table.data-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+  .table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+  .data-table th {
+    text-align: left; padding: 8px 8px; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.03em;
+    color: var(--text-muted); border-bottom: 1px solid var(--gridline); cursor: pointer; white-space: nowrap;
+    position: sticky; top: 0; background: var(--surface-1); user-select: none;
+  }
+  .data-table th:hover { color: var(--text-primary); }
+  .data-table th .sort-arrow { opacity: .4; font-size: 9px; margin-left: 3px; }
+  .data-table th.sorted .sort-arrow { opacity: 1; color: var(--s1); }
+  .data-table td { padding: 7px 8px; border-bottom: 1px solid var(--gridline); vertical-align: top; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--surface-2); }
+  .cell-company { color: var(--text-primary); font-weight: 600; }
+  .cell-seg { font-size: 10.5px; color: var(--text-muted); }
+  .own-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; }
+  .own-badge .chip-dot { width: 6px; height: 6px; border-radius: 50%; flex: none; }
+  .cell-diff { white-space: normal; }
+  .cell-num { font-variant-numeric: tabular-nums; }
+  .col-company { width: 13%; } .col-seg { width: 11%; } .col-own { width: 11%; }
+  .col-rev { width: 8%; } .col-fund { width: 8%; } .col-cac { width: 9%; } .col-ltv { width: 9%; }
+  .col-country { width: 9%; } .col-diff { width: 22%; }
+
+  footer.data-quality { margin-top: 20px; padding: 14px 16px; border-radius: 10px; background: var(--surface-1); border: 1px solid var(--border); font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  footer.data-quality strong { color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<div class="page-root">
+  <button class="theme-toggle" id="themeToggle">Dark mode</button>
+  <div class="wrap">
+
+    <header class="page-head">
+      <p class="eyebrow">Competitive landscape · 94 companies</p>
+      <h1>Note-Taking, PKM &amp; Knowledge-Management Market</h1>
+      <p class="lede">An interactive view of the note-taking / personal-knowledge-management / team-knowledge landscape across 7 segments &mdash; business model, funding, revenue, ownership, unit economics, and geography for every company researched.</p>
+    </header>
+
+    <div class="stats" id="statsRow"></div>
+    <div class="stats" id="statsRow2" style="margin-top:0;"></div>
+
+    <div class="section-divider">
+      <h2>Market structure</h2>
+      <p>Who's in the market, how it segments, and who owns whom.</p>
+    </div>
+
+    <section class="panel">
+      <h2>Companies by segment</h2>
+      <p class="panel-sub">Count of profiled companies per market segment, sorted descending.</p>
+      <div id="segChart"></div>
+    </section>
+
+    <div class="two-col">
+      <section class="panel">
+        <h2>Ownership structure</h2>
+        <p class="panel-sub">How the 94 companies are owned/funded.</p>
+        <div id="ownStack"></div>
+        <div class="legend" id="ownLegend"></div>
+      </section>
+      <section class="panel">
+        <h2>Notable outcomes</h2>
+        <p class="panel-sub">Shutdowns, acquisitions, pivots &amp; major funding events.</p>
+        <div class="events-grid" id="eventsGrid"></div>
+      </section>
+    </div>
+
+    <div class="two-col">
+      <section class="panel">
+        <h2>Top disclosed revenue / ARR</h2>
+        <p class="panel-sub">Company-level figures only &mdash; excludes bundled-into-parent revenue. $ millions.</p>
+        <div id="revChart"></div>
+      </section>
+      <section class="panel">
+        <h2>Top total funding raised</h2>
+        <p class="panel-sub">Disclosed venture/PE funding raised to date. $ millions.</p>
+        <div id="fundChart"></div>
+      </section>
+    </div>
+
+    <div class="section-divider">
+      <h2>Where users live</h2>
+      <p>Estimated primary geography per company &mdash; inferred from HQ, investor base, and platform reach; no company in this set discloses a full country breakdown.</p>
+    </div>
+
+    <div class="three-col">
+      <section class="panel">
+        <h2>Primary region by company</h2>
+        <p class="panel-sub">Each company's single dominant region.</p>
+        <div class="donut-wrap">
+          <div class="donut" id="regionDonut"></div>
+          <div class="donut-legend legend" id="regionLegend"></div>
+        </div>
+      </section>
+      <section class="panel">
+        <h2>Most-mentioned countries</h2>
+        <p class="panel-sub">How often each country appears in a company's top-markets list (companies can list several).</p>
+        <div id="countryChart"></div>
+      </section>
+    </div>
+
+    <div class="section-divider">
+      <h2>Monetization &amp; unit economics</h2>
+      <p>How these companies make money and what it costs to acquire and retain a user &mdash; estimated from business-model archetypes since none of these companies disclose real CAC/LTV.</p>
+    </div>
+
+    <section class="panel">
+      <div class="callout-box">
+        <span class="callout-icon">&#9888;&#65039;</span>
+        <div><strong>0 of 94 companies</strong> in this dataset run primarily on advertising. Every company monetizes via subscription, one-time purchase, enterprise contract, open-core upsell, donation, or free-bundled-into-a-larger-paid-product.</div>
+      </div>
+      <h2>Primary revenue source</h2>
+      <p class="panel-sub">How companies are bucketed by their main monetization mechanism.</p>
+      <div id="revSourceChart"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Growth &amp; acquisition model</h2>
+      <p class="panel-sub">Organic/freemium virality vs. self-serve PLG vs. enterprise sales-led vs. bundled/donation-funded.</p>
+      <div id="growthStack"></div>
+      <div class="legend" id="growthLegend"></div>
+    </section>
+
+    <div class="two-col">
+      <section class="panel">
+        <h2>Estimated CAC by segment</h2>
+        <p class="panel-sub">Avg. estimated CAC range per segment, log scale (spans $0&ndash;$37.5K).</p>
+        <div id="cacRangeChart"></div>
+        <p class="range-scale-note">Log-scale bar width &mdash; read the printed $ values for exact figures.</p>
+      </section>
+      <section class="panel">
+        <h2>Estimated LTV by segment</h2>
+        <p class="panel-sub">Avg. estimated LTV range per segment, log scale (spans $0&ndash;$650K).</p>
+        <div id="ltvRangeChart"></div>
+        <p class="range-scale-note">Log-scale bar width &mdash; read the printed $ values for exact figures.</p>
+      </section>
+    </div>
+
+    <section class="panel">
+      <h2>User demographics across the market</h2>
+      <p class="panel-sub">Companies whose primary persona mentions each audience type (can match more than one).</p>
+      <div id="demoChart"></div>
+    </section>
+
+    <div class="section-divider">
+      <h2>Full data explorer</h2>
+      <p>Search, filter, and sort all 94 companies.</p>
+    </div>
+
+    <section class="panel">
+      <h2>All 94 companies</h2>
+      <div class="explorer-controls">
+        <input type="text" class="search-input" id="searchBox" placeholder="Search company, differentiator, demographics&hellip;">
+        <div class="dd" id="ddSeg"></div>
+        <div class="dd" id="ddOwn"></div>
+        <div class="dd" id="ddGrowth"></div>
+      </div>
+      <p class="result-count" id="resultCount"></p>
+      <div class="table-scroll">
+        <table class="data-table" id="dataTable">
+          <colgroup>
+            <col class="col-company"><col class="col-seg"><col class="col-own"><col class="col-rev">
+            <col class="col-fund"><col class="col-cac"><col class="col-ltv"><col class="col-country"><col class="col-diff">
+          </colgroup>
+          <thead>
+            <tr>
+              <th data-key="c">Company<span class="sort-arrow">&#9662;</span></th>
+              <th data-key="seg">Segment<span class="sort-arrow">&#9662;</span></th>
+              <th data-key="ownCat">Ownership<span class="sort-arrow">&#9662;</span></th>
+              <th data-key="revM">Revenue<span class="sort-arrow">&#9662;</span></th>
+              <th data-key="fundM">Funding<span class="sort-arrow">&#9662;</span></th>
+              <th data-key="cacLo">Est. CAC<span class="sort-arrow">&#9662;</span></th>
+              <th data-key="ltvLo">Est. LTV<span class="sort-arrow">&#9662;</span></th>
+              <th data-key="country">Country<span class="sort-arrow">&#9662;</span></th>
+              <th data-key="diff">Differentiator<span class="sort-arrow">&#9662;</span></th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+      <p class="note-box">Hover a company name for full demographics; hover Revenue/Funding cells for the disclosed source text. Growth model isn't shown as a column &mdash; filter by it using the dropdown above.</p>
+    </section>
+
+    <div class="section-divider">
+      <h2>Market size &amp; growth</h2>
+      <p>Aggregate disclosed revenue/funding by segment, and the handful of companies with a publicly reported YoY growth rate.</p>
+    </div>
+
+    <div class="two-col">
+      <section class="panel">
+        <h2>Market size by segment</h2>
+        <p class="panel-sub">Sum of each segment's disclosed company-level revenue and funding raised. $ millions &mdash; a floor, not a total addressable market estimate (most companies don't disclose revenue).</p>
+        <div id="marketSizeChart"></div>
+        <div class="legend" style="margin-top:14px;">
+          <div class="legend-item"><span class="legend-dot" style="background:var(--s1)"></span>Disclosed revenue (sum)</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--s2)"></span>Funding raised (sum)</div>
+        </div>
+      </section>
+      <section class="panel">
+        <h2>Disclosed YoY growth rate</h2>
+        <p class="panel-sub">Only <strong>4 of 94</strong> companies have a publicly reported year-over-year growth figure in their sourced profile. This is not a market-wide CAGR &mdash; it's every disclosed growth number found, shown honestly rather than estimated for companies with no reported figure.</p>
+        <div id="growthRateChart"></div>
+      </section>
+    </div>
+
+    <footer class="data-quality">
+      <strong>Data quality note:</strong> Most financial figures for privately held companies are third-party estimates (Crunchbase, PitchBook, Tracxn, Latka) or self-reported press figures &mdash; not audited financials. <strong>CAC, LTV, LTV:CAC, and user geography are modeled estimates</strong> based on each company's business-model archetype, HQ, and disclosed pricing &mdash; no company in this dataset publicly discloses actual CAC/LTV or a full country breakdown. <strong>Growth-rate figures are the exception:</strong> only real, disclosed YoY numbers are shown; nothing was extrapolated into a CAGR for companies without one. Treat every number here as directional, not precise &mdash; the source profile for each company (in <code>profiles/</code>) documents the reasoning behind every estimate.
+    </footer>
+
+  </div>
+<div class="tooltip" id="tooltip"></div>
+</div>
+
+<script>
+const DATA = [{"c":"Apple Notes","seg":"B2C Mainstream","own":"Subsidiary feature (Apple, AAPL)","ownCat":"Subsidiary / Bundled","biz":"Free, bundled OS app","price":"N/A (iCloud+ from $0.99/mo)","rev":"N/A \u2014 supports $96B Services segment","revM":null,"fund":"N/A","fundM":null,"diff":"Pre-installed default on every Apple device","primRev":"Free, bundled OS app","secRev":"None (drives iCloud+ upgrades/hardware loyalty)","growth":"Free / Bundled (indirect monetization)","ads":false,"cacLo":0,"cacHi":0,"ltvLo":15,"ltvHi":40,"demo":"General consumer, all ages, Apple ecosystem users","region":"Global/Distributed","country":"United States","topCountries":["United States","Japan","United Kingdom","Germany"],"growthPct":null},{"c":"Microsoft OneNote","seg":"B2C Mainstream","own":"Subsidiary feature (Microsoft, MSFT)","ownCat":"Subsidiary / Bundled","biz":"Freemium, bundled in M365","price":"Free standalone / M365 from $9.99/mo","rev":"N/A \u2014 folds into $77.7B Productivity segment","revM":null,"fund":"N/A","fundM":null,"diff":"Cross-platform, deep Office/Teams integration","primRev":"Bundled Microsoft 365 subscription","secRev":"Upsell to higher M365 tiers, Copilot AI add-ons, enterprise seat expansion","growth":"Sales-led enterprise","ads":false,"cacLo":150,"cacHi":600,"ltvLo":200,"ltvHi":900,"demo":"Students, knowledge workers, and enterprise IT-managed users on Windows/M365","region":"Global/Distributed","country":"United States","topCountries":["United States","India","United Kingdom","Germany","Japan"],"growthPct":null},{"c":"Google Keep","seg":"B2C Mainstream","own":"Subsidiary feature (Alphabet, GOOGL)","ownCat":"Subsidiary / Bundled","biz":"Free, bundled Workspace","price":"Free (Workspace from $7/user/mo)","rev":"N/A \u2014 folds into ~$43B Google Cloud segment","revM":null,"fund":"N/A","fundM":null,"diff":"Fast quick-capture, Gmail/Docs integration","primRev":"Free, bundled Google account app","secRev":"None (indirect Workspace/Google One upsell)","growth":"Free / Bundled (indirect monetization)","ads":false,"cacLo":0,"cacHi":0,"ltvLo":5,"ltvHi":20,"demo":"Mass-market mobile-first consumers doing lightweight capture","region":"Global/Distributed","country":"United States","topCountries":["United States","India","Brazil","Indonesia"],"growthPct":null},{"c":"Evernote","seg":"B2C Mainstream","own":"Subsidiary (Bending Spoons, filing US IPO)","ownCat":"Subsidiary / Bundled","biz":"Freemium subscription","price":"$99.99/yr (Starter)","rev":"Not broken out; parent $1.31B revenue (2025)","revM":null,"fund":"Acquired ~$10M (2023), down from ~$1B peak","fundM":null,"diff":"Cautionary tale: category pioneer, distressed sale","primRev":"Per-user subscription (Starter/Advanced)","secRev":"Custom-priced Enterprise tier","growth":"Organic + freemium conversion","ads":false,"cacLo":40,"cacHi":120,"ltvLo":300,"ltvHi":500,"demo":"Prosumers and small-business/team knowledge workers, ages 25-44","region":"North America","country":"United States","topCountries":["United States","Japan","United Kingdom","Germany"],"growthPct":null},{"c":"Samsung Notes","seg":"B2C Mainstream","own":"Subsidiary feature (Samsung, KRX:005930)","ownCat":"Public","biz":"Free, bundled on Galaxy","price":"Free","rev":"N/A \u2014 supports MX hardware sales","revM":null,"fund":"N/A","fundM":null,"diff":"Best-in-class S Pen integration","primRev":"Free, bundled with Galaxy hardware","secRev":"None (drives S Pen-equipped hardware sales)","growth":"Free / Bundled (indirect monetization)","ads":false,"cacLo":0,"cacHi":0,"ltvLo":10,"ltvHi":30,"demo":"Samsung Galaxy owners, especially S Pen/stylus users, students and creatives","region":"Asia-Pacific","country":"South Korea","topCountries":["South Korea","India","United States","Brazil"],"growthPct":null},{"c":"Simplenote","seg":"B2C Mainstream","own":"Subsidiary (Automattic)","ownCat":"Subsidiary / Bundled","biz":"Entirely free, no monetization","price":"Free (no paid tier)","rev":"$0 \u2014 active development ended Mar 2026","revM":null,"fund":"N/A","fundM":null,"diff":"Minimalist plain-text; now maintenance-only","primRev":"None (fully free, no monetization)","secRev":"None","growth":"Organic + freemium conversion","ads":false,"cacLo":2,"cacHi":10,"ltvLo":0,"ltvHi":0,"demo":"Technical/minimalist users, writers, developers, and students","region":"Global/Distributed","country":"United States","topCountries":["United States","United Kingdom","Germany","India"],"growthPct":null},{"c":"Bear","seg":"B2C Mainstream","own":"Bootstrapped (Shiny Frog Ltd., ~3 employees)","ownCat":"Bootstrapped / Independent","biz":"Freemium subscription","price":"$2.99/mo","rev":"~$330K (est.)","revM":0.33,"fund":"None","fundM":null,"diff":"Design/typography-focused, Apple-only","primRev":"Per-user subscription (Bear Pro)","secRev":"None","growth":"Organic + freemium conversion","ads":false,"cacLo":10,"cacHi":40,"ltvLo":60,"ltvHi":100,"demo":"Apple-ecosystem writers and developers, ages 25-45","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Germany","Italy"],"growthPct":null},{"c":"Zoho Notebook","seg":"B2C Mainstream","own":"Subsidiary of bootstrapped Zoho Corp","ownCat":"Subsidiary / Bundled","biz":"Free, bundled in Zoho suite","price":"Free","rev":"N/A \u2014 immaterial to $1.4B parent revenue","revM":null,"fund":"N/A","fundM":null,"diff":"Free, well-designed, cross-Zoho ecosystem","primRev":"Free standalone app, bundled Zoho Workplace/Zoho One for business","secRev":"Cross-sell into Zoho ecosystem, brand affinity funnel","growth":"Organic + freemium conversion","ads":false,"cacLo":5,"cacHi":20,"ltvLo":10,"ltvHi":40,"demo":"Individual consumers plus SMB/enterprise users on Zoho's CRM/Workplace stack","region":"Global/Distributed","country":"India","topCountries":["India","United States","United Kingdom","Brazil"],"growthPct":null},{"c":"Notion","seg":"B2C Mainstream","own":"VC-backed (Sequoia, Index, Coatue, GIC)","ownCat":"VC-Backed","biz":"Freemium subscription","price":"~$10/user/mo","rev":"~$600M (2025)","revM":600.0,"fund":"$343M raised; ~$10-11B valuation","fundM":343.0,"diff":"Category-defining all-in-one workspace","primRev":"Per-user subscription (freemium)","secRev":"Notion AI add-on, Enterprise contracts, education licensing","growth":"Organic + freemium conversion","ads":false,"cacLo":100,"cacHi":300,"ltvLo":350,"ltvHi":900,"demo":"Knowledge workers, students, startups, 18-34, majority outside US","region":"Global/Distributed","country":"United States","topCountries":["United States","India","Japan","United Kingdom","Germany"],"growthPct":null},{"c":"Obsidian","seg":"B2C Mainstream","own":"Bootstrapped (Dynalist Inc.)","ownCat":"Bootstrapped / Independent","biz":"Free app + paid Sync/Publish add-ons","price":"Sync ~$4-8/mo","rev":"~$2M (est., disputed)","revM":2.0,"fund":"$0 (self-funded)","fundM":null,"diff":"Local-first plain-text files, plugin ecosystem","primRev":"Optional paid add-ons (Sync/Publish subscriptions)","secRev":"Commercial-use license","growth":"Organic + freemium conversion","ads":false,"cacLo":5,"cacHi":20,"ltvLo":150,"ltvHi":350,"demo":"Developers, writers, PKM/Zettelkasten enthusiasts, 25-45","region":"Global/Distributed","country":"United States","topCountries":["United States","Germany","United Kingdom","Canada","India"],"growthPct":null},{"c":"Joplin","seg":"B2C Mainstream","own":"Open-source/donor-funded","ownCat":"Open-Source / Nonprofit","biz":"Free + optional Joplin Cloud","price":"Cloud ~$5-13 CAD/mo","rev":"Small (donation-based)","revM":null,"fund":"None","fundM":null,"diff":"Full open-source, privacy, Patreon-funded","primRev":"Donations/sponsorships plus Joplin Cloud subscription","secRev":"None","growth":"Donation-funded / Open-source","ads":false,"cacLo":0,"cacHi":10,"ltvLo":120,"ltvHi":250,"demo":"Developers, open-source and privacy enthusiasts, 25-45","region":"Europe","country":"France","topCountries":["France","Germany","United States","United Kingdom","India"],"growthPct":null},{"c":"Standard Notes","seg":"B2C Mainstream","own":"Acquired by Proton AG (Apr 2024)","ownCat":"Acquired","biz":"Freemium subscription","price":"~$90/yr (promo ~$58.50)","rev":"Not disclosed","revM":null,"fund":"Undisclosed acquisition","fundM":null,"diff":"E2E-encrypted; now cross-sold via Proton","primRev":"Per-user subscription (freemium)","secRev":"Cross-sell into Proton Unlimited bundle, extensions","growth":"Organic + freemium conversion","ads":false,"cacLo":15,"cacHi":60,"ltvLo":200,"ltvHi":450,"demo":"Privacy/security-conscious consumers, 25-45, Europe-skewed","region":"Europe","country":"Germany","topCountries":["Germany","United States","France","Switzerland","United Kingdom"],"growthPct":null},{"c":"Notesnook","seg":"B2C Mainstream","own":"Bootstrapped (Streetwriters, Pakistan)","ownCat":"Bootstrapped / Independent","biz":"Freemium subscription","price":"$1.99/mo","rev":"Small (est.)","revM":null,"fund":"None","fundM":null,"diff":"Fully open-source incl. sync server","primRev":"Per-user subscription (freemium)","secRev":"Discounted student/teacher tier","growth":"Organic + freemium conversion","ads":false,"cacLo":5,"cacHi":30,"ltvLo":120,"ltvHi":250,"demo":"Privacy purists, open-source enthusiasts, students, 20-40","region":"Global/Distributed","country":"United States","topCountries":["United States","India","Pakistan","Germany","United Kingdom"],"growthPct":null},{"c":"UpNote","seg":"B2C Mainstream","own":"Unfunded (2-person team, Hanoi)","ownCat":"Bootstrapped / Independent","biz":"Freemium + lifetime option","price":"$1.99/mo or $39.99 lifetime","rev":"Small (est.)","revM":null,"fund":"None","fundM":null,"diff":"Rare lifetime-purchase pricing","primRev":"Hybrid subscription-or-one-time purchase (freemium)","secRev":"None","growth":"Organic + freemium conversion","ads":false,"cacLo":5,"cacHi":25,"ltvLo":40,"ltvHi":90,"demo":"General consumers/prosumers, subscription-averse, 25-45, global","region":"Global/Distributed","country":"United States","topCountries":["United States","Vietnam","United Kingdom","Germany","India"],"growthPct":null},{"c":"Craft","seg":"B2C Mainstream","own":"VC-backed (Creandum, EBRD)","ownCat":"VC-Backed","biz":"Freemium subscription","price":"Not fully disclosed","rev":"$1-10M (est.)","revM":10.0,"fund":"$20.8M raised","fundM":20.8,"diff":"Design-polished Notion alternative; Android Nov 2025","primRev":"Per-user subscription (freemium)","secRev":"Business/team tier, Craft Assistant AI features","growth":"Organic + freemium conversion","ads":false,"cacLo":80,"cacHi":220,"ltvLo":150,"ltvHi":350,"demo":"Design-conscious prosumers, Apple-ecosystem professionals, 25-45","region":"Global/Distributed","country":"United States","topCountries":["United States","Germany","United Kingdom","Hungary","France"],"growthPct":null},{"c":"Notejoy","seg":"B2C Mainstream","own":"Unconfirmed funding status","ownCat":"Bootstrapped / Independent","biz":"Freemium team subscription","price":"~$4/user/mo","rev":"Not disclosed","revM":null,"fund":"Unconfirmed","fundM":null,"diff":"Lightweight small-team notes; low visibility","primRev":"Per-user subscription (freemium)","secRev":"None","growth":"Organic + freemium conversion","ads":false,"cacLo":200,"cacHi":500,"ltvLo":150,"ltvHi":350,"demo":"Small-team/startup knowledge workers, 25-40, US-skewed","region":"North America","country":"United States","topCountries":["United States","Canada","United Kingdom","India","Australia"],"growthPct":null},{"c":"Roam Research","seg":"PKM / Second-Brain","own":"VC-backed","ownCat":"VC-Backed","biz":"Subscription, no free tier","price":"$15/mo","rev":"Low-mid single-digit millions (est.)","revM":null,"fund":"~$30-40M raised; ~$84-95M valuation (2022, disputed)","fundM":40.0,"diff":"Created bi-directional-linking category; growth cooled","primRev":"Per-user subscription (Pro $15/mo, no free tier)","secRev":"Believer one-time lifetime license upsell","growth":"Organic + freemium conversion","ads":false,"cacLo":30,"cacHi":80,"ltvLo":250,"ltvHi":600,"demo":"PKM enthusiasts, academics, researchers, writers/consultants, 25-45","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","Germany"],"growthPct":null},{"c":"Logseq","seg":"PKM / Second-Brain","own":"VC-seed + open-source","ownCat":"Open-Source / Nonprofit","biz":"Free core + paid Sync","price":"Sync ~$5/mo","rev":"Small (est.)","revM":null,"fund":"$4.1M seed (prestigious angels)","fundM":4.1,"diff":"Open-source, local-first, plain-text/Markdown","primRev":"Donation/paid-sync (Logseq Sync Backers tier)","secRev":"Sponsor tier, Open Collective donations, forthcoming Logseq Pro collaboration","growth":"Donation-funded / Open-source","ads":false,"cacLo":2,"cacHi":10,"ltvLo":60,"ltvHi":150,"demo":"Developers, open-source/privacy-focused PKM enthusiasts, 25-45","region":"Global/Distributed","country":"United States","topCountries":["United States","Germany","United Kingdom","China","India"],"growthPct":null},{"c":"Tana","seg":"PKM / Second-Brain","own":"VC-backed (Tola Capital, Lightspeed)","ownCat":"VC-Backed","biz":"Freemium, AI-credit tiers","price":"$10/mo","rev":"Not disclosed (early-stage)","revM":null,"fund":"$25M raised; ~$100M valuation (Feb 2025)","fundM":25.0,"diff":"\"Supertags\" structured-data model; 160K+ waitlist","primRev":"Per-user subscription (freemium, AI credits)","secRev":"Team/enterprise tiers","growth":"Organic + freemium conversion","ads":false,"cacLo":150,"cacHi":400,"ltvLo":300,"ltvHi":900,"demo":"Power users, PKM enthusiasts, product/research professionals, 25-45","region":"North America","country":"United States","topCountries":["United States","Norway","United Kingdom","Germany","Canada"],"growthPct":null},{"c":"Anytype","seg":"PKM / Second-Brain","own":"VC-backed (Balderton Capital)","ownCat":"VC-Backed","biz":"Freemium, local-first P2P","price":"~$4-10/mo","rev":"Not disclosed","revM":null,"fund":"~$13-29M raised (sources conflict)","fundM":29.0,"diff":"Genuine local-first, E2E-encrypted, P2P sync","primRev":"Per-user freemium subscription (Plus/Pro sync storage tiers)","secRev":"Builder annual power-user plan + nascent team/business tier","growth":"Organic + freemium conversion","ads":false,"cacLo":50,"cacHi":150,"ltvLo":150,"ltvHi":400,"demo":"Privacy/decentralization-focused PKM users, Web3-adjacent early adopters, 25-40","region":"Europe","country":"United States","topCountries":["Germany","United States","United Kingdom","Switzerland","Russia"],"growthPct":null},{"c":"Capacities","seg":"PKM / Second-Brain","own":"Bootstrapped (Stuttgart)","ownCat":"Bootstrapped / Independent","biz":"Freemium subscription","price":"$9.99/mo","rev":"Low-mid 6-7 figures (est.)","revM":null,"fund":"Non-dilutive only","fundM":null,"diff":"Object-typed information model","primRev":"Per-user freemium subscription (Pro tier $9.99/mo)","secRev":"Believer superfan tier + Plus AI Power-Up add-on","growth":"Organic + freemium conversion","ads":false,"cacLo":5,"cacHi":25,"ltvLo":150,"ltvHi":350,"demo":"PKM/tools-for-thought knowledge workers, 25-40, German/European-skewed base","region":"Europe","country":"Germany","topCountries":["Germany","United States","United Kingdom","Canada"],"growthPct":null},{"c":"Heptabase","seg":"PKM / Second-Brain","own":"VC-backed (YC, Kleiner Perkins)","ownCat":"VC-Backed","biz":"Freemium subscription","price":"$8.99/mo","rev":"~$1.2M cumulative (self-reported)","revM":1.2,"fund":"$2.2M raised","fundM":2.2,"diff":"Whiteboard + notes for deep research/learning","primRev":"Per-user subscription (Pro/Premium/Premium+ tiers)","secRev":"Tiered upsells for AI features and storage; no enterprise/ads disclosed","growth":"Organic + freemium conversion","ads":false,"cacLo":15,"cacHi":40,"ltvLo":250,"ltvHi":450,"demo":"Students, PhD candidates, and researchers, 20-35","region":"Global/Distributed","country":"United States","topCountries":["United States","Taiwan","United Kingdom","Canada"],"growthPct":null},{"c":"Reflect","seg":"PKM / Second-Brain","own":"Crowdfunded (Wefunder) + light VC","ownCat":"Bootstrapped / Independent","biz":"Single-tier subscription","price":"$15/mo","rev":"~$326K (2024, self-reported)","revM":0.33,"fund":"~$4M raised; profitable since 2023","fundM":4.0,"diff":"E2E-encrypted, calendar-native","primRev":"Single-tier subscription","secRev":"None disclosed","growth":"Organic + freemium conversion","ads":false,"cacLo":30,"cacHi":80,"ltvLo":300,"ltvHi":600,"demo":"Privacy-conscious knowledge workers, 28-45","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","Germany"],"growthPct":null},{"c":"Mem","seg":"PKM / Second-Brain","own":"VC-backed (a16z, OpenAI Startup Fund)","ownCat":"VC-Backed","biz":"Subscription, pivoting to AI agent","price":"Not confirmed","rev":"Not disclosed","revM":null,"fund":"$29M raised; ~$110M valuation (2022)","fundM":29.0,"diff":"Pivoted from \"second brain\" to AI chief-of-staff","primRev":"Per-user subscription (freemium plus Pro/Agent tiers)","secRev":"Upsell to AI 'agent'/chief-of-staff tier","growth":"Organic + freemium conversion","ads":false,"cacLo":40,"cacHi":110,"ltvLo":150,"ltvHi":300,"demo":"Knowledge workers (founders, execs, consultants), 28-45","region":"North America","country":"United States","topCountries":["United States","Canada","United Kingdom","India"],"growthPct":null},{"c":"RemNote","seg":"PKM / Second-Brain","own":"VC-backed","ownCat":"VC-Backed","biz":"Freemium, spaced-repetition","price":"$8/mo","rev":"~$2M (est.)","revM":2.0,"fund":"$2.8M raised","fundM":2.8,"diff":"Notes + flashcards for exam-focused students","primRev":"Per-user subscription (Pro / Pro with AI)","secRev":"AI-credit-based tier upsell","growth":"Organic + freemium conversion","ads":false,"cacLo":10,"cacHi":35,"ltvLo":150,"ltvHi":350,"demo":"University/med/law students, 18-28","region":"Global/Distributed","country":"United States","topCountries":["United States","Germany","United Kingdom","India","Netherlands"],"growthPct":null},{"c":"Supernotes","seg":"PKM / Second-Brain","own":"Angel-backed (London)","ownCat":"Bootstrapped / Independent","biz":"Freemium subscription","price":"\u00a36/mo","rev":"Low 6-figures (est.)","revM":null,"fund":"$1.83M raised","fundM":1.83,"diff":"Atomic card-based notes","primRev":"Per-user subscription (Unlimited plan)","secRev":"Bundled AI features and API access in paid tier","growth":"Organic + freemium conversion","ads":false,"cacLo":5,"cacHi":25,"ltvLo":100,"ltvHi":250,"demo":"Students and knowledge-management enthusiasts, 20-35","region":"Europe","country":"United Kingdom","topCountries":["United Kingdom","United States","Germany","Netherlands"],"growthPct":null},{"c":"Workflowy","seg":"PKM / Second-Brain","own":"Bootstrapped (YC alum)","ownCat":"Bootstrapped / Independent","biz":"Freemium subscription","price":"$8.99/mo","rev":"$1.1M (2024, self-reported)","revM":1.1,"fund":"Early seed only","fundM":null,"diff":"Anchors the minimalist-outliner category","primRev":"Per-user subscription (Pro plan)","secRev":"None disclosed","growth":"Organic + freemium conversion","ads":false,"cacLo":5,"cacHi":20,"ltvLo":200,"ltvHi":400,"demo":"General individual productivity users, 25-45","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","Germany"],"growthPct":null},{"c":"Zettlr","seg":"PKM / Second-Brain","own":"Open-source/donation-funded","ownCat":"Open-Source / Nonprofit","biz":"Free, donation-based","price":"Free","rev":"Very small","revM":null,"fund":"None","fundM":null,"diff":"Academic/Markdown citation-focused writing","primRev":"Donations (Patreon/PayPal)","secRev":"None","growth":"Donation-funded / Open-source","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Academics, researchers, and technical writers, 25-50","region":"Europe","country":"Germany","topCountries":["Germany","United States","United Kingdom","Netherlands"],"growthPct":null},{"c":"xTiles","seg":"PKM / Second-Brain","own":"Largely unfunded (Ukraine)","ownCat":"Bootstrapped / Independent","biz":"Freemium subscription","price":"$8.25/mo","rev":"$3.3M (2025, self-reported)","revM":3.3,"fund":"Non-dilutive/program support","fundM":null,"diff":"Tile-first visual moodboard notebook","primRev":"Per-user/plan subscription (Plus/Family/Team)","secRev":"Tiered plan upsell across individual/family/team","growth":"Organic + freemium conversion","ads":false,"cacLo":15,"cacHi":45,"ltvLo":200,"ltvHi":450,"demo":"Individuals, families, and small teams, 22-40","region":"Global/Distributed","country":"United States","topCountries":["United States","Ukraine","Poland","United Kingdom"],"growthPct":null},{"c":"Milanote","seg":"PKM / Second-Brain","own":"Bootstrapped, profitable","ownCat":"Bootstrapped / Independent","biz":"Freemium subscription","price":"$9.99/mo","rev":"~$2.8M (est.)","revM":2.8,"fund":"~$780K angel only","fundM":null,"diff":"Visual moodboard for creatives","primRev":"Per-user subscription (Individual ~$9.99-12.50/mo)","secRev":"Flat-rate Team plan (~$49-99/mo)","growth":"Organic + freemium conversion","ads":false,"cacLo":20,"cacHi":40,"ltvLo":180,"ltvHi":240,"demo":"Individual creative professionals, 25-45, US/UK/Australia skew","region":"Global/Distributed","country":"United States","topCountries":["United States","United Kingdom","Australia","Canada"],"growthPct":null},{"c":"AppFlowy","seg":"PKM / Second-Brain","own":"VC-backed (OSS Capital)","ownCat":"VC-Backed","biz":"Open-core, cloud/AI upsell","price":"Not consistently disclosed","rev":"Not disclosed","revM":null,"fund":"$6.4M seed","fundM":6.4,"diff":"Open-source Notion alternative w/ local AI","primRev":"Open-core cloud upsell (AppFlowy Cloud Pro ~$10-12.50/user/mo)","secRev":"AI add-ons (AI MAX, Vault Workspace) and custom Enterprise plans","growth":"Organic + freemium conversion","ads":false,"cacLo":40,"cacHi":120,"ltvLo":200,"ltvHi":350,"demo":"Developers and technical teams, 25-40, global","region":"Global/Distributed","country":"United States","topCountries":["United States","Germany","India","China"],"growthPct":null},{"c":"AFFiNE","seg":"PKM / Second-Brain","own":"VC-backed (Singapore)","ownCat":"VC-Backed","biz":"Open-core, cloud tiers","price":"Not consistently disclosed","rev":"Not disclosed","revM":null,"fund":"$18M raised","fundM":18.0,"diff":"Docs + infinite-canvas whiteboard hybrid","primRev":"Open-core cloud upsell (Pro ~$5.99/mo, Believer ~$8/mo)","secRev":"Self-hosted Team license (~$10/seat/mo) and Enterprise/Installable License","growth":"Organic + freemium conversion","ads":false,"cacLo":60,"cacHi":150,"ltvLo":120,"ltvHi":220,"demo":"Privacy-focused knowledge workers/developers, 25-40, Europe/Asia skew","region":"Global/Distributed","country":"United States","topCountries":["United States","Germany","India","China"],"growthPct":null},{"c":"SiYuan","seg":"PKM / Second-Brain","own":"Self-funded (China)","ownCat":"Bootstrapped / Independent","biz":"Free core + one-time PRO unlock","price":"$64 one-time","rev":"Small (est.)","revM":null,"fund":"None","fundM":null,"diff":"Generous free tier incl. AI; one-time pricing","primRev":"One-time purchase (PRO ~$64, lifetime ~$148)","secRev":"None","growth":"Organic + freemium conversion","ads":false,"cacLo":5,"cacHi":20,"ltvLo":64,"ltvHi":148,"demo":"Privacy-first individuals, 20-35, China-skewed","region":"Asia-Pacific","country":"China","topCountries":["China","United States","Germany","Japan"],"growthPct":null},{"c":"Memos","seg":"PKM / Second-Brain","own":"Pure open-source (no company)","ownCat":"Open-Source / Nonprofit","biz":"Free, self-hosted","price":"N/A","rev":"$0","revM":null,"fund":"None","fundM":null,"diff":"Lightweight Markdown \"quick capture\" timeline","primRev":"None (free, self-hosted)","secRev":"None","growth":"Donation-funded / Open-source","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Self-hosting developers/tinkerers, 20-40","region":"Global/Distributed","country":"United States","topCountries":["United States","Germany","India","Russia","China"],"growthPct":null},{"c":"TriliumNext","seg":"PKM / Second-Brain","own":"Pure open-source (community fork)","ownCat":"Open-Source / Nonprofit","biz":"Free, self-hosted","price":"N/A","rev":"$0","revM":null,"fund":"None","fundM":null,"diff":"Successful community rescue of abandoned Trilium","primRev":"None (free, self-hosted)","secRev":"None","growth":"Donation-funded / Open-source","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Technical power users, 25-45","region":"Global/Distributed","country":"United States","topCountries":["United States","Germany","India","Russia"],"growthPct":null},{"c":"Recall (getrecall.ai)","seg":"PKM / Second-Brain","own":"VC-backed (Jason Calacanis)","ownCat":"VC-Backed","biz":"Freemium subscription","price":"Not confirmed","rev":"Not disclosed","revM":null,"fund":"$1.5M pre-seed","fundM":null,"diff":"Spaced-repetition \"AI second brain\"","primRev":"Per-user subscription (Free/Plus ~$10/mo, Max ~$38/mo)","secRev":"Max power-tier upsell, student discount","growth":"Organic + freemium conversion","ads":false,"cacLo":10,"cacHi":30,"ltvLo":100,"ltvHi":200,"demo":"Knowledge workers/students, 20-35, English-speaking early adopters","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Netherlands","Canada"],"growthPct":null},{"c":"Fabric (fabric.so)","seg":"PKM / Second-Brain","own":"Private, funding undisclosed","ownCat":"Bootstrapped / Independent","biz":"Freemium subscription","price":"$5-8/mo","rev":"Not disclosed","revM":null,"fund":"Undisclosed","fundM":null,"diff":"Auto-organizing knowledge graph, no manual filing","primRev":"Per-user subscription (Basic ~$6/mo, Pro/Premium ~$16/mo)","secRev":"Use-case-tailored paid modes (student/founder)","growth":"Organic + freemium conversion","ads":false,"cacLo":10,"cacHi":30,"ltvLo":100,"ltvHi":200,"demo":"Students/founders/knowledge workers, 20-35, US/NY skew","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","India"],"growthPct":null},{"c":"mymind","seg":"PKM / Second-Brain","own":"Bootstrapped, anti-VC by design","ownCat":"Bootstrapped / Independent","biz":"Pure subscription, no ads","price":"$6.99/mo","rev":"~$880K (est.)","revM":0.88,"fund":"None","fundM":null,"diff":"Privacy-first, anti-ad-model \"second brain\"","primRev":"Pure subscription","secRev":"None (explicitly anti-ads)","growth":"Organic + freemium conversion","ads":false,"cacLo":25,"cacHi":90,"ltvLo":150,"ltvHi":400,"demo":"Privacy-conscious creatives and knowledge workers, 25-45","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Germany"],"growthPct":null},{"c":"Kortex","seg":"PKM / Second-Brain","own":"Independent, anti-VC by design","ownCat":"Bootstrapped / Independent","biz":"Freemium, AI-credit tiers","price":"Free tier / paid $10-21/mo","rev":"Low single-digit millions (est.)","revM":null,"fund":"None confirmed","fundM":null,"diff":"AI writing assistant for creators","primRev":"Freemium subscription (tiered AI usage/storage)","secRev":"Custom enterprise/team tier","growth":"Organic + freemium conversion","ads":false,"cacLo":30,"cacHi":100,"ltvLo":120,"ltvHi":350,"demo":"Writers, creators, students, and marketers, skewing 20s-30s","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada"],"growthPct":null},{"c":"Confluence","seg":"B2B Enterprise Knowledge","own":"Subsidiary (Atlassian, TEAM, public)","ownCat":"Public","biz":"Per-user SaaS","price":"$5.42/user/mo","rev":"Est. $700-900M (not broken out; parent $5.215B FY25)","revM":null,"fund":"Public since 2015","fundM":null,"diff":"Jira-bundled distribution moat","primRev":"Per-seat SaaS subscription (Cloud tiers, plus legacy Data Center licensing)","secRev":"Rovo AI credit add-ons, Marketplace app revenue share, bundling with Jira","growth":"Sales-led enterprise","ads":false,"cacLo":3000,"cacHi":12000,"ltvLo":15000,"ltvHi":60000,"demo":"SMB through enterprise, concentrated in 1,001-5,000 employee band, engineering-led orgs on Jira","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Australia","Germany"],"growthPct":null},{"c":"Jira (context only)","seg":"B2B Enterprise Knowledge","own":"Subsidiary (Atlassian, TEAM)","ownCat":"Subsidiary / Bundled","biz":"Per-user SaaS","price":"$8.15/user/mo","rev":"Bundled into $5.22B parent revenue","revM":null,"fund":"Public since 2015","fundM":null,"diff":"Confluence's natural cross-sell pairing","primRev":"SaaS subscription (bundled/adjacent to Confluence suite)","secRev":"Data Center legacy licenses, suite/AI add-ons","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Software development and IT teams, global enterprise and SMB","region":"Global/Distributed","country":"United States","topCountries":["United States","United Kingdom","Australia","Germany","India"],"growthPct":null},{"c":"Slite","seg":"B2B Enterprise Knowledge","own":"VC-backed","ownCat":"VC-Backed","biz":"Freemium per-seat SaaS","price":"Low-single-digits to ~$10/mo","rev":"Low-mid single-digit millions (est.)","revM":null,"fund":"$15.5M raised","fundM":15.5,"diff":"Lightweight, Slack-native wiki","primRev":"Per-seat SaaS subscription with freemium entry","secRev":"Tier upgrades gating AI features (Slite AI) and admin controls","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":300,"cacHi":1200,"ltvLo":2000,"ltvHi":6000,"demo":"SMB/startups, 10-200 employees, remote-first tech companies and agencies","region":"North America","country":"United States","topCountries":["United States","France","United Kingdom","Germany"],"growthPct":null},{"c":"Slab","seg":"B2B Enterprise Knowledge","own":"Privately held, profitable","ownCat":"Bootstrapped / Independent","biz":"Freemium per-seat SaaS","price":"$6.67/user/mo","rev":"$3M (2024, self-reported)","revM":3.0,"fund":"Single Series A only (~2018)","fundM":null,"diff":"Search quality; capital-efficient since 2018","primRev":"Per-seat SaaS subscription (Startup/Business tiers)","secRev":"AI feature add-ons and admin/security features (SSO, SCIM) on Business tier","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":500,"cacHi":2000,"ltvLo":3000,"ltvHi":9000,"demo":"SMB/mid-market tech companies, engineering/product teams, US-centric","region":"North America","country":"United States","topCountries":["United States","Canada","United Kingdom","Germany"],"growthPct":null},{"c":"Nuclino","seg":"B2B Enterprise Knowledge","own":"Bootstrapped, founder-owned","ownCat":"Bootstrapped / Independent","biz":"Freemium per-seat SaaS","price":"$6/user/mo","rev":"~$2M (self-reported)","revM":2.0,"fund":"None","fundM":null,"diff":"Minimalist Confluence/Notion alternative","primRev":"Per-seat SaaS subscription (Starter/Business tiers) with free entry tier","secRev":"Minimal; essentially none beyond tier upsell","growth":"Organic + freemium conversion","ads":false,"cacLo":200,"cacHi":800,"ltvLo":1000,"ltvHi":3000,"demo":"Micro/small teams, 1-50 employees, tech/gaming/consulting/SaaS, US/Germany/Canada","region":"North America","country":"United States","topCountries":["United States","Germany","Canada","United Kingdom"],"growthPct":null},{"c":"Tettra","seg":"B2B Enterprise Knowledge","own":"Acquired by GSoft (Oct 2023)","ownCat":"Acquired","biz":"Tiered SaaS","price":"$40/mo","rev":"$3.2M / 548 customers (2024)","revM":3.2,"fund":"~$1.5-1.8M pre-acquisition","fundM":null,"diff":"Slack-native Q&A wiki","primRev":"Per-account tiered SaaS subscription (Basic/Scaling/Professional)","secRev":"Professional-tier add-ons (SSO, SCIM); emerging cross-sell into GSoft employee-experience suite","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":800,"cacHi":2500,"ltvLo":4000,"ltvHi":10000,"demo":"Small/mid-market Slack-centric teams, 10-250 users, Support/HR/Ops/Engineering buyers","region":"North America","country":"United States","topCountries":["United States","Canada","United Kingdom","Australia"],"growthPct":null},{"c":"Guru","seg":"B2B Enterprise Knowledge","own":"VC-backed (Accel, Thrive)","ownCat":"VC-Backed","biz":"Per-seat SaaS","price":"$25/seat/mo","rev":"~$63M (2023)","revM":63.0,"fund":"$70.7M raised","fundM":70.7,"diff":"\"Verified knowledge in the flow of work\"","primRev":"Per-seat SaaS subscription","secRev":"Premium/enterprise tier add-ons, CRM/helpdesk integrations, Guru AI features","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":2000,"cacHi":6000,"ltvLo":12000,"ltvHi":35000,"demo":"Mid-market to enterprise, ops/CS/sales enablement teams, US-heavy","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","Australia"],"growthPct":null},{"c":"Document360","seg":"B2B Enterprise Knowledge","own":"Bootstrapped (Kovai.co)","ownCat":"Bootstrapped / Independent","biz":"Quote-based SaaS","price":"Custom (was $149+/mo)","rev":"$10M+ ARR, targeting $25M by 2028","revM":10.0,"fund":"None (profitable, bootstrapped)","fundM":null,"diff":"Public/customer-facing docs specialist","primRev":"Quote-based enterprise/sales-assisted SaaS contract","secRev":"Eddy AI module add-on, onboarding/professional services, localization add-ons","growth":"Sales-led enterprise","ads":false,"cacLo":2500,"cacHi":8000,"ltvLo":10000,"ltvHi":30000,"demo":"SMB through enterprise, technical writers/product/support buyers, US-heavy with UK/India presence","region":"North America","country":"United States","topCountries":["United States","United Kingdom","India","Germany"],"growthPct":null},{"c":"Helpjuice","seg":"B2B Enterprise Knowledge","own":"Bootstrapped","ownCat":"Bootstrapped / Independent","biz":"Flat-fee tiered SaaS","price":"$120/mo (4 users)","rev":"Not disclosed","revM":null,"fund":"~$20K (negligible)","fundM":null,"diff":"Band-based pricing; 14-year bootstrapped history","primRev":"Flat-fee tiered SaaS subscription (band-based by user count)","secRev":"Minimal; support/onboarding bundled into base price rather than separate upsell","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":600,"cacHi":2000,"ltvLo":5000,"ltvHi":15000,"demo":"SMB to mid-market, 50-200 employees typical, support teams (30+ users), US-based","region":"North America","country":"United States","topCountries":["United States","Canada","United Kingdom","Australia"],"growthPct":null},{"c":"Bloomfire","seg":"B2B Enterprise Knowledge","own":"VC-backed, ownership change 2023","ownCat":"VC-Backed","biz":"Quote-based enterprise SaaS","price":"~$12K-48K/yr","rev":"Not disclosed","revM":null,"fund":"Historic VC (Redpoint et al.)","fundM":null,"diff":"AI knowledge engine + support/CRM integration","primRev":"Enterprise/team-wide contract SaaS (scope-based pricing)","secRev":"Expanded deployment scope, acquired feature modules (e.g., Seva AI)","growth":"Sales-led enterprise","ads":false,"cacLo":10000,"cacHi":25000,"ltvLo":75000,"ltvHi":180000,"demo":"Mid-market to large enterprises, internal KM/L&D/support teams, US-centric","region":"North America","country":"United States","topCountries":["United States","Canada","United Kingdom"],"growthPct":null},{"c":"Glean","seg":"B2B Enterprise Knowledge","own":"VC-backed (Wellington, Sequoia)","ownCat":"VC-Backed","biz":"Enterprise SaaS, ICV $100K-5M+","price":"Custom","rev":"$300M (May 2026, +89% YoY)","revM":300.0,"fund":"$150M Series F (Jun 2025) at $7.2B valuation","fundM":150.0,"diff":"Clear category leader; fastest-growing/highest-valued company in entire dataset","primRev":"Enterprise SaaS (per-seat licensing + Enterprise Flex contract)","secRev":"Pay-per-use AI/agent credits, professional services","growth":"Sales-led enterprise","ads":false,"cacLo":15000,"cacHi":60000,"ltvLo":300000,"ltvHi":1000000,"demo":"Large enterprises, IT/knowledge management and AI platform buyers, US/global enterprise","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","India"],"growthPct":89.0},{"c":"GitBook","seg":"Developer Documentation","own":"VC-backed (seed only)","ownCat":"VC-Backed","biz":"Per-space SaaS","price":"$65/mo","rev":"~$3.9M (est.)","revM":3.9,"fund":"~$940K seed (lean)","fundM":0.94,"diff":"Git-native editing for dev teams","primRev":"Per-seat/per-editor SaaS subscription","secRev":"Enterprise add-ons (SSO, advanced permissions, higher AI limits)","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":500,"cacHi":1800,"ltvLo":3000,"ltvHi":9000,"demo":"Small-to-mid software teams, DevRel/engineering, startups and scale-ups","region":"Global/Distributed","country":"United States","topCountries":["United States","France","Germany","United Kingdom"],"growthPct":null},{"c":"ReadMe","seg":"Developer Documentation","own":"VC-backed (Accel, YC)","ownCat":"VC-Backed","biz":"Tiered SaaS","price":"$79/mo","rev":"Not disclosed","revM":null,"fund":"~$10M raised (no round since 2019)","fundM":10.0,"diff":"Interactive API testing as self-serve sales tool","primRev":"Per-project/per-seat SaaS subscription for API doc hosting","secRev":"Enterprise add-ons (custom domains, analytics, SSO)","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":800,"cacHi":2500,"ltvLo":4000,"ltvHi":12000,"demo":"API-first software companies, DevRel/developer experience teams, US/tech-hub mid-market","region":"North America","country":"United States","topCountries":["United States","United Kingdom","India","Canada"],"growthPct":null},{"c":"Mintlify","seg":"Developer Documentation","own":"VC-backed (a16z, Salesforce Ventures)","ownCat":"VC-Backed","biz":"Subscription","price":"Not fully disclosed","rev":"$10M ARR (2025, 10x YoY)","revM":10.0,"fund":"$45M Series B at $500M valuation (Apr 2026)","fundM":45.0,"diff":"Fastest-growing dev-docs company; AI-native","primRev":"Freemium SaaS with metered AI-credit consumption","secRev":"Usage-based AI credit packs, Enterprise contracts","growth":"Organic + freemium conversion","ads":false,"cacLo":300,"cacHi":1500,"ltvLo":2500,"ltvHi":10000,"demo":"Dev-tool/API-first startups to mid-market, engineering/DevRel buyers, global tech-hub skew","region":"Global/Distributed","country":"United States","topCountries":["United States","India","United Kingdom","Germany"],"growthPct":900.0},{"c":"Docusaurus","seg":"Developer Documentation","own":"Meta open-source project","ownCat":"Open-Source / Nonprofit","biz":"Free, no business model","price":"N/A","rev":"$0","revM":null,"fund":"N/A","fundM":null,"diff":"Default free React-based docs generator","primRev":"Free open-source project (no monetization)","secRev":"None","growth":"Free / Bundled (indirect monetization)","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Individual developers and engineering/DevRel teams building docs, global React/JS ecosystem","region":"Global/Distributed","country":"United States","topCountries":["United States","India","Brazil","China"],"growthPct":null},{"c":"Outline","seg":"Developer Documentation","own":"Bootstrapped/self-funded","ownCat":"Bootstrapped / Independent","biz":"Open-core SaaS","price":"$10/mo","rev":"Not disclosed","revM":null,"fund":"None found","fundM":null,"diff":"Fast, self-hostable Notion/Confluence-like wiki","primRev":"Per-seat SaaS subscription for hosted Outline Cloud (open-core)","secRev":"Business/Enterprise tier upgrades (SSO, priority support)","growth":"Organic + freemium conversion","ads":false,"cacLo":300,"cacHi":1200,"ltvLo":2000,"ltvHi":5000,"demo":"Small-to-mid engineering/product teams, startups, self-host-minded developers, global","region":"Global/Distributed","country":"United States","topCountries":["United States","India","Germany","United Kingdom"],"growthPct":null},{"c":"GitHub Wiki/Discussions","seg":"Developer Documentation","own":"Subsidiary (Microsoft, MSFT)","ownCat":"Subsidiary / Bundled","biz":"Free, bundled","price":"Free (GitHub Team ~$4/user/mo)","rev":"N/A \u2014 GitHub overall est. $1-2B","revM":null,"fund":"N/A","fundM":null,"diff":"Zero-cost, native to where code lives","primRev":"Free bundled feature","secRev":"None (indirect retention support for GitHub subscriptions)","growth":"Free / Bundled (indirect monetization)","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Global developers and organizations of any size on GitHub","region":"Global/Distributed","country":"United States","topCountries":["United States","India","Germany","United Kingdom","Brazil"],"growthPct":null},{"c":"BookStack","seg":"Developer Documentation","own":"Pure open-source","ownCat":"Open-Source / Nonprofit","biz":"Free, self-hosted","price":"N/A","rev":"$0","revM":null,"fund":"None","fundM":null,"diff":"Simple book/chapter/page hierarchy","primRev":"Donations (free open-source, no official paid tier)","secRev":"Third-party managed hosting resale; GitHub Sponsors","growth":"Donation-funded / Open-source","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Technical IT teams and self-hosting/homelab individuals","region":"Europe","country":"United Kingdom","topCountries":["United Kingdom","United States","Germany"],"growthPct":null},{"c":"XWiki","seg":"Developer Documentation","own":"Bootstrapped (XWiki SAS, France)","ownCat":"Bootstrapped / Independent","biz":"Open-core, cloud/support","price":"Custom","rev":"$4-7.1M (est.)","revM":7.1,"fund":"~$148K grant only","fundM":null,"diff":"EU-sovereign Confluence alternative","primRev":"Open-core cloud+support","secRev":"Enterprise support contracts, migration toolkits","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":800,"cacHi":2500,"ltvLo":3000,"ltvHi":15000,"demo":"Mid-to-large European/public-sector organizations, IT/knowledge-management buyers","region":"Europe","country":"France","topCountries":["France","Germany","United Kingdom"],"growthPct":null},{"c":"MediaWiki","seg":"Developer Documentation","own":"Nonprofit (Wikimedia Foundation)","ownCat":"Open-Source / Nonprofit","biz":"Free + donations + Enterprise API","price":"N/A","rev":"$208.6M Foundation revenue (FY25)","revM":208.6,"fund":"Donation-funded nonprofit","fundM":null,"diff":"Runs Wikipedia; Wikimedia Enterprise +148% YoY","primRev":"Donations","secRev":"Wikimedia Enterprise API (paid, commercial reusers)","growth":"Donation-funded / Open-source","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Global, broad \u2014 from hobbyist wiki operators to large enterprises and AI/search companies","region":"Global/Distributed","country":"United States","topCountries":["United States","India","Germany","Brazil","Japan"],"growthPct":null},{"c":"Otter.ai","seg":"Meeting AI / AI Notetakers","own":"VC-backed","ownCat":"VC-Backed","biz":"Freemium per-seat SaaS","price":"$16.99/mo","rev":"$100M+ (Mar 2025)","revM":100.0,"fund":"~$70M raised","fundM":70.0,"diff":"Incumbent leader, pre-dates 2023-25 AI wave","primRev":"Per-seat SaaS subscription with usage-based minute caps","secRev":"Enterprise tier, AI meeting agents (proactive AI upsell)","growth":"Organic + freemium conversion","ads":false,"cacLo":30,"cacHi":100,"ltvLo":200,"ltvHi":500,"demo":"Broad professionals, sales/CS teams, growing enterprise, US-skewed","region":"North America","country":"United States","topCountries":["United States","Canada","United Kingdom","Australia"],"growthPct":null},{"c":"Fireflies.ai","seg":"Meeting AI / AI Notetakers","own":"VC-backed","ownCat":"VC-Backed","biz":"Freemium per-seat SaaS","price":"$10/seat/mo","rev":"~$10.9M (2024, likely stale)","revM":10.9,"fund":"~$19.1M raised; $1B valuation via tender (Jun 2025)","fundM":19.1,"diff":"Reached unicorn status on <$20M raised (capital-efficient)","primRev":"Per-seat SaaS subscription","secRev":"AI-credit system, CRM-native conversation intelligence add-ons","growth":"Organic + freemium conversion","ads":false,"cacLo":25,"cacHi":90,"ltvLo":200,"ltvHi":600,"demo":"Sales/CS/RevOps teams, broad freemium base, global","region":"North America","country":"United States","topCountries":["United States","India","United Kingdom","Canada"],"growthPct":null},{"c":"Fathom","seg":"Meeting AI / AI Notetakers","own":"**Acquired by Superhuman (Sep 2026)**","ownCat":"Acquired","biz":"Freemium per-seat SaaS","price":"$16/user/mo","rev":"$30M ARR (2025, 90x in 2yrs)","revM":30.0,"fund":"$30M raised; $94M valuation (2024)","fundM":30.0,"diff":"Fastest revenue growth in category; now embedded in Superhuman","primRev":"Per-seat SaaS subscription","secRev":"CRM sync (Salesforce/HubSpot), AI scorecards/Deal View","growth":"Organic + freemium conversion","ads":false,"cacLo":15,"cacHi":60,"ltvLo":200,"ltvHi":500,"demo":"Individual professionals and HubSpot-centric SMB sales teams, US-skewed","region":"North America","country":"United States","topCountries":["United States","Canada","United Kingdom","Australia"],"growthPct":null},{"c":"tl;dv","seg":"Meeting AI / AI Notetakers","own":"VC-backed","ownCat":"VC-Backed","biz":"Freemium per-seat SaaS","price":"$18/mo","rev":"Low tens of millions (est.)","revM":null,"fund":"$4.5-8M raised (disputed)","fundM":8.0,"diff":"Aggressive freemium; pushing into sales coaching","primRev":"Per-seat SaaS subscription (freemium)","secRev":"Higher Business tier (sales coaching, CRM sync)","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":40,"cacHi":150,"ltvLo":250,"ltvHi":700,"demo":"Knowledge workers and sales/CS teams, SMB-mid-market, Europe/North America","region":"Europe","country":"United States","topCountries":["United States","Germany","United Kingdom","France"],"growthPct":null},{"c":"Avoma","seg":"Meeting AI / AI Notetakers","own":"VC-backed (K9 Ventures, HubSpot Ventures)","ownCat":"VC-Backed","biz":"Subscription + add-ons","price":"$19/user/mo","rev":"$10-25M (est.)","revM":25.0,"fund":"$15M raised","fundM":15.0,"diff":"4-in-1 suite; capital-efficient value play","primRev":"Per-seat SaaS subscription","secRev":"Unbundled Conversation & Revenue Intelligence add-ons","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":150,"cacHi":400,"ltvLo":1000,"ltvHi":2500,"demo":"Sales/CS teams at mid-market and enterprise companies, US-based","region":"North America","country":"United States","topCountries":["United States","Canada","United Kingdom","India"],"growthPct":null},{"c":"Grain","seg":"Meeting AI / AI Notetakers","own":"VC-backed (Tiger Global)","ownCat":"VC-Backed","biz":"Freemium per-seat SaaS","price":"$15/seat/mo","rev":"Low-mid single digits to $10M (est.)","revM":10.0,"fund":"$20M raised","fundM":20.0,"diff":"Video-clip-first \"voice of customer\" storytelling","primRev":"Per-seat SaaS subscription (freemium)","secRev":"Enterprise custom-quote tier","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":50,"cacHi":180,"ltvLo":300,"ltvHi":800,"demo":"Sales, product, and CX teams, SMB-mid-market, US-based","region":"North America","country":"United States","topCountries":["United States","Canada","United Kingdom","Australia"],"growthPct":null},{"c":"Supernormal","seg":"Meeting AI / AI Notetakers","own":"Independent, funding unconfirmed","ownCat":"Bootstrapped / Independent","biz":"Credit-based freemium","price":"$18/user/mo","rev":"Not disclosed","revM":null,"fund":"Unconfirmed","fundM":null,"diff":"Bot-free/invisible meeting capture","primRev":"Per-user SaaS subscription (credit-based, freemium)","secRev":"Credit-based usage overage","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":60,"cacHi":200,"ltvLo":250,"ltvHi":600,"demo":"Sales teams and trust-sensitive knowledge workers, small-mid-market","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","Australia"],"growthPct":null},{"c":"Granola","seg":"Meeting AI / AI Notetakers","own":"VC-backed (Index Ventures)","ownCat":"VC-Backed","biz":"Freemium subscription","price":"$14/user/mo","rev":"Not disclosed (revenue +250% in a quarter)","revM":null,"fund":"$192M raised; **$1.5B valuation (Mar 2026, up from $250M in <1yr)**","fundM":192.0,"diff":"Momentum leader by funding; writing-alongside-transcript UX","primRev":"Per-user subscription (freemium)","secRev":"Team/business tier","growth":"Organic + freemium conversion","ads":false,"cacLo":30,"cacHi":120,"ltvLo":250,"ltvHi":600,"demo":"Startup founders and knowledge workers, 25-45, US/UK-heavy","region":"Global/Distributed","country":"United States","topCountries":["United States","United Kingdom","Canada","Germany"],"growthPct":null},{"c":"Read AI","seg":"Meeting AI / AI Notetakers","own":"VC-backed (Smash Capital)","ownCat":"VC-Backed","biz":"Freemium per-seat SaaS","price":"$19.75/mo","rev":"Not disclosed","revM":null,"fund":"$81M raised; ~$450M valuation","fundM":81.0,"diff":"Broader \"workplace intelligence,\" not just meetings","primRev":"Per-user SaaS subscription (freemium)","secRev":"Enterprise+ minimum-seat commitments","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":80,"cacHi":250,"ltvLo":400,"ltvHi":1000,"demo":"Knowledge workers and sales/CS teams, SMB-to-enterprise, US-based","region":"North America","country":"United States","topCountries":["United States","Canada","United Kingdom","India"],"growthPct":null},{"c":"Zoom AI Companion","seg":"Meeting AI / AI Notetakers","own":"Subsidiary feature (Zoom, ZM)","ownCat":"Subsidiary / Bundled","biz":"Free w/ paid Zoom plans","price":"Free / $10/mo standalone","rev":"N/A \u2014 parent $4.67B FY25 revenue","revM":null,"fund":"N/A","fundM":null,"diff":"Massive bundled distribution threatens standalone notetakers","primRev":"Free/bundled into a larger paid platform","secRev":"Standalone subscription and advanced/Custom AI add-ons","growth":"Free / Bundled (indirect monetization)","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Entire Zoom Workplace customer base, SMB to enterprise, global","region":"Global/Distributed","country":"United States","topCountries":["United States","United Kingdom","Japan","Germany","India"],"growthPct":null},{"c":"NotebookLM (Gemini Notebook)","seg":"Meeting AI / AI Notetakers","own":"Subsidiary (Alphabet, GOOGL)","ownCat":"Subsidiary / Bundled","biz":"Free/bundled into Google account","price":"Free","rev":"N/A \u2014 folds into Alphabet","revM":null,"fund":"N/A","fundM":null,"diff":"30M+ users; source-grounded research, not meetings","primRev":"Free/bundled into a larger paid platform","secRev":"Google One AI Premium / Workspace / Gemini Enterprise upsell","growth":"Free / Bundled (indirect monetization)","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Researchers, students, knowledge workers, global","region":"Global/Distributed","country":"United States","topCountries":["United States","India","United Kingdom","Brazil","Germany"],"growthPct":null},{"c":"ClickUp","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"VC-backed (a16z, Tiger Global)","ownCat":"VC-Backed","biz":"Freemium per-seat SaaS","price":"~$7-10/user/mo","rev":"$300M ARR (Sep 2025, disclosed)","revM":300.0,"fund":"$535M raised; $4B valuation (2021)","fundM":535.0,"diff":"\"One app to replace them all\" breadth","primRev":"Per-user SaaS subscription (freemium)","secRev":"AI add-on (ClickUp Brain), enterprise tier","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":300,"cacHi":1000,"ltvLo":2500,"ltvHi":7000,"demo":"SMB to mid-market teams, ops/PM/agency roles, global","region":"Global/Distributed","country":"United States","topCountries":["United States","India","United Kingdom","Brazil","Canada"],"growthPct":null},{"c":"Asana","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"Public (NYSE: ASAN)","ownCat":"Public","biz":"Per-seat SaaS","price":"$10.99/user/mo","rev":"$723.9M (FY25, audited, +11%)","revM":723.9,"fund":"Public since 2020","fundM":null,"diff":"Structured work management; growth decelerating","primRev":"Per-user SaaS subscription (Starter/Advanced/Enterprise)","secRev":"AI Studio/AI teammates add-on, enterprise governance features, app marketplace","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":1000,"cacHi":3500,"ltvLo":4000,"ltvHi":12000,"demo":"Mid-market to enterprise cross-functional teams, NA/Europe skew","region":"North America","country":"United States","topCountries":["United States","Japan","United Kingdom","Australia","Germany"],"growthPct":null},{"c":"Monday.com","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"Public (NASDAQ: MNDY)","ownCat":"Public","biz":"Per-seat SaaS","price":"~$9/seat/mo","rev":"$1.22-1.23B FY25 guidance (+26% YoY)","revM":1230.0,"fund":"Public since 2021","fundM":null,"diff":"Fastest revenue growth of any public company in set","primRev":"Per-seat SaaS subscription (seat-block tiers: Basic/Standard/Pro/Enterprise)","secRev":"monday CRM, Dev, Service product cross-sell; AI add-ons; enterprise features","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":1000,"cacHi":3000,"ltvLo":5000,"ltvHi":15000,"demo":"SMB to mid-market expanding to enterprise, cross-functional teams, Europe/Israel + NA","region":"Global/Distributed","country":"United States","topCountries":["United States","United Kingdom","Israel","Australia","Germany"],"growthPct":26.0},{"c":"Linear","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"VC-backed (Accel, Sequoia)","ownCat":"VC-Backed","biz":"Per-seat SaaS","price":"~$10/mo","rev":"~$100M ARR (est., cash-flow positive since 2021)","revM":100.0,"fund":"$134M raised; $1.25B valuation (Jun 2025)","fundM":134.0,"diff":"Design-led, profitable; premium dev/product niche","primRev":"Per-seat SaaS subscription","secRev":"Enterprise tier, Linear Agent AI automation","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":300,"cacHi":900,"ltvLo":3000,"ltvHi":9000,"demo":"Software product/eng teams at startups and scale-ups, global","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","Germany"],"growthPct":null},{"c":"Airtable","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"VC-backed","ownCat":"VC-Backed","biz":"Per-seat SaaS","price":"$20/editor/mo","rev":"$440-480M ARR (+16% YoY, slowing)","revM":480.0,"fund":"$1.4B raised; valuation contracted $11.7B\u2192~$4B (-66%)","fundM":1400.0,"diff":"Category-defining no-code database; sharp valuation markdown","primRev":"Per-seat (editor) SaaS subscription","secRev":"Portals add-on, AI credit packs, Enterprise Scale contracts","growth":"Sales-led enterprise","ads":false,"cacLo":400,"cacHi":1200,"ltvLo":8000,"ltvHi":20000,"demo":"SMB-to-enterprise ops/product/IT teams, ~80% of Fortune 100, global","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","Australia"],"growthPct":16.0},{"c":"Basecamp","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"Bootstrapped (37signals, since 1999)","ownCat":"Bootstrapped / Independent","biz":"Flat-rate SaaS","price":"~$11/user/mo","rev":"$35-280M (wildly disputed est.)","revM":280.0,"fund":"$0 (never raised VC)","fundM":null,"diff":"Anti-complexity philosophy, VC-independence brand","primRev":"Flat-rate / per-user SaaS subscription","secRev":"None (no upsell tiers or add-ons by design)","growth":"Organic + freemium conversion","ads":false,"cacLo":150,"cacHi":400,"ltvLo":4000,"ltvHi":8000,"demo":"SMBs, agencies, freelancers seeking simple all-in-one PM","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","Australia"],"growthPct":null},{"c":"Height","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"**Shut down Sept 24, 2025** (not acquired)","ownCat":"Acquired","biz":"Was per-seat SaaS","price":"N/A","rev":"Not disclosed","revM":null,"fund":"$18.3M raised","fundM":18.3,"diff":"Cautionary example: differentiated PM tool, ran out of runway","primRev":"Per-seat SaaS subscription","secRev":"AI-driven workflow automation (never fully monetized before shutdown)","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":400,"cacHi":1200,"ltvLo":1500,"ltvHi":3000,"demo":"Startups and product/eng teams (same profile as Linear/Asana)","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","Germany"],"growthPct":null},{"c":"Fibery","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"VC-backed (lightly funded)","ownCat":"VC-Backed","biz":"Tiered per-seat SaaS","price":"~$10-20/user/mo (est.)","rev":"~$1.8M (2024, disputed w/ lower estimate)","revM":1.8,"fund":"$8.3M raised","fundM":8.3,"diff":"Deep relational data model for product/research teams","primRev":"Per-seat SaaS subscription","secRev":"AI features for product discovery (summarization, sentiment analysis)","growth":"Organic + freemium conversion","ads":false,"cacLo":150,"cacHi":600,"ltvLo":3600,"ltvHi":6000,"demo":"Product, research, and ops teams at startups/scale-ups, niche","region":"Europe","country":"United States","topCountries":["United States","Russia","Cyprus","Georgia","United Kingdom"],"growthPct":null},{"c":"Dropbox Paper","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"Subsidiary feature (Dropbox, DBX)","ownCat":"Subsidiary / Bundled","biz":"Free, bundled","price":"Free (Dropbox from $11.99/mo)","rev":"N/A \u2014 parent $2.521B FY25 (declining)","revM":null,"fund":"N/A","fundM":null,"diff":"Stagnant retention feature, not a growth product","primRev":"Bundled into larger suite (free) \u2014 no standalone revenue","secRev":"None specific to Paper; Dropbox storage tier upgrades, Dash AI, Dropbox Sign","growth":"Free / Bundled (indirect monetization)","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Existing Dropbox storage customers, freelancers/prosumers/SMBs, NA/Europe","region":"Global/Distributed","country":"United States","topCountries":["United States","United Kingdom","Germany","India","Australia"],"growthPct":null},{"c":"Google Docs","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"Subsidiary feature (Alphabet, GOOGL)","ownCat":"Subsidiary / Bundled","biz":"Free/bundled Workspace","price":"Free (Workspace from $8.40/mo)","rev":"N/A \u2014 folds into $43B+ Cloud segment","revM":null,"fund":"N/A","fundM":null,"diff":"Unmatched free-tier distribution (3B+ users across Workspace)","primRev":"Bundled into larger suite (free) \u2014 Workspace subscription captures value","secRev":"Google Workspace tier upgrades, Gemini AI add-on, Education/Nonprofit plans","growth":"Free / Bundled (indirect monetization)","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Broadest base: individuals, students/educators, SMB-to-enterprise Workspace customers, global","region":"Global/Distributed","country":"United States","topCountries":["United States","India","Brazil","United Kingdom","Indonesia"],"growthPct":null},{"c":"Microsoft Loop","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"Subsidiary feature (Microsoft, MSFT)","ownCat":"Subsidiary / Bundled","biz":"Bundled into M365","price":"Included in M365 plans","rev":"N/A \u2014 folds into $80B+ segment","revM":null,"fund":"N/A","fundM":null,"diff":"Nascent; Copilot delivery surface inside Teams/Outlook","primRev":"Bundled into larger suite (free) \u2014 Microsoft 365 subscription captures value","secRev":"Microsoft 365 Copilot add-on, M365 tier upgrades (Business/E3/E5)","growth":"Free / Bundled (indirect monetization)","ads":false,"cacLo":0,"cacHi":0,"ltvLo":0,"ltvHi":0,"demo":"Enterprise Microsoft 365/Teams seat holders, large/mid-market orgs, global","region":"Global/Distributed","country":"United States","topCountries":["United States","United Kingdom","Germany","Japan","India"],"growthPct":null},{"c":"Coda","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"Acquired by Grammarly/Superhuman (Dec 2024)","ownCat":"Acquired","biz":"Per-Doc-Maker SaaS","price":"~$10/Doc Maker/mo","rev":"~$41.1M (2024 est.)","revM":41.1,"fund":"$240M raised pre-acquisition; $1.4B valuation (2021)","fundM":240.0,"diff":"Doc+database+app hybrid; consolidated into Superhuman","primRev":"Per-Doc-Maker SaaS subscription (Free/Pro/Team/Enterprise)","secRev":"Coda AI credits, Packs marketplace, Enterprise admin/security features","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":400,"cacHi":1000,"ltvLo":2500,"ltvHi":6000,"demo":"SMB/mid-market ops and product teams, tech-forward, NA-heavy","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","India","Australia"],"growthPct":null},{"c":"Quip","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"Subsidiary (Salesforce, CRM)","ownCat":"Subsidiary / Bundled","biz":"Per-user SaaS / CRM add-on","price":"$10-25/user/mo","rev":"N/A \u2014 folds into $37.9B parent","revM":null,"fund":"Acquired ~$750M-1B (2016)","fundM":null,"diff":"Deep Salesforce-record embedding","primRev":"Bundled into larger suite (Salesforce add-on), small standalone plans","secRev":"Standalone Quip Starter/Plus/Advanced plans, Salesforce platform upsell","growth":"Sales-led enterprise","ads":false,"cacLo":0,"cacHi":200,"ltvLo":500,"ltvHi":1500,"demo":"Existing Salesforce CRM customers, enterprise sales/service teams, global","region":"Global/Distributed","country":"United States","topCountries":["United States","United Kingdom","Australia","Germany","Japan"],"growthPct":null},{"c":"Trainual","seg":"Project-Management-Adjacent (Docs as a Feature)","own":"VC-backed","ownCat":"VC-Backed","biz":"Flat-rate tiered SaaS","price":"$199/mo (50 employees)","rev":"Not disclosed","revM":null,"fund":"~$33.8-34M raised","fundM":34.0,"diff":"SMB SOP/onboarding documentation specialist","primRev":"Per-seat SaaS subscription (tiered, annual billing)","secRev":"Compliance/training content add-ons, one-time implementation fee","growth":"Self-serve + inside sales (PLG)","ads":false,"cacLo":2500,"cacHi":8000,"ltvLo":9000,"ltvHi":20000,"demo":"SMBs (franchises, trades, healthcare, agencies), ops/HR/L&D buyers, US-centric","region":"North America","country":"United States","topCountries":["United States","Canada","Australia"],"growthPct":null},{"c":"Goodnotes","seg":"Handwriting / Student Apps","own":"VC-backed (Race Capital, Sequoia China)","ownCat":"VC-Backed","biz":"Freemium + legacy one-time","price":"$11.99/yr","rev":"Tens of millions (est.)","revM":null,"fund":"$6M+ seed disclosed; growth round undisclosed","fundM":null,"diff":"Category leader by brand/revenue; 30M+ users","primRev":"Subscription (annual)","secRev":"AI Pass add-on, legacy one-time purchase (Special Edition), third-party template/sticker marketplace","growth":"Organic + freemium conversion","ads":false,"cacLo":15,"cacHi":55,"ltvLo":55,"ltvHi":190,"demo":"Students and knowledge workers, 16-30, iPad-heavy","region":"Global/Distributed","country":"United States","topCountries":["United States","Japan","United Kingdom","South Korea","Germany"],"growthPct":null},{"c":"Notability","seg":"Handwriting / Student Apps","own":"Bootstrapped (Ginger Labs)","ownCat":"Bootstrapped / Independent","biz":"Freemium (since 2021)","price":"~$3-15/mo (est.)","rev":"~$48M/yr (est., app-tracker derived)","revM":48.0,"fund":"None found","fundM":null,"diff":"Audio-synced notes; #2 in premium iPad category","primRev":"Subscription (Lite/Plus/Pro tiers)","secRev":"Grandfathered legacy one-time-purchase users, free education institutional access","growth":"Organic + freemium conversion","ads":false,"cacLo":10,"cacHi":45,"ltvLo":50,"ltvHi":150,"demo":"Students K-12/college, Apple-ecosystem, US-skewed","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada","Japan","Australia"],"growthPct":null},{"c":"NotePlan","seg":"Handwriting / Student Apps","own":"Bootstrapped (Berlin)","ownCat":"Bootstrapped / Independent","biz":"Subscription-only","price":"$9.99/mo","rev":"Low single-digit millions (est.)","revM":null,"fund":"None","fundM":null,"diff":"Calendar + Markdown notes; adjacent fit (no stylus)","primRev":"Subscription (monthly/annual, no permanent free tier)","secRev":"None identified","growth":"Organic + freemium conversion","ads":false,"cacLo":10,"cacHi":40,"ltvLo":150,"ltvHi":350,"demo":"PKM power users and knowledge workers, 25-45, US/Europe","region":"Europe","country":"United States","topCountries":["United States","Germany","United Kingdom","Canada","Netherlands"],"growthPct":null},{"c":"Amplenote","seg":"Handwriting / Student Apps","own":"Bootstrapped","ownCat":"Bootstrapped / Independent","biz":"Freemium subscription","price":"$5.84/mo","rev":"Low single-digit millions (est.)","revM":null,"fund":"None","fundM":null,"diff":"Notes-to-tasks integration; adjacent fit (no stylus)","primRev":"Subscription (Pro/Unlimited/Founder tiers)","secRev":"Tiered feature upsells (Graph View, calendar sync, encryption, publishing), Founder early-adopter tier","growth":"Organic + freemium conversion","ads":false,"cacLo":10,"cacHi":40,"ltvLo":100,"ltvHi":300,"demo":"PKM/productivity power users, 25-45, global with US skew","region":"Global/Distributed","country":"United States","topCountries":["United States","United Kingdom","Canada","Germany","Australia"],"growthPct":null},{"c":"MyScript / Nebo","seg":"Handwriting / Student Apps","own":"Independent (France, minority investment)","ownCat":"Bootstrapped / Independent","biz":"B2B SDK licensing + consumer app","price":"Varies by platform","rev":"~$18M (2024, up from $10.4M in 2021)","revM":18.0,"fund":"~$2.7M disclosed (likely undercounted)","fundM":null,"diff":"Best-in-class handwriting-recognition IP; OEM licensing moat","primRev":"B2B SDK/technology licensing (Interactive Ink engine to OEMs)","secRev":"Direct-to-consumer Nebo app sales (hybrid one-time/subscription)","growth":"Sales-led enterprise","ads":false,"cacLo":10000,"cacHi":25000,"ltvLo":50000,"ltvHi":150000,"demo":"Device OEMs and enterprise software vendors (B2B); secondarily students/professionals on stylus devices","region":"Global/Distributed","country":"United States","topCountries":["United States","France","South Korea","Japan","Germany"],"growthPct":null},{"c":"Noteshelf","seg":"Handwriting / Student Apps","own":"Bootstrapped (Singapore)","ownCat":"Bootstrapped / Independent","biz":"Hybrid one-time/subscription","price":"~$7.99-9.99","rev":"Not disclosed","revM":null,"fund":"None","fundM":null,"diff":"7M+ paid downloads; value/mainstream positioning","primRev":"One-time purchase (app unlock)","secRev":"Repeat purchases across major version upgrades, emerging subscription tiers","growth":"Organic + freemium conversion","ads":false,"cacLo":5,"cacHi":30,"ltvLo":20,"ltvHi":60,"demo":"Budget-conscious students and general consumers, cross-platform, global incl. India/Asia","region":"Global/Distributed","country":"United States","topCountries":["United States","India","United Kingdom","Japan","Singapore"],"growthPct":null},{"c":"CollaNote","seg":"Handwriting / Student Apps","own":"Bootstrapped (small, Germany-linked)","ownCat":"Bootstrapped / Independent","biz":"Freemium in-app purchase","price":"~$5.95-11.90","rev":"Modest (est.)","revM":null,"fund":"None","fundM":null,"diff":"Real-time multi-user collaborative handwriting","primRev":"One-time in-app purchase (Pro unlock)","secRev":"None identified","growth":"Organic + freemium conversion","ads":false,"cacLo":5,"cacHi":25,"ltvLo":10,"ltvHi":30,"demo":"Students/study groups needing real-time collaboration, iPad-focused, niche","region":"Asia-Pacific","country":"Taiwan","topCountries":["Taiwan","Japan","South Korea","United States","China"],"growthPct":null},{"c":"MarginNote","seg":"Handwriting / Student Apps","own":"Bootstrapped (Beijing)","ownCat":"Bootstrapped / Independent","biz":"Hybrid one-time/subscription","price":"$16.99/yr","rev":"Low-mid single digits (est.)","revM":null,"fund":"None","fundM":null,"diff":"PDF-to-mind-map workflow for research/academia","primRev":"Subscription (annual)","secRev":"Lifetime-purchase tier, credit-based AI feature consumption","growth":"Organic + freemium conversion","ads":false,"cacLo":10,"cacHi":40,"ltvLo":40,"ltvHi":120,"demo":"Graduate students and researchers, 20-35, China + global academic skew","region":"Asia-Pacific","country":"China","topCountries":["China","United States","Japan","Taiwan","South Korea"],"growthPct":null},{"c":"LiquidText","seg":"Handwriting / Student Apps","own":"Venture-lite (~$250K)","ownCat":"VC-Backed","biz":"Freemium + legal/enterprise tier","price":"$3.99/user/mo","rev":"Low millions (est.)","revM":null,"fund":"~$250K","fundM":null,"diff":"Patented excerpt-and-link canvas for document synthesis","primRev":"Per-user subscription (Live/Live Unlimited/Pro tiers)","secRev":"Enterprise/Legal edition (quote-based, law firms)","growth":"Organic + freemium conversion","ads":false,"cacLo":15,"cacHi":40,"ltvLo":80,"ltvHi":200,"demo":"Students, academic researchers, and legal professionals, 18-55, iPad-skewed","region":"North America","country":"United States","topCountries":["United States","United Kingdom","Canada"],"growthPct":null},{"c":"Flexcil","seg":"Handwriting / Student Apps","own":"PE-backed (Crescendo Equity, S. Korea)","ownCat":"VC-Backed","biz":"Freemium add-on unlock","price":"$8.99 add-on","rev":"High single/low double-digit millions (est.)","revM":null,"fund":"~$38.46M (unusually large PE round)","fundM":null,"diff":"Heavy PE backing atop iPad PDF/note niche","primRev":"Freemium one-time/subscription add-on unlock ($8.99)","secRev":"B2B education institution licensing (Flexcil for Education)","growth":"Organic + freemium conversion","ads":false,"cacLo":5,"cacHi":25,"ltvLo":15,"ltvHi":35,"demo":"Students (K-12 to university) and educators, 15-25, Korea/Asia + global","region":"Asia-Pacific","country":"South Korea","topCountries":["South Korea","United States","Japan","China"],"growthPct":null}];
+
+const OWN_COLORS = { 'VC-Backed': 'var(--s1)', 'Bootstrapped / Independent': 'var(--s3)', 'Subsidiary / Bundled': 'var(--s4)', 'Open-Source / Nonprofit': 'var(--s7)', 'Acquired': 'var(--s8)', 'Public': 'var(--s6)' };
+const OWN_ORDER = ['VC-Backed','Bootstrapped / Independent','Subsidiary / Bundled','Open-Source / Nonprofit','Acquired','Public'];
+
+const GROWTH_COLORS = { 'Organic + freemium conversion': 'var(--s1)', 'Self-serve + inside sales (PLG)': 'var(--s3)', 'Sales-led enterprise': 'var(--s8)', 'Free / Bundled (indirect monetization)': 'var(--s4)', 'Donation-funded / Open-source': 'var(--s7)', 'Other': 'var(--s5)' };
+const GROWTH_ORDER = ['Organic + freemium conversion','Self-serve + inside sales (PLG)','Sales-led enterprise','Free / Bundled (indirect monetization)','Donation-funded / Open-source','Other'];
+
+const REGION_COLORS = { 'North America': 'var(--s1)', 'Europe': 'var(--s3)', 'Asia-Pacific': 'var(--s4)', 'Global/Distributed': 'var(--s7)', 'Other': 'var(--s5)' };
+const REGION_ORDER = ['North America','Europe','Asia-Pacific','Global/Distributed','Other'];
+
+const SEG_ORDER = [...new Set(DATA.map(d => d.seg))];
+
+function fmtM(v) { if (v == null) return null; if (v >= 1000) return '$' + (v/1000).toFixed(v >= 10000 ? 1 : 2) + 'B'; if (v >= 100) return '$' + Math.round(v) + 'M'; if (v >= 1) return '$' + v.toFixed(1) + 'M'; return '$' + Math.round(v*1000) + 'K'; }
+function fmtUSD(v) { if (v == null) return '&mdash;'; if (v === 0) return '$0'; if (v >= 1000) return '$' + (v/1000).toFixed(v >= 10000 ? 0 : 1) + 'K'; return '$' + Math.round(v); }
+
+const tooltip = document.getElementById('tooltip');
+function showTip(e, text) { tooltip.innerHTML = text; tooltip.classList.add('show'); moveTip(e); }
+function moveTip(e) { const pad = 14; tooltip.style.left = (e.clientX + pad) + 'px'; tooltip.style.top = (e.clientY + pad) + 'px'; }
+function hideTip() { tooltip.classList.remove('show'); }
+function wireBarTooltips(container, selector) {
+  container.querySelectorAll(selector || '.bar-fill, .range-span, .stack-seg, .donut-slice').forEach(el => {
+    el.addEventListener('mouseenter', e => showTip(e, el.dataset.tip));
+    el.addEventListener('mousemove', moveTip);
+    el.addEventListener('mouseleave', hideTip);
+  });
+}
+
+/* ---------- Stat tiles ---------- */
+(function renderStats() {
+  const total = DATA.length;
+  const withRev = DATA.filter(d => d.revM != null).length;
+  const withFund = DATA.filter(d => d.fundM != null).length;
+  const totalFunding = DATA.reduce((s,d) => s + (d.fundM||0), 0);
+  const notable = DATA.filter(d => /acquired|shut down/i.test(d.own)).length;
+  const stats = [
+    {label:'Companies tracked', value: total, sub: 'across 7 market segments'},
+    {label:'Market segments', value: SEG_ORDER.length, sub: 'B2C to enterprise to AI-native'},
+    {label:'Disclosed funding raised', value: fmtM(totalFunding), sub: withFund + ' of 94 companies'},
+    {label:'Revenue/ARR disclosed', value: withRev, sub: 'of 94 companies (own figures)'},
+    {label:'Acquisitions / shutdowns', value: notable, sub: 'identified during research'},
+  ];
+  document.getElementById('statsRow').innerHTML = stats.map(s => `<div class="stat"><div class="label">${s.label}</div><div class="value">${s.value}</div><div class="sub">${s.sub}</div></div>`).join('');
+
+  const adCount = DATA.filter(d => d.ads).length;
+  const nzCac = DATA.filter(d => d.cacHi > 0), nzLtv = DATA.filter(d => d.ltvHi > 0);
+  const midCac = nzCac.map(d => (d.cacLo+d.cacHi)/2).sort((a,b)=>a-b);
+  const midLtv = nzLtv.map(d => (d.ltvLo+d.ltvHi)/2).sort((a,b)=>a-b);
+  const usCount = DATA.filter(d => d.country === 'United States').length;
+  const stats2 = [
+    {label:'Ad-supported companies', value: adCount + ' of 94', sub: 'advertising is not a real business model here', callout: true},
+    {label:'Median est. CAC', value: fmtUSD(midCac[Math.floor(midCac.length/2)]), sub: 'across ' + nzCac.length + ' commercial companies'},
+    {label:'Median est. LTV', value: fmtUSD(midLtv[Math.floor(midLtv.length/2)]), sub: 'across ' + nzLtv.length + ' commercial companies'},
+    {label:'US-primary companies', value: usCount + ' of 94', sub: 'single dominant country estimate'},
+    {label:'Sales-led enterprise', value: DATA.filter(d=>d.growth==='Sales-led enterprise').length, sub: 'highest CAC, highest LTV archetype'},
+  ];
+  document.getElementById('statsRow2').innerHTML = stats2.map(s => `<div class="stat${s.callout ? ' callout' : ''}"><div class="label">${s.label}</div><div class="value">${s.value}</div><div class="sub">${s.sub}</div></div>`).join('');
+})();
+
+/* ---------- Segment bar chart ---------- */
+(function() {
+  const counts = {}; DATA.forEach(d => counts[d.seg] = (counts[d.seg]||0) + 1);
+  const entries = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+  const max = entries[0][1];
+  const el = document.getElementById('segChart');
+  el.innerHTML = entries.map(([seg, n]) => `<div class="bar-row wide-label"><div class="bar-label">${seg}</div><div class="bar-track"><div class="bar-fill" data-tip="${seg}: ${n} companies" style="width:${(n/max*100).toFixed(1)}%"></div></div><div class="bar-value">${n}</div></div>`).join('');
+  wireBarTooltips(el);
+})();
+
+/* ---------- Generic stacked breakdown ---------- */
+function renderStackedBreakdown(dataKey, order, colors, stackElId, legendElId) {
+  const counts = {}; DATA.forEach(d => counts[d[dataKey]] = (counts[d[dataKey]]||0) + 1);
+  const total = DATA.length;
+  const stackEl = document.getElementById(stackElId);
+  const bar = document.createElement('div'); bar.className = 'stack-bar';
+  order.forEach(cat => {
+    const n = counts[cat] || 0; if (!n) return;
+    const seg = document.createElement('div'); seg.className = 'stack-seg';
+    seg.style.background = colors[cat]; seg.style.width = (n/total*100) + '%';
+    seg.dataset.tip = `${cat}: ${n} companies (${Math.round(n/total*100)}%)`;
+    bar.appendChild(seg);
+  });
+  stackEl.appendChild(bar);
+  wireBarTooltips(stackEl, '.stack-seg');
+  document.getElementById(legendElId).innerHTML = order.filter(c => counts[c]).map(cat => `<div class="legend-item"><span class="legend-dot" style="background:${colors[cat]}"></span>${cat} &middot; ${counts[cat]}</div>`).join('');
+}
+renderStackedBreakdown('ownCat', OWN_ORDER, OWN_COLORS, 'ownStack', 'ownLegend');
+renderStackedBreakdown('growth', GROWTH_ORDER, GROWTH_COLORS, 'growthStack', 'growthLegend');
+
+/* ---------- Notable events ---------- */
+(function() {
+  const events = [
+    {tag:'critical', label:'Shutdown', title:'Height', body:'Ceased operations Sept 24, 2025 after raising $18.3M &mdash; not acquired, ran out of runway.'},
+    {tag:'serious', label:'Acquired', title:'Fathom → Superhuman', body:'Announced Sept 2026 after reaching $30M ARR (90x growth in 2 years) on $30M raised.'},
+    {tag:'serious', label:'Acquired', title:'Coda → Grammarly/Superhuman', body:'All-stock deal, Dec 2024, after raising ~$240M at a $1.4B peak valuation.'},
+    {tag:'serious', label:'Acquired', title:'Standard Notes → Proton', body:'April 2024, terms undisclosed.'},
+    {tag:'serious', label:'Acquired', title:'Evernote → Bending Spoons', body:'Jan 2023 for ~$10M, down from a ~$1B peak valuation (2012).'},
+    {tag:'serious', label:'Acquired', title:'Tettra → GSoft', body:'October 2023, terms undisclosed.'},
+    {tag:'critical', label:'Pivot', title:'Mem', body:'Rebuilt as "Mem 2.0," repositioning to an AI chief-of-staff, after a $110M 2022 valuation.'},
+    {tag:'critical', label:'Maintenance mode', title:'Simplenote', body:'Automattic announced active development ended March 2026.'},
+    {tag:'good', label:'Mega-round', title:'Glean', body:'$150M Series F (Jun 2025) at a $7.2B valuation, up from $4.6B 9 months earlier.'},
+    {tag:'good', label:'Mega-round', title:'Granola', body:'$125M Series C (Mar 2026) at a $1.5B valuation, up 6x from $250M in under a year.'},
+    {tag:'good', label:'Unicorn', title:'Fireflies.ai', body:'Reached a $1B valuation via a June 2025 tender offer, on under $20M raised.'},
+    {tag:'critical', label:'Valuation cut', title:'Airtable', body:'Valuation fell ~66%, from $11.7B (2021) to an estimated ~$4B (2025).'},
+  ];
+  document.getElementById('eventsGrid').innerHTML = events.map(e => `<div class="event-card"><span class="event-tag ${e.tag}">${e.label}</span><div class="ec-title">${e.title}</div><div class="ec-body">${e.body}</div></div>`).join('');
+})();
+
+/* ---------- Leaderboards ---------- */
+function renderLeaderboard(elId, key, colorVar, limit) {
+  const rows = DATA.filter(d => d[key] != null).sort((a,b) => b[key]-a[key]).slice(0, limit);
+  const max = rows[0][key];
+  const el = document.getElementById(elId);
+  el.innerHTML = rows.map(d => `<div class="bar-row"><div class="bar-label">${d.c}</div><div class="bar-track"><div class="bar-fill" style="width:${(d[key]/max*100).toFixed(1)}%; background:${colorVar}" data-tip="${d.c}: ${fmtM(d[key])}"></div></div><div class="bar-value">${fmtM(d[key])}</div></div>`).join('');
+  wireBarTooltips(el);
+}
+renderLeaderboard('revChart', 'revM', 'var(--s1)', 12);
+renderLeaderboard('fundChart', 'fundM', 'var(--s2)', 12);
+
+/* ---------- Region donut ---------- */
+(function() {
+  const counts = {}; DATA.forEach(d => counts[d.region] = (counts[d.region]||0) + 1);
+  const total = DATA.length;
+  let acc = 0;
+  const stops = [];
+  REGION_ORDER.filter(r => counts[r]).forEach(region => {
+    const n = counts[region];
+    const startDeg = acc / total * 360;
+    acc += n;
+    const endDeg = acc / total * 360;
+    const colorVal = getComputedStyle(document.documentElement).getPropertyValue(REGION_COLORS[region].match(/--[\w-]+/)[0]).trim() || '#999';
+    stops.push(`${colorVal} ${startDeg}deg ${endDeg}deg`);
+  });
+  const donut = document.getElementById('regionDonut');
+  donut.style.background = `conic-gradient(${stops.join(', ')})`;
+  const center = document.createElement('div');
+  center.className = 'donut-center';
+  center.innerHTML = `<span class="n">${total}</span><span class="l">companies</span>`;
+  donut.appendChild(center);
+  document.getElementById('regionLegend').innerHTML = REGION_ORDER.filter(r => counts[r]).map(r => `<div class="legend-item"><span class="legend-dot" style="background:${REGION_COLORS[r]}"></span>${r} &middot; ${counts[r]} (${Math.round(counts[r]/total*100)}%)</div>`).join('');
+})();
+
+/* ---------- Country bar chart ---------- */
+(function() {
+  const counts = {};
+  DATA.forEach(d => (d.topCountries||[]).forEach(c => counts[c] = (counts[c]||0) + 1));
+  const entries = Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0, 10);
+  const max = entries[0][1];
+  const el = document.getElementById('countryChart');
+  el.innerHTML = entries.map(([c, n]) => `<div class="bar-row"><div class="bar-label">${c}</div><div class="bar-track"><div class="bar-fill" style="width:${(n/max*100).toFixed(1)}%; background:var(--s4)" data-tip="${c}: appears in ${n} companies' top markets"></div></div><div class="bar-value">${n}</div></div>`).join('');
+  wireBarTooltips(el);
+})();
+
+/* ---------- Revenue source bucket chart ---------- */
+(function() {
+  function bucket(pr) {
+    const p = pr.toLowerCase();
+    if (p.includes('free') && (p.includes('bundled') || p.includes('no monetization') || p.includes('none'))) return 'Free / Bundled (no direct revenue)';
+    if (p.includes('donation')) return 'Donation-funded';
+    if (p.includes('one-time') || p.includes('one time')) return 'One-time purchase';
+    if (p.includes('enterprise') && p.includes('contract')) return 'Enterprise contract (custom)';
+    if (p.includes('per-seat') || p.includes('per-user') || p.includes('per seat')) return 'Per-seat/per-user subscription';
+    if (p.includes('open-core') || p.includes('open core')) return 'Open-core (free + paid cloud)';
+    if (p.includes('sdk') || p.includes('licensing')) return 'B2B/SDK licensing';
+    if (p.includes('subscription')) return 'Subscription (other)';
+    return 'Other/Mixed';
+  }
+  const counts = {};
+  DATA.forEach(d => { const b = bucket(d.primRev); counts[b] = (counts[b]||0) + 1; });
+  const entries = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+  const max = entries[0][1];
+  const el = document.getElementById('revSourceChart');
+  el.innerHTML = entries.map(([b, n]) => `<div class="bar-row wide-label"><div class="bar-label">${b}</div><div class="bar-track"><div class="bar-fill" data-tip="${b}: ${n} companies" style="width:${(n/max*100).toFixed(1)}%; background:var(--s3)"></div></div><div class="bar-value">${n}</div></div>`).join('');
+  wireBarTooltips(el);
+})();
+
+/* ---------- CAC / LTV range charts ---------- */
+function renderRangeChart(elId, loKey, hiKey, colorVar) {
+  const bySeg = {}; SEG_ORDER.forEach(s => bySeg[s] = []);
+  DATA.forEach(d => bySeg[d.seg].push(d));
+  const rows = SEG_ORDER.map(seg => {
+    const items = bySeg[seg];
+    const lo = items.reduce((s,d) => s + d[loKey], 0) / items.length;
+    const hi = items.reduce((s,d) => s + d[hiKey], 0) / items.length;
+    return {seg, lo, hi};
+  }).sort((a,b) => b.hi - a.hi);
+  const globalMax = Math.max(...rows.map(r => r.hi), 1);
+  const logMax = Math.log10(globalMax + 1);
+  function pct(v) { return (Math.log10(v + 1) / logMax * 100); }
+  const el = document.getElementById(elId);
+  el.innerHTML = rows.map(r => {
+    const left = pct(r.lo); const width = Math.max(pct(r.hi) - left, 1.5);
+    return `<div class="range-row"><div class="range-label">${r.seg}</div><div class="range-track"><div class="range-span" style="left:${left}%; width:${width}%; border-color:${colorVar}; background:color-mix(in srgb, ${colorVar} 22%, transparent)" data-tip="${r.seg}: ${fmtUSD(r.lo)} &ndash; ${fmtUSD(r.hi)}"></div></div><div class="range-value">${fmtUSD(r.lo)} &ndash; ${fmtUSD(r.hi)}</div></div>`;
+  }).join('');
+  wireBarTooltips(el);
+}
+renderRangeChart('cacRangeChart', 'cacLo', 'cacHi', 'var(--s2)');
+renderRangeChart('ltvRangeChart', 'ltvLo', 'ltvHi', 'var(--s3)');
+
+/* ---------- Demographics chart ---------- */
+(function() {
+  const keywords = {
+    'Knowledge workers/Professionals': /knowledge work|professional|prosumer/i, 'Students': /student/i,
+    'SMB/small business': /SMB|small.business/i, 'Enterprise/IT buyers': /enterprise|IT[- ]managed|IT buyer/i,
+    'Developers/Engineers': /develop|engineer/i, 'Sales/CS teams': /sales|customer success|CS rep|support team/i,
+    'Privacy-conscious': /privacy/i, 'Researchers/Academics': /research|academi/i,
+    'General consumer': /general consumer|mass.market|consumer/i, 'Creatives/Designers': /creativ|design/i,
+  };
+  const counts = {}; Object.keys(keywords).forEach(k => counts[k] = 0);
+  DATA.forEach(d => Object.entries(keywords).forEach(([label, re]) => { if (re.test(d.demo)) counts[label]++; }));
+  const entries = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+  const max = entries[0][1];
+  const el = document.getElementById('demoChart');
+  el.innerHTML = entries.map(([label, n]) => `<div class="bar-row wide-label"><div class="bar-label">${label}</div><div class="bar-track"><div class="bar-fill" style="width:${(n/max*100).toFixed(1)}%; background:var(--s7)" data-tip="${label}: mentioned in ${n} of 94 profiles"></div></div><div class="bar-value">${n}</div></div>`).join('');
+  wireBarTooltips(el);
+})();
+
+/* ---------- Market size by segment ---------- */
+(function() {
+  const revBySeg = {}, fundBySeg = {};
+  SEG_ORDER.forEach(s => { revBySeg[s] = 0; fundBySeg[s] = 0; });
+  DATA.forEach(d => { if (d.revM) revBySeg[d.seg] += d.revM; if (d.fundM) fundBySeg[d.seg] += d.fundM; });
+  const rows = SEG_ORDER.map(s => ({seg: s, rev: revBySeg[s], fund: fundBySeg[s]})).sort((a,b) => (b.rev+b.fund) - (a.rev+a.fund));
+  const max = Math.max(...rows.map(r => Math.max(r.rev, r.fund)), 1);
+  const el = document.getElementById('marketSizeChart');
+  el.innerHTML = rows.map(r => `
+    <div class="bar-row wide-label"><div class="bar-label">${r.seg}</div><div class="bar-track"><div class="bar-fill" style="width:${(r.rev/max*100).toFixed(1)}%; background:var(--s1)" data-tip="${r.seg} disclosed revenue: ${fmtM(r.rev)}"></div></div><div class="bar-value">${fmtM(r.rev)}</div></div>
+    <div class="bar-row wide-label"><div class="bar-label" style="opacity:0"></div><div class="bar-track"><div class="bar-fill" style="width:${(r.fund/max*100).toFixed(1)}%; background:var(--s2)" data-tip="${r.seg} funding raised: ${fmtM(r.fund)}"></div></div><div class="bar-value">${fmtM(r.fund)}</div></div>
+  `).join('');
+  wireBarTooltips(el);
+})();
+
+/* ---------- Disclosed growth rate chart ---------- */
+(function() {
+  const rows = DATA.filter(d => d.growthPct != null).sort((a,b) => b.growthPct - a.growthPct);
+  const el = document.getElementById('growthRateChart');
+  if (!rows.length) { el.innerHTML = '<p style="font-size:12.5px;color:var(--text-muted)">No disclosed growth figures found.</p>'; return; }
+  const max = Math.max(...rows.map(r => r.growthPct));
+  el.innerHTML = rows.map(r => `<div class="bar-row wide-label"><div class="bar-label">${r.c}</div><div class="bar-track"><div class="bar-fill" style="width:${(r.growthPct/max*100).toFixed(1)}%; background:var(--good)" data-tip="${r.c}: +${r.growthPct}% YoY (disclosed)"></div></div><div class="bar-value">+${r.growthPct}%</div></div>`).join('');
+  wireBarTooltips(el);
+})();
+
+/* ---------- Dropdown multi-selects ---------- */
+let activeSegs = new Set(), activeOwns = new Set(), activeGrowths = new Set();
+let sortKey = 'c', sortDir = 1, searchTerm = '';
+
+function buildDropdown(containerId, label, values, activeSet, colorMap, countFn) {
+  const wrap = document.getElementById(containerId);
+  const btn = document.createElement('button'); btn.className = 'dd-btn';
+  const panel = document.createElement('div'); panel.className = 'dd-panel';
+
+  function refreshBtn() {
+    btn.innerHTML = activeSet.size
+      ? `${label} <span class="dd-count">${activeSet.size}</span><span class="dd-caret">&#9662;</span>`
+      : `${label} (all)<span class="dd-caret">&#9662;</span>`;
+  }
+  values.forEach(v => {
+    const opt = document.createElement('label'); opt.className = 'dd-opt';
+    const dot = colorMap ? `<span class="chip-dot" style="background:${colorMap[v]}"></span>` : '';
+    opt.innerHTML = `<input type="checkbox"> ${dot}<span>${v}</span><span class="dd-opt-count">${countFn(v)}</span>`;
+    const cb = opt.querySelector('input');
+    cb.addEventListener('change', () => {
+      if (cb.checked) activeSet.add(v); else activeSet.delete(v);
+      refreshBtn(); renderTable();
+    });
+    panel.appendChild(opt);
+  });
+  const clear = document.createElement('div'); clear.className = 'dd-clear'; clear.textContent = 'Clear';
+  clear.addEventListener('click', () => {
+    activeSet.clear();
+    panel.querySelectorAll('input').forEach(i => i.checked = false);
+    refreshBtn(); renderTable();
+  });
+  panel.appendChild(clear);
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.querySelectorAll('.dd-panel.open').forEach(p => { if (p !== panel) p.classList.remove('open'); });
+    document.querySelectorAll('.dd-btn.open').forEach(b => { if (b !== btn) b.classList.remove('open'); });
+    panel.classList.toggle('open'); btn.classList.toggle('open');
+  });
+  refreshBtn();
+  wrap.appendChild(btn); wrap.appendChild(panel);
+}
+document.addEventListener('click', () => {
+  document.querySelectorAll('.dd-panel.open').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.dd-btn.open').forEach(b => b.classList.remove('open'));
+});
+
+buildDropdown('ddSeg', 'Segment', SEG_ORDER, activeSegs, null, v => DATA.filter(d=>d.seg===v).length);
+buildDropdown('ddOwn', 'Ownership', OWN_ORDER.filter(o=>DATA.some(d=>d.ownCat===o)), activeOwns, OWN_COLORS, v => DATA.filter(d=>d.ownCat===v).length);
+buildDropdown('ddGrowth', 'Growth model', GROWTH_ORDER.filter(g=>DATA.some(d=>d.growth===g)), activeGrowths, GROWTH_COLORS, v => DATA.filter(d=>d.growth===v).length);
+
+document.getElementById('searchBox').addEventListener('input', e => { searchTerm = e.target.value.trim().toLowerCase(); renderTable(); });
+
+document.querySelectorAll('#dataTable th').forEach(th => {
+  th.addEventListener('click', () => {
+    const key = th.dataset.key;
+    if (sortKey === key) sortDir *= -1; else { sortKey = key; sortDir = 1; }
+    document.querySelectorAll('#dataTable th').forEach(t => t.classList.remove('sorted'));
+    th.classList.add('sorted');
+    th.querySelector('.sort-arrow').innerHTML = sortDir === 1 ? '&#9662;' : '&#9652;';
+    renderTable();
+  });
+});
+
+function renderTable() {
+  let rows = DATA.filter(d => {
+    if (activeSegs.size && !activeSegs.has(d.seg)) return false;
+    if (activeOwns.size && !activeOwns.has(d.ownCat)) return false;
+    if (activeGrowths.size && !activeGrowths.has(d.growth)) return false;
+    if (searchTerm && !(d.c.toLowerCase().includes(searchTerm) || d.diff.toLowerCase().includes(searchTerm) || d.demo.toLowerCase().includes(searchTerm))) return false;
+    return true;
+  });
+  rows.sort((a,b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (av == null && bv == null) return 0; if (av == null) return 1; if (bv == null) return -1;
+    if (typeof av === 'number') return (av-bv) * sortDir;
+    return String(av).localeCompare(String(bv)) * sortDir;
+  });
+  document.getElementById('resultCount').textContent = `${rows.length} of ${DATA.length} companies`;
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = rows.map(d => `
+    <tr>
+      <td class="cell-company" title="${d.demo.replace(/"/g,'&quot;')}">${d.c}</td>
+      <td class="cell-seg">${d.seg}</td>
+      <td><span class="own-badge"><span class="chip-dot" style="background:${OWN_COLORS[d.ownCat]}"></span>${d.ownCat}</span></td>
+      <td class="cell-num" title="${d.rev.replace(/"/g,'&quot;')}">${d.revM != null ? fmtM(d.revM) : '&mdash;'}</td>
+      <td class="cell-num" title="${d.fund.replace(/"/g,'&quot;')}">${d.fundM != null ? fmtM(d.fundM) : '&mdash;'}</td>
+      <td class="cell-num">${fmtUSD(d.cacLo)}&ndash;${fmtUSD(d.cacHi)}</td>
+      <td class="cell-num">${fmtUSD(d.ltvLo)}&ndash;${fmtUSD(d.ltvHi)}</td>
+      <td title="${(d.topCountries||[]).join(', ')}">${d.country}</td>
+      <td class="cell-diff" title="${d.diff.replace(/"/g,'&quot;')}">${d.diff}</td>
+    </tr>`).join('');
+}
+renderTable();
+
+/* ---------- Theme toggle ---------- */
+(function() {
+  const btn = document.getElementById('themeToggle');
+  function applyLabel() {
+    const mode = document.documentElement.getAttribute('data-theme');
+    if (mode === 'dark') btn.textContent = 'Light mode';
+    else if (mode === 'light') btn.textContent = 'Dark mode';
+    else btn.textContent = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Light mode' : 'Dark mode';
+  }
+  try { const saved = localStorage.getItem('theme'); if (saved) document.documentElement.setAttribute('data-theme', saved); } catch(e) {}
+  applyLabel();
+  btn.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentlyDark = current === 'dark' || (!current && prefersDark);
+    const next = currentlyDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch(e) {}
+    applyLabel();
+  });
+})();
+</script>
+
+</body>
+</html>

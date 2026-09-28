@@ -1,0 +1,98 @@
+[
+  {
+    "c": "LiquidText",
+    "primaryRevenue": "Per-user subscription (Live/Live Unlimited/Pro tiers)",
+    "secondaryRevenue": "Enterprise/Legal edition (quote-based, law firms)",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 15,
+    "cacHighUSD": 40,
+    "ltvLowUSD": 80,
+    "ltvHighUSD": 200,
+    "demographics": "Students, academic researchers, and legal professionals, 18-55, iPad-skewed"
+  },
+  {
+    "c": "MyScript",
+    "primaryRevenue": "B2B/OEM SDK licensing (Interactive Ink)",
+    "secondaryRevenue": "Consumer apps (Nebo, Calculator) + developer cloud API subscriptions",
+    "growthModel": "Sales-led enterprise",
+    "adSupported": false,
+    "cacLowUSD": 10000,
+    "cacHighUSD": 50000,
+    "ltvLowUSD": 100000,
+    "ltvHighUSD": 500000,
+    "demographics": "OEM hardware/automotive product teams (B2B) and stylus-tablet consumers, 20-50"
+  },
+  {
+    "c": "Flexcil",
+    "primaryRevenue": "Freemium one-time/subscription add-on unlock ($8.99)",
+    "secondaryRevenue": "B2B education institution licensing (Flexcil for Education)",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 5,
+    "cacHighUSD": 25,
+    "ltvLowUSD": 15,
+    "ltvHighUSD": 35,
+    "demographics": "Students (K-12 to university) and educators, 15-25, Korea/Asia + global"
+  },
+  {
+    "c": "Roam Research",
+    "primaryRevenue": "Per-user subscription (Pro $15/mo, no free tier)",
+    "secondaryRevenue": "Believer one-time lifetime license upsell",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 30,
+    "cacHighUSD": 80,
+    "ltvLowUSD": 250,
+    "ltvHighUSD": 600,
+    "demographics": "PKM enthusiasts, academics, researchers, writers/consultants, 25-45"
+  },
+  {
+    "c": "Logseq",
+    "primaryRevenue": "Donation/paid-sync (Logseq Sync Backers tier)",
+    "secondaryRevenue": "Sponsor tier, Open Collective donations, forthcoming Logseq Pro collaboration",
+    "growthModel": "Donation-funded",
+    "adSupported": false,
+    "cacLowUSD": 2,
+    "cacHighUSD": 10,
+    "ltvLowUSD": 60,
+    "ltvHighUSD": 150,
+    "demographics": "Developers, open-source/privacy-focused PKM enthusiasts, 25-45"
+  },
+  {
+    "c": "Tana",
+    "primaryRevenue": "Per-user subscription (freemium, AI credits)",
+    "secondaryRevenue": "Team/enterprise tiers",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 150,
+    "cacHighUSD": 400,
+    "ltvLowUSD": 300,
+    "ltvHighUSD": 900,
+    "demographics": "Power users, PKM enthusiasts, product/research professionals, 25-45"
+  },
+  {
+    "c": "Anytype",
+    "primaryRevenue": "Per-user freemium subscription (Plus/Pro sync storage tiers)",
+    "secondaryRevenue": "Builder annual power-user plan + nascent team/business tier",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 50,
+    "cacHighUSD": 150,
+    "ltvLowUSD": 150,
+    "ltvHighUSD": 400,
+    "demographics": "Privacy/decentralization-focused PKM users, Web3-adjacent early adopters, 25-40"
+  },
+  {
+    "c": "Capacities",
+    "primaryRevenue": "Per-user freemium subscription (Pro tier $9.99/mo)",
+    "secondaryRevenue": "Believer superfan tier + Plus AI Power-Up add-on",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 5,
+    "cacHighUSD": 25,
+    "ltvLowUSD": 150,
+    "ltvHighUSD": 350,
+    "demographics": "PKM/tools-for-thought knowledge workers, 25-40, German/European-skewed base"
+  }
+]

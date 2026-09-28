@@ -1,0 +1,50 @@
+[
+  {
+    "c": "Confluence",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Australia", "Germany"]
+  },
+  {
+    "c": "Slite",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "France", "United Kingdom", "Germany"]
+  },
+  {
+    "c": "Slab",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "United Kingdom", "Germany"]
+  },
+  {
+    "c": "Nuclino",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Germany", "Canada", "United Kingdom"]
+  },
+  {
+    "c": "Tettra",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "United Kingdom", "Australia"]
+  },
+  {
+    "c": "Guru",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Australia"]
+  },
+  {
+    "c": "Document360",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "India", "Germany"]
+  },
+  {
+    "c": "Helpjuice",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "United Kingdom", "Australia"]
+  }
+]

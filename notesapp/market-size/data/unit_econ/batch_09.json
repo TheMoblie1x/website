@@ -1,0 +1,98 @@
+[
+  {
+    "c": "Dropbox Paper",
+    "primaryRevenue": "Bundled into larger suite (free) — no standalone revenue",
+    "secondaryRevenue": "None specific to Paper; Dropbox storage tier upgrades, Dash AI, Dropbox Sign",
+    "growthModel": "Free/bundled into a larger paid suite",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Existing Dropbox storage customers, freelancers/prosumers/SMBs, NA/Europe"
+  },
+  {
+    "c": "Google Docs",
+    "primaryRevenue": "Bundled into larger suite (free) — Workspace subscription captures value",
+    "secondaryRevenue": "Google Workspace tier upgrades, Gemini AI add-on, Education/Nonprofit plans",
+    "growthModel": "Free/bundled into a larger paid suite",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Broadest base: individuals, students/educators, SMB-to-enterprise Workspace customers, global"
+  },
+  {
+    "c": "Microsoft Loop",
+    "primaryRevenue": "Bundled into larger suite (free) — Microsoft 365 subscription captures value",
+    "secondaryRevenue": "Microsoft 365 Copilot add-on, M365 tier upgrades (Business/E3/E5)",
+    "growthModel": "Free/bundled into a larger paid suite",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Enterprise Microsoft 365/Teams seat holders, large/mid-market orgs, global"
+  },
+  {
+    "c": "Coda",
+    "primaryRevenue": "Per-Doc-Maker SaaS subscription (Free/Pro/Team/Enterprise)",
+    "secondaryRevenue": "Coda AI credits, Packs marketplace, Enterprise admin/security features",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 400,
+    "cacHighUSD": 1000,
+    "ltvLowUSD": 2500,
+    "ltvHighUSD": 6000,
+    "demographics": "SMB/mid-market ops and product teams, tech-forward, NA-heavy"
+  },
+  {
+    "c": "Quip",
+    "primaryRevenue": "Bundled into larger suite (Salesforce add-on), small standalone plans",
+    "secondaryRevenue": "Standalone Quip Starter/Plus/Advanced plans, Salesforce platform upsell",
+    "growthModel": "Sales-led enterprise",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 200,
+    "ltvLowUSD": 500,
+    "ltvHighUSD": 1500,
+    "demographics": "Existing Salesforce CRM customers, enterprise sales/service teams, global"
+  },
+  {
+    "c": "ClickUp",
+    "primaryRevenue": "Per-user SaaS subscription (freemium)",
+    "secondaryRevenue": "AI add-on (ClickUp Brain), enterprise tier",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 300,
+    "cacHighUSD": 1000,
+    "ltvLowUSD": 2500,
+    "ltvHighUSD": 7000,
+    "demographics": "SMB to mid-market teams, ops/PM/agency roles, global"
+  },
+  {
+    "c": "Asana",
+    "primaryRevenue": "Per-user SaaS subscription (Starter/Advanced/Enterprise)",
+    "secondaryRevenue": "AI Studio/AI teammates add-on, enterprise governance features, app marketplace",
+    "growthModel": "Self-serve + inside sales (PLG) with growing enterprise field sales",
+    "adSupported": false,
+    "cacLowUSD": 1000,
+    "cacHighUSD": 3500,
+    "ltvLowUSD": 4000,
+    "ltvHighUSD": 12000,
+    "demographics": "Mid-market to enterprise cross-functional teams, NA/Europe skew"
+  },
+  {
+    "c": "monday.com",
+    "primaryRevenue": "Per-seat SaaS subscription (seat-block tiers: Basic/Standard/Pro/Enterprise)",
+    "secondaryRevenue": "monday CRM, Dev, Service product cross-sell; AI add-ons; enterprise features",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 1000,
+    "cacHighUSD": 3000,
+    "ltvLowUSD": 5000,
+    "ltvHighUSD": 15000,
+    "demographics": "SMB to mid-market expanding to enterprise, cross-functional teams, Europe/Israel + NA"
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "c": "tl;dv",
+    "primaryRevenue": "Per-seat SaaS subscription (freemium)",
+    "secondaryRevenue": "Higher Business tier (sales coaching, CRM sync)",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 40,
+    "cacHighUSD": 150,
+    "ltvLowUSD": 250,
+    "ltvHighUSD": 700,
+    "demographics": "Knowledge workers and sales/CS teams, SMB-mid-market, Europe/North America"
+  },
+  {
+    "c": "Avoma",
+    "primaryRevenue": "Per-seat SaaS subscription",
+    "secondaryRevenue": "Unbundled Conversation & Revenue Intelligence add-ons",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 150,
+    "cacHighUSD": 400,
+    "ltvLowUSD": 1000,
+    "ltvHighUSD": 2500,
+    "demographics": "Sales/CS teams at mid-market and enterprise companies, US-based"
+  },
+  {
+    "c": "Grain",
+    "primaryRevenue": "Per-seat SaaS subscription (freemium)",
+    "secondaryRevenue": "Enterprise custom-quote tier",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 50,
+    "cacHighUSD": 180,
+    "ltvLowUSD": 300,
+    "ltvHighUSD": 800,
+    "demographics": "Sales, product, and CX teams, SMB-mid-market, US-based"
+  },
+  {
+    "c": "Supernormal",
+    "primaryRevenue": "Per-user SaaS subscription (credit-based, freemium)",
+    "secondaryRevenue": "Credit-based usage overage",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 60,
+    "cacHighUSD": 200,
+    "ltvLowUSD": 250,
+    "ltvHighUSD": 600,
+    "demographics": "Sales teams and trust-sensitive knowledge workers, small-mid-market"
+  },
+  {
+    "c": "Granola",
+    "primaryRevenue": "Per-user subscription (freemium)",
+    "secondaryRevenue": "Team/business tier",
+    "growthModel": "Organic + freemium conversion",
+    "adSupported": false,
+    "cacLowUSD": 30,
+    "cacHighUSD": 120,
+    "ltvLowUSD": 250,
+    "ltvHighUSD": 600,
+    "demographics": "Startup founders and knowledge workers, 25-45, US/UK-heavy"
+  },
+  {
+    "c": "Read AI",
+    "primaryRevenue": "Per-user SaaS subscription (freemium)",
+    "secondaryRevenue": "Enterprise+ minimum-seat commitments",
+    "growthModel": "Self-serve + inside sales (PLG)",
+    "adSupported": false,
+    "cacLowUSD": 80,
+    "cacHighUSD": 250,
+    "ltvLowUSD": 400,
+    "ltvHighUSD": 1000,
+    "demographics": "Knowledge workers and sales/CS teams, SMB-to-enterprise, US-based"
+  },
+  {
+    "c": "Zoom AI Companion",
+    "primaryRevenue": "Free/bundled into a larger paid platform",
+    "secondaryRevenue": "Standalone subscription and advanced/Custom AI add-ons",
+    "growthModel": "Free/bundled (parent monetizes indirectly)",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Entire Zoom Workplace customer base, SMB to enterprise, global"
+  },
+  {
+    "c": "NotebookLM (Gemini Notebook)",
+    "primaryRevenue": "Free/bundled into a larger paid platform",
+    "secondaryRevenue": "Google One AI Premium / Workspace / Gemini Enterprise upsell",
+    "growthModel": "Free/bundled (parent monetizes indirectly)",
+    "adSupported": false,
+    "cacLowUSD": 0,
+    "cacHighUSD": 0,
+    "ltvLowUSD": 0,
+    "ltvHighUSD": 0,
+    "demographics": "Researchers, students, knowledge workers, global"
+  }
+]

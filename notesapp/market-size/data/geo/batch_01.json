@@ -1,0 +1,50 @@
+[
+  {
+    "c": "Apple Notes",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Japan", "United Kingdom", "Germany"]
+  },
+  {
+    "c": "Microsoft OneNote",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "United Kingdom", "Germany", "Japan"]
+  },
+  {
+    "c": "Google Keep",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "Brazil", "Indonesia"]
+  },
+  {
+    "c": "Evernote",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Japan", "United Kingdom", "Germany"]
+  },
+  {
+    "c": "Samsung Notes",
+    "region": "Asia-Pacific",
+    "primaryCountry": "South Korea",
+    "topCountries": ["South Korea", "India", "United States", "Brazil"]
+  },
+  {
+    "c": "Simplenote",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Germany", "India"]
+  },
+  {
+    "c": "Bear",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Germany", "Italy"]
+  },
+  {
+    "c": "Zoho Notebook",
+    "region": "Global/Distributed",
+    "primaryCountry": "India",
+    "topCountries": ["India", "United States", "United Kingdom", "Brazil"]
+  }
+]

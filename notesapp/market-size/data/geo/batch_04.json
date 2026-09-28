@@ -1,0 +1,50 @@
+[
+  {
+    "c": "LiquidText",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada"]
+  },
+  {
+    "c": "MyScript",
+    "region": "Europe",
+    "primaryCountry": "United States",
+    "topCountries": ["France", "United States", "Germany", "Japan", "South Korea"]
+  },
+  {
+    "c": "Flexcil",
+    "region": "Asia-Pacific",
+    "primaryCountry": "South Korea",
+    "topCountries": ["South Korea", "United States", "Japan", "China"]
+  },
+  {
+    "c": "Roam Research",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Germany"]
+  },
+  {
+    "c": "Logseq",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Germany", "United Kingdom", "China", "India"]
+  },
+  {
+    "c": "Tana",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Norway", "United Kingdom", "Germany", "Canada"]
+  },
+  {
+    "c": "Anytype",
+    "region": "Europe",
+    "primaryCountry": "United States",
+    "topCountries": ["Germany", "United States", "United Kingdom", "Switzerland", "Russia"]
+  },
+  {
+    "c": "Capacities",
+    "region": "Europe",
+    "primaryCountry": "Germany",
+    "topCountries": ["Germany", "United States", "United Kingdom", "Canada"]
+  }
+]

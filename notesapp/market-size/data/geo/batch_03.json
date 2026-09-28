@@ -1,0 +1,50 @@
+[
+  {
+    "c": "Goodnotes",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Japan", "United Kingdom", "South Korea", "Germany"]
+  },
+  {
+    "c": "Notability",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Japan", "Australia"]
+  },
+  {
+    "c": "NotePlan",
+    "region": "Europe",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Germany", "United Kingdom", "Canada", "Netherlands"]
+  },
+  {
+    "c": "Amplenote",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "Germany", "Australia"]
+  },
+  {
+    "c": "MyScript / Nebo",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "France", "South Korea", "Japan", "Germany"]
+  },
+  {
+    "c": "Noteshelf",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "United Kingdom", "Japan", "Singapore"]
+  },
+  {
+    "c": "CollaNote",
+    "region": "Asia-Pacific",
+    "primaryCountry": "Taiwan",
+    "topCountries": ["Taiwan", "Japan", "South Korea", "United States", "China"]
+  },
+  {
+    "c": "MarginNote",
+    "region": "Asia-Pacific",
+    "primaryCountry": "China",
+    "topCountries": ["China", "United States", "Japan", "Taiwan", "South Korea"]
+  }
+]

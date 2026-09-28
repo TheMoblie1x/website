@@ -1,0 +1,50 @@
+[
+  {
+    "c": "Notion",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "Japan", "United Kingdom", "Germany"]
+  },
+  {
+    "c": "Obsidian",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Germany", "United Kingdom", "Canada", "India"]
+  },
+  {
+    "c": "Joplin",
+    "region": "Europe",
+    "primaryCountry": "France",
+    "topCountries": ["France", "Germany", "United States", "United Kingdom", "India"]
+  },
+  {
+    "c": "Standard Notes",
+    "region": "Europe",
+    "primaryCountry": "Germany",
+    "topCountries": ["Germany", "United States", "France", "Switzerland", "United Kingdom"]
+  },
+  {
+    "c": "Notesnook",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "India", "Pakistan", "Germany", "United Kingdom"]
+  },
+  {
+    "c": "UpNote",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Vietnam", "United Kingdom", "Germany", "India"]
+  },
+  {
+    "c": "Craft",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Germany", "United Kingdom", "Hungary", "France"]
+  },
+  {
+    "c": "Notejoy",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Canada", "United Kingdom", "India", "Australia"]
+  }
+]

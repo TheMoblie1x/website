@@ -1,0 +1,50 @@
+[
+  {
+    "c": "Milanote",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Australia", "Canada"]
+  },
+  {
+    "c": "AppFlowy",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Germany", "India", "China"]
+  },
+  {
+    "c": "AFFiNE",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Germany", "India", "China"]
+  },
+  {
+    "c": "SiYuan",
+    "region": "Asia-Pacific",
+    "primaryCountry": "China",
+    "topCountries": ["China", "United States", "Germany", "Japan"]
+  },
+  {
+    "c": "Memos",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Germany", "India", "Russia", "China"]
+  },
+  {
+    "c": "TriliumNext",
+    "region": "Global/Distributed",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "Germany", "India", "Russia"]
+  },
+  {
+    "c": "Recall",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Netherlands", "Canada"]
+  },
+  {
+    "c": "Fabric",
+    "region": "North America",
+    "primaryCountry": "United States",
+    "topCountries": ["United States", "United Kingdom", "Canada", "India"]
+  }
+]
