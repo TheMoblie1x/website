@@ -17,12 +17,14 @@
     window['ga-disable-' + GA_ID] = false;
     gtag('consent', 'update', { analytics_storage: 'granted' });
     enabled = true;
+    queue.splice(0).forEach(function (e) { gtag('event', e[0], e[1]); });
   }
 
   function disable() {
     window['ga-disable-' + GA_ID] = true;
     gtag('consent', 'update', { analytics_storage: 'denied' });
     enabled = false;
+    queue.length = 0;
     var parts = location.hostname.split('.');
     var domains = ['', location.hostname, parts.length > 2 ? '.' + parts.slice(-2).join('.') : '.' + location.hostname];
     document.cookie.split(';').forEach(function (c) {
@@ -34,7 +36,15 @@
   }
 
   // Exposed so page scripts can report their own critical events (no-op without consent).
-  window.notesTrack = function (name, params) { if (enabled) gtag('event', name, params || {}); };
+  // Events fired before the visitor chooses are held, sent on Accept and dropped on Decline.
+  var queue = [];
+  var MAX_QUEUED = 50;
+  window.m1xTrack = function (name, params) {
+    params = params || {};
+    params.page_path = location.pathname;
+    if (enabled) gtag('event', name, params);
+    else if (stored() === null && queue.length < MAX_QUEUED) queue.push([name, params]);
+  };
 
   // --- Outbound conversion clicks: delegated, so every page is covered without touching its markup. ---
   var OUTBOUND = [
@@ -57,10 +67,29 @@
     var href = link.href || '';
     for (var i = 0; i < OUTBOUND.length; i++) {
       if (href.indexOf(OUTBOUND[i].host) !== -1) {
-        window.notesTrack(OUTBOUND[i].event, { link_url: href, link_domain: OUTBOUND[i].host, link_location: linkLocation(link) });
+        window.m1xTrack(OUTBOUND[i].event, { link_url: href, link_domain: OUTBOUND[i].host, link_location: linkLocation(link) });
         return;
       }
     }
+  }, true);
+
+  // --- Landing-page demo: which parts of the product do visitors try? Counts only, never what they type. ---
+  document.addEventListener('click', function (e) {
+    var button = e.target.closest && e.target.closest('button');
+    if (!button) return;
+    if (button.getAttribute('aria-label') === 'Toggle Dark and Light Mode') {
+      window.m1xTrack('theme_toggle', { theme_after: document.documentElement.classList.contains('dark') ? 'light' : 'dark' });
+    } else if (/^(HOME|SEARCH|ARCHIVE|SETTINGS)$/.test(button.textContent.trim())) { // the phone mockup's tab bar
+      window.m1xTrack('demo_tab_click', { tab: button.textContent.trim().toLowerCase() });
+    }
+  }, true);
+
+  var searchTimer;
+  document.addEventListener('input', function (e) {
+    if (!e.target.closest || !e.target.closest('#interactive-search')) return;
+    var length = e.target.value.length;
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function () { window.m1xTrack('demo_search', { query_length: length }); }, 800);
   }, true);
 
   // --- Consent UI (self-contained: these pages use their own Tailwind styling) ---

@@ -1,6 +1,6 @@
 // Static site generator (zero dependencies). Run: node build.mjs
 // Reads src/, writes the deployable HTML to the repo root. Commit the output; Netlify needs no build step.
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SITE, PRODUCTS } from './src/site.mjs';
@@ -22,6 +22,9 @@ const pages = [
 ];
 
 for (const p of pages) write(p.path === '/' ? 'index.html' : p.path.endsWith('.html') ? p.path.slice(1) : `${p.path.slice(1)}index.html`, p.html);
+
+// The Notes pages are hand-written and also load the tracker; copy it so assets/js/track.js stays the only source.
+copyFileSync(join(root, 'assets/js/track.js'), join(root, 'notes/assets/js/track.js'));
 
 // Sitemap: same-host, canonical, indexable URLs only.
 const urls = [...pages.filter((p) => p.indexable !== false).map((p) => p.path), '/notes/', '/notes/blogs/'];
