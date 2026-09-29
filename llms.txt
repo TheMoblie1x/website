@@ -1,32 +1,33 @@
 # Mobile1X
 
-> Mobile1X is a software development studio that builds AI systems, fintech platforms, and performance-driven digital products for clients worldwide, and ships its own products including the Notes app, Dedup, The A2Z Collection, and Auction Manager.
+> Mobile1X is a mobile and AI product engineering studio based in Indore, India, founded by Rahul Pahuja. It designs, builds and launches Android, iOS and web apps, AI products, MVPs and fintech platforms for clients worldwide, and ships its own apps including Notes and Dedup.
 
-Mobile1X works with startups, agencies, and enterprises globally and operates from India. Engagements typically run from $5,000 to $100,000+, with standalone web performance audits from $500. Contact: hello@mobile1x.com, +91 97545 25494 (phone/WhatsApp), or book a 30-minute discovery call at https://calendly.com/themobile1x/30min.
+Engagements typically range from $5,000 to $100,000+; standalone web performance audits start at $500. Every project has a written scope and quote before work starts.
 
 ## Services
 
-- [AI Systems & Automation](https://www.mobile1x.com/#services): Conversion-focused AI funnels, lead-scoring and qualification engines, AI landing systems, and automation workflows for high-ticket lead generation ($5K–$100K+ deals).
-- [Fintech Platform Engineering](https://www.mobile1x.com/#fintech): Secure, scalable fintech systems for banks, startups, and enterprises; banking and payment API integrations; enterprise-grade security and compliance architecture.
-- [Web Performance Audit](https://www.mobile1x.com/#services): Audits from $500 to about $5,000 that identify revenue leaks, speed issues, and scaling opportunities in an existing web platform.
-- [Conversion Funnels & Landing Systems](https://www.mobile1x.com/#contact): High-converting forms, qualification logic, and automated follow-up and CRM pipelines.
-- [SaaS & Enterprise Web Development](https://www.mobile1x.com/#portfolio): Full-stack product and platform engineering.
+- [Mobile App Development](https://mobile1x.com/services/mobile-app-development/): Android and iOS apps, designed, engineered and launched end to end.
+- [AI Development](https://mobile1x.com/services/ai-development/): AI applications, agents and integrations for mobile and web products.
+- [MVP Development](https://mobile1x.com/services/mvp-development/): From idea to a launched MVP, with scope and price agreed first.
+- [Fintech Engineering](https://mobile1x.com/services/fintech-development/): Payments, banking integrations and security-conscious architecture.
 
-## Products
+## Products and case studies
 
-- [Notes](https://notes.mobile1x.com/): Fast, distraction-free note-taking app for Android.
-- Dedup: Duplicate file remover and storage cleaner for Android.
-- The A2Z Collection: E-commerce platform.
-- Auction Manager: Cricket and sports player auction software.
-- [B2B Pharma Platform](https://www.mobile1x.com/pharma/): Platform connecting pharmaceutical suppliers and buyers with catalog browsing, pricing, and ordering.
+- [Notes](https://mobile1x.com/work/notes/): A private, local-first AI notes app for Android and iOS.
+- [Dedup](https://mobile1x.com/work/dedup/): A duplicate file remover and storage cleaner for Android.
+- [The A2Z Collection](https://mobile1x.com/work/a2z/): A full-featured e-commerce web app, from browse to checkout.
+- [POS System](https://a2zpos.netlify.app): Point-of-sale software: fast billing, inventory and sales reporting.
+- [B2B Pharma Platform](https://mobile1x.com/pharma/): Connects pharmaceutical suppliers and buyers: catalogue, pricing, ordering.
 
-## Contact
+## Guides
 
-- Website: https://www.mobile1x.com/
+- [How Much Does It Cost to Build a Mobile App?](https://mobile1x.com/blog/how-much-does-it-cost-to-build-a-mobile-app/): What drives mobile app development cost, what a fair quote includes, and how to cut scope without hurting the product.
+- [Native vs Flutter vs React Native: How to Choose](https://mobile1x.com/blog/native-vs-flutter-vs-react-native/): A practical guide to choosing between native Android/iOS, Flutter and React Native for your product.
+
+## Company and contact
+
+- [About and founder](https://mobile1x.com/about/)
+- LinkedIn: https://www.linkedin.com/company/the-mobile1x/
 - Email: hello@mobile1x.com
 - Phone / WhatsApp: +91 97545 25494
-- Book a discovery call: https://calendly.com/themobile1x/30min
-
-## Optional
-
-- [FAQ](https://www.mobile1x.com/#faq): Answers on what Mobile1X does, pricing, and how to start a project.
+- Book a 30-minute discovery call: https://calendly.com/themobile1x/30min

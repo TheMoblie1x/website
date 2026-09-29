@@ -1,724 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Mobile1X | AI, Fintech, Mobile Apps & E-Commerce Development</title>
-
-    <meta name="description"
-        content="Mobile1X builds high-conversion AI systems, fintech platforms, and consumer products — including Notes, a private AI brain app for Android and iOS, Dedup duplicate file remover, The A2Z Collection e-commerce platform, and Auction Manager software.">
-
-    <!-- SEO -->
-    <meta name="keywords"
-        content="AI development agency, fintech software development, performance audit, conversion optimization, SaaS development, enterprise web development, private AI brain app, AI notes app for Android and iOS, duplicate file remover app, duplicate file finder, storage cleaner app, ecommerce web app development, online store platform, sports auction software, IPL player auction app, cricket team auction tool, point of sale software">
-    <link rel="canonical" href="https://www.mobile1x.com/">
+    <title>Mobile &amp; AI Product Engineering Studio | Mobile1X</title>
+    <meta name="description" content="Mobile1X designs, builds and launches Android and iOS apps, AI products, MVPs and fintech platforms. See our live apps and talk to an engineer.">
+    <link rel="canonical" href="https://mobile1x.com/">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Mobile1X">
-    <meta name="theme-color" content="#0d0d0d">
-    <link rel="alternate" type="text/plain" href="https://www.mobile1x.com/llms.txt" title="llms.txt">
-    <link rel="sitemap" type="application/xml" href="https://www.mobile1x.com/sitemap.xml">
-
-    <!-- Open Graph -->
+    <meta name="theme-color" content="#050505">
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Mobile1X | AI, Fintech, Mobile Apps & E-Commerce Development">
-    <meta property="og:description"
-        content="Enterprise AI and fintech systems, plus a growing product portfolio: Notes, Dedup, The A2Z Collection, and Auction Manager.">
-    <meta property="og:url" content="https://www.mobile1x.com/">
     <meta property="og:site_name" content="Mobile1X">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Mobile1X | AI, Fintech, Mobile Apps & E-Commerce Development">
-    <meta name="twitter:description"
-        content="Enterprise AI and fintech systems, plus a growing product portfolio: Notes, Dedup, The A2Z Collection, and Auction Manager.">
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..600,0..1,-50..200&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="assets/css/site.css">
-
-    <!-- Structured data for search engines and AI assistants (schema.org).
-     TODO: add real profile URLs to "sameAs" (LinkedIn, X/Twitter, GitHub,
-     Play Store, Crunchbase) and a "logo" URL once a logo asset exists. -->
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": ["Organization", "ProfessionalService"],
-      "@id": "https://www.mobile1x.com/#org",
-      "name": "Mobile1X",
-      "alternateName": "Mobile1X Studio",
-      "url": "https://www.mobile1x.com/",
-      "description": "Mobile1X is a software development studio that builds AI systems, fintech platforms, and performance-driven digital products for clients worldwide, and ships its own products including the Notes app, Dedup, The A2Z Collection, and Auction Manager.",
-      "email": "hello@mobile1x.com",
-      "telephone": "+91-97545-25494",
-      "priceRange": "$500 - $100,000+",
-      "areaServed": { "@type": "Place", "name": "Worldwide" },
-      "foundingLocation": { "@type": "Place", "name": "India" },
-      "knowsAbout": [
-        "AI systems",
-        "Conversational AI and LLM applications",
-        "AI-driven lead generation and conversion funnels",
-        "Fintech platform development",
-        "Banking and payment API integrations",
-        "Web performance optimization",
-        "Conversion rate optimization",
-        "SaaS and enterprise web development",
-        "Android app development",
-        "E-commerce platform development"
-      ],
-      "sameAs": [],
-      "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "contactType": "sales",
-          "email": "hello@mobile1x.com",
-          "telephone": "+91-97545-25494",
-          "availableLanguage": ["English", "Hindi"]
-        }
-      ],
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Mobile1X Services",
-        "itemListElement": [
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Systems & Automation", "description": "Conversion-focused AI funnels, lead-scoring and qualification engines, AI landing systems, and automation workflows for high-ticket lead generation." } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fintech Platform Engineering", "description": "Secure, scalable fintech systems for banks, startups, and enterprises, including banking and payment API integrations and compliance architecture." } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web Performance Audit", "description": "Audits from $500 to around $5,000 that identify revenue leaks, speed problems, and scaling opportunities in existing web platforms." } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Conversion Funnels & Landing Systems", "description": "High-converting forms, qualification logic, and automated follow-up and CRM pipelines." } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SaaS & Enterprise Web Development", "description": "Full-stack product and platform engineering for SaaS and enterprise web applications." } }
-        ]
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://www.mobile1x.com/#website",
-      "url": "https://www.mobile1x.com/",
-      "name": "Mobile1X",
-      "publisher": { "@id": "https://www.mobile1x.com/#org" },
-      "inLanguage": "en"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "name": "Notes",
-      "applicationCategory": "ProductivityApplication",
-      "operatingSystem": "Android, iOS",
-      "description": "Your private AI brain for Android and iOS by Mobile1X.",
-      "url": "https://notes.mobile1x.com/",
-      "publisher": { "@id": "https://www.mobile1x.com/#org" }
-    },
-    {
-      "@type": "SoftwareApplication",
-      "name": "Dedup",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "Android",
-      "description": "A duplicate file remover and storage cleaner for Android by Mobile1X.",
-      "publisher": { "@id": "https://www.mobile1x.com/#org" }
-    },
-    {
-      "@type": "WebApplication",
-      "name": "The A2Z Collection",
-      "applicationCategory": "ShoppingApplication",
-      "description": "An e-commerce platform built by Mobile1X.",
-      "publisher": { "@id": "https://www.mobile1x.com/#org" }
-    },
-    {
-      "@type": "SoftwareApplication",
-      "name": "Auction Manager",
-      "applicationCategory": "BusinessApplication",
-      "description": "Software for running cricket and sports player auctions, built by Mobile1X.",
-      "publisher": { "@id": "https://www.mobile1x.com/#org" }
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://www.mobile1x.com/#faq",
-      "mainEntity": [
-        { "@type": "Question", "name": "What is Mobile1X?", "acceptedAnswer": { "@type": "Answer", "text": "Mobile1X is a software development studio that builds AI systems, fintech platforms, and performance-driven digital products for clients worldwide. It also ships its own products, including Notes, a private AI brain app for Android and iOS, the Dedup duplicate file remover, The A2Z Collection e-commerce platform, and Auction Manager sports-auction software." } },
-        { "@type": "Question", "name": "What services does Mobile1X offer?", "acceptedAnswer": { "@type": "Answer", "text": "Mobile1X offers AI system design and automation, fintech platform engineering, web performance audits, conversion funnel and landing-system development, and full-stack SaaS and enterprise web development." } },
-        { "@type": "Question", "name": "What kind of AI systems does Mobile1X build?", "acceptedAnswer": { "@type": "Answer", "text": "Mobile1X builds conversion-focused AI funnels, lead-scoring and qualification engines, AI-powered landing systems, and automation workflows that capture, segment, and convert high-ticket leads in the $5,000 to $100,000-plus range." } },
-        { "@type": "Question", "name": "Does Mobile1X build fintech platforms?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Mobile1X engineers secure, scalable fintech systems for banks, startups, and enterprises, including banking and payment API integrations and enterprise-grade security and compliance architecture." } },
-        { "@type": "Question", "name": "What is a Mobile1X performance audit and what does it cost?", "acceptedAnswer": { "@type": "Answer", "text": "A Mobile1X performance audit identifies revenue leaks, speed problems, and scaling opportunities in an existing web platform. Audits start at $500 and scale to around $5,000 depending on scope." } },
-        { "@type": "Question", "name": "How much do Mobile1X projects cost?", "acceptedAnswer": { "@type": "Answer", "text": "Product and platform engagements typically range from $5,000 to $100,000 and above, depending on scope. Standalone web performance audits start at $500." } },
-        { "@type": "Question", "name": "What products has Mobile1X built?", "acceptedAnswer": { "@type": "Answer", "text": "Mobile1X has built Notes, a private AI brain app for Android and iOS, the Dedup duplicate file remover and storage cleaner, The A2Z Collection e-commerce platform, Auction Manager software for cricket and sports player auctions, and a B2B pharma trading platform." } },
-        { "@type": "Question", "name": "Where is Mobile1X based and who does it work with?", "acceptedAnswer": { "@type": "Answer", "text": "Mobile1X operates from India and works with startups, agencies, and enterprises globally. The team can be reached by email at hello@mobile1x.com, by phone or WhatsApp at +91 97545 25494, or by booking a discovery call." } },
-        { "@type": "Question", "name": "How do I start a project with Mobile1X?", "acceptedAnswer": { "@type": "Answer", "text": "Submit the project form on mobile1x.com with your budget, project type, and a short brief, or book a 30-minute discovery call. The team typically responds within one business day." } }
-      ]
-    }
-  ]
-}
-</script>
-
+    <meta property="og:title" content="Mobile &amp; AI Product Engineering Studio | Mobile1X">
+    <meta property="og:description" content="Mobile1X designs, builds and launches Android and iOS apps, AI products, MVPs and fintech platforms. See our live apps and talk to an engineer.">
+    <meta property="og:url" content="https://mobile1x.com/">
+    <meta property="og:image" content="https://mobile1x.com/assets/apps/notes/shot1.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mobile &amp; AI Product Engineering Studio | Mobile1X">
+    <meta name="twitter:description" content="Mobile1X designs, builds and launches Android and iOS apps, AI products, MVPs and fintech platforms. See our live apps and talk to an engineer.">
+    <meta name="twitter:image" content="https://mobile1x.com/assets/apps/notes/shot1.png">
+    <link rel="alternate" type="text/plain" href="https://mobile1x.com/llms.txt" title="llms.txt">
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">
+    <script>document.documentElement.classList.add('js')</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","ProfessionalService"],"@id":"https://mobile1x.com/#org","name":"Mobile1X","url":"https://mobile1x.com/","logo":"https://mobile1x.com/assets/logo.svg","description":"Mobile1X is a mobile and AI product engineering studio. It designs, builds and launches Android, iOS and web products, AI systems and fintech platforms, and ships its own apps including Notes and Dedup.","email":"hello@mobile1x.com","telephone":"+91-97545-25494","priceRange":"$500 - $100,000+","areaServed":{"@type":"Place","name":"Worldwide"},"foundingLocation":{"@type":"Place","name":"Indore, India"},"address":{"@type":"PostalAddress","addressLocality":"Indore","addressRegion":"Madhya Pradesh","addressCountry":"IN"},"founder":{"@id":"https://mobile1x.com/about/#founder"},"sameAs":["https://www.linkedin.com/company/the-mobile1x/","https://github.com/TheMoblie1x"],"contactPoint":[{"@type":"ContactPoint","contactType":"sales","email":"hello@mobile1x.com","telephone":"+91-97545-25494","availableLanguage":["English","Hindi"]}]},{"@type":"WebSite","@id":"https://mobile1x.com/#website","url":"https://mobile1x.com/","name":"Mobile1X","publisher":{"@id":"https://mobile1x.com/#org"},"inLanguage":"en"},{"@type":"Person","@id":"https://mobile1x.com/about/#founder","name":"Rahul Pahuja","jobTitle":"Founder","description":"Rahul Pahuja is the founder of Mobile1X, a software engineer with 12 years of experience.","url":"https://mobile1x.com/about/","worksFor":{"@id":"https://mobile1x.com/#org"},"address":{"@type":"PostalAddress","addressLocality":"Indore","addressCountry":"IN"},"knowsAbout":["Kotlin","Java","Swift","Objective-C","Flutter","React Native","Spring Boot","SQL","SQLite","AWS","Firebase","Cloudflare","React JS","ElectronJS","HTML","CSS","JavaScript"],"sameAs":["https://github.com/rahulpahuja","https://www.linkedin.com/in/therahulpahuja/"]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Mobile1X?","acceptedAnswer":{"@type":"Answer","text":"Mobile1X is a mobile and AI product engineering studio based in Indore, India, that designs, builds and launches Android, iOS and web products, AI systems and fintech platforms for clients worldwide. It also ships its own products, including the Notes app, the Dedup duplicate file remover, The A2Z Collection e-commerce platform and Auction Manager sports-auction software."}},{"@type":"Question","name":"How much does mobile app development cost?","acceptedAnswer":{"@type":"Answer","text":"Product and platform builds with Mobile1X typically range from $5,000 to $100,000+ depending on platforms, features, integrations and whether AI or payments are involved. Standalone web performance audits start at $500. You receive a written scope and quote before work starts."}},{"@type":"Question","name":"How long does an MVP take?","acceptedAnswer":{"@type":"Answer","text":"It depends on scope, so Mobile1X does not quote a generic timeline. After a 30-minute discovery call you receive a scoped estimate that includes timing."}},{"@type":"Question","name":"Can Mobile1X add AI to an existing mobile application?","acceptedAnswer":{"@type":"Answer","text":"Yes. AI integration into existing products is part of what Mobile1X does. It starts with a review of your app and the data the feature would use, then a scoped plan and estimate."}},{"@type":"Question","name":"What technologies does Mobile1X use?","acceptedAnswer":{"@type":"Answer","text":"Mobile1X builds Android apps in Kotlin and Java, iOS apps in Swift and Objective-C, and cross-platform apps in Flutter and React Native, with Spring Boot backends, SQL and SQLite data, Firebase, AWS and Cloudflare infrastructure, and web and desktop front ends in React JS, ElectronJS, HTML, CSS and JavaScript. For AI it works with applications, agents, retrieval-augmented generation (RAG), AI integration and on-device AI. The right stack is chosen per product and explained in writing before the build."}},{"@type":"Question","name":"What kind of AI systems does Mobile1X build?","acceptedAnswer":{"@type":"Answer","text":"AI applications and features inside mobile and web products, AI agents and automation, RAG systems grounded in your data, chatbots, and lead-scoring and qualification systems for sales teams."}},{"@type":"Question","name":"Does Mobile1X build fintech platforms?","acceptedAnswer":{"@type":"Answer","text":"Yes. Mobile1X engineers secure, scalable fintech systems for banks, startups and enterprises, including banking and payment API integrations and compliance-minded architecture."}},{"@type":"Question","name":"What is a Mobile1X performance audit and what does it cost?","acceptedAnswer":{"@type":"Answer","text":"A performance audit identifies revenue leaks, speed problems and scaling opportunities in an existing web platform. Audits start at $500 and scale to around $5,000 depending on scope."}},{"@type":"Question","name":"Where is Mobile1X based and who does it work with?","acceptedAnswer":{"@type":"Answer","text":"Mobile1X is based in Indore, India, and works with startups, agencies and enterprises globally. Reach Mobile1X by email at hello@mobile1x.com, by phone or WhatsApp at +91 97545 25494, or book a 30-minute discovery call."}},{"@type":"Question","name":"How do I start a project with Mobile1X?","acceptedAnswer":{"@type":"Answer","text":"Use the form to talk to an engineer, call or message on WhatsApp, or book a 30-minute discovery call. Mobile1X typically responds within one business day."}}]},{"@type":"SoftwareApplication","name":"Notes","applicationCategory":"ProductivityApplication","operatingSystem":"Android, iOS","description":"A private, local-first AI notes app for Android and iOS.","url":"https://mobile1x.com/work/notes/","publisher":{"@id":"https://mobile1x.com/#org"}},{"@type":"SoftwareApplication","name":"Dedup","applicationCategory":"UtilitiesApplication","operatingSystem":"Android","description":"A duplicate file remover and storage cleaner for Android.","url":"https://mobile1x.com/work/dedup/","publisher":{"@id":"https://mobile1x.com/#org"}}]}</script>
 </head>
-
-<body>
-
-    <header class="container" id="site-header">
-        <div class="logo">Mobile1X</div>
-        <nav class="main-nav">
-            <a href="#portfolio">Products</a>
-            <a href="#case-studies">Case Studies</a>
-            <a href="#blog">Blog</a>
-            <a href="#contact-us">Contact</a>
+<body data-ga="G-FTJGYFC2BV">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol><symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-device" viewBox="0 0 24 24"><rect width="12" height="20" x="6" y="2" rx="3"/><path d="M11 18h2"/></symbol><symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.8 2.8M14.9 14.9l2.8 2.8M17.7 6.3l-2.8 2.8M9.1 14.9l-2.8 2.8"/></symbol><symbol id="i-rocket" viewBox="0 0 24 24"><path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2M12 15l-3-3a22 22 0 0 1 2-4 12.9 12.9 0 0 1 11-6c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2zM9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></symbol><symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2 3 7h18z"/></symbol><symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.484 3.622 1.401 5.184L2 22l5.01-1.502a9.85 9.85 0 004.997 1.359h.005c5.46 0 9.91-4.45 9.91-9.912 0-2.649-1.03-5.14-2.902-7.013A9.855 9.855 0 0012.04 2zm0 18.146a8.19 8.19 0 01-4.185-1.145l-.3-.178-3.121.836.834-3.043-.196-.312a8.184 8.184 0 01-1.256-4.394c0-4.523 3.68-8.203 8.228-8.203 2.198 0 4.263.857 5.816 2.412a8.157 8.157 0 012.408 5.803c0 4.524-3.68 8.224-8.228 8.224z"/></symbol></svg>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header" id="site-header" data-loc="header">
+    <div class="container site-header__bar">
+        <a class="brand" href="/" aria-label="Mobile1X home"><img src="/assets/logo.svg" alt="" width="32" height="32">Mobile1X</a>
+        <nav class="nav" id="site-nav" aria-label="Primary">
+            <div class="nav__group">
+                <a class="nav__parent" href="/#services">Services<svg class="i" aria-hidden="true"><use href="#i-chevron"/></svg></a>
+                <ul class="nav__menu"><li><a href="/services/mobile-app-development/">Mobile App Development</a></li><li><a href="/services/ai-development/">AI Development</a></li><li><a href="/services/mvp-development/">MVP Development</a></li><li><a href="/services/fintech-development/">Fintech Engineering</a></li></ul>
+            </div>
+            <a href="/#portfolio">Work</a><a href="/#pricing">Pricing</a><a href="/blog/">Blog</a><a href="/about/">About</a>
+            <a class="btn btn--primary nav__cta-mobile" href="/#contact">Talk to an Engineer</a>
         </nav>
-        <div class="header-actions">
-            <a href="mailto:hello@mobile1x.com" class="header-icon-link" aria-label="Email Mobile1X"
-                title="hello@mobile1x.com">
-                <span class="material-symbols-outlined">mail</span>
-            </a>
-            <a href="tel:+919754525494" class="header-icon-link" aria-label="Call Mobile1X" title="+91 97545 25494">
-                <span class="material-symbols-outlined">call</span>
-            </a>
-            <a href="https://wa.me/919754525494" target="_blank" rel="noopener noreferrer" class="header-icon-link"
-                aria-label="Chat with Mobile1X on WhatsApp" title="WhatsApp">
-                <svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                    <path
-                        d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.484 3.622 1.401 5.184L2 22l5.01-1.502a9.85 9.85 0 004.997 1.359h.005c5.46 0 9.91-4.45 9.91-9.912 0-2.649-1.03-5.14-2.902-7.013A9.855 9.855 0 0012.04 2zm0 18.146a8.19 8.19 0 01-4.185-1.145l-.3-.178-3.121.836.834-3.043-.196-.312a8.184 8.184 0 01-1.256-4.394c0-4.523 3.68-8.203 8.228-8.203 2.198 0 4.263.857 5.816 2.412a8.157 8.157 0 012.408 5.803c0 4.524-3.68 8.224-8.228 8.224z" />
-                </svg>
-            </a>
-            <a href="https://calendly.com/themobile1x/30min" class="cta-btn cta-btn-sm" target="_blank"
-                rel="noopener noreferrer" aria-label="Book a Discovery Call via Calendly">
-                Book a Discovery Call
-            </a>
+        <div class="site-header__actions">
+            <a class="header-call" href="tel:+919754525494" aria-label="Call Mobile1X +91 97545 25494"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span>Call</span></a>
+            <a class="btn btn--primary btn--sm site-header__cta" href="/#contact">Talk to an Engineer</a>
+            <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle menu"><svg class="i i-open" aria-hidden="true"><use href="#i-menu"/></svg><svg class="i i-close" aria-hidden="true"><use href="#i-close"/></svg></button>
         </div>
-    </header>
-
-    <!-- HERO -->
-    <section class="hero container">
-        <h1>We Build <span>AI Systems</span> That Close $100K Deals</h1>
-        <p>Enterprise-grade AI, fintech platforms, and performance-driven digital systems designed for global scale.</p>
-        <a href="https://calendly.com/themobile1x/30min" class="cta-btn" target="_blank" rel="noopener noreferrer">Book
-            a Discovery Call</a>
-
-        <div style="margin-top:20px;">
-            <a href="tel:+919754525494" class="card-link" style="margin-right:20px;" aria-label="Call Mobile1X">
-                <span class="material-symbols-outlined">call</span>Call +91 97545 25494
-            </a>
-            <a href="https://wa.me/919754525494" target="_blank" rel="noopener noreferrer" class="card-link"
-                aria-label="Chat with Mobile1X on WhatsApp">
-                <svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                    <path
-                        d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.484 3.622 1.401 5.184L2 22l5.01-1.502a9.85 9.85 0 004.997 1.359h.005c5.46 0 9.91-4.45 9.91-9.912 0-2.649-1.03-5.14-2.902-7.013A9.855 9.855 0 0012.04 2zm0 18.146a8.19 8.19 0 01-4.185-1.145l-.3-.178-3.121.836.834-3.043-.196-.312a8.184 8.184 0 01-1.256-4.394c0-4.523 3.68-8.203 8.228-8.203 2.198 0 4.263.857 5.816 2.412a8.157 8.157 0 012.408 5.803c0 4.524-3.68 8.224-8.228 8.224z" />
-                </svg>WhatsApp Us
-            </a>
+    </div>
+</header>
+    <main id="main">
+<section class="hero" data-loc="hero">
+    <div class="hero__light" aria-hidden="true"><i class="hero__glow"></i><i class="hero__motes"></i><i class="hero__motes hero__motes--far"></i></div>
+    <div class="container hero__grid">
+        <div class="hero__copy">
+            <p class="eyebrow">Mobile and AI product engineering</p>
+            <h1>Mobile &amp; AI products, built by <em>engineers who ship.</em></h1>
+            <p class="hero__lede">Mobile1X designs, builds and launches Android and iOS apps, AI products and MVPs, from idea to engineering to launch. Our own apps are live on Google Play and the App Store.</p>
+            <div class="hero__actions"><a class="btn btn--primary" href="#contact" data-loc="hero">Talk to an Engineer<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="btn btn--ghost" href="#portfolio" data-loc="hero">See Our Work</a></div>
+            <p class="hero__call"><a class="link-call" href="tel:+919754525494" data-loc="hero"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>Call Mobile1X +91 97545 25494</a><a class="link-call" href="https://wa.me/919754525494?text=Hi%20Mobile1X%2C%20I%20want%20to%20discuss%20a%20software%20project." target="_blank" rel="noopener noreferrer" data-loc="hero"><svg class="i i--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a></p>
+            <ul class="hero__facts"><li>6 shipped products</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
         </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section class="section container reveal">
-        <h2>Core Offerings</h2>
-        <div class="grid reveal-stagger">
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">bolt</span>AI Landing Systems</h3>
-                <p>Conversion-focused AI funnels engineered to generate high-ticket leads ($5K–$100K+).</p>
-            </div>
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">account_balance</span>Fintech Platforms</h3>
-                <p>Secure, scalable fintech systems for banks, startups, and global enterprises.</p>
-            </div>
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">speed</span>Performance Audit</h3>
-                <p>$500 → $5,000 audit funnel identifying revenue leaks and scaling opportunities.</p>
-            </div>
-
+        <div class="hero__visual"><figure class="flow" aria-hidden="true">
+<svg viewBox="0 0 580 440" class="flow__svg" focusable="false">
+  <defs>
+    <linearGradient id="fl-gold" x1="0" x2="1"><stop offset="0" stop-color="#F4C15D"/><stop offset="1" stop-color="#C89B3C"/></linearGradient>
+    <radialGradient id="fl-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#E29A2E" stop-opacity=".35"/><stop offset="1" stop-color="#E29A2E" stop-opacity="0"/></radialGradient>
+  </defs>
+  <g class="flow__grid"><path d="M0 20H560"/><path d="M0 80H560"/><path d="M0 140H560"/><path d="M0 200H560"/><path d="M0 260H560"/><path d="M0 320H560"/><path d="M0 380H560"/><path d="M0 440H560"/><path d="M20 0V440"/><path d="M80 0V440"/><path d="M140 0V440"/><path d="M200 0V440"/><path d="M260 0V440"/><path d="M320 0V440"/><path d="M380 0V440"/><path d="M440 0V440"/><path d="M500 0V440"/><path d="M560 0V440"/></g>
+  <circle cx="340" cy="230" r="170" fill="url(#fl-glow)"/>
+  <g class="flow__paths">
+    <path class="flow__path" d="M70 92V160"/>
+    <path class="flow__path" d="M118 212H196"/>
+    <path class="flow__path" d="M304 212H352"/>
+    <path class="flow__path" d="M400 244V318"/>
+    <path class="flow__path" d="M452 350H500"/>
+  </g>
+  <g class="flow__nodes" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12" text-anchor="middle">
+    <g transform="translate(70 62)"><circle r="26"/><circle cx="0" cy="-5" r="6"/><path d="M-11 12a11 9 0 0 1 22 0"/><text y="52">USER</text></g>
+    <g transform="translate(20 160)"><rect width="98" height="104" rx="16"/><rect x="34" y="8" width="30" height="4" rx="2" class="flow__fill"/><path d="M14 40h70M14 58h48M14 76h60"/><text x="49" y="128">MOBILE APP</text></g>
+    <g transform="translate(196 188)"><rect width="108" height="48" rx="10"/><text x="54" y="29">API</text></g>
+    <g transform="translate(352 188)"><rect width="96" height="56" rx="10"/><path d="M16 22h64M16 34h44"/><text x="48" y="78">BACKEND</text></g>
+    <g transform="translate(352 318)"><rect width="96" height="64" rx="10" class="flow__ai"/><circle cx="30" cy="28" r="4" class="flow__fill"/><circle cx="66" cy="20" r="4" class="flow__fill"/><circle cx="66" cy="44" r="4" class="flow__fill"/><path d="M30 28 66 20M30 28 66 44"/><text x="48" y="86">AI</text></g>
+    <g transform="translate(500 318)"><path d="M0 12a30 8 0 0 1 60 0v40a30 8 0 0 1-60 0zM0 12a30 8 0 0 0 60 0M0 32a30 8 0 0 0 60 0"/><text x="30" y="86">DATA</text></g>
+  </g>
+</svg>
+<figcaption class="sr-only">Abstract diagram: a user, a mobile app, an API, a backend, an AI layer and a data store connected in a pipeline.</figcaption>
+</figure></div>
+    </div>
+</section>
+<section class="section " id="portfolio" data-loc="case-study"><div class="container"><div class="section__head reveal"><p class="eyebrow">Proof</p><h2 class="h2">Products we’ve actually shipped.</h2><p class="lede">Real products, live in the stores and on the web. This is our track record, not a mock-up.</p></div>
+        <div class="products"><article class="product reveal"><div class="product__shots"><div class="phone"><img src="/assets/apps/notes/shot1.webp" alt="Notes app screenshot 1" width="640" height="1334" loading="lazy" decoding="async"></div><div class="phone"><img src="/assets/apps/notes/shot2.webp" alt="Notes app screenshot 2" width="640" height="1334" loading="lazy" decoding="async"></div><div class="phone"><img src="/assets/apps/notes/shot3.webp" alt="Notes app screenshot 3" width="640" height="1334" loading="lazy" decoding="async"></div></div><div class="product__body"><span class="tag">Android · iOS</span><h3>Notes</h3><p>A private, local-first AI notes app for Android and iOS.</p><div class="product__links"><a class="link-arrow" href="/work/notes/" data-loc="case-study">Case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="link-arrow" href="https://play.google.com/store/apps/details?id=com.rp.notes" target="_blank" rel="noopener noreferrer" data-loc="case-study">Google Play<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="link-arrow" href="https://apps.apple.com/us/app/notes-archive-reflect/id6798175378" target="_blank" rel="noopener noreferrer" data-loc="case-study">App Store<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></div></article><article class="product reveal"><div class="product__shots"><div class="phone"><img src="/assets/apps/dedup/shot1.webp" alt="Dedup app screenshot 1" width="640" height="1334" loading="lazy" decoding="async"></div><div class="phone"><img src="/assets/apps/dedup/shot2.webp" alt="Dedup app screenshot 2" width="640" height="1334" loading="lazy" decoding="async"></div><div class="phone"><img src="/assets/apps/dedup/shot3.webp" alt="Dedup app screenshot 3" width="640" height="1334" loading="lazy" decoding="async"></div></div><div class="product__body"><span class="tag">Android · iOS coming soon</span><h3>Dedup</h3><p>A duplicate file remover and storage cleaner for Android.</p><div class="product__links"><a class="link-arrow" href="/work/dedup/" data-loc="case-study">Case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="link-arrow" href="https://play.google.com/store/apps/details?id=com.rp.dedup" target="_blank" rel="noopener noreferrer" data-loc="case-study">Google Play<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></div></article><article class="product reveal"><div class="product__shots product__shots--wide"><img src="/assets/a2z/home.webp" alt="The A2Z Collection home page" width="1200" height="567" loading="lazy" decoding="async"></div><div class="product__body"><span class="tag">E-commerce · Web</span><h3>The A2Z Collection</h3><p>A full-featured e-commerce web app, from browse to checkout.</p><div class="product__links"><a class="link-arrow" href="/work/a2z/" data-loc="case-study">Case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></div></article></div>
+        <div class="products products--compact"><article class="product reveal"><div class="product__body"><span class="tag">Retail · Web</span><h3>POS System</h3><p>Point-of-sale software: fast billing, inventory and sales reporting.</p><div class="product__links"><a class="link-arrow" href="https://a2zpos.netlify.app" target="_blank" rel="noopener noreferrer" data-loc="case-study">View live<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></div></article><article class="product reveal"><div class="product__body"><span class="tag">B2B · Web</span><h3>B2B Pharma Platform</h3><p>Connects pharmaceutical suppliers and buyers: catalogue, pricing, ordering.</p><div class="product__links"><a class="link-arrow" href="/pharma/" data-loc="case-study">View live<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></div></article><article class="product reveal"><div class="product__body"><span class="tag">Sports · Web</span><h3>Auction Manager</h3><p>A real-time command centre for IPL-style player auctions.</p><div class="product__links"></div></div></article></div></div></section>
+<section class="section section--alt" id="services" data-loc="service"><div class="container"><div class="section__head reveal"><p class="eyebrow">Services</p><h2 class="h2">What we build.</h2><p class="lede">Four focus areas, each with its own detailed page: approach, technology, pricing and proof.</p></div>
+        <div class="grid grid--4" id="fintech"><article class="card reveal"><span class="icon-badge"><svg class="i" aria-hidden="true"><use href="#i-device"/></svg></span><h3><a class="card__link" href="/services/mobile-app-development/" data-loc="service">Mobile App Development</a></h3><p>Android and iOS apps, designed, engineered and launched end to end.</p><p class="card__meta">Android · iOS · Flutter · React Native</p><a class="link-arrow" href="/services/mobile-app-development/" data-loc="service">Learn more<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></article><article class="card reveal"><span class="icon-badge"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg></span><h3><a class="card__link" href="/services/ai-development/" data-loc="service">AI Development</a></h3><p>AI applications, agents and integrations for mobile and web products.</p><p class="card__meta">AI apps · Agents · RAG · On-device AI</p><a class="link-arrow" href="/services/ai-development/" data-loc="service">Learn more<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></article><article class="card reveal"><span class="icon-badge"><svg class="i" aria-hidden="true"><use href="#i-rocket"/></svg></span><h3><a class="card__link" href="/services/mvp-development/" data-loc="service">MVP Development</a></h3><p>From idea to a launched MVP, with scope and price agreed first.</p><p class="card__meta">Idea → MVP → launch</p><a class="link-arrow" href="/services/mvp-development/" data-loc="service">Learn more<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></article><article class="card reveal"><span class="icon-badge"><svg class="i" aria-hidden="true"><use href="#i-bank"/></svg></span><h3><a class="card__link" href="/services/fintech-development/" data-loc="service">Fintech Engineering</a></h3><p>Payments, banking integrations and security-conscious architecture.</p><p class="card__meta">Payments · Banking APIs · Security</p><a class="link-arrow" href="/services/fintech-development/" data-loc="service">Learn more<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></article></div></div></section>
+<section class="section " data-loc="capabilities"><div class="container"><div class="section__head reveal"><p class="eyebrow">Engineering</p><h2 class="h2">One engineer across the whole stack.</h2><p class="lede">A typical product spans four layers. We design and build all of them, so the pieces fit.</p></div><div class="arch" role="group" aria-label="Typical Mobile1X system architecture"><div class="arch__layer reveal"><span class="arch__index">01</span><div><h3>Client</h3><ul class="chips"><li>Android: Kotlin, Java</li><li>iOS: Swift, Objective-C</li><li>Cross-platform: Flutter, React Native</li><li>Web: React JS, HTML, CSS, JavaScript</li><li>Desktop: ElectronJS</li></ul></div></div><div class="arch__layer reveal"><span class="arch__index">02</span><div><h3>API and backend</h3><ul class="chips"><li>Spring Boot</li><li>Firebase</li><li>Authentication</li><li>Payments</li><li>Integrations</li></ul></div></div><div class="arch__layer reveal"><span class="arch__index">03</span><div><h3>AI layer</h3><ul class="chips"><li>Agents</li><li>RAG</li><li>Chatbots</li><li>On-device AI</li><li>Evaluation</li></ul></div></div><div class="arch__layer reveal"><span class="arch__index">04</span><div><h3>Data and operations</h3><ul class="chips"><li>SQL</li><li>SQLite</li><li>AWS</li><li>Cloudflare</li><li>Analytics and monitoring</li></ul></div></div></div></div></section>
+<section class="section section--alt" data-loc="case-study"><div class="container"><div class="section__head reveal"><p class="eyebrow">Case studies</p><h2 class="h2">How we built them.</h2></div>
+        <div class="grid grid--3"><article class="card reveal"><span class="tag">Android · iOS</span><h3><a class="card__link" href="/work/notes/" data-loc="case-study">Notes</a></h3><p>Mobile1X’s own product: a fast, distraction-free notes app for people who think faster than they type.</p><a class="link-arrow" href="/work/notes/" data-loc="case-study">Read the case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></article><article class="card reveal"><span class="tag">Android · iOS coming soon</span><h3><a class="card__link" href="/work/dedup/" data-loc="case-study">Dedup</a></h3><p>Mobile1X’s own utility app: it finds and clears duplicate files so people get storage back.</p><a class="link-arrow" href="/work/dedup/" data-loc="case-study">Read the case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></article><article class="card reveal"><span class="tag">E-commerce · Web</span><h3><a class="card__link" href="/work/a2z/" data-loc="case-study">The A2Z Collection</a></h3><p>A full-featured e-commerce web app built for seamless shopping from browse to checkout.</p><a class="link-arrow" href="/work/a2z/" data-loc="case-study">Read the case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></article></div></div></section>
+<section class="section " id="process" data-loc="process"><div class="container"><div class="section__head reveal"><p class="eyebrow">How we work</p><h2 class="h2">Discover, architect, build, test, launch, improve.</h2></div><ol class="pipeline"><li class="reveal"><h3>Discover</h3><p>A 30-minute call on your goal, users, budget and timeline. You leave knowing whether we are a fit.</p></li><li class="reveal"><h3>Architect</h3><p>We choose the stack and system design, and write down scope, risks and a quote before any build starts.</p></li><li class="reveal"><h3>Build</h3><p>We ship in working increments so you can see and use the product as it grows.</p></li><li class="reveal"><h3>Test</h3><p>Functional, device and performance testing, plus security review of authentication and data handling.</p></li><li class="reveal"><h3>Launch</h3><p>Store submission, release configuration, analytics and monitoring, so launch day is not a first run.</p></li><li class="reveal"><h3>Improve</h3><p>We track what users actually do and keep improving speed, reliability and conversion.</p></li></ol></div></section>
+<section class="section section--alt" id="pricing" data-loc="pricing"><div class="container"><div class="section__head section__head--center reveal"><p class="eyebrow">Pricing</p><h2 class="h2">Transparent ranges, before the first call.</h2><p class="lede">Every project is scoped individually. These ranges show where to start.</p></div><div class="grid grid--2">
+    <article class="card plan reveal"><h3>Performance Audit</h3><p class="plan__price">$500 <small>to about $5,000</small></p><p>For an existing web platform: find where it loses revenue or speed, with a prioritised fix list.</p><ul class="checks"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>Speed and Core Web Vitals findings</span></li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>Conversion and funnel leak review</span></li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>Scaling risks and opportunities</span></li></ul><a class="btn btn--ghost" href="#contact" data-loc="pricing">Request an audit</a></article>
+    <article class="card plan plan--featured reveal"><h3>Product &amp; Platform Build</h3><p class="plan__price">$5,000 <small>to $100,000+</small></p><p>Mobile, AI, MVP and fintech products designed, built and launched end to end.</p><ul class="checks"><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>Written scope and quote before work starts</span></li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>Design, engineering, testing and launch</span></li><li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>Security built in from the start</span></li></ul><a class="btn btn--primary" href="#contact" data-loc="pricing">Talk to an Engineer<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></article>
+</div><p class="plan__note reveal">Prices are ranges. Your quote follows a 30-minute discovery call.</p></div></section>
+<section class="section " data-loc="trust"><div class="container"><div class="section__head reveal"><p class="eyebrow">Why Mobile1X</p><h2 class="h2">Evidence, not adjectives.</h2></div>
+        <div class="grid grid--3">
+            <article class="card reveal"><h3>We ship our own products</h3><p>Notes and Dedup are live on Google Play; Notes is also on the App Store. Every claim on this site points to something you can open.</p></article>
+            <article class="card reveal"><h3>Founder-led engineering</h3><p>Mobile1X is founded and led by Rahul Pahuja, a software engineer in Indore with 12 years of experience. You talk to the engineer who builds your product.</p></article>
+            <article class="card reveal"><h3>Prices and scope up front</h3><p>Published ranges, a written scope and a quote before work starts. Read more <a href="/about/">about Mobile1X</a>.</p></article>
+        </div></div></section>
+<section class="section section--alt" id="faq" data-loc="faq"><div class="container"><div class="section__head section__head--center reveal"><p class="eyebrow">FAQ</p><h2 class="h2">Questions, answered.</h2></div><div class="faq"><details><summary>What is Mobile1X?</summary><p class="faq__answer">Mobile1X is a mobile and AI product engineering studio based in Indore, India, that designs, builds and launches Android, iOS and web products, AI systems and fintech platforms for clients worldwide. It also ships its own products, including the Notes app, the Dedup duplicate file remover, The A2Z Collection e-commerce platform and Auction Manager sports-auction software.</p></details><details><summary>How much does mobile app development cost?</summary><p class="faq__answer">Product and platform builds with Mobile1X typically range from $5,000 to $100,000+ depending on platforms, features, integrations and whether AI or payments are involved. Standalone web performance audits start at $500. You receive a written scope and quote before work starts.</p></details><details><summary>How long does an MVP take?</summary><p class="faq__answer">It depends on scope, so Mobile1X does not quote a generic timeline. After a 30-minute discovery call you receive a scoped estimate that includes timing.</p></details><details><summary>Can Mobile1X add AI to an existing mobile application?</summary><p class="faq__answer">Yes. AI integration into existing products is part of what Mobile1X does. It starts with a review of your app and the data the feature would use, then a scoped plan and estimate.</p></details><details><summary>What technologies does Mobile1X use?</summary><p class="faq__answer">Mobile1X builds Android apps in Kotlin and Java, iOS apps in Swift and Objective-C, and cross-platform apps in Flutter and React Native, with Spring Boot backends, SQL and SQLite data, Firebase, AWS and Cloudflare infrastructure, and web and desktop front ends in React JS, ElectronJS, HTML, CSS and JavaScript. For AI it works with applications, agents, retrieval-augmented generation (RAG), AI integration and on-device AI. The right stack is chosen per product and explained in writing before the build.</p></details><details><summary>What kind of AI systems does Mobile1X build?</summary><p class="faq__answer">AI applications and features inside mobile and web products, AI agents and automation, RAG systems grounded in your data, chatbots, and lead-scoring and qualification systems for sales teams.</p></details><details><summary>Does Mobile1X build fintech platforms?</summary><p class="faq__answer">Yes. Mobile1X engineers secure, scalable fintech systems for banks, startups and enterprises, including banking and payment API integrations and compliance-minded architecture.</p></details><details><summary>What is a Mobile1X performance audit and what does it cost?</summary><p class="faq__answer">A performance audit identifies revenue leaks, speed problems and scaling opportunities in an existing web platform. Audits start at $500 and scale to around $5,000 depending on scope.</p></details><details><summary>Where is Mobile1X based and who does it work with?</summary><p class="faq__answer">Mobile1X is based in Indore, India, and works with startups, agencies and enterprises globally. Reach Mobile1X by email at hello@mobile1x.com, by phone or WhatsApp at +91 97545 25494, or book a 30-minute discovery call.</p></details><details><summary>How do I start a project with Mobile1X?</summary><p class="faq__answer">Use the form to talk to an engineer, call or message on WhatsApp, or book a 30-minute discovery call. Mobile1X typically responds within one business day.</p></details></div></div></section>
+<section class="section section--contact" id="contact" data-loc="contact"><div class="container"><div class="contact"><div class="reveal"><p class="eyebrow">Talk to an engineer</p><h2 class="h2">Have a product to build?</h2><p class="lede">Tell us what you are building. An engineer replies within one business day, or skip the form and call.</p><div class="contact__channels"><a class="channel" href="tel:+919754525494" data-loc="contact"><span class="icon-badge"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><span><small>Call Mobile1X</small><strong>+91 97545 25494</strong></span></a><a class="channel" href="https://wa.me/919754525494?text=Hi%20Mobile1X%2C%20I%20want%20to%20discuss%20a%20software%20project." data-loc="contact" target="_blank" rel="noopener noreferrer"><span class="icon-badge"><svg class="i i--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg></span><span><small>WhatsApp</small><strong>Chat with an engineer</strong></span></a><a class="channel" href="https://calendly.com/themobile1x/30min" data-loc="contact" target="_blank" rel="noopener noreferrer"><span class="icon-badge"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg></span><span><small>Discovery call</small><strong>Book 30 minutes</strong></span></a><a class="channel" href="mailto:hello@mobile1x.com" data-loc="contact"><span class="icon-badge"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><span><small>Email</small><strong>hello@mobile1x.com</strong></span></a></div></div><form class="form reveal" id="project-form" method="POST" action="https://docs.google.com/forms/d/e/1FAIpQLSeaPjcwVv3HQNo3SUTxMLAs449rchnquXw4jTybsp93HvFJkg/formResponse" data-source="/" data-message-entry="entry.2106583205" novalidate>
+    
+    <div class="form__row">
+        <div class="field"><label for="f-name">Name</label><input id="f-name" type="text" name="entry.377463523" autocomplete="name" required></div>
+        <div class="field"><label for="f-email">Work email</label><input id="f-email" type="email" name="entry.1052227321" autocomplete="email" required></div>
+    </div>
+    <div class="form__row">
+        <div class="field"><label for="f-type">Project type</label><select id="f-type" name="entry.387959439" required><option value="">Select one</option><option>AI System</option><option>Fintech Platform</option><option>Performance Audit</option></select></div>
+        <div class="field"><label for="f-budget">Budget</label><select id="f-budget" name="entry.459134996" required><option value="">Select one</option><option>5K USD</option><option>10K USD</option><option>20K USD</option><option>50K USD or above</option></select></div>
+    </div>
+    <div class="field"><label for="f-phone">Phone <span class="opt">(optional)</span></label><input id="f-phone" type="tel" name="phone" autocomplete="tel"></div>
+    <div class="field"><label for="f-brief">What are you building?</label><textarea id="f-brief" name="entry.2106583205" required></textarea></div>
+    <p class="hp-field" aria-hidden="true"><label>Leave this empty<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+    <button class="btn btn--primary" type="submit">Talk to an Engineer<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+    <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
+    <p class="form__fineprint">We reply within one business day. If you have not heard back, call or WhatsApp. Details are used only to respond to your inquiry. See our <a href="/privacy/">Privacy Policy</a>.</p>
+</form></div></div></section>
+    </main>
+    <footer class="site-footer" data-loc="footer">
+    <div class="container footer__grid">
+        <div>
+            <a class="brand" href="/"><img src="/assets/logo.svg" alt="" width="32" height="32">Mobile1X</a>
+            <p class="footer__about">Mobile and AI product engineering studio. We design, build and launch apps that ship.</p>
         </div>
-    </section>
-
-    <!-- AI PAGE -->
-    <section class="section container reveal">
-        <h2>AI Growth Engine</h2>
-        <div class="grid reveal-stagger">
-            <div class="card">
-                <h3><span class="material-symbols-outlined">filter_alt</span>Smart Funnels</h3>
-                <p>AI-powered landing pages that qualify, segment, and convert leads automatically.</p>
-            </div>
-            <div class="card">
-                <h3><span class="material-symbols-outlined">insights</span>Lead Scoring AI</h3>
-                <p>Filter high-value prospects and prioritize deal closing.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FINTECH -->
-    <section class="section container reveal">
-        <h2>Fintech Engineering</h2>
-        <div class="grid reveal-stagger">
-            <div class="card">
-                <h3><span class="material-symbols-outlined">sync_alt</span>Banking Integrations</h3>
-                <p>Seamless integrations with global financial systems and APIs.</p>
-            </div>
-            <div class="card">
-                <h3><span class="material-symbols-outlined">shield</span>Secure Architecture</h3>
-                <p>Enterprise-grade security and compliance frameworks.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- DEAL FLOW SYSTEM -->
-    <section class="section container reveal">
-        <h2>Deal Flow System</h2>
-        <div class="grid reveal-stagger">
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">person_add</span>Lead Capture</h3>
-                <p>High-converting forms and landing funnels.</p>
-            </div>
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">fact_check</span>Qualification Engine</h3>
-                <p>Filter serious clients with budget, timeline, and intent.</p>
-            </div>
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">handshake</span>Closing Pipeline</h3>
-                <p>Automated follow-ups and CRM integration.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- PORTFOLIO -->
-    <section class="section container reveal" id="portfolio">
-        <h2>Our Product Portfolio</h2>
-        <p class="section-intro">Mobile1X is expanding its digital ecosystem — from everyday mobile utilities to
-            full-scale e-commerce and enterprise web platforms. Explore what we've built.</p>
-        <div class="product-block reveal">
-            <div class="product-media">
-                <a href="assets/apps/notes/shot1.png" target="_blank" rel="noopener noreferrer"><img
-                        src="assets/apps/notes/shot1.png" alt="Notes app screenshot 1" loading="lazy"></a>
-                <a href="assets/apps/notes/shot2.png" target="_blank" rel="noopener noreferrer"><img
-                        src="assets/apps/notes/shot2.png" alt="Notes app screenshot 2" loading="lazy"></a>
-                <a href="assets/apps/notes/shot3.png" target="_blank" rel="noopener noreferrer"><img
-                        src="assets/apps/notes/shot3.png" alt="Notes app screenshot 3" loading="lazy"></a>
-            </div>
-            <div class="product-content">
-                <div class="product-head">
-                    <div class="app-logo logo-img"><img src="assets/apps/notes/icon.png" alt="Notes app icon"></div>
-                    <h3>Notes</h3>
-                </div>
-                <p>Your private AI brain for Android and iOS. Notes is a fast, distraction-free notes app built for
-                    people who think faster than they type — clean organization, instant search, and zero clutter.
-                    Whether it's a fleeting thought or a detailed project outline, Notes keeps it accessible and secure.
-                </p>
-                <div class="card-links">
-                    <a class="card-link" href="https://play.google.com/store/apps/details?id=com.rp.notes"
-                        target="_blank" rel="noopener noreferrer">
-                        <span class="material-symbols-outlined">android</span>Get it on Google Play<span
-                            class="material-symbols-outlined arrow">arrow_forward</span>
-                    </a>
-                    <a class="card-link" href="https://apps.apple.com/us/app/notes-archive-reflect/id6798175378"
-                        target="_blank" rel="noopener noreferrer">
-                        <span class="material-symbols-outlined">phone_iphone</span>Get it on the App Store<span
-                            class="material-symbols-outlined arrow">arrow_forward</span>
-                    </a>
-                    <a class="card-link" href="/notes/" target="_blank" rel="noopener noreferrer">
-                        <span class="material-symbols-outlined">language</span>Visit Website<span
-                            class="material-symbols-outlined arrow">arrow_forward</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-block reverse reveal">
-            <div class="product-media">
-                <a href="assets/apps/dedup/shot1.png" target="_blank" rel="noopener noreferrer"><img
-                        src="assets/apps/dedup/shot1.png" alt="Dedup app screenshot 1" loading="lazy"></a>
-                <a href="assets/apps/dedup/shot2.png" target="_blank" rel="noopener noreferrer"><img
-                        src="assets/apps/dedup/shot2.png" alt="Dedup app screenshot 2" loading="lazy"></a>
-                <a href="assets/apps/dedup/shot3.png" target="_blank" rel="noopener noreferrer"><img
-                        src="assets/apps/dedup/shot3.png" alt="Dedup app screenshot 3" loading="lazy"></a>
-            </div>
-            <div class="product-content">
-                <div class="product-head">
-                    <div class="app-logo logo-img"><img src="assets/apps/dedup/icon.png" alt="Dedup app icon"></div>
-                    <h3>Dedup</h3>
-                </div>
-                <p>Duplicate files quietly eat away at your storage and your sanity. Dedup scans, detects, and clears
-                    redundant files in seconds, giving you back space and clarity across your device. Backed by a
-                    dedicated web ecosystem, it's more than an app — it's a complete data hygiene solution.</p>
-                <div class="card-links">
-                    <a class="card-link" href="https://play.google.com/store/apps/details?id=com.rp.dedup"
-                        target="_blank" rel="noopener noreferrer">
-                        <span class="material-symbols-outlined">android</span>Get it on Google Play<span
-                            class="material-symbols-outlined arrow">arrow_forward</span>
-                    </a>
-                    <a class="card-link" href="https://www.dedup.space" target="_blank" rel="noopener noreferrer">
-                        <span class="material-symbols-outlined">language</span>Visit dedup.space<span
-                            class="material-symbols-outlined arrow">arrow_forward</span>
-                    </a>
-                </div>
-                <span class="badge-soon"><span class="material-symbols-outlined">schedule</span>iOS Coming Soon</span>
-            </div>
-        </div>
-
-        <div class="product-block reveal">
-            <div class="product-media">
-                <a href="assets/a2z/home.jpg" target="_blank" rel="noopener noreferrer"><img src="assets/a2z/home.jpg"
-                        alt="A2Z Collection home page" loading="lazy" style="width:auto;"></a>
-                <a href="assets/a2z/product.jpg" target="_blank" rel="noopener noreferrer"><img
-                        src="assets/a2z/product.jpg" alt="A2Z Collection product details page" loading="lazy"
-                        style="width:auto;"></a>
-            </div>
-            <div class="product-content">
-                <div class="product-head">
-                    <div class="app-logo"><span class="material-symbols-outlined">storefront</span></div>
-                    <h3>The A2Z Collection</h3>
-                </div>
-                <p>The A2Z Collection is a full-featured e-commerce web app built for seamless shopping from browse to
-                    checkout. With intuitive navigation, secure transactions, and a catalog designed for scale, it
-                    delivers a retail experience that keeps customers coming back.</p>
-                <div class="card-links">
-                    <a class="card-link" href="https://thea2zcollection.com" target="_blank" rel="noopener noreferrer">
-                        <span class="material-symbols-outlined">language</span>Browse the Store<span
-                            class="material-symbols-outlined arrow">arrow_forward</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-block reverse reveal">
-            <div class="product-media icon-only">
-                <div class="app-logo-lg"><span class="material-symbols-outlined">sports_cricket</span></div>
-            </div>
-            <div class="product-content">
-                <div class="product-head">
-                    <h3>Auction Manager</h3>
-                </div>
-                <p>Built for IPL-style player auctions, Auction Manager gives league and team organizers a real-time
-                    command center for bidding — live player pools, team purse tracking, bid history, and instant
-                    sold/unsold calls. Purpose-built for the speed and drama of a live sports auction.</p>
-                <div class="card-links">
-                    <a class="card-link" href="#contact">
-                        Inquire About This App<span class="material-symbols-outlined arrow">arrow_forward</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-block reveal">
-            <div class="product-media icon-only">
-                <div class="app-logo-lg"><span class="material-symbols-outlined">local_pharmacy</span></div>
-            </div>
-            <div class="product-content">
-                <div class="product-head">
-                    <h3>B2B Pharma Platform</h3>
-                </div>
-                <p>A dedicated B2B platform connecting pharmaceutical suppliers and buyers with streamlined catalog
-                    browsing, pricing, and ordering. Built for the operational demands of pharma trade, it brings speed
-                    and transparency to procurement at scale.</p>
-                <div class="card-links">
-                    <a class="card-link" href="/pharma/" target="_blank" rel="noopener noreferrer">
-                        <span class="material-symbols-outlined">language</span>Access the Platform<span
-                            class="material-symbols-outlined arrow">arrow_forward</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-block reverse reveal">
-            <div class="product-media icon-only">
-                <div class="app-logo-lg"><span class="material-symbols-outlined">point_of_sale</span></div>
-            </div>
-            <div class="product-content">
-                <div class="product-head">
-                    <h3>POS System</h3>
-                </div>
-                <p>A modern point-of-sale system built for speed at the counter — fast billing, inventory tracking, and
-                    sales reporting in one clean interface. Designed for retail and hospitality businesses that need
-                    reliability during every transaction.</p>
-                <div class="card-links">
-                    <a class="card-link" href="https://a2zpos.netlify.app" target="_blank" rel="noopener noreferrer">
-                        <span class="material-symbols-outlined">language</span>Visit a2zpos.netlify.app<span
-                            class="material-symbols-outlined arrow">arrow_forward</span>
-                    </a>
-                    <a class="card-link" href="https://calendly.com/themobile1x/30min" target="_blank"
-                        rel="noopener noreferrer">
-                        <span class="material-symbols-outlined">calendar_month</span>Book a Demo<span
-                            class="material-symbols-outlined arrow">arrow_forward</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div style="text-align:center;margin-top:50px;">
-            <p style="color:#ccc;margin-bottom:20px;">Have a question about one of our apps, or want to discuss a custom
-                build?</p>
-            <a href="https://calendly.com/themobile1x/30min" class="cta-btn" target="_blank" rel="noopener noreferrer"
-                aria-label="Book a Discovery Call via Calendly">
-                <span class="material-symbols-outlined">calendar_month</span>Book a Discovery Call
-            </a>
-        </div>
-    </section>
-
-    <!-- CASE STUDIES -->
-    <section class="section container reveal" id="case-studies">
-        <h2>Case Studies</h2>
-        <p class="section-intro">We're compiling detailed breakdowns of recent client engagements — real projects, real
-            outcomes. Here's a preview of the work categories we'll be covering first.</p>
-        <div class="grid reveal-stagger">
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">bolt</span>AI-Powered Lead Generation</h3>
-                <p>How we design and deploy AI landing systems that qualify and convert high-ticket leads for B2B
-                    clients.</p>
-                <span class="badge-soon"><span class="material-symbols-outlined">schedule</span>Coming Soon</span>
-            </div>
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">account_balance</span>Fintech Platform Engineering</h3>
-                <p>A look inside building secure, compliant fintech infrastructure for banking and payments partners.
-                </p>
-                <span class="badge-soon"><span class="material-symbols-outlined">schedule</span>Coming Soon</span>
-            </div>
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">storefront</span>E-Commerce &amp; POS Deployments</h3>
-                <p>The story behind shipping full-scale commerce and point-of-sale systems built for real-world retail
-                    operations.</p>
-                <span class="badge-soon"><span class="material-symbols-outlined">schedule</span>Coming Soon</span>
-            </div>
-
-        </div>
-        <div style="text-align:center;margin-top:50px;">
-            <a href="#contact" class="cta-btn">
-                <span class="material-symbols-outlined">forum</span>Discuss Your Project
-            </a>
-        </div>
-    </section>
-
-    <!-- BLOG -->
-    <section class="section container reveal" id="blog">
-        <h2>From the Blog</h2>
-        <p class="section-intro">Insights, guides, and updates from the Mobile1X team on AI systems, fintech
-            engineering, and product development. Our blog is launching soon — get notified when it's live.</p>
-        <div class="grid reveal-stagger">
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">smart_toy</span>AI &amp; Automation</h3>
-                <p>Practical breakdowns of AI-driven funnels, lead scoring, and automation systems for growth teams.</p>
-                <span class="badge-soon"><span class="material-symbols-outlined">schedule</span>Coming Soon</span>
-            </div>
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">account_balance</span>Fintech Engineering</h3>
-                <p>Notes from the field on building secure, scalable financial systems and integrations.</p>
-                <span class="badge-soon"><span class="material-symbols-outlined">schedule</span>Coming Soon</span>
-            </div>
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">rocket_launch</span>Product Development</h3>
-                <p>Behind-the-scenes lessons from shipping mobile apps and web platforms across our portfolio.</p>
-                <span class="badge-soon"><span class="material-symbols-outlined">schedule</span>Coming Soon</span>
-            </div>
-
-        </div>
-        <div style="text-align:center;margin-top:50px;">
-            <a href="mailto:hello@mobile1x.com?subject=Notify%20me%20when%20the%20blog%20launches" class="cta-btn">
-                <span class="material-symbols-outlined">mail</span>Get Notified
-            </a>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section container reveal" id="faq">
-        <h2>Frequently Asked Questions</h2>
-        <p class="section-intro">What Mobile1X does, what it costs, and how to get started.</p>
-        <div class="faq-list">
-            <details class="faq-item">
-                <summary>What is Mobile1X?</summary>
-                <div class="faq-answer">Mobile1X is a software development studio that builds AI systems, fintech
-                    platforms, and performance-driven digital products for clients worldwide. It also ships its own
-                    products, including the Notes note-taking app, the Dedup duplicate file remover, The A2Z Collection
-                    e-commerce platform, and Auction Manager sports-auction software.</div>
-            </details>
-            <details class="faq-item">
-                <summary>What services does Mobile1X offer?</summary>
-                <div class="faq-answer">Mobile1X offers AI system design and automation, fintech platform engineering,
-                    web performance audits, conversion funnel and landing-system development, and full-stack SaaS and
-                    enterprise web development.</div>
-            </details>
-            <details class="faq-item">
-                <summary>What kind of AI systems does Mobile1X build?</summary>
-                <div class="faq-answer">Mobile1X builds conversion-focused AI funnels, lead-scoring and qualification
-                    engines, AI-powered landing systems, and automation workflows that capture, segment, and convert
-                    high-ticket leads in the $5,000 to $100,000-plus range.</div>
-            </details>
-            <details class="faq-item">
-                <summary>Does Mobile1X build fintech platforms?</summary>
-                <div class="faq-answer">Yes. Mobile1X engineers secure, scalable fintech systems for banks, startups,
-                    and enterprises, including banking and payment API integrations and enterprise-grade security and
-                    compliance architecture.</div>
-            </details>
-            <details class="faq-item">
-                <summary>What is a Mobile1X performance audit and what does it cost?</summary>
-                <div class="faq-answer">A Mobile1X performance audit identifies revenue leaks, speed problems, and
-                    scaling opportunities in an existing web platform. Audits start at $500 and scale to around $5,000
-                    depending on scope.</div>
-            </details>
-            <details class="faq-item">
-                <summary>How much do Mobile1X projects cost?</summary>
-                <div class="faq-answer">Product and platform engagements typically range from $5,000 to $100,000 and
-                    above, depending on scope. Standalone web performance audits start at $500.</div>
-            </details>
-            <details class="faq-item">
-                <summary>What products has Mobile1X built?</summary>
-                <div class="faq-answer">Mobile1X has built the Notes note-taking app for Android, the Dedup duplicate
-                    file remover and storage cleaner, The A2Z Collection e-commerce platform, Auction Manager software
-                    for cricket and sports player auctions, and a B2B pharma trading platform.</div>
-            </details>
-            <details class="faq-item">
-                <summary>Where is Mobile1X based and who does it work with?</summary>
-                <div class="faq-answer">Mobile1X operates from India and works with startups, agencies, and enterprises
-                    globally. The team can be reached by email at hello@mobile1x.com, by phone or WhatsApp at +91 97545
-                    25494, or by booking a discovery call.</div>
-            </details>
-            <details class="faq-item">
-                <summary>How do I start a project with Mobile1X?</summary>
-                <div class="faq-answer">Submit the project form on mobile1x.com with your budget, project type, and a
-                    short brief, or book a 30-minute discovery call. The team typically responds within one business
-                    day.</div>
-            </details>
-        </div>
-    </section>
-
-    <!-- CONTACT / FUNNEL -->
-    <section class="section container reveal" id="contact">
-        <h2>Start Your Project</h2>
-
-        <!--
-      Submits to the Google Form "Requirement for Software" via a no-cors POST to
-      .../formResponse (see the script near the end of this file).
-      Field -> Google Forms question id:
-        entry.377463523  Full Name                  (Short answer, required)
-        entry.1052227321 Email                      (Short answer, required)
-        entry.459134996  Project Budget             (Dropdown, required)
-        entry.387959439  Project Type               (Dropdown, required)
-        entry.2106583205 Tell us about your project (Paragraph, required)
-      Dropdown <option> text below must match the Google Form options EXACTLY or
-      Google silently rejects the whole submission.
-    -->
-        <form class="form" id="project-form" novalidate>
-            <input type="text" name="entry.377463523" placeholder="Full Name" required>
-            <input type="email" name="entry.1052227321" placeholder="Email" required>
-
-            <select name="entry.459134996" required>
-                <option value="">Project Budget</option>
-                <option>5K USD</option>
-                <option>10K USD</option>
-                <option>20K USD</option>
-                <option>50K USD or above</option>
-            </select>
-
-            <select name="entry.387959439" required>
-                <option value="">Project Type</option>
-                <option>AI System</option>
-                <option>Fintech Platform</option>
-                <option>Performance Audit</option>
-            </select>
-
-            <textarea name="entry.2106583205" placeholder="Tell us about your project" required></textarea>
-
-            <div class="hp-field" aria-hidden="true">
-                <label>Leave this field empty<input type="text" name="company_website" tabindex="-1"
-                        autocomplete="off"></label>
-            </div>
-
-            <button type="submit">Submit Inquiry</button>
-            <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
-        </form>
-
-        <div class="schedule-block reveal">
-            <h3>Prefer to book a call directly?</h3>
-            <p class="section-intro">Pick a 30-minute discovery slot that works for you — no back-and-forth.</p>
-            <div class="calendly-inline-widget"
-                data-url="https://calendly.com/themobile1x/30min?hide_gdpr_banner=1&background_color=0d0d0d&text_color=ffffff&primary_color=ffd700">
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT US -->
-    <section class="section container reveal" id="contact-us">
-        <h2>Contact Us</h2>
-        <p class="section-intro">Prefer to skip the form? Reach us directly through any of these channels.</p>
-        <div class="grid reveal-stagger">
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">mail</span>Email</h3>
-                <p>Send us the details of your project or query anytime.</p>
-                <div class="card-links">
-                    <a class="card-link" href="mailto:hello@mobile1x.com">hello@mobile1x.com<span
-                            class="material-symbols-outlined arrow">arrow_forward</span></a>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3><span class="material-symbols-outlined">call</span>Call</h3>
-                <p>Speak directly with our team about your requirements.</p>
-                <div class="card-links">
-                    <a class="card-link" href="tel:+919754525494">+91 97545 25494<span
-                            class="material-symbols-outlined arrow">arrow_forward</span></a>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3><svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true" style="color:#FFD700;">
-                        <path
-                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                        <path
-                            d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.484 3.622 1.401 5.184L2 22l5.01-1.502a9.85 9.85 0 004.997 1.359h.005c5.46 0 9.91-4.45 9.91-9.912 0-2.649-1.03-5.14-2.902-7.013A9.855 9.855 0 0012.04 2zm0 18.146a8.19 8.19 0 01-4.185-1.145l-.3-.178-3.121.836.834-3.043-.196-.312a8.184 8.184 0 01-1.256-4.394c0-4.523 3.68-8.203 8.228-8.203 2.198 0 4.263.857 5.816 2.412a8.157 8.157 0 012.408 5.803c0 4.524-3.68 8.224-8.228 8.224z" />
-                    </svg>WhatsApp</h3>
-                <p>Message us for a quick response during business hours.</p>
-                <div class="card-links">
-                    <a class="card-link" href="https://wa.me/919754525494" target="_blank"
-                        rel="noopener noreferrer">Chat with us<span
-                            class="material-symbols-outlined arrow">arrow_forward</span></a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container footer-top">
-            <a href="mailto:hello@mobile1x.com" class="header-link"><span
-                    class="material-symbols-outlined">mail</span>hello@mobile1x.com</a>
-            <a href="tel:+919754525494" class="header-link"><span class="material-symbols-outlined">call</span>+91 97545
-                25494</a>
-            <a href="https://wa.me/919754525494" target="_blank" rel="noopener noreferrer" class="header-link"><svg
-                    class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                    <path
-                        d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.484 3.622 1.401 5.184L2 22l5.01-1.502a9.85 9.85 0 004.997 1.359h.005c5.46 0 9.91-4.45 9.91-9.912 0-2.649-1.03-5.14-2.902-7.013A9.855 9.855 0 0012.04 2zm0 18.146a8.19 8.19 0 01-4.185-1.145l-.3-.178-3.121.836.834-3.043-.196-.312a8.184 8.184 0 01-1.256-4.394c0-4.523 3.68-8.203 8.228-8.203 2.198 0 4.263.857 5.816 2.412a8.157 8.157 0 012.408 5.803c0 4.524-3.68 8.224-8.228 8.224z" />
-                </svg>WhatsApp</a>
-        </div>
-        <div class="footer-wordmark">MOBILE1X</div>
-        <div class="container footer-legal">
-            <p>© 2026 Mobile1X. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Calendly inline scheduler -->
-    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-
-    <!-- Contact form -> Google Forms -->
-    <script src="assets/js/site.js"></script>
-
-
-
+        <nav aria-label="Services"><h2 class="footer__h">Services</h2><ul><li><a href="/services/mobile-app-development/">Mobile App Development</a></li><li><a href="/services/ai-development/">AI Development</a></li><li><a href="/services/mvp-development/">MVP Development</a></li><li><a href="/services/fintech-development/">Fintech Engineering</a></li></ul></nav>
+        <nav aria-label="Company"><h2 class="footer__h">Company</h2><ul><li><a href="/about/">About</a></li><li><a href="/#portfolio">Work</a></li><li><a href="/blog/">Blog</a></li><li><a href="/#pricing">Pricing</a></li><li><a href="/#faq">FAQ</a></li></ul></nav>
+        <div><h2 class="footer__h">Contact</h2><ul>
+            <li><a href="tel:+919754525494">+91 97545 25494</a></li>
+            <li><a href="https://wa.me/919754525494?text=Hi%20Mobile1X%2C%20I%20want%20to%20discuss%20a%20software%20project." target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+            <li><a href="mailto:hello@mobile1x.com">hello@mobile1x.com</a></li>
+            <li><a href="https://calendly.com/themobile1x/30min" target="_blank" rel="noopener noreferrer">Book a discovery call</a></li></ul></div>
+    </div>
+    <div class="container footer__legal"><p>© 2026 Mobile1X. All rights reserved. Based in Indore, India, working worldwide.</p><nav aria-label="Legal"><a href="https://www.linkedin.com/company/the-mobile1x/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/TheMoblie1x" target="_blank" rel="noopener noreferrer">GitHub</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><button class="link-btn" type="button" data-cookie-settings>Cookie settings</button></nav></div>
+</footer>
+    <div class="action-bar" role="group" aria-label="Contact Mobile1X" data-loc="sticky-bar">
+    <a class="btn btn--primary" href="tel:+919754525494"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>Call</a>
+    <a class="btn btn--ghost" href="https://wa.me/919754525494?text=Hi%20Mobile1X%2C%20I%20want%20to%20discuss%20a%20software%20project." target="_blank" rel="noopener noreferrer"><svg class="i i--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a>
+</div>
+    <section class="consent" id="consent" aria-label="Cookie consent" hidden>
+    <p class="consent__text"><strong>Analytics cookies.</strong> We use Google Analytics to see which pages and contact options get used. It loads only if you accept. <a href="/privacy/">Privacy Policy</a></p>
+    <div class="consent__actions"><button class="btn btn--ghost btn--sm" type="button" data-consent="denied">Decline</button><button class="btn btn--primary btn--sm" type="button" data-consent="granted">Accept</button></div>
+</section>
+    <script src="/assets/js/site.js"></script>
 </body>
-
 </html>
