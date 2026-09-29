@@ -9,7 +9,7 @@ export const SITE = {
     phoneHref: 'tel:+919754525494',
     whatsappText: 'Hi Mobile1X, I want to discuss a software project.',
     calendly: 'https://calendly.com/themobile1x/30min',
-    ga4: 'G-FTJGYFC2BV',
+    ga4: 'G-PYSXJKMRQV',
     country: 'India',
     city: 'Indore',
     region: 'Madhya Pradesh',
