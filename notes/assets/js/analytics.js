@@ -1,5 +1,5 @@
-/* Google Analytics (GA4) for the Notes site (landing page + blog), gated by cookie consent.
-   GA is loaded only after the visitor accepts; nothing is sent before that or after a decline.
+/* Google Analytics (GA4) for the Notes site (landing page + blog), gated by cookie consent (Consent Mode v2).
+   gtag.js loads at once with analytics_storage denied (no cookies); accepting grants it, declining stops all hits.
    The consent key matches the main site, so a choice made on mobile1x.com carries over to /notes/. */
 (function () {
   'use strict';
@@ -15,18 +15,13 @@
 
   function enable() {
     window['ga-disable-' + GA_ID] = false;
-    if (enabled) return;
+    gtag('consent', 'update', { analytics_storage: 'granted' });
     enabled = true;
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-    document.head.appendChild(s);
-    gtag('js', new Date());
-    gtag('config', GA_ID);
   }
 
   function disable() {
     window['ga-disable-' + GA_ID] = true;
+    gtag('consent', 'update', { analytics_storage: 'denied' });
     enabled = false;
     var parts = location.hostname.split('.');
     var domains = ['', location.hostname, parts.length > 2 ? '.' + parts.slice(-2).join('.') : '.' + location.hostname];
@@ -85,7 +80,7 @@
     banner.className = 'm1x-consent';
     banner.setAttribute('aria-label', 'Cookie consent');
     banner.hidden = true;
-    banner.innerHTML = '<p><strong>Analytics cookies.</strong> We use Google Analytics to see which pages and download links get used. It loads only if you accept. <a href="https://mobile1x.com/privacy/">Privacy Policy</a></p>' +
+    banner.innerHTML = '<p><strong>Analytics cookies.</strong> We use Google Analytics to see which pages and download links get used. Cookies are set only if you accept. <a href="https://mobile1x.com/privacy/">Privacy Policy</a></p>' +
       '<div class="m1x-consent-actions"><button type="button" data-v="denied">Decline</button><button type="button" data-v="granted">Accept</button></div>';
 
     var reopen = document.createElement('button');
@@ -108,8 +103,15 @@
     show(stored() === null);
   }
 
-  if (stored() === 'granted') enable();
-  else if (stored() === 'denied') window['ga-disable-' + GA_ID] = true;
+  gtag('consent', 'default', { analytics_storage: stored() === 'granted' ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  if (stored() === 'denied') window['ga-disable-' + GA_ID] = true;
+  var tag = document.createElement('script');
+  tag.async = true;
+  tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  document.head.appendChild(tag);
+  gtag('js', new Date());
+  gtag('config', GA_ID);
+  if (stored() === 'granted') enabled = true;
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountConsentUi);
   else mountConsentUi();

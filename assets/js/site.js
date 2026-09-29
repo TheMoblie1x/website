@@ -8,27 +8,20 @@
     var banner = document.getElementById('consent');
     var enabled = false;
 
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-
     function stored() { try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; } }
     function store(value) { try { localStorage.setItem(CONSENT_KEY, value); } catch (e) { /* private mode: choice lasts for this page only */ } }
 
-    // Google Analytics is loaded only after the visitor accepts. Until then nothing is sent.
+    // gtag.js is loaded in <head> with Consent Mode v2: analytics_storage stays denied (no cookies,
+    // no identifiers) until the visitor accepts; events are only sent after that.
     function enableAnalytics() {
         window['ga-disable-' + GA_ID] = false;
-        if (enabled) return;
+        gtag('consent', 'update', { analytics_storage: 'granted' });
         enabled = true;
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-        document.head.appendChild(s);
-        gtag('js', new Date());
-        gtag('config', GA_ID);
     }
 
     function disableAnalytics() {
         window['ga-disable-' + GA_ID] = true;
+        gtag('consent', 'update', { analytics_storage: 'denied' });
         enabled = false;
         // Remove GA cookies set earlier (best effort, on this host and its parent domain).
         var parts = location.hostname.split('.');

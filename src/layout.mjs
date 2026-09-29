@@ -41,7 +41,7 @@ const footer = () => `<footer class="site-footer" data-loc="footer">
 </footer>`;
 
 const consentBanner = () => `<section class="consent" id="consent" aria-label="Cookie consent" hidden>
-    <p class="consent__text"><strong>Analytics cookies.</strong> We use Google Analytics to see which pages and contact options get used. It loads only if you accept. <a href="/privacy/">Privacy Policy</a></p>
+    <p class="consent__text"><strong>Analytics cookies.</strong> We use Google Analytics to see which pages and contact options get used. Cookies are set only if you accept. <a href="/privacy/">Privacy Policy</a></p>
     <div class="consent__actions"><button class="btn btn--ghost btn--sm" type="button" data-consent="denied">Decline</button><button class="btn btn--primary btn--sm" type="button" data-consent="granted">Accept</button></div>
 </section>`;
 
@@ -81,6 +81,14 @@ export const page = ({ title, description, path, body, schema = [], robots = 'in
     <link rel="stylesheet" href="/assets/css/site.css">
     ${preload}
     <script>document.documentElement.classList.add('js')</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=${SITE.ga4}"></script>
+    <script>
+    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+    (function(){var c;try{c=localStorage.getItem('m1x-consent')}catch(e){}
+    gtag('consent','default',{analytics_storage:c==='granted'?'granted':'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+    if(c==='denied')window['ga-disable-${SITE.ga4}']=true})();
+    gtag('js',new Date());gtag('config','${SITE.ga4}');
+    </script>
     ${graph(organization(), website(), founder(), schema)}
 </head>
 <body data-ga="${SITE.ga4}">
