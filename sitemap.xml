@@ -1,28 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.mobile1x.com/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <loc>https://mobile1x.com/</loc>
+    <lastmod>2026-09-29</lastmod>
   </url>
   <url>
-    <loc>https://www.mobile1x.com/pharma/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://mobile1x.com/services/mobile-app-development/</loc>
+    <lastmod>2026-09-29</lastmod>
   </url>
   <url>
-    <loc>https://notes.mobile1x.com/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://mobile1x.com/services/ai-development/</loc>
+    <lastmod>2026-09-29</lastmod>
   </url>
   <url>
-    <loc>https://www.mobile1x.com/notes/blogs/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://mobile1x.com/services/mvp-development/</loc>
+    <lastmod>2026-09-29</lastmod>
   </url>
   <url>
-    <loc>https://www.mobile1x.com/notes/blogs/post.html?slug=welcome-to-the-notes-blog</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://mobile1x.com/services/fintech-development/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/work/notes/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/work/dedup/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/work/a2z/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/blog/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/blog/how-much-does-it-cost-to-build-a-mobile-app/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/blog/native-vs-flutter-vs-react-native/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/about/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/privacy/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/terms/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/pharma/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/notes/</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://mobile1x.com/notes/blogs/</loc>
+    <lastmod>2026-09-29</lastmod>
   </url>
 </urlset>
