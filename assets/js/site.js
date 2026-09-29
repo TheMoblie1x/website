@@ -7,6 +7,8 @@
     var CONSENT_KEY = 'm1x-consent';
     var banner = document.getElementById('consent');
     var enabled = false;
+    var queue = [];
+    var MAX_QUEUED = 50;
 
     function stored() { try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; } }
     function store(value) { try { localStorage.setItem(CONSENT_KEY, value); } catch (e) { /* private mode: choice lasts for this page only */ } }
@@ -17,12 +19,14 @@
         window['ga-disable-' + GA_ID] = false;
         gtag('consent', 'update', { analytics_storage: 'granted' });
         enabled = true;
+        queue.splice(0).forEach(function (e) { gtag('event', e[0], e[1]); });
     }
 
     function disableAnalytics() {
         window['ga-disable-' + GA_ID] = true;
         gtag('consent', 'update', { analytics_storage: 'denied' });
         enabled = false;
+        queue.length = 0;
         // Remove GA cookies set earlier (best effort, on this host and its parent domain).
         var parts = location.hostname.split('.');
         var domains = ['', location.hostname, parts.length > 2 ? '.' + parts.slice(-2).join('.') : '.' + location.hostname];
@@ -64,11 +68,12 @@
         return host ? host.getAttribute('data-loc') : 'page';
     }
 
+    // Events fired before the visitor chooses are held, sent on Accept and dropped on Decline.
     window.m1xTrack = function (name, params) {
-        if (!enabled) return; // no consent, no events
         params = params || {};
         params.page_path = location.pathname;
-        gtag('event', name, params);
+        if (enabled) gtag('event', name, params);
+        else if (stored() === null && queue.length < MAX_QUEUED) queue.push([name, params]);
     };
 
     document.addEventListener('click', function (e) {

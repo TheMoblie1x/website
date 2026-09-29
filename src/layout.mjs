@@ -102,6 +102,7 @@ ${body}
     ${actionBar()}
     ${consentBanner()}
     <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/track.js"></script>
 </body>
 </html>
 `;
