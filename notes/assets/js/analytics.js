@@ -3,7 +3,7 @@
    The consent key matches the main site, so a choice made on mobile1x.com carries over to /notes/. */
 (function () {
   'use strict';
-  var GA_ID = 'G-FTJGYFC2BV';
+  var GA_ID = 'G-PYSXJKMRQV';
   var KEY = 'm1x-consent';
   var enabled = false;
 
