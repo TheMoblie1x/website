@@ -1,0 +1,21 @@
+{
+  "action": "https://docs.google.com/forms/d/e/1FAIpQLSeaPjcwVv3HQNo3SUTxMLAs449rchnquXw4jTybsp93HvFJkg/formResponse",
+  "fields": {
+    "name": "entry.377463523",
+    "email": "entry.1052227321",
+    "budget": "entry.459134996",
+    "projectType": "entry.387959439",
+    "message": "entry.2106583205"
+  },
+  "budgetOptions": [
+    "5K USD",
+    "10K USD",
+    "20K USD",
+    "50K USD or above"
+  ],
+  "projectTypeOptions": [
+    "AI System",
+    "Fintech Platform",
+    "Performance Audit"
+  ]
+}

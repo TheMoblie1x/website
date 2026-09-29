@@ -11,7 +11,7 @@
   var slug = params.get('slug');
   var isPreview = params.get('preview') === '1';
   var elArticle = document.getElementById('article');
-  var CANON = 'https://www.mobile1x.com/notes/blogs/';
+  var CANON = 'https://mobile1x.com/notes/blogs/';
 
   function notFound(msg) {
     elArticle.innerHTML = '<h1 class="font-serif-custom text-3xl">Post not found</h1>' +
@@ -66,8 +66,8 @@
       '@context': 'https://schema.org', '@type': 'BlogPosting',
       headline: post.title, datePublished: post.date, dateModified: post.date,
       description: post.excerpt || post.title, url: url,
-      author: { '@type': 'Organization', name: 'Mobile1X', url: 'https://www.mobile1x.com/' },
-      publisher: { '@type': 'Organization', name: 'Mobile1X', url: 'https://www.mobile1x.com/' },
+      author: { '@type': 'Organization', name: 'Mobile1X', url: 'https://mobile1x.com/' },
+      publisher: { '@type': 'Organization', name: 'Mobile1X', url: 'https://mobile1x.com/' },
       mainEntityOfPage: url
     });
   }
