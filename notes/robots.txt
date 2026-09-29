@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.mobile1x.com/sitemap.xml
+Sitemap: https://mobile1x.com/sitemap.xml
