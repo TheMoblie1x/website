@@ -659,6 +659,27 @@
     };
 
     // --- Main Single Page Application ---
+    const FEATURES = [
+      {
+        label: "ACOUSTIC CAPTURE",
+        headline: "Voice-to-Notes in Hindi and English.",
+        body: "Dictate in Hindi, English, or both in one sentence. Speech is transcribed as you speak, including mid-sentence switches between the two languages.",
+        demo: "voice"
+      },
+      {
+        label: "OPTICAL INGEST",
+        headline: "Photograph it. Search it.",
+        body: "Point the camera at handwriting or a whiteboard. The recognized text becomes searchable and editable inside the note, not a flat image.",
+        demo: "ocr"
+      },
+      {
+        label: "AUTONOMOUS INDEX",
+        headline: "Magic Sort, no manual filing.",
+        body: "Notes categorize themselves as you write. No folders to maintain and no tags to remember.",
+        demo: "sort"
+      }
+    ];
+
     function MasterLandingPage() {
       const [theme, setTheme] = useState(() => {
         const saved = localStorage.getItem('app-theme');
@@ -713,7 +734,7 @@
                   </h1>
 
                   <p className="text-base md:text-xl text-slate-600 dark:text-slate-400 max-w-xl font-light leading-relaxed">
-                    A high-craft notes workspace for Android and iOS, merging physical typography, fluid gesture springs, and hardware-level biometric encryption.
+                    A high-craft notes workspace for Android and iOS, with voice notes in Hindi and English, handwriting scan, and Magic Sort, sealed by hardware-level biometric encryption.
                   </p>
 
                   {/* Direct App Store & Play Store Links */}
@@ -746,6 +767,27 @@
                 >
                   <HeroSpatialDevice />
                 </motion.div>
+              </div>
+            </section>
+
+            {/* Core Modules */}
+            <section id="features" className="py-24 px-6 relative border-t border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
+              <div className="max-w-7xl mx-auto">
+                <div className="mb-12">
+                  <span className="text-xs font-mono-custom tracking-widest text-indigo-600 dark:text-indigo-400 font-bold uppercase">CORE MODULES</span>
+                  <h2 className="text-4xl md:text-5xl font-serif-custom font-bold text-slate-900 dark:text-white mt-1">Speak, scan, and let it file itself.</h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {FEATURES.map((f) => (
+                    <div key={f.label} className="p-6 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                      {/* Demo clip slot: replace with <video> or <img> once assets are supplied */}
+                      <div data-demo={f.demo} className="aspect-video rounded-xl border border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center text-[10px] font-mono-custom text-slate-400 dark:text-slate-500">DEMO CLIP</div>
+                      <span className="text-xs font-mono-custom tracking-widest text-indigo-600 dark:text-indigo-400 font-bold uppercase">{f.label}</span>
+                      <h3 className="text-xl font-serif-custom font-bold text-slate-900 dark:text-white">{f.headline}</h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-light">{f.body}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </section>
 
