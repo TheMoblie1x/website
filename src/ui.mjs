@@ -140,30 +140,32 @@ export const contactSection = ({ source, title = 'Have a product to build?', led
         id: 'contact', loc: 'contact', cls: 'section--contact', body: `<div class="contact"><div class="reveal"><p class="eyebrow">Talk to an engineer</p><h2 class="h2">${esc(title)}</h2><p class="lede">${esc(lede)}</p>${contactChannels()}</div>${leadForm({ source, ...form })}</div>`,
     });
 
-/** Abstract system diagram for the hero. Decorative: the same information is in the visible copy. */
-export const heroFlow = () => `<figure class="flow" aria-hidden="true">
-<svg viewBox="0 0 580 440" class="flow__svg" focusable="false">
-  <defs>
-    <linearGradient id="fl-gold" x1="0" x2="1"><stop offset="0" stop-color="#F4C15D"/><stop offset="1" stop-color="#C89B3C"/></linearGradient>
-    <radialGradient id="fl-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#E29A2E" stop-opacity=".35"/><stop offset="1" stop-color="#E29A2E" stop-opacity="0"/></radialGradient>
-  </defs>
-  <g class="flow__grid">${Array.from({ length: 8 }, (_, i) => `<path d="M0 ${i * 60 + 20}H560"/>`).join('')}${Array.from({ length: 10 }, (_, i) => `<path d="M${i * 60 + 20} 0V440"/>`).join('')}</g>
-  <circle cx="340" cy="230" r="170" fill="url(#fl-glow)"/>
-  <g class="flow__paths">
-    <path class="flow__path" d="M70 92V160"/>
-    <path class="flow__path" d="M118 212H196"/>
-    <path class="flow__path" d="M304 212H352"/>
-    <path class="flow__path" d="M400 244V318"/>
-    <path class="flow__path" d="M452 350H500"/>
-  </g>
-  <g class="flow__nodes" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12" text-anchor="middle">
-    <g transform="translate(70 62)"><circle r="26"/><circle cx="0" cy="-5" r="6"/><path d="M-11 12a11 9 0 0 1 22 0"/><text y="52">USER</text></g>
-    <g transform="translate(20 160)"><rect width="98" height="104" rx="16"/><rect x="34" y="8" width="30" height="4" rx="2" class="flow__fill"/><path d="M14 40h70M14 58h48M14 76h60"/><text x="49" y="128">MOBILE APP</text></g>
-    <g transform="translate(196 188)"><rect width="108" height="48" rx="10"/><text x="54" y="29">API</text></g>
-    <g transform="translate(352 188)"><rect width="96" height="56" rx="10"/><path d="M16 22h64M16 34h44"/><text x="48" y="78">BACKEND</text></g>
-    <g transform="translate(352 318)"><rect width="96" height="64" rx="10" class="flow__ai"/><circle cx="30" cy="28" r="4" class="flow__fill"/><circle cx="66" cy="20" r="4" class="flow__fill"/><circle cx="66" cy="44" r="4" class="flow__fill"/><path d="M30 28 66 20M30 28 66 44"/><text x="48" y="86">AI</text></g>
-    <g transform="translate(500 318)"><path d="M0 12a30 8 0 0 1 60 0v40a30 8 0 0 1-60 0zM0 12a30 8 0 0 0 60 0M0 32a30 8 0 0 0 60 0"/><text x="30" y="86">DATA</text></g>
-  </g>
-</svg>
-<figcaption class="sr-only">Abstract diagram: a user, a mobile app, an API, a backend, an AI layer and a data store connected in a pipeline.</figcaption>
-</figure>`;
+/** Hero showcase: a 3D product stage (rail, preview, rotating device, info panel). Slide 0 is the no-JS state; hero-stage.js animates it. */
+const SLICES = 9;
+const stageBadge = (p) => (p.play && p.appStore ? 'Live on Google Play & App Store' : p.play ? 'Live on Google Play' : 'Live on the web');
+const stageDevice = (p, i) => {
+    const wide = !p.icon;
+    const face = wide ? picture(p.shots[0], `${p.name} home page`, 1200, 568, i > 0) : picture(p.shots[0], `${p.name} app screenshot`, 640, 1334, i > 0);
+    return `<div class="device device--${wide ? 'wide' : 'phone'}${i === 0 ? ' is-active' : ''}" data-index="${i}"><div class="device__slices" aria-hidden="true">${Array.from({ length: SLICES }, (_, n) => `<i style="--i:${n + 1}"></i>`).join('')}</div><div class="device__face">${face}</div></div>`;
+};
+export const heroStage = (products) => `<div class="stage" id="stage" aria-roledescription="carousel" aria-label="Products Mobile1X has shipped">
+    <div class="stage__bg" aria-hidden="true"><i class="stage__sun"></i><div class="stage__petals" data-petals="back"></div></div>
+    <div class="stage__side">
+        <ol class="rail" aria-label="Choose a product">${products.map((p, i) => `<li><button class="rail__item${i === 0 ? ' is-active' : ''}" type="button" data-index="${i}"${i === 0 ? ' aria-current="true"' : ''}><span class="rail__n">0${i + 1}</span><span class="rail__name">${esc(p.name)}</span><i class="rail__bar"></i></button></li>`).join('')}</ol>
+        <button class="stage__pause" type="button" aria-pressed="false" hidden><i aria-hidden="true"></i><span>Pause</span></button>
+        <div class="stage__media" aria-hidden="true">${products.map((p, i) => `<figure class="media${i === 0 ? ' is-active' : ''}">${picture(p.shots[1] || p.shots[0], '', 640, 1334, true)}${p.icon ? `<img class="media__icon" src="${p.icon}" alt="" width="40" height="40" loading="lazy" decoding="async">` : ''}</figure>`).join('')}</div>
+    </div>
+    <div class="stage__product">
+        <i class="stage__shadow" aria-hidden="true"></i>
+        <div class="stage__float"><div class="stage__tilt">${products.map(stageDevice).join('')}</div></div>
+        <button class="stage__spin" type="button" aria-label="Spin the product 360 degrees" hidden>360°</button>
+    </div>
+    <div class="stage__petals" data-petals="front" aria-hidden="true"></div>
+    <div class="stage__infos">${products.map((p, i) => `<article class="info${i === 0 ? ' is-active' : ''}" data-index="${i}">
+        <span class="badge">${esc(stageBadge(p))}</span>
+        <h2 class="info__title">${esc(p.name)}</h2>
+        <p class="info__text">${esc(p.summary)}</p>
+        <div class="info__row"><div class="info__meta"><span>Platform</span><strong>${esc(p.tag)}</strong></div>${btn({ href: p.play || p.web, label: p.play ? 'Get it on Google Play' : 'Visit the website', variant: 'light', arrow: true, loc: 'hero' })}</div>
+        ${p.case ? link({ href: p.case, label: 'Read the case study', loc: 'hero' }) : ''}
+    </article>`).join('')}</div>
+</div>`;

@@ -62,7 +62,7 @@
     <main id="main">
 <section class="hero" data-loc="hero">
     <div class="hero__light" aria-hidden="true"><i class="hero__glow"></i><i class="hero__motes"></i><i class="hero__motes hero__motes--far"></i></div>
-    <div class="container hero__grid">
+    <div class="container">
         <div class="hero__copy">
             <p class="eyebrow">Mobile and AI product engineering</p>
             <h1>Mobile &amp; AI products, built by <em>engineers who ship.</em></h1>
@@ -71,33 +71,40 @@
             <p class="hero__call"><a class="link-call" href="tel:+919754525494" data-loc="hero"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>Call Mobile1X +91 97545 25494</a><a class="link-call" href="https://wa.me/919754525494?text=Hi%20Mobile1X%2C%20I%20want%20to%20discuss%20a%20software%20project." target="_blank" rel="noopener noreferrer" data-loc="hero"><svg class="i i--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a></p>
             <ul class="hero__facts"><li>6 shipped products</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
         </div>
-        <div class="hero__visual"><figure class="flow" aria-hidden="true">
-<svg viewBox="0 0 580 440" class="flow__svg" focusable="false">
-  <defs>
-    <linearGradient id="fl-gold" x1="0" x2="1"><stop offset="0" stop-color="#F4C15D"/><stop offset="1" stop-color="#C89B3C"/></linearGradient>
-    <radialGradient id="fl-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#E29A2E" stop-opacity=".35"/><stop offset="1" stop-color="#E29A2E" stop-opacity="0"/></radialGradient>
-  </defs>
-  <g class="flow__grid"><path d="M0 20H560"/><path d="M0 80H560"/><path d="M0 140H560"/><path d="M0 200H560"/><path d="M0 260H560"/><path d="M0 320H560"/><path d="M0 380H560"/><path d="M0 440H560"/><path d="M20 0V440"/><path d="M80 0V440"/><path d="M140 0V440"/><path d="M200 0V440"/><path d="M260 0V440"/><path d="M320 0V440"/><path d="M380 0V440"/><path d="M440 0V440"/><path d="M500 0V440"/><path d="M560 0V440"/></g>
-  <circle cx="340" cy="230" r="170" fill="url(#fl-glow)"/>
-  <g class="flow__paths">
-    <path class="flow__path" d="M70 92V160"/>
-    <path class="flow__path" d="M118 212H196"/>
-    <path class="flow__path" d="M304 212H352"/>
-    <path class="flow__path" d="M400 244V318"/>
-    <path class="flow__path" d="M452 350H500"/>
-  </g>
-  <g class="flow__nodes" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12" text-anchor="middle">
-    <g transform="translate(70 62)"><circle r="26"/><circle cx="0" cy="-5" r="6"/><path d="M-11 12a11 9 0 0 1 22 0"/><text y="52">USER</text></g>
-    <g transform="translate(20 160)"><rect width="98" height="104" rx="16"/><rect x="34" y="8" width="30" height="4" rx="2" class="flow__fill"/><path d="M14 40h70M14 58h48M14 76h60"/><text x="49" y="128">MOBILE APP</text></g>
-    <g transform="translate(196 188)"><rect width="108" height="48" rx="10"/><text x="54" y="29">API</text></g>
-    <g transform="translate(352 188)"><rect width="96" height="56" rx="10"/><path d="M16 22h64M16 34h44"/><text x="48" y="78">BACKEND</text></g>
-    <g transform="translate(352 318)"><rect width="96" height="64" rx="10" class="flow__ai"/><circle cx="30" cy="28" r="4" class="flow__fill"/><circle cx="66" cy="20" r="4" class="flow__fill"/><circle cx="66" cy="44" r="4" class="flow__fill"/><path d="M30 28 66 20M30 28 66 44"/><text x="48" y="86">AI</text></g>
-    <g transform="translate(500 318)"><path d="M0 12a30 8 0 0 1 60 0v40a30 8 0 0 1-60 0zM0 12a30 8 0 0 0 60 0M0 32a30 8 0 0 0 60 0"/><text x="30" y="86">DATA</text></g>
-  </g>
-</svg>
-<figcaption class="sr-only">Abstract diagram: a user, a mobile app, an API, a backend, an AI layer and a data store connected in a pipeline.</figcaption>
-</figure></div>
+    <div class="stage" id="stage" aria-roledescription="carousel" aria-label="Products Mobile1X has shipped">
+    <div class="stage__bg" aria-hidden="true"><i class="stage__sun"></i><div class="stage__petals" data-petals="back"></div></div>
+    <div class="stage__side">
+        <ol class="rail" aria-label="Choose a product"><li><button class="rail__item is-active" type="button" data-index="0" aria-current="true"><span class="rail__n">01</span><span class="rail__name">Notes</span><i class="rail__bar"></i></button></li><li><button class="rail__item" type="button" data-index="1"><span class="rail__n">02</span><span class="rail__name">Dedup</span><i class="rail__bar"></i></button></li><li><button class="rail__item" type="button" data-index="2"><span class="rail__n">03</span><span class="rail__name">The A2Z Collection</span><i class="rail__bar"></i></button></li></ol>
+        <button class="stage__pause" type="button" aria-pressed="false" hidden><i aria-hidden="true"></i><span>Pause</span></button>
+        <div class="stage__media" aria-hidden="true"><figure class="media is-active"><img src="/assets/apps/notes/shot2.webp" alt="" width="640" height="1334" loading="lazy" decoding="async"><img class="media__icon" src="/assets/apps/notes/icon.webp" alt="" width="40" height="40" loading="lazy" decoding="async"></figure><figure class="media"><img src="/assets/apps/dedup/shot2.webp" alt="" width="640" height="1334" loading="lazy" decoding="async"><img class="media__icon" src="/assets/apps/dedup/icon.webp" alt="" width="40" height="40" loading="lazy" decoding="async"></figure><figure class="media"><img src="/assets/a2z/product.webp" alt="" width="640" height="1334" loading="lazy" decoding="async"></figure></div>
     </div>
+    <div class="stage__product">
+        <i class="stage__shadow" aria-hidden="true"></i>
+        <div class="stage__float"><div class="stage__tilt"><div class="device device--phone is-active" data-index="0"><div class="device__slices" aria-hidden="true"><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i></div><div class="device__face"><img src="/assets/apps/notes/shot1.webp" alt="Notes app screenshot" width="640" height="1334" fetchpriority="high"></div></div><div class="device device--phone" data-index="1"><div class="device__slices" aria-hidden="true"><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i></div><div class="device__face"><img src="/assets/apps/dedup/shot1.webp" alt="Dedup app screenshot" width="640" height="1334" loading="lazy" decoding="async"></div></div><div class="device device--wide" data-index="2"><div class="device__slices" aria-hidden="true"><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i></div><div class="device__face"><img src="/assets/a2z/home.webp" alt="The A2Z Collection home page" width="1200" height="568" loading="lazy" decoding="async"></div></div></div></div>
+        <button class="stage__spin" type="button" aria-label="Spin the product 360 degrees" hidden>360°</button>
+    </div>
+    <div class="stage__petals" data-petals="front" aria-hidden="true"></div>
+    <div class="stage__infos"><article class="info is-active" data-index="0">
+        <span class="badge">Live on Google Play &amp; App Store</span>
+        <h2 class="info__title">Notes</h2>
+        <p class="info__text">A private, local-first AI notes app for Android and iOS.</p>
+        <div class="info__row"><div class="info__meta"><span>Platform</span><strong>Android · iOS</strong></div><a class="btn btn--light" href="https://play.google.com/store/apps/details?id=com.rp.notes" target="_blank" rel="noopener noreferrer" data-loc="hero">Get it on Google Play<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+        <a class="link-arrow" href="/work/notes/" data-loc="hero">Read the case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </article><article class="info" data-index="1">
+        <span class="badge">Live on Google Play</span>
+        <h2 class="info__title">Dedup</h2>
+        <p class="info__text">A duplicate file remover and storage cleaner for Android.</p>
+        <div class="info__row"><div class="info__meta"><span>Platform</span><strong>Android · iOS coming soon</strong></div><a class="btn btn--light" href="https://play.google.com/store/apps/details?id=com.rp.dedup" target="_blank" rel="noopener noreferrer" data-loc="hero">Get it on Google Play<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+        <a class="link-arrow" href="/work/dedup/" data-loc="hero">Read the case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </article><article class="info" data-index="2">
+        <span class="badge">Live on the web</span>
+        <h2 class="info__title">The A2Z Collection</h2>
+        <p class="info__text">A full-featured e-commerce web app, from browse to checkout.</p>
+        <div class="info__row"><div class="info__meta"><span>Platform</span><strong>E-commerce · Web</strong></div><a class="btn btn--light" href="https://thea2zcollection.com" target="_blank" rel="noopener noreferrer" data-loc="hero">Visit the website<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+        <a class="link-arrow" href="/work/a2z/" data-loc="hero">Read the case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </article></div>
+</div>
+</div>
 </section>
 <section class="section " id="portfolio" data-loc="case-study"><div class="container"><div class="section__head reveal"><p class="eyebrow">Proof</p><h2 class="h2">Products we’ve actually shipped.</h2><p class="lede">Real products, live in the stores and on the web. This is our track record, not a mock-up.</p></div>
         <div class="products"><article class="product reveal"><div class="product__shots"><div class="phone"><img src="/assets/apps/notes/shot1.webp" alt="Notes app screenshot 1" width="640" height="1334" loading="lazy" decoding="async"></div><div class="phone"><img src="/assets/apps/notes/shot2.webp" alt="Notes app screenshot 2" width="640" height="1334" loading="lazy" decoding="async"></div><div class="phone"><img src="/assets/apps/notes/shot3.webp" alt="Notes app screenshot 3" width="640" height="1334" loading="lazy" decoding="async"></div></div><div class="product__body"><span class="tag">Android · iOS</span><h3>Notes</h3><p>A private, local-first AI notes app for Android and iOS.</p><div class="product__links"><a class="link-arrow" href="/work/notes/" data-loc="case-study">Case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="link-arrow" href="https://play.google.com/store/apps/details?id=com.rp.notes" target="_blank" rel="noopener noreferrer" data-loc="case-study">Google Play<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="link-arrow" href="https://apps.apple.com/us/app/notes-archive-reflect/id6798175378" target="_blank" rel="noopener noreferrer" data-loc="case-study">App Store<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></div></article><article class="product reveal"><div class="product__shots"><div class="phone"><img src="/assets/apps/dedup/shot1.webp" alt="Dedup app screenshot 1" width="640" height="1334" loading="lazy" decoding="async"></div><div class="phone"><img src="/assets/apps/dedup/shot2.webp" alt="Dedup app screenshot 2" width="640" height="1334" loading="lazy" decoding="async"></div><div class="phone"><img src="/assets/apps/dedup/shot3.webp" alt="Dedup app screenshot 3" width="640" height="1334" loading="lazy" decoding="async"></div></div><div class="product__body"><span class="tag">Android · iOS coming soon</span><h3>Dedup</h3><p>A duplicate file remover and storage cleaner for Android.</p><div class="product__links"><a class="link-arrow" href="/work/dedup/" data-loc="case-study">Case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="link-arrow" href="https://play.google.com/store/apps/details?id=com.rp.dedup" target="_blank" rel="noopener noreferrer" data-loc="case-study">Google Play<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></div></article><article class="product reveal"><div class="product__shots product__shots--wide"><img src="/assets/a2z/home.webp" alt="The A2Z Collection home page" width="1200" height="567" loading="lazy" decoding="async"></div><div class="product__body"><span class="tag">E-commerce · Web</span><h3>The A2Z Collection</h3><p>A full-featured e-commerce web app, from browse to checkout.</p><div class="product__links"><a class="link-arrow" href="/work/a2z/" data-loc="case-study">Case study<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div></div></article></div>
@@ -162,6 +169,6 @@
     <div class="consent__actions"><button class="btn btn--ghost btn--sm" type="button" data-consent="denied">Decline</button><button class="btn btn--primary btn--sm" type="button" data-consent="granted">Accept</button></div>
 </section>
     <script src="/assets/js/site.js"></script>
-    <script src="/assets/js/track.js"></script>
+    <script src="/assets/js/track.js"></script><script defer src="/assets/js/vendor/gsap.min.js"></script><script defer src="/assets/js/hero-stage.js"></script>
 </body>
 </html>

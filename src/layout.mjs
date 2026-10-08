@@ -51,7 +51,7 @@ const actionBar = () => `<div class="action-bar" role="group" aria-label="Contac
 </div>`;
 
 /** Wraps page content. `path` is the canonical path, e.g. "/services/ai-development/". */
-export const page = ({ title, description, path, body, schema = [], robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1', ogType = 'website', preload = '' }) => `<!DOCTYPE html>
+export const page = ({ title, description, path, body, schema = [], robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1', ogType = 'website', preload = '', scripts = '' }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -102,7 +102,7 @@ ${body}
     ${actionBar()}
     ${consentBanner()}
     <script src="/assets/js/site.js"></script>
-    <script src="/assets/js/track.js"></script>
+    <script src="/assets/js/track.js"></script>${scripts}
 </body>
 </html>
 `;
