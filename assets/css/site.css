@@ -384,6 +384,11 @@ tr:last-child > * { border-bottom: 0; }
 /* ---------- Motion (progressive: content is visible without JS) ---------- */
 .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 500ms var(--ease), transform 500ms var(--ease); }
 .js .reveal.visible { opacity: 1; transform: none; }
+/* With GSAP running (fx.js adds .fx), it owns reveal and card transforms; CSS only keeps the hidden start state. */
+.fx .reveal, .fx .reveal.visible { opacity: 0; transform: translateY(18px); transition: none; }
+.fx .card, .fx .product { transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.fx .card:hover, .fx .product:hover { transform: none; }
+.scroll-progress { position: fixed; inset: 0 0 auto; z-index: 200; height: 3px; background: var(--gold-grad); transform: scaleX(0); transform-origin: left; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
     .js .reveal { opacity: 1; transform: none; }

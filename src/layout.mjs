@@ -102,7 +102,8 @@ ${body}
     ${actionBar()}
     ${consentBanner()}
     <script src="/assets/js/site.js"></script>
-    <script src="/assets/js/track.js"></script>${scripts}
+    <script src="/assets/js/track.js"></script>
+    <script defer src="/assets/js/vendor/gsap.min.js"></script><script defer src="/assets/js/vendor/ScrollTrigger.min.js"></script><script defer src="/assets/js/fx.js"></script>${scripts}
 </body>
 </html>
 `;

@@ -93,7 +93,7 @@ export function home() {
             description: 'Mobile1X designs, builds and launches Android and iOS apps, AI products, MVPs and fintech platforms. See our live apps and talk to an engineer.',
             path: '/',
             preload: '<link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">',
-            scripts: '<script defer src="/assets/js/vendor/gsap.min.js"></script><script defer src="/assets/js/hero-stage.js"></script>',
+            scripts: '<script defer src="/assets/js/hero-stage.js"></script>',
             schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: k === 'notes' ? 'Android, iOS' : 'Android', description: PRODUCTS[k].summary }))],
             body: [hero, proof, services, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
         }),
