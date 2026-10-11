@@ -1,9 +1,10 @@
-/* Mobile1X site behaviour: navigation, scroll reveal, GA4 events, lead form.
+/* Mobile1X site behaviour: navigation, scroll reveal, GA4 and Clarity (consent-gated), lead form.
    No dependencies. Everything degrades gracefully: content and the form work without JS. */
 
 /* ---------- Analytics ---------- */
 (function () {
     var GA_ID = document.body.getAttribute('data-ga');
+    var CLARITY_ID = document.body.getAttribute('data-clarity');
     var CONSENT_KEY = 'm1x-consent';
     var banner = document.getElementById('consent');
     var enabled = false;
@@ -15,8 +16,23 @@
 
     // gtag.js is loaded in <head> with Consent Mode v2: analytics_storage stays denied (no cookies,
     // no identifiers) until the visitor accepts; events are only sent after that.
+    // Microsoft Clarity (session replay and heatmaps) is not loaded at all until the visitor accepts.
+    function loadClarity() {
+        if (window.clarity || !CLARITY_ID) return;
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+            t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, 'clarity', 'script', CLARITY_ID);
+    }
+    function setClarityConsent(granted) {
+        if (window.clarity) window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: granted ? 'granted' : 'denied' });
+    }
+
     function enableAnalytics() {
         window['ga-disable-' + GA_ID] = false;
+        loadClarity();
+        setClarityConsent(true);
         gtag('consent', 'update', { analytics_storage: 'granted' });
         enabled = true;
         queue.splice(0).forEach(function (e) { gtag('event', e[0], e[1]); });
@@ -24,6 +40,7 @@
 
     function disableAnalytics() {
         window['ga-disable-' + GA_ID] = true;
+        setClarityConsent(false);
         gtag('consent', 'update', { analytics_storage: 'denied' });
         enabled = false;
         queue.length = 0;

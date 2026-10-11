@@ -104,7 +104,7 @@ export const page = ({ title, description, path, body, schema = [], robots = 'in
     <!-- End Google Tag Manager -->
     ${graph(organization(), website(), founder(), schema)}
 </head>
-<body data-ga="${SITE.ga4}">
+<body data-ga="${SITE.ga4}" data-clarity="${SITE.clarity}">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${SITE.gtm}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->

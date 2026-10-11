@@ -11,6 +11,7 @@ export const SITE = {
     calendly: 'https://calendly.com/themobile1x/30min',
     ga4: 'G-PYSXJKMRQV',
     gtm: 'GTM-N6PJHVXT',
+    clarity: 'yw03jhbkgs',
     country: 'India',
     city: 'Indore',
     region: 'Madhya Pradesh',
