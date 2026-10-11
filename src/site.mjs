@@ -10,11 +10,12 @@ export const SITE = {
     whatsappText: 'Hi Mobile1X, I want to discuss a software project.',
     calendly: 'https://calendly.com/themobile1x/30min',
     ga4: 'G-PYSXJKMRQV',
+    gtm: 'GTM-N6PJHVXT',
     country: 'India',
     city: 'Indore',
     region: 'Madhya Pradesh',
     linkedin: 'https://www.linkedin.com/company/the-mobile1x/',
-    updated: '2026-09-29',
+    updated: '2026-10-11',
     // Real profile URLs go here once they exist; empty entries are dropped from schema.
     github: 'https://github.com/TheMoblie1x',
     sameAs: ['https://www.linkedin.com/company/the-mobile1x/', 'https://github.com/TheMoblie1x'],

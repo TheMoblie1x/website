@@ -365,6 +365,7 @@ tr:last-child > * { border-bottom: 0; }
 .plain a { color: var(--gold-hi); text-underline-offset: 3px; }
 .plain--links { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: var(--space-6); }
 .plain--ordered { list-style: decimal inside; }
+.plain--bulleted { list-style: disc; padding-left: var(--space-5); }
 .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-4); }
 .metric { padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 .metric strong { display: block; font-size: 2rem; color: var(--gold-hi); }

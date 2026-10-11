@@ -10,6 +10,9 @@ const hero = (trail, eyebrow, h1, lede) => `<section class="page-hero" data-loc=
 const prose = (blocks) => `<section class="section section--tight" data-loc="content"><div class="container container--narrow">${blocks}</div></section>`;
 const h2 = (t) => `<h2 class="h2 h2--post">${esc(t)}</h2>`;
 const p = (t) => `<p class="prose">${t}</p>`;
+const h3 = (t) => `<h3 class="h3">${esc(t)}</h3>`;
+const ul = (items) => `<ul class="plain plain--bulleted">${items.map((i) => `<li>${i}</li>`).join('')}</ul>`;
+const ext = (url) => `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
 
 export function about() {
     const trail = [{ name: 'Home', href: '/' }, { name: 'About', href: '/about/' }];
@@ -35,15 +38,34 @@ const legal = (path, title, description, h1, intro, sections) => {
     const trail = [{ name: 'Home', href: '/' }, { name: h1, href: path }];
     return {
         path,
-        html: page({ title, description, path, schema: [breadcrumbList(trail)], body: `${hero(trail, 'Legal', h1, intro)}${prose(sections.map(([h, t]) => h2(h) + p(t)).join('') + p(`Last updated: ${SITE.updated}.`))}` }),
+        html: page({ title, description, path, schema: [breadcrumbList(trail)], body: `${hero(trail, 'Legal', h1, intro)}${prose(sections.map(([h, t]) => h2(h) + (Array.isArray(t) ? t.join('') : p(t))).join('') + p(`Last updated: ${SITE.updated}.`))}` }),
     };
 };
+
+/** Google's own Tag Manager terms, reproduced as Google publishes them; "we" in the last block is Google. */
+const GTM_TERMS = [
+    p(`By clicking “Yes” below or by using the Google Tag Manager service (the “Service”), you and the legal entity on whose behalf you are using the Service (if any) (together, “You”) agree to use the Service in accordance with the Google Terms of Service (located at ${ext('https://www.google.com/intl/en/policies/terms/')}), the Google Privacy Policy (located at ${ext('https://www.google.com/intl/en/policies/privacy/')}), and the Google Tag Manager Use Policy (located at ${ext('https://www.google.com/analytics/tag-manager/use-policy/')}), each as may be modified from time to time and collectively, the “Google Tag Manager Terms of Service.”`),
+    h3('Google Tag Manager Use Policy'),
+    p('Use of the Google Tag Manager (the “Service”) is subject to this Google Tag Manager Use Policy (the “GTM Use Policy”).'),
+    p(`If You use the Service to support products or services from a 3rd party or designed by You (together, “3rd Party Tags”) or Google, You will have and abide by an appropriate privacy policy and will comply with the EU user consent policy (located at ${ext('https://www.google.com/about/company/user-consent-policy.html')}) and all applicable agreements and regulations (also relating to the collection of information), including for example:`),
+    ul([`the Google Analytics Terms of Service located at: ${ext('https://www.google.com/analytics/terms/us.html')},`, 'the agreement between You and Google that is in effect during the dates that You are participating in the Service, and', 'the Google LLC Advertising Program Terms (or, if applicable, as negotiated).']),
+    p('If You have 3rd Party Tags delivered through the Service:'),
+    ul(['Google is not responsible for 3rd Party Tags.', 'Google may screen such 3rd Party Tags to ensure compliance with this GTM Use Policy.', 'You guarantee that You have the rights to upload the 3rd Party Tags.']),
+    p('You agree not to, and not to allow third parties to use the Service or interfaces provided with the Service:'),
+    ul(['to engage in or promote any unlawful, infringing, defamatory or otherwise harmful activity;', 'to disable, interfere with or circumvent any aspect of the Service;', 'to upload any data to Google Tag Manager that personally identifies an individual (such as a name, email address or billing information), or other data which can be reasonably linked to such information by Google, or', 'to access any other Google product or service in a manner that violates their respective terms.']),
+    p(`Your use of the Platform Home is subject to the Platform Home Additional Terms available at ${ext('https://support.google.com/marketingplatform/answer/9047313')} (or such other URL as Google may provide) and as modified from time to time (the “Platform Home Terms”).`),
+    p(`To the extent Your use of the Service is within scope, You and Google agree to the Google Ads Data Processing Terms at ${ext('https://privacy.google.com/businesses/processorterms')} (the “Processing Terms”). Google will not modify the Processing Terms, except as expressly permitted under the Processing Terms.`),
+    h3('Our use of Google Tag Manager data'),
+    p('We may collect information such as how the Service is used, and how and what tags are deployed. We may use this data to improve, maintain, protect and develop the Service as described in our privacy policy, but we will not share this data with any other Google product without Your consent.'),
+    p('Google Tag Manager terms last updated: July 24, 2018.'),
+];
 
 export const privacy = () => legal('/privacy/', 'Privacy Policy | Mobile1X', 'How Mobile1X collects, uses and protects information submitted through mobile1x.com.', 'Privacy Policy', 'How Mobile1X handles information on mobile1x.com.', [
     ['Who we are', `Mobile1X (“we”) operates mobile1x.com. Contact us about privacy at <a href="mailto:${SITE.email}">${SITE.email}</a>.`],
     ['Information you give us', 'When you send an inquiry through our form we receive the details you enter: your name, email address, optional phone number, project type and project description. If you contact us by email, phone or WhatsApp, we receive the information you share in that conversation. If you book a call, the booking is handled by Calendly under its own privacy policy.'],
     ['How we use it', 'We use inquiry details to reply to you, scope and quote projects and manage the resulting relationship. We do not sell your information.'],
     ['Analytics and cookies', 'We use Google Analytics (GA4) to understand how the site is used, for example which pages are viewed and which contact options are clicked. Analytics cookies are set only if you click Accept on the cookie banner. Until you choose, Google Analytics runs in a restricted, cookieless mode that sends only anonymous page-view pings, and nothing is sent once you decline. We store your choice in your browser (local storage) so we do not ask on every visit. You can change it at any time with Cookie settings in the footer.'],
+    ['Google Tag Manager', GTM_TERMS],
     ['Service providers', 'We use Netlify to host this site, Google for the inquiry form (Google Forms), analytics (only with your consent) and fonts, and Calendly for bookings. These providers process data on our behalf under their own terms.'],
     ['Retention', 'We keep inquiry details for as long as needed to respond and manage the relationship, and for legitimate business records afterwards.'],
     ['Your choices', `You can ask us to access, correct or delete the personal information we hold about you by emailing <a href="mailto:${SITE.email}">${SITE.email}</a>.`],
