@@ -1,6 +1,6 @@
 // Page renderers: each returns { path, html, indexable, lastmod? }.
 import { SITE, PRODUCTS, WHATSAPP_HREF, FOUNDER } from './site.mjs';
-import { page } from './layout.mjs';
+import { page, asset } from './layout.mjs';
 import { SERVICES, PROCESS, PRICING_NOTE, serviceBySlug } from './content/services.mjs';
 import { WORK } from './content/work.mjs';
 import { POSTS, postBySlug } from './content/posts.mjs';
@@ -95,7 +95,7 @@ export function home() {
             description: 'Mobile1X designs, builds and launches Android and iOS apps, SI products, MVPs and fintech platforms. See our live apps and talk to an engineer.',
             path: '/',
             preload: '<link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">',
-            scripts: '<script defer src="/assets/js/hero-stage.js"></script>',
+            scripts: `<script defer src="${asset('/assets/js/hero-stage.js')}"></script>`,
             schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: 'Android, iOS', description: PRODUCTS[k].summary }))],
             body: [hero, proof, services, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
         }),

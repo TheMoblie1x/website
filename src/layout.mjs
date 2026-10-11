@@ -1,8 +1,14 @@
 // Page shell: head, header, footer, mobile action bar. Used by every generated page.
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { SITE, NAV, WHATSAPP_HREF } from './site.mjs';
 import { esc, icon, sprite, btn } from './ui.mjs';
 import { graph, organization, website, founder } from './schema.mjs';
 import { SERVICES } from './content/services.mjs';
+
+/** URL for one of our own assets, versioned by content hash so a changed file is never served from a stale cache. */
+export const asset = (url) => `${url}?v=${createHash('sha256').update(readFileSync(fileURLToPath(new URL(`..${url}`, import.meta.url)))).digest('hex').slice(0, 8)}`;
 
 const header = () => `<header class="site-header" id="site-header" data-loc="header">
     <div class="container site-header__bar">
@@ -78,7 +84,7 @@ export const page = ({ title, description, path, body, schema = [], robots = 'in
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="stylesheet" href="${asset('/assets/css/site.css')}">
     ${preload}
     <script>document.documentElement.classList.add('js')</script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=${SITE.ga4}"></script>
@@ -101,9 +107,9 @@ ${body}
     ${footer()}
     ${actionBar()}
     ${consentBanner()}
-    <script src="/assets/js/site.js"></script>
-    <script src="/assets/js/track.js"></script>
-    <script defer src="/assets/js/vendor/gsap.min.js"></script><script defer src="/assets/js/vendor/ScrollTrigger.min.js"></script><script defer src="/assets/js/fx.js"></script>${scripts}
+    <script src="${asset('/assets/js/site.js')}"></script>
+    <script src="${asset('/assets/js/track.js')}"></script>
+    <script defer src="/assets/js/vendor/gsap.min.js"></script><script defer src="/assets/js/vendor/ScrollTrigger.min.js"></script><script defer src="${asset('/assets/js/fx.js')}"></script>${scripts}
 </body>
 </html>
 `;
