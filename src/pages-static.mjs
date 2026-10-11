@@ -42,6 +42,33 @@ const legal = (path, title, description, h1, intro, sections) => {
     };
 };
 
+/** What the consent-gated analytics collect. Each line traces to assets/js/site.js or assets/js/track.js. */
+const ANALYTICS = [
+    p('We use Google Analytics (GA4) to understand how the site is used, for example which pages are viewed and which contact options are clicked. Analytics cookies are set only if you click Accept on the cookie banner. Until you choose, Google Analytics runs in a restricted, cookieless mode that sends only anonymous page-view pings, and nothing is sent once you decline. We store your choice in your browser (local storage) so we do not ask on every visit.'),
+    h3('What we measure'),
+    p('After you accept, the site records how it is used. This is the full list:'),
+    ul([
+        'which pages you view, how far you scroll, which sections of a page you see and for how long, and how long you are actively engaged;',
+        'how far through a guide or blog post you read;',
+        'which links and buttons you click: phone, WhatsApp, email and booking links, App Store and Google Play links (with which app and which store), links to other sites, file downloads and menu links;',
+        'which FAQ questions you open, and what you choose in the product showcase on the home page (which product, pause, spin);',
+        'when you rest the mouse on a card or plan, and when you select or copy a passage of text (we record only how long it was and where on the page, never the text);',
+        'how you use the contact form: whether you start it, which fields you complete, how long you spend in each field, corrections, validation errors, how long it takes, and whether you abandon it (we record field names and the option you pick in a dropdown such as project type or budget, never what you type into a text field);',
+        'problems: script errors, pages that were not found (the address requested and the site you came from), and repeated rapid clicks on one spot;',
+        'how soon you first interact with a page and when you return to the tab after being away.',
+    ]),
+    p('Every event also carries the page address. Google Analytics adds its standard information, such as your device and browser type, approximate location and the site or campaign that referred you. If you arrive through a tagged link, its campaign parameters (utm_source and similar) and the page you send an inquiry from are added to your inquiry so we know where it came from.'),
+    h3('Microsoft Clarity'),
+    p('With the same consent we also use Microsoft Clarity, which records how visitors use pages (clicks, scrolling and mouse movement) as session replays and heatmaps so we can improve the site. Clarity is not loaded and sets no cookies until you click Accept, and it is never loaded if you decline.'),
+    p('You can change it at any time with Cookie settings in the footer.'),
+];
+
+/** What search engines and AI assistants can see, and how we help them find it. */
+const SEARCH_AND_AI = [
+    p('This site is public. We publish a sitemap (<a href="/sitemap.xml">sitemap.xml</a>), a crawler policy (<a href="/robots.txt">robots.txt</a>) and a plain-text summary for language models (<a href="/llms.txt">llms.txt</a>), and we mark up pages with structured data (schema.org) describing our company, services, apps and articles. Search engines and AI assistants, including those named in robots.txt, are welcome to read, index, quote and summarise these public pages. We do not control how third parties use what they collect.'),
+    p('Pages that are not meant to appear in search, such as the free-assessment landing pages, are marked noindex. We use Google Search Console to see how the site performs in search; it reports aggregated queries, impressions and clicks and does not tell us who searched.'),
+];
+
 /** Google's own Tag Manager terms, reproduced as Google publishes them; "we" in the last block is Google. */
 const GTM_TERMS = [
     p(`By clicking “Yes” below or by using the Google Tag Manager service (the “Service”), you and the legal entity on whose behalf you are using the Service (if any) (together, “You”) agree to use the Service in accordance with the Google Terms of Service (located at ${ext('https://www.google.com/intl/en/policies/terms/')}), the Google Privacy Policy (located at ${ext('https://www.google.com/intl/en/policies/privacy/')}), and the Google Tag Manager Use Policy (located at ${ext('https://www.google.com/analytics/tag-manager/use-policy/')}), each as may be modified from time to time and collectively, the “Google Tag Manager Terms of Service.”`),
@@ -60,11 +87,12 @@ const GTM_TERMS = [
     p('Google Tag Manager terms last updated: July 24, 2018.'),
 ];
 
-export const privacy = () => legal('/privacy/', 'Privacy Policy | Mobile1X', 'How Mobile1X collects, uses and protects information submitted through mobile1x.com.', 'Privacy Policy', 'How Mobile1X handles information on mobile1x.com.', [
+export const privacy = () => legal('/privacy/', 'Privacy Policy | Mobile1X', 'How Mobile1X collects, uses and protects information on mobile1x.com: inquiries, consent-based analytics, Clarity, Tag Manager and search crawlers.', 'Privacy Policy', 'How Mobile1X handles information on mobile1x.com.', [
     ['Who we are', `Mobile1X (“we”) operates mobile1x.com. Contact us about privacy at <a href="mailto:${SITE.email}">${SITE.email}</a>.`],
     ['Information you give us', 'When you send an inquiry through our form we receive the details you enter: your name, email address, optional phone number, project type and project description. If you contact us by email, phone or WhatsApp, we receive the information you share in that conversation. If you book a call, the booking is handled by Calendly under its own privacy policy.'],
     ['How we use it', 'We use inquiry details to reply to you, scope and quote projects and manage the resulting relationship. We do not sell your information.'],
-    ['Analytics and cookies', 'We use Google Analytics (GA4) to understand how the site is used, for example which pages are viewed and which contact options are clicked. Analytics cookies are set only if you click Accept on the cookie banner. Until you choose, Google Analytics runs in a restricted, cookieless mode that sends only anonymous page-view pings, and nothing is sent once you decline. We store your choice in your browser (local storage) so we do not ask on every visit. With the same consent we also use Microsoft Clarity, which records how visitors use pages (clicks, scrolling and mouse movement) as session replays and heatmaps so we can improve the site. Clarity is not loaded and sets no cookies until you click Accept, and it is never loaded if you decline. You can change it at any time with Cookie settings in the footer.'],
+    ['Analytics and cookies', ANALYTICS],
+    ['Search engines and AI assistants', SEARCH_AND_AI],
     ['Google Tag Manager', GTM_TERMS],
     ['Service providers', 'We use Netlify to host this site, Google for the inquiry form (Google Forms), analytics (only with your consent) and fonts, Microsoft for Clarity session analytics (only with your consent), and Calendly for bookings. These providers process data on our behalf under their own terms.'],
     ['Retention', 'We keep inquiry details for as long as needed to respond and manage the relationship, and for legitimate business records afterwards.'],
@@ -72,7 +100,7 @@ export const privacy = () => legal('/privacy/', 'Privacy Policy | Mobile1X', 'Ho
     ['Changes', 'We may update this policy. The date above shows the latest version.'],
 ]);
 
-export const terms = () => legal('/terms/', 'Terms of Use | Mobile1X', 'Terms governing use of the Mobile1X website and how project engagements are agreed.', 'Terms of Use', 'The terms for using mobile1x.com.', [
+export const terms = () => legal('/terms/', 'Terms of Use | Mobile1X', 'Terms for using the Mobile1X website and how project engagements are agreed: scope, fees and ownership of work are set in a written agreement.', 'Terms of Use', 'The terms for using mobile1x.com.', [
     ['Using this site', 'This site provides information about Mobile1X and its services. You may use it for lawful purposes. Do not attempt to disrupt the site or its security.'],
     ['No advice or guarantee', 'Content, including price ranges and cost guides, is general information, not a quote or an offer. Actual prices, timelines and deliverables are set out in a written scope and agreement for each project.'],
     ['Project work', 'Services are provided under a separate written agreement that covers scope, fees, ownership of work, confidentiality, liability and governing law. If this page conflicts with that agreement, the agreement applies.'],

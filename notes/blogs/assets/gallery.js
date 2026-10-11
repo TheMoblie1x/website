@@ -46,7 +46,7 @@
     var isHowto = post.type === 'howto';
     var media = thumb
       ? '<div class="relative aspect-video bg-slate-200 dark:bg-white/5 overflow-hidden">' +
-      '<img src="' + B.escapeHtml(thumb) + '" alt="" loading="lazy" class="w-full h-full object-cover">' +
+      '<img src="' + B.escapeHtml(thumb) + '" alt="' + B.escapeHtml(post.title) + ' thumbnail" loading="lazy" class="w-full h-full object-cover">' +
       (isHowto ? '<span class="absolute inset-0 flex items-center justify-center">' +
         '<span class="w-14 h-14 rounded-full bg-black/60 flex items-center justify-center">' +
         '<svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></span></span>' : '') +

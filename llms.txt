@@ -13,16 +13,17 @@ Engagements typically range from $5,000 to $100,000+; standalone web performance
 
 ## Products and case studies
 
-- [Notes](https://mobile1x.com/work/notes/): A private, local-first SI notes app for Android and iOS.
-- [Dedup](https://mobile1x.com/work/dedup/): A duplicate file remover and storage cleaner for Android and iPhone.
-- [The A2Z Collection](https://mobile1x.com/work/a2z/): A full-featured e-commerce web app, from browse to checkout.
+- [Notes](https://mobile1x.com/work/notes/): A private, local-first SI notes app for Android and iOS. Available on: [Google Play](https://play.google.com/store/apps/details?id=com.rp.notes), [App Store](https://apps.apple.com/us/app/notes-archive-reflect/id6798175378), [website](https://mobile1x.com/notes/).
+- [Dedup](https://mobile1x.com/work/dedup/): A duplicate file remover and storage cleaner for Android and iPhone. Available on: [Google Play](https://play.google.com/store/apps/details?id=com.rp.dedup), [App Store](https://apps.apple.com/us/app/dedup-ai-photo-cleaner/id6814824281), [website](https://www.dedup.space).
+- [The A2Z Collection](https://mobile1x.com/work/a2z/): A full-featured e-commerce web app, from browse to checkout. Available on: [website](https://thea2zcollection.com).
 - [POS System](https://a2zpos.netlify.app): Point-of-sale software: fast billing, inventory and sales reporting.
 - [B2B Pharma Platform](https://mobile1x.com/pharma/): Connects pharmaceutical suppliers and buyers: catalogue, pricing, ordering.
+- [Auction Manager](https://thempl.netlify.app/): A real-time command centre for IPL-style player auctions.
 
 ## Guides
 
 - [How Much Does It Cost to Build a Mobile App?](https://mobile1x.com/blog/how-much-does-it-cost-to-build-a-mobile-app/): What drives mobile app development cost, what a fair quote includes, and how to cut scope without hurting the product.
-- [Native vs Flutter vs React Native: How to Choose](https://mobile1x.com/blog/native-vs-flutter-vs-react-native/): A practical guide to choosing between native Android/iOS, Flutter and React Native for your product.
+- [Native vs Flutter vs React Native: How to Choose](https://mobile1x.com/blog/native-vs-flutter-vs-react-native/): A practical guide to choosing between native Android/iOS, Flutter and React Native, with a side-by-side comparison and the questions that decide it.
 
 ## Company and contact
 
@@ -31,3 +32,10 @@ Engagements typically range from $5,000 to $100,000+; standalone web performance
 - Email: hello@mobile1x.com
 - Phone / WhatsApp: +91 97545 25494
 - Book a 30-minute discovery call: https://calendly.com/themobile1x/30min
+
+## Optional
+
+- [Notes app website](https://mobile1x.com/notes/)
+- [Privacy Policy](https://mobile1x.com/privacy/)
+- [Terms of Use](https://mobile1x.com/terms/)
+- [Sitemap](https://mobile1x.com/sitemap.xml)

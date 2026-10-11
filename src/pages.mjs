@@ -1,5 +1,5 @@
 // Page renderers: each returns { path, html, indexable, lastmod? }.
-import { SITE, PRODUCTS, WHATSAPP_HREF, FOUNDER } from './site.mjs';
+import { SITE, PRODUCTS, WHATSAPP_HREF, FOUNDER, storeLinks } from './site.mjs';
 import { page, asset } from './layout.mjs';
 import { SERVICES, PROCESS, PRICING_NOTE, serviceBySlug } from './content/services.mjs';
 import { WORK } from './content/work.mjs';
@@ -96,7 +96,7 @@ export function home() {
             path: '/',
             preload: '<link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">',
             scripts: `<script defer src="${asset('/assets/js/hero-stage.js')}"></script>`,
-            schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: 'Android, iOS', description: PRODUCTS[k].summary }))],
+            schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: 'Android, iOS', description: PRODUCTS[k].summary, installUrl: storeLinks(PRODUCTS[k]).map((s) => s.url) }))],
             body: [hero, proof, services, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
         }),
     };
@@ -134,7 +134,7 @@ export function workPage(w) {
         path: `/work/${w.slug}/`,
         html: page({
             title: w.title, description: w.description, path: `/work/${w.slug}/`,
-            schema: [softwareApp({ slug: w.slug, name: w.name, category: w.category, os: w.os, description: w.description }), breadcrumbList(trail)],
+            schema: [softwareApp({ slug: w.slug, name: w.name, category: w.category, os: w.os, description: w.description, installUrl: storeLinks(p).map((s) => s.url) }), breadcrumbList(trail)],
             body: `<section class="page-hero" data-loc="hero"><div class="container">${breadcrumbs(trail)}<p class="eyebrow">Case study</p><h1>${esc(w.h1)}</h1><p class="lede lede--answer">${esc(w.lede)}</p><div class="hero__actions">${links}</div></div></section>
 <section class="section section--tight" data-loc="case-study"><div class="container">${shots}</div></section>
 ${metrics}${body}

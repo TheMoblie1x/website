@@ -21,6 +21,7 @@ export const SITE = {
     github: 'https://github.com/TheMoblie1x',
     sameAs: ['https://www.linkedin.com/company/the-mobile1x/', 'https://github.com/TheMoblie1x'],
     ogImage: '/assets/apps/notes/shot1.png',
+    ogImageAlt: 'Mobile1X Notes app on an Android phone',
 };
 
 export const FOUNDER = {
@@ -38,6 +39,9 @@ export const STACK = [
     { group: 'Cloud and edge', items: ['AWS', 'Firebase', 'Cloudflare'] },
     { group: 'Web and desktop', items: ['React JS', 'ElectronJS', 'HTML', 'CSS', 'JavaScript'] },
 ];
+
+/** Store listings of a product, for structured data and llms.txt. */
+export const storeLinks = (p) => [p.play && { name: 'Google Play', url: p.play }, p.appStore && { name: 'App Store', url: p.appStore }].filter(Boolean);
 
 export const WHATSAPP_HREF = `https://wa.me/919754525494?text=${encodeURIComponent(SITE.whatsappText)}`;
 

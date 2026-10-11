@@ -10,6 +10,13 @@
     var enabled = false;
     var queue = [];
     var MAX_QUEUED = 50;
+    // The moments worth finding in a Clarity recording; everything else stays in GA4 only.
+    var CLARITY_EVENTS = ['contact_form_start', 'contact_form_submit', 'form_abandon', 'store_click', 'phone_click', 'whatsapp_click', 'email_click', 'consultation_booking', 'cta_click', 'showcase_select', 'rage_click', 'js_error'];
+
+    function dispatch(name, params) {
+        gtag('event', name, params);
+        if (window.clarity && CLARITY_EVENTS.indexOf(name) !== -1) window.clarity('event', name);
+    }
 
     function stored() { try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; } }
     function store(value) { try { localStorage.setItem(CONSENT_KEY, value); } catch (e) { /* private mode: choice lasts for this page only */ } }
@@ -35,7 +42,7 @@
         setClarityConsent(true);
         gtag('consent', 'update', { analytics_storage: 'granted' });
         enabled = true;
-        queue.splice(0).forEach(function (e) { gtag('event', e[0], e[1]); });
+        queue.splice(0).forEach(function (e) { dispatch(e[0], e[1]); });
     }
 
     function disableAnalytics() {
@@ -57,7 +64,7 @@
 
     function choose(value) {
         store(value);
-        if (value === 'granted') enableAnalytics(); else disableAnalytics();
+        if (value === 'granted') { enableAnalytics(); window.m1xTrack('consent_granted', { link_location: 'cookie-banner' }); } else disableAnalytics();
         banner.hidden = true;
     }
 
@@ -89,7 +96,7 @@
     window.m1xTrack = function (name, params) {
         params = params || {};
         params.page_path = location.pathname;
-        if (enabled) gtag('event', name, params);
+        if (enabled) dispatch(name, params);
         else if (stored() === null && queue.length < MAX_QUEUED) queue.push([name, params]);
     };
 

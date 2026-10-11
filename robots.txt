@@ -1,4 +1,5 @@
-# mobile1x.com — every crawler is welcome, including AI / LLM assistants.
+# mobile1x.com: every crawler is welcome, including AI / LLM assistants.
+# A readable index of this site for language models: https://mobile1x.com/llms.txt
 
 User-agent: *
 Allow: /
@@ -14,6 +15,12 @@ User-agent: ChatGPT-User
 Allow: /
 
 User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
 Allow: /
 
 User-agent: Claude-Web
@@ -53,6 +60,9 @@ User-agent: Amazonbot
 Allow: /
 
 User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: MistralAI-User
 Allow: /
 
 User-agent: cohere-ai

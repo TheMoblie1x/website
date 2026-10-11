@@ -141,7 +141,7 @@ export const contactSection = ({ source, title = 'Have a product to build?', led
     });
 
 /** Hero side panel: the apps live in the stores, each with its store links. */
-export const heroApps = (products) => `<aside class="hero__apps" aria-label="Our apps in the stores"><p class="hero__apps-title">Live in the stores</p><ul>${products.map((p) => `<li class="app-row"><img src="${p.icon}" alt="" width="56" height="56" decoding="async"><div><strong>${esc(p.name)}</strong><span>${esc(p.summary)}</span><div class="app-row__links">${link({ href: p.play, label: 'Google Play', loc: 'hero' })}${link({ href: p.appStore, label: 'App Store', loc: 'hero' })}</div></div></li>`).join('')}</ul></aside>`;
+export const heroApps = (products) => `<aside class="hero__apps" aria-label="Our apps in the stores"><p class="hero__apps-title">Live in the stores</p><ul>${products.map((p) => `<li class="app-row"><img src="${p.icon}" alt="${esc(p.name)} app icon" width="56" height="56" decoding="async"><div><strong>${esc(p.name)}</strong><span>${esc(p.summary)}</span><div class="app-row__links">${link({ href: p.play, label: 'Google Play', loc: 'hero' })}${link({ href: p.appStore, label: 'App Store', loc: 'hero' })}</div></div></li>`).join('')}</ul></aside>`;
 
 /** Hero showcase: a 3D product stage (rail, preview, rotating device, info panel). Slide 0 is the no-JS state; hero-stage.js animates it. */
 const SLICES = 9;
@@ -156,7 +156,7 @@ export const heroStage = (products) => `<div class="stage" id="stage" aria-roled
     <div class="stage__side">
         <ol class="rail" aria-label="Choose a product">${products.map((p, i) => `<li><button class="rail__item${i === 0 ? ' is-active' : ''}" type="button" data-index="${i}"${i === 0 ? ' aria-current="true"' : ''}><span class="rail__n">0${i + 1}</span><span class="rail__name">${esc(p.name)}</span><i class="rail__bar"></i></button></li>`).join('')}</ol>
         <button class="stage__pause" type="button" aria-pressed="false" hidden><i aria-hidden="true"></i><span>Pause</span></button>
-        <div class="stage__media" aria-hidden="true">${products.map((p, i) => `<figure class="media${i === 0 ? ' is-active' : ''}">${picture(p.shots[1] || p.shots[0], '', 640, 1334, true)}${p.icon ? `<img class="media__icon" src="${p.icon}" alt="" width="40" height="40" loading="lazy" decoding="async">` : ''}</figure>`).join('')}</div>
+        <div class="stage__media" aria-hidden="true">${products.map((p, i) => `<figure class="media${i === 0 ? ' is-active' : ''}">${picture(p.shots[1] || p.shots[0], `${p.name} app screenshot`, 640, 1334, true)}${p.icon ? `<img class="media__icon" src="${p.icon}" alt="${esc(p.name)} app icon" width="40" height="40" loading="lazy" decoding="async">` : ''}</figure>`).join('')}</div>
     </div>
     <div class="stage__product">
         <i class="stage__shadow" aria-hidden="true"></i>

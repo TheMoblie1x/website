@@ -1,9 +1,10 @@
 // Static site generator (zero dependencies). Run: node build.mjs
 // Reads src/, writes the deployable HTML to the repo root. Commit the output; Netlify needs no build step.
-import { copyFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SITE, PRODUCTS } from './src/site.mjs';
+import { SITE, PRODUCTS, storeLinks } from './src/site.mjs';
 import { SERVICES } from './src/content/services.mjs';
 import { WORK } from './src/content/work.mjs';
 import { POSTS } from './src/content/posts.mjs';
@@ -26,12 +27,41 @@ for (const p of pages) write(p.path === '/' ? 'index.html' : p.path.endsWith('.h
 // The Notes pages are hand-written and also load the tracker; copy it so assets/js/track.js stays the only source.
 copyFileSync(join(root, 'assets/js/track.js'), join(root, 'notes/assets/js/track.js'));
 
-// Sitemap: same-host, canonical, indexable URLs only.
-const urls = [...pages.filter((p) => p.indexable !== false).map((p) => p.path), '/notes/', '/notes/blogs/'];
-write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url>\n    <loc>${SITE.url}${u}</loc>\n    <lastmod>${SITE.updated}</lastmod>\n  </url>`).join('\n')}\n</urlset>\n`);
+// Sitemap: same-host, canonical, indexable URLs only. A URL's <lastmod> moves only when its content does:
+// src/lastmod.json remembers each page's content hash (asset ?v= hashes stripped) and the date it last changed.
+const LASTMOD_FILE = join(root, 'src/lastmod.json');
+const lastmod = existsSync(LASTMOD_FILE) ? JSON.parse(readFileSync(LASTMOD_FILE, 'utf8')) : {};
+const today = new Date().toISOString().slice(0, 10);
+const modified = (path, html) => {
+    const hash = createHash('sha256').update(String(html).replace(/\?v=[0-9a-f]{8}/g, '')).digest('hex').slice(0, 12);
+    if (lastmod[path]?.hash !== hash) lastmod[path] = { hash, date: today };
+    return lastmod[path].date;
+};
+const entries = [
+    ...pages.filter((p) => p.indexable !== false).map((p) => [p.path, p.html]),
+    ['/notes/', readFileSync(join(root, 'notes/index.html'), 'utf8')], // hand-written Notes pages
+    ['/notes/blogs/', readFileSync(join(root, 'notes/blogs/index.html'), 'utf8')],
+].map(([path, html]) => [path, modified(path, html)]);
+writeFileSync(LASTMOD_FILE, `${JSON.stringify(lastmod, null, 2)}\n`);
+write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.map(([u, d]) => `  <url>\n    <loc>${SITE.url}${u}</loc>\n    <lastmod>${d}</lastmod>\n  </url>`).join('\n')}\n</urlset>\n`);
+
+// robots.txt: everyone is welcome; the answer-engine and AI crawlers are named so the permission is explicit.
+const CRAWLERS = ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'Claude-Web', 'anthropic-ai', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Googlebot', 'Bingbot', 'Applebot', 'Applebot-Extended', 'CCBot', 'Bytespider', 'Amazonbot', 'Meta-ExternalAgent', 'MistralAI-User', 'cohere-ai', 'DuckAssistBot', 'YouBot'];
+write('robots.txt', `# ${SITE.url.replace('https://', '')}: every crawler is welcome, including AI / LLM assistants.
+# A readable index of this site for language models: ${SITE.url}/llms.txt
+
+User-agent: *
+Allow: /
+
+# Explicitly welcome AI and answer-engine crawlers
+${CRAWLERS.map((bot) => `User-agent: ${bot}\nAllow: /`).join('\n\n')}
+
+Sitemap: ${SITE.url}/sitemap.xml
+`);
 
 // llms.txt: a readable index of the same facts, generated so it cannot drift from the pages.
 const abs = (u) => (u.startsWith('http') ? u : SITE.url + u);
+const where = (p) => [...storeLinks(p).map((s) => `[${s.name}](${s.url})`), p.web && `[website](${abs(p.web)})`].filter(Boolean).join(', ');
 write('llms.txt', `# Mobile1X
 
 > Mobile1X is a mobile and SI product engineering studio based in Indore, India, founded by Rahul Pahuja. It designs, builds and launches Android, iOS and web apps, SI products, MVPs and fintech platforms for clients worldwide, and ships its own apps including Notes and Dedup.
@@ -44,9 +74,10 @@ ${SERVICES.map((s) => `- [${s.name}](${SITE.url}/services/${s.slug}/): ${s.blurb
 
 ## Products and case studies
 
-${WORK.map((w) => `- [${w.name}](${SITE.url}/work/${w.slug}/): ${PRODUCTS[w.product].summary}`).join('\n')}
+${WORK.map((w) => `- [${w.name}](${SITE.url}/work/${w.slug}/): ${PRODUCTS[w.product].summary} Available on: ${where(PRODUCTS[w.product])}.`).join('\n')}
 - [POS System](${PRODUCTS.pos.web}): ${PRODUCTS.pos.summary}
 - [B2B Pharma Platform](${SITE.url}/pharma/): ${PRODUCTS.pharma.summary}
+- [Auction Manager](${PRODUCTS.auction.web}): ${PRODUCTS.auction.summary}
 
 ## Guides
 
@@ -59,6 +90,13 @@ ${POSTS.map((p) => `- [${p.title}](${SITE.url}/blog/${p.slug}/): ${p.description
 - Email: ${SITE.email}
 - Phone / WhatsApp: ${SITE.phone}
 - Book a 30-minute discovery call: ${SITE.calendly}
+
+## Optional
+
+- [Notes app website](${SITE.url}/notes/)
+- [Privacy Policy](${SITE.url}/privacy/)
+- [Terms of Use](${SITE.url}/terms/)
+- [Sitemap](${SITE.url}/sitemap.xml)
 `);
 
 // Brand mark (used as logo, favicon and in Organization schema).
@@ -66,4 +104,4 @@ const mark = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs>
 write('assets/logo.svg', mark);
 write('assets/favicon.svg', mark);
 
-console.log(`Built ${pages.length} pages, ${urls.length} sitemap URLs.`);
+console.log(`Built ${pages.length} pages, ${entries.length} sitemap URLs.`);

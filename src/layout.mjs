@@ -12,7 +12,7 @@ export const asset = (url) => `${url}?v=${createHash('sha256').update(readFileSy
 
 const header = () => `<header class="site-header" id="site-header" data-loc="header">
     <div class="container site-header__bar">
-        <a class="brand" href="/" aria-label="Mobile1X home"><img src="/assets/logo.svg" alt="" width="32" height="32">Mobile1X</a>
+        <a class="brand" href="/" aria-label="Mobile1X home"><img src="/assets/logo.svg" alt="Mobile1X logo" width="32" height="32">Mobile1X</a>
         <nav class="nav" id="site-nav" aria-label="Primary">
             <div class="nav__group">
                 <a class="nav__parent" href="/#services">Services${icon('chevron')}</a>
@@ -32,7 +32,7 @@ const header = () => `<header class="site-header" id="site-header" data-loc="hea
 const footer = () => `<footer class="site-footer" data-loc="footer">
     <div class="container footer__grid">
         <div>
-            <a class="brand" href="/"><img src="/assets/logo.svg" alt="" width="32" height="32">Mobile1X</a>
+            <a class="brand" href="/"><img src="/assets/logo.svg" alt="Mobile1X logo" width="32" height="32">Mobile1X</a>
             <p class="footer__about">Mobile and SI product engineering studio. We design, build and launch apps that ship.</p>
         </div>
         <nav aria-label="Services"><h2 class="footer__h">Services</h2><ul>${SERVICES.map((s) => `<li><a href="/services/${s.slug}/">${esc(s.name)}</a></li>`).join('')}</ul></nav>
@@ -75,10 +75,12 @@ export const page = ({ title, description, path, body, schema = [], robots = 'in
     <meta property="og:description" content="${esc(description)}">
     <meta property="og:url" content="${SITE.url}${path}">
     <meta property="og:image" content="${SITE.url}${SITE.ogImage}">
+    <meta property="og:image:alt" content="${esc(SITE.ogImageAlt)}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${esc(title)}">
     <meta name="twitter:description" content="${esc(description)}">
     <meta name="twitter:image" content="${SITE.url}${SITE.ogImage}">
+    <meta name="twitter:image:alt" content="${esc(SITE.ogImageAlt)}">
     <link rel="alternate" type="text/plain" href="${SITE.url}/llms.txt" title="llms.txt">
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">

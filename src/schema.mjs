@@ -77,6 +77,7 @@ export const softwareApp = (w) => ({
     operatingSystem: w.os,
     description: w.description,
     url: abs(`/work/${w.slug}/`),
+    ...(w.installUrl?.length && { installUrl: w.installUrl }),
     publisher: { '@id': ORG_ID },
 });
 
