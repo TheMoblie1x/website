@@ -86,6 +86,7 @@ export const PRODUCTS = {
         name: 'Auction Manager',
         tag: 'Sports · Web',
         summary: 'A real-time command centre for IPL-style player auctions.',
+        web: 'https://thempl.netlify.app/',
     },
 };
 

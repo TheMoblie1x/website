@@ -105,7 +105,7 @@
     gsap.to(stage.querySelector('.stage__sun'), { scale: 1.12, opacity: 0.8, duration: 5, ease: 'sine.inOut', yoyo: true, repeat: -1 });
 
     /* ---------- Petals: tumbling in 3D, falling at different speeds; paused while off-screen ---------- */
-    var PALETTE = [['#ffd0dc', '#ff8fb1'], ['#ffe0b0', '#ffb36b'], ['#ffffff', '#ffd9cf'], ['#ffc2b0', '#f26f8f'], ['#fff1c9', '#f4c15d']];
+    var PALETTE = [['#fff1c9', '#f4c15d'], ['#f4c15d', '#c89b3c'], ['#ffe0b0', '#e29a2e'], ['#e29a2e', '#c89b3c'], ['#ffffff', '#f4c15d']];
     var small = window.innerWidth < 900;
     var petalsTl = gsap.timeline();
     var rand = gsap.utils.random;
