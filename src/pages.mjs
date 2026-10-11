@@ -11,7 +11,7 @@ const CTA_TALK = (loc) => btn({ href: '#contact', label: 'Talk to an Engineer', 
 const CTA_CALL = (loc) => btn({ href: SITE.phoneHref, label: 'Call Mobile1X', variant: 'ghost', ic: 'phone', loc });
 
 const HOME_FAQ = [
-    { q: 'What is Mobile1X?', a: 'Mobile1X is a mobile and SI product engineering studio based in Indore, India, that designs, builds and launches Android, iOS and web products, SI systems and fintech platforms for clients worldwide. It also ships its own products, including the Notes app, the Dedup duplicate file remover, The A2Z Collection e-commerce platform and Auction Manager sports-auction software.' },
+    { q: 'What is Mobile1X?', a: 'Mobile1X is a mobile and SI product engineering studio based in Indore, India, that designs, builds and launches Android, iOS and web products, SI systems and fintech platforms for clients worldwide. It also ships its own products, including the Notes app, the Dedup duplicate file remover, The A2Z Collection e-commerce platform, Auction Manager sports-auction software and the BhashaSetu spoken-English practice app.' },
     { q: 'How much does mobile app development cost?', a: 'Product and platform builds with Mobile1X typically range from $5,000 to $100,000+ depending on platforms, features, integrations and whether SI or payments are involved. Standalone web performance audits start at $500. You receive a written scope and quote before work starts.' },
     { q: 'How long does an MVP take?', a: 'It depends on scope, so Mobile1X does not quote a generic timeline. After a 30-minute discovery call you receive a scoped estimate that includes timing.' },
     { q: 'Can Mobile1X add SI to an existing mobile application?', a: 'Yes. SI integration into existing products is part of what Mobile1X does. It starts with a review of your app and the data the feature would use, then a scoped plan and estimate.' },
@@ -46,7 +46,7 @@ export function home() {
             <p class="hero__lede">Mobile1X designs, builds and launches Android and iOS apps, SI products and MVPs, from idea to engineering to launch. Our own apps are live on Google Play and the App Store.</p>
             <div class="hero__actions">${CTA_TALK('hero')}${btn({ href: '#portfolio', label: 'See Our Work', variant: 'ghost', loc: 'hero' })}</div>
             <p class="hero__call"><a class="link-call" href="${SITE.phoneHref}" data-loc="hero">${icon('phone')}Call Mobile1X ${SITE.phone}</a><a class="link-call" href="${WHATSAPP_HREF}" target="_blank" rel="noopener noreferrer" data-loc="hero">${icon('whatsapp')}WhatsApp</a></p>
-            <ul class="hero__facts"><li>6 shipped products</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
+            <ul class="hero__facts"><li>7 shipped products</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
         </div>
         ${heroApps(['notes', 'dedup'].map((k) => PRODUCTS[k]))}
         </div>
@@ -56,7 +56,7 @@ export function home() {
 
     const proof = section({
         id: 'portfolio', loc: 'case-study', body: `${sectionHead({ eyebrow: 'Proof', title: 'Products we’ve actually shipped.', lede: 'Real products, live on the web. This is our track record, not a mock-up.' })}
-        <div class="products">${['pos', 'pharma', 'auction'].map((k) => productCard(PRODUCTS[k])).join('')}</div>`,
+        <div class="products products--four">${['pos', 'pharma', 'auction', 'bhashasetu'].map((k) => productCard(PRODUCTS[k])).join('')}</div>`,
     });
 
     const services = section({

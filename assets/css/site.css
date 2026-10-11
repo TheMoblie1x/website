@@ -281,6 +281,7 @@ ul, ol { padding: 0; }
 /* ---------- Products (proof) ---------- */
 .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: var(--space-5); }
 .products--compact { margin-top: var(--space-5); }
+.products--four { grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
 .product { display: flex; flex-direction: column; overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease); }
 .product:hover { border-color: var(--gold); transform: translateY(-4px); }
 .product__shots { display: flex; justify-content: center; gap: var(--space-3); padding: var(--space-5) var(--space-5) 0; background: radial-gradient(70% 90% at 50% 100%, rgb(226 154 46 / 14%), transparent 70%), var(--surface-2); max-height: 340px; overflow: hidden; }

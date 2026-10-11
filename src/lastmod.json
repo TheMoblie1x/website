@@ -1,6 +1,6 @@
 {
   "/": {
-    "hash": "59bddb0895d9",
+    "hash": "d7e639dc3a30",
     "date": "2026-10-11"
   },
   "/services/mobile-app-development/": {
@@ -44,7 +44,7 @@
     "date": "2026-10-11"
   },
   "/about/": {
-    "hash": "9d77168d6641",
+    "hash": "f8b22fd6e617",
     "date": "2026-10-11"
   },
   "/privacy/": {
@@ -65,6 +65,10 @@
   },
   "/notes/blogs/": {
     "hash": "f7c8de402959",
+    "date": "2026-10-11"
+  },
+  "/english/": {
+    "hash": "2d1065c70b9b",
     "date": "2026-10-11"
   }
 }

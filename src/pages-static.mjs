@@ -16,7 +16,7 @@ const ext = (url) => `<a href="${url}" target="_blank" rel="noopener noreferrer"
 
 export function about() {
     const trail = [{ name: 'Home', href: '/' }, { name: 'About', href: '/about/' }];
-    const live = ['notes', 'dedup', 'a2z', 'pos', 'pharma'].map((k) => `<li>${PRODUCTS[k].web || PRODUCTS[k].play ? `<a href="${PRODUCTS[k].case || PRODUCTS[k].web}">${esc(PRODUCTS[k].name)}</a>` : esc(PRODUCTS[k].name)}: ${esc(PRODUCTS[k].summary)}</li>`).join('');
+    const live = ['notes', 'dedup', 'a2z', 'pos', 'pharma', 'bhashasetu'].map((k) => `<li>${PRODUCTS[k].web || PRODUCTS[k].play ? `<a href="${PRODUCTS[k].case || PRODUCTS[k].web}">${esc(PRODUCTS[k].name)}</a>` : esc(PRODUCTS[k].name)}: ${esc(PRODUCTS[k].summary)}</li>`).join('');
     // Mobile1X is a solo-founder studio. TODO(facts): company registration details (registration not done yet as of 2026-09-29).
     return {
         path: '/about/',

@@ -19,6 +19,7 @@ Engagements typically range from $5,000 to $100,000+; standalone web performance
 - [POS System](https://a2zpos.netlify.app): Point-of-sale software: fast billing, inventory and sales reporting.
 - [B2B Pharma Platform](https://mobile1x.com/pharma/): Connects pharmaceutical suppliers and buyers: catalogue, pricing, ordering.
 - [Auction Manager](https://thempl.netlify.app/): A real-time command centre for IPL-style player auctions.
+- [BhashaSetu](https://mobile1x.com/english/): A Hindi-first web app for practising spoken English: listen and repeat phrases, answer by voice or in writing, and build a daily streak.
 
 ## Guides
 

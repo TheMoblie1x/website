@@ -88,6 +88,12 @@ export const PRODUCTS = {
         summary: 'Connects pharmaceutical suppliers and buyers: catalogue, pricing, ordering.',
         web: '/pharma/',
     },
+    bhashasetu: {
+        name: 'BhashaSetu',
+        tag: 'Education · Web',
+        summary: 'A Hindi-first web app for practising spoken English: listen and repeat phrases, answer by voice or in writing, and build a daily streak.',
+        web: '/english/',
+    },
     auction: {
         name: 'Auction Manager',
         tag: 'Sports · Web',

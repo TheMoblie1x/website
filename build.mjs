@@ -41,6 +41,7 @@ const entries = [
     ...pages.filter((p) => p.indexable !== false).map((p) => [p.path, p.html]),
     ['/notes/', readFileSync(join(root, 'notes/index.html'), 'utf8')], // hand-written Notes pages
     ['/notes/blogs/', readFileSync(join(root, 'notes/blogs/index.html'), 'utf8')],
+    ['/english/', readFileSync(join(root, 'english/index.html'), 'utf8')], // BhashaSetu, a separately built web app
 ].map(([path, html]) => [path, modified(path, html)]);
 writeFileSync(LASTMOD_FILE, `${JSON.stringify(lastmod, null, 2)}\n`);
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.map(([u, d]) => `  <url>\n    <loc>${SITE.url}${u}</loc>\n    <lastmod>${d}</lastmod>\n  </url>`).join('\n')}\n</urlset>\n`);
@@ -78,6 +79,7 @@ ${WORK.map((w) => `- [${w.name}](${SITE.url}/work/${w.slug}/): ${PRODUCTS[w.prod
 - [POS System](${PRODUCTS.pos.web}): ${PRODUCTS.pos.summary}
 - [B2B Pharma Platform](${SITE.url}/pharma/): ${PRODUCTS.pharma.summary}
 - [Auction Manager](${PRODUCTS.auction.web}): ${PRODUCTS.auction.summary}
+- [BhashaSetu](${abs(PRODUCTS.bhashasetu.web)}): ${PRODUCTS.bhashasetu.summary}
 
 ## Guides
 
