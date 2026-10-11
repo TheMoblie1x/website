@@ -11,12 +11,12 @@ const CTA_TALK = (loc) => btn({ href: '#contact', label: 'Talk to an Engineer', 
 const CTA_CALL = (loc) => btn({ href: SITE.phoneHref, label: 'Call Mobile1X', variant: 'ghost', ic: 'phone', loc });
 
 const HOME_FAQ = [
-    { q: 'What is Mobile1X?', a: 'Mobile1X is a mobile and AI product engineering studio based in Indore, India, that designs, builds and launches Android, iOS and web products, AI systems and fintech platforms for clients worldwide. It also ships its own products, including the Notes app, the Dedup duplicate file remover, The A2Z Collection e-commerce platform and Auction Manager sports-auction software.' },
-    { q: 'How much does mobile app development cost?', a: 'Product and platform builds with Mobile1X typically range from $5,000 to $100,000+ depending on platforms, features, integrations and whether AI or payments are involved. Standalone web performance audits start at $500. You receive a written scope and quote before work starts.' },
+    { q: 'What is Mobile1X?', a: 'Mobile1X is a mobile and SI product engineering studio based in Indore, India, that designs, builds and launches Android, iOS and web products, SI systems and fintech platforms for clients worldwide. It also ships its own products, including the Notes app, the Dedup duplicate file remover, The A2Z Collection e-commerce platform and Auction Manager sports-auction software.' },
+    { q: 'How much does mobile app development cost?', a: 'Product and platform builds with Mobile1X typically range from $5,000 to $100,000+ depending on platforms, features, integrations and whether SI or payments are involved. Standalone web performance audits start at $500. You receive a written scope and quote before work starts.' },
     { q: 'How long does an MVP take?', a: 'It depends on scope, so Mobile1X does not quote a generic timeline. After a 30-minute discovery call you receive a scoped estimate that includes timing.' },
-    { q: 'Can Mobile1X add AI to an existing mobile application?', a: 'Yes. AI integration into existing products is part of what Mobile1X does. It starts with a review of your app and the data the feature would use, then a scoped plan and estimate.' },
-    { q: 'What technologies does Mobile1X use?', a: 'Mobile1X builds Android apps in Kotlin and Java, iOS apps in Swift and Objective-C, and cross-platform apps in Flutter and React Native, with Spring Boot backends, SQL and SQLite data, Firebase, AWS and Cloudflare infrastructure, and web and desktop front ends in React JS, ElectronJS, HTML, CSS and JavaScript. For AI it works with applications, agents, retrieval-augmented generation (RAG), AI integration and on-device AI. The right stack is chosen per product and explained in writing before the build.' },
-    { q: 'What kind of AI systems does Mobile1X build?', a: 'AI applications and features inside mobile and web products, AI agents and automation, RAG systems grounded in your data, chatbots, and lead-scoring and qualification systems for sales teams.' },
+    { q: 'Can Mobile1X add SI to an existing mobile application?', a: 'Yes. SI integration into existing products is part of what Mobile1X does. It starts with a review of your app and the data the feature would use, then a scoped plan and estimate.' },
+    { q: 'What technologies does Mobile1X use?', a: 'Mobile1X builds Android apps in Kotlin and Java, iOS apps in Swift and Objective-C, and cross-platform apps in Flutter and React Native, with Spring Boot backends, SQL and SQLite data, Firebase, AWS and Cloudflare infrastructure, and web and desktop front ends in React JS, ElectronJS, HTML, CSS and JavaScript. For SI it works with applications, agents, retrieval-augmented generation (RAG), SI integration and on-device SI. The right stack is chosen per product and explained in writing before the build.' },
+    { q: 'What kind of SI systems does Mobile1X build?', a: 'SI applications and features inside mobile and web products, SI agents and automation, RAG systems grounded in your data, chatbots, and lead-scoring and qualification systems for sales teams.' },
     { q: 'Does Mobile1X build fintech platforms?', a: 'Yes. Mobile1X engineers secure, scalable fintech systems for banks, startups and enterprises, including banking and payment API integrations and compliance-minded architecture.' },
     { q: 'What is a Mobile1X performance audit and what does it cost?', a: 'A performance audit identifies revenue leaks, speed problems and scaling opportunities in an existing web platform. Audits start at $500 and scale to around $5,000 depending on scope.' },
     { q: 'Where is Mobile1X based and who does it work with?', a: 'Mobile1X is based in Indore, India, and works with startups, agencies and enterprises globally. Reach Mobile1X by email at hello@mobile1x.com, by phone or WhatsApp at +91 97545 25494, or book a 30-minute discovery call.' },
@@ -26,13 +26,13 @@ const HOME_FAQ = [
 const ARCH_LAYERS = [
     { name: 'Client', items: ['Android: Kotlin, Java', 'iOS: Swift, Objective-C', 'Cross-platform: Flutter, React Native', 'Web: React JS, HTML, CSS, JavaScript', 'Desktop: ElectronJS'] },
     { name: 'API and backend', items: ['Spring Boot', 'Firebase', 'Authentication', 'Payments', 'Integrations'] },
-    { name: 'AI layer', items: ['Agents', 'RAG', 'Chatbots', 'On-device AI', 'Evaluation'] },
+    { name: 'SI layer', items: ['Agents', 'RAG', 'Chatbots', 'On-device SI', 'Evaluation'] },
     { name: 'Data and operations', items: ['SQL', 'SQLite', 'AWS', 'Cloudflare', 'Analytics and monitoring'] },
 ];
 
 const pricing = () => `<div class="grid grid--2">
     ${pricingCard({ name: 'Performance Audit', price: '$500', unit: 'to about $5,000', text: 'For an existing web platform: find where it loses revenue or speed, with a prioritised fix list.', items: ['Speed and Core Web Vitals findings', 'Conversion and funnel leak review', 'Scaling risks and opportunities'], cta: btn({ href: '#contact', label: 'Request an audit', variant: 'ghost', loc: 'pricing' }) })}
-    ${pricingCard({ name: 'Product & Platform Build', price: '$5,000', unit: 'to $100,000+', text: 'Mobile, AI, MVP and fintech products designed, built and launched end to end.', items: ['Written scope and quote before work starts', 'Design, engineering, testing and launch', 'Security built in from the start'], cta: btn({ href: '#contact', label: 'Talk to an Engineer', arrow: true, loc: 'pricing' }), featured: true })}
+    ${pricingCard({ name: 'Product & Platform Build', price: '$5,000', unit: 'to $100,000+', text: 'Mobile, SI, MVP and fintech products designed, built and launched end to end.', items: ['Written scope and quote before work starts', 'Design, engineering, testing and launch', 'Security built in from the start'], cta: btn({ href: '#contact', label: 'Talk to an Engineer', arrow: true, loc: 'pricing' }), featured: true })}
 </div><p class="plan__note reveal">Prices are ranges. Your quote follows a 30-minute discovery call.</p>`;
 
 export function home() {
@@ -41,9 +41,9 @@ export function home() {
     <div class="container">
         <div class="hero__top">
         <div class="hero__copy">
-            <p class="eyebrow">Mobile and AI product engineering</p>
-            <h1>Mobile &amp; AI products, built by <em>engineers who ship.</em></h1>
-            <p class="hero__lede">Mobile1X designs, builds and launches Android and iOS apps, AI products and MVPs, from idea to engineering to launch. Our own apps are live on Google Play and the App Store.</p>
+            <p class="eyebrow">Mobile and SI product engineering</p>
+            <h1>Mobile &amp; SI products, built by <em>engineers who ship.</em></h1>
+            <p class="hero__lede">Mobile1X designs, builds and launches Android and iOS apps, SI products and MVPs, from idea to engineering to launch. Our own apps are live on Google Play and the App Store.</p>
             <div class="hero__actions">${CTA_TALK('hero')}${btn({ href: '#portfolio', label: 'See Our Work', variant: 'ghost', loc: 'hero' })}</div>
             <p class="hero__call"><a class="link-call" href="${SITE.phoneHref}" data-loc="hero">${icon('phone')}Call Mobile1X ${SITE.phone}</a><a class="link-call" href="${WHATSAPP_HREF}" target="_blank" rel="noopener noreferrer" data-loc="hero">${icon('whatsapp')}WhatsApp</a></p>
             <ul class="hero__facts"><li>6 shipped products</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
@@ -91,8 +91,8 @@ export function home() {
     return {
         path: '/',
         html: page({
-            title: 'Mobile & AI Product Engineering Studio | Mobile1X',
-            description: 'Mobile1X designs, builds and launches Android and iOS apps, AI products, MVPs and fintech platforms. See our live apps and talk to an engineer.',
+            title: 'Mobile & SI Product Engineering Studio | Mobile1X',
+            description: 'Mobile1X designs, builds and launches Android and iOS apps, SI products, MVPs and fintech platforms. See our live apps and talk to an engineer.',
             path: '/',
             preload: '<link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">',
             scripts: '<script defer src="/assets/js/hero-stage.js"></script>',
@@ -155,8 +155,8 @@ export function blogIndex() {
     return {
         path: '/blog/',
         html: page({
-            title: 'Blog: Mobile App & AI Engineering Guides | Mobile1X', description: 'Practical guides on mobile app cost, choosing a stack, AI development and building MVPs, from Mobile1X founder Rahul Pahuja.', path: '/blog/', schema: [breadcrumbList(trail)],
-            body: `<section class="page-hero" data-loc="hero"><div class="container">${breadcrumbs(trail)}<p class="eyebrow">Blog</p><h1>Engineering guides for mobile and AI products</h1><p class="lede lede--answer">Practical answers on cost, stack decisions and shipping, written by founder Rahul Pahuja.</p></div></section>
+            title: 'Blog: Mobile App & SI Engineering Guides | Mobile1X', description: 'Practical guides on mobile app cost, choosing a stack, SI development and building MVPs, from Mobile1X founder Rahul Pahuja.', path: '/blog/', schema: [breadcrumbList(trail)],
+            body: `<section class="page-hero" data-loc="hero"><div class="container">${breadcrumbs(trail)}<p class="eyebrow">Blog</p><h1>Engineering guides for mobile and SI products</h1><p class="lede lede--answer">Practical answers on cost, stack decisions and shipping, written by founder Rahul Pahuja.</p></div></section>
 ${section({ loc: 'blog', body: `<div class="grid grid--2">${POSTS.map((p) => `<article class="card reveal"><time datetime="${p.date}">${p.date}</time><h2 class="h3"><a class="card__link" href="/blog/${p.slug}/" data-loc="blog">${esc(p.title)}</a></h2><p>${esc(p.description)}</p>${link({ href: `/blog/${p.slug}/`, label: 'Read the guide', loc: 'blog' })}</article>`).join('')}</div>` })}
 ${contactSection({ source: '/blog/' })}`,
         }),

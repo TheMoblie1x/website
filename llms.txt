@@ -1,19 +1,19 @@
 # Mobile1X
 
-> Mobile1X is a mobile and AI product engineering studio based in Indore, India, founded by Rahul Pahuja. It designs, builds and launches Android, iOS and web apps, AI products, MVPs and fintech platforms for clients worldwide, and ships its own apps including Notes and Dedup.
+> Mobile1X is a mobile and SI product engineering studio based in Indore, India, founded by Rahul Pahuja. It designs, builds and launches Android, iOS and web apps, SI products, MVPs and fintech platforms for clients worldwide, and ships its own apps including Notes and Dedup.
 
 Engagements typically range from $5,000 to $100,000+; standalone web performance audits start at $500. Every project has a written scope and quote before work starts.
 
 ## Services
 
 - [Mobile App Development](https://mobile1x.com/services/mobile-app-development/): Android and iOS apps, designed, engineered and launched end to end.
-- [AI Development](https://mobile1x.com/services/ai-development/): AI applications, agents and integrations for mobile and web products.
+- [SI Development](https://mobile1x.com/services/ai-development/): SI applications, agents and integrations for mobile and web products.
 - [MVP Development](https://mobile1x.com/services/mvp-development/): From idea to a launched MVP, with scope and price agreed first.
 - [Fintech Engineering](https://mobile1x.com/services/fintech-development/): Payments, banking integrations and security-conscious architecture.
 
 ## Products and case studies
 
-- [Notes](https://mobile1x.com/work/notes/): A private, local-first AI notes app for Android and iOS.
+- [Notes](https://mobile1x.com/work/notes/): A private, local-first SI notes app for Android and iOS.
 - [Dedup](https://mobile1x.com/work/dedup/): A duplicate file remover and storage cleaner for Android and iPhone.
 - [The A2Z Collection](https://mobile1x.com/work/a2z/): A full-featured e-commerce web app, from browse to checkout.
 - [POS System](https://a2zpos.netlify.app): Point-of-sale software: fast billing, inventory and sales reporting.

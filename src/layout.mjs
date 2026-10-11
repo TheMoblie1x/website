@@ -27,7 +27,7 @@ const footer = () => `<footer class="site-footer" data-loc="footer">
     <div class="container footer__grid">
         <div>
             <a class="brand" href="/"><img src="/assets/logo.svg" alt="" width="32" height="32">Mobile1X</a>
-            <p class="footer__about">Mobile and AI product engineering studio. We design, build and launch apps that ship.</p>
+            <p class="footer__about">Mobile and SI product engineering studio. We design, build and launch apps that ship.</p>
         </div>
         <nav aria-label="Services"><h2 class="footer__h">Services</h2><ul>${SERVICES.map((s) => `<li><a href="/services/${s.slug}/">${esc(s.name)}</a></li>`).join('')}</ul></nav>
         <nav aria-label="Company"><h2 class="footer__h">Company</h2><ul><li><a href="/about/">About</a></li><li><a href="/#portfolio">Work</a></li><li><a href="/blog/">Blog</a></li><li><a href="/#pricing">Pricing</a></li><li><a href="/#faq">FAQ</a></li></ul></nav>

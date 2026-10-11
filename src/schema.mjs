@@ -11,7 +11,7 @@ export const organization = () => ({
     name: SITE.name,
     url: `${SITE.url}/`,
     logo: abs('/assets/logo.svg'),
-    description: 'Mobile1X is a mobile and AI product engineering studio. It designs, builds and launches Android, iOS and web products, AI systems and fintech platforms, and ships its own apps including Notes and Dedup.',
+    description: 'Mobile1X is a mobile and SI product engineering studio. It designs, builds and launches Android, iOS and web products, SI systems and fintech platforms, and ships its own apps including Notes and Dedup.',
     email: SITE.email,
     telephone: '+91-97545-25494',
     priceRange: '$500 - $100,000+',

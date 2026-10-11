@@ -43,7 +43,7 @@ export const PRODUCTS = {
     notes: {
         name: 'Notes',
         tag: 'Android · iOS',
-        summary: 'A private, local-first AI notes app for Android and iOS.',
+        summary: 'A private, local-first SI notes app for Android and iOS.',
         play: 'https://play.google.com/store/apps/details?id=com.rp.notes',
         appStore: 'https://apps.apple.com/us/app/notes-archive-reflect/id6798175378',
         web: '/notes/',
