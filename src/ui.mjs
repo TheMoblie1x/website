@@ -165,7 +165,7 @@ export const heroStage = (products) => `<div class="stage" id="stage" aria-roled
         <span class="badge">${esc(stageBadge(p))}</span>
         <h2 class="info__title">${esc(p.name)}</h2>
         <p class="info__text">${esc(p.summary)}</p>
-        <div class="info__row"><div class="info__meta"><span>Platform</span><strong>${esc(p.tag)}</strong></div>${btn({ href: p.play || p.web, label: p.play ? 'Get it on Google Play' : 'Visit the website', variant: 'light', arrow: true, loc: 'hero' })}</div>
+        <div class="info__row"><div class="info__meta"><span>Platform</span><strong>${esc(p.tag)}</strong></div>${btn({ href: p.play || p.web, label: p.play ? 'Get it on Google Play' : 'Visit the website', variant: 'light', arrow: true, loc: 'hero' })}${p.appStore ? btn({ href: p.appStore, label: 'Download on the App Store', variant: 'light', arrow: true, loc: 'hero' }) : ''}</div>
         ${p.case ? link({ href: p.case, label: 'Read the case study', loc: 'hero' }) : ''}
     </article>`).join('')}</div>
 </div>`;
