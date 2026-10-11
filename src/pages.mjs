@@ -52,9 +52,8 @@ export function home() {
 </section>`;
 
     const proof = section({
-        id: 'portfolio', loc: 'case-study', body: `${sectionHead({ eyebrow: 'Proof', title: 'Products we’ve actually shipped.', lede: 'Real products, live in the stores and on the web. This is our track record, not a mock-up.' })}
-        <div class="products">${['notes', 'dedup', 'a2z'].map((k) => productCard(PRODUCTS[k])).join('')}</div>
-        <div class="products products--compact">${['pos', 'pharma', 'auction'].map((k) => productCard(PRODUCTS[k])).join('')}</div>`,
+        id: 'portfolio', loc: 'case-study', body: `${sectionHead({ eyebrow: 'Proof', title: 'Products we’ve actually shipped.', lede: 'Real products, live on the web. This is our track record, not a mock-up.' })}
+        <div class="products">${['pos', 'pharma', 'auction'].map((k) => productCard(PRODUCTS[k])).join('')}</div>`,
     });
 
     const services = section({
