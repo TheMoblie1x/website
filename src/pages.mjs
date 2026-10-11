@@ -5,7 +5,7 @@ import { SERVICES, PROCESS, PRICING_NOTE, serviceBySlug } from './content/servic
 import { WORK } from './content/work.mjs';
 import { POSTS, postBySlug } from './content/posts.mjs';
 import { breadcrumbList, service as serviceSchema, faqPage, article, softwareApp } from './schema.mjs';
-import { esc, icon, btn, link, section, sectionHead, breadcrumbs, checks, serviceCard, productCard, pricingCard, faq, processSteps, archStack, contactSection, heroStage, metricCard, phone } from './ui.mjs';
+import { esc, icon, btn, link, section, sectionHead, breadcrumbs, checks, serviceCard, productCard, pricingCard, faq, processSteps, archStack, contactSection, heroStage, heroApps, metricCard, phone } from './ui.mjs';
 
 const CTA_TALK = (loc) => btn({ href: '#contact', label: 'Talk to an Engineer', arrow: true, loc });
 const CTA_CALL = (loc) => btn({ href: SITE.phoneHref, label: 'Call Mobile1X', variant: 'ghost', ic: 'phone', loc });
@@ -39,6 +39,7 @@ export function home() {
     const hero = `<section class="hero" data-loc="hero">
     <div class="hero__light" aria-hidden="true"><i class="hero__glow"></i><i class="hero__motes"></i><i class="hero__motes hero__motes--far"></i></div>
     <div class="container">
+        <div class="hero__top">
         <div class="hero__copy">
             <p class="eyebrow">Mobile and AI product engineering</p>
             <h1>Mobile &amp; AI products, built by <em>engineers who ship.</em></h1>
@@ -46,6 +47,8 @@ export function home() {
             <div class="hero__actions">${CTA_TALK('hero')}${btn({ href: '#portfolio', label: 'See Our Work', variant: 'ghost', loc: 'hero' })}</div>
             <p class="hero__call"><a class="link-call" href="${SITE.phoneHref}" data-loc="hero">${icon('phone')}Call Mobile1X ${SITE.phone}</a><a class="link-call" href="${WHATSAPP_HREF}" target="_blank" rel="noopener noreferrer" data-loc="hero">${icon('whatsapp')}WhatsApp</a></p>
             <ul class="hero__facts"><li>6 shipped products</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
+        </div>
+        ${heroApps(['notes', 'dedup'].map((k) => PRODUCTS[k]))}
         </div>
     ${heroStage(['notes', 'dedup', 'a2z'].map((k) => PRODUCTS[k]))}
 </div>

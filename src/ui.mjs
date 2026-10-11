@@ -140,6 +140,9 @@ export const contactSection = ({ source, title = 'Have a product to build?', led
         id: 'contact', loc: 'contact', cls: 'section--contact', body: `<div class="contact"><div class="reveal"><p class="eyebrow">Talk to an engineer</p><h2 class="h2">${esc(title)}</h2><p class="lede">${esc(lede)}</p>${contactChannels()}</div>${leadForm({ source, ...form })}</div>`,
     });
 
+/** Hero side panel: the apps live in the stores, each with its store links. */
+export const heroApps = (products) => `<aside class="hero__apps" aria-label="Our apps in the stores"><p class="hero__apps-title">Live in the stores</p><ul>${products.map((p) => `<li class="app-row"><img src="${p.icon}" alt="" width="56" height="56" decoding="async"><div><strong>${esc(p.name)}</strong><span>${esc(p.summary)}</span><div class="app-row__links">${link({ href: p.play, label: 'Google Play', loc: 'hero' })}${link({ href: p.appStore, label: 'App Store', loc: 'hero' })}</div></div></li>`).join('')}</ul></aside>`;
+
 /** Hero showcase: a 3D product stage (rail, preview, rotating device, info panel). Slide 0 is the no-JS state; hero-stage.js animates it. */
 const SLICES = 9;
 const stageBadge = (p) => (p.play && p.appStore ? 'Live on Google Play & App Store' : p.play ? 'Live on Google Play' : 'Live on the web');
