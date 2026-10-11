@@ -69,6 +69,20 @@ const SEARCH_AND_AI = [
     p('Pages that are not meant to appear in search, such as the free-assessment landing pages, are marked noindex. We use Google Search Console to see how the site performs in search; it reports aggregated queries, impressions and clicks and does not tell us who searched.'),
 ];
 
+/** BhashaSetu (/english/) is a separate web app with its own sign-in and database. Each line traces to english/assets/index-*.js. */
+const BHASHASETU = [
+    p('BhashaSetu, our spoken-English practice app at <a href="/english/">mobile1x.com/english/</a>, works differently from the rest of this site. The analytics described above do not run inside it.'),
+    ul([
+        'Profile: a learner profile holds a display name, a picture if your sign-in provider supplies one, your points (XP), league, daily streak and the date you were last active. If you sign in with an account, the name, email address and picture come from your sign-in provider.',
+        'Rounds and contests: when you answer a practice or contest round, your answer and measurements of how you spoke are sent to our server, which scores it and returns feedback and a corrected answer. For contest rounds we store the round number, score, points and the time you submitted.',
+        'Weekly Arena: league rankings are shown to other learners, so your display name and points can be visible to them.',
+        'Microphone: BhashaSetu asks for microphone access in your browser to hear you speak. Speech recognition is provided by your browser (for example Chrome or Edge) and is covered by your browser provider’s privacy policy.',
+        'On your device: your sign-in session and your sound on or off choice are kept in your browser’s local storage.',
+        'Storage: BhashaSetu uses Supabase for sign-in and to store this data.',
+    ]),
+    p('You can ask us to delete your BhashaSetu profile in the same way as described under Your choices.'),
+];
+
 /** Google's own Tag Manager terms, reproduced as Google publishes them; "we" in the last block is Google. */
 const GTM_TERMS = [
     p(`By clicking “Yes” below or by using the Google Tag Manager service (the “Service”), you and the legal entity on whose behalf you are using the Service (if any) (together, “You”) agree to use the Service in accordance with the Google Terms of Service (located at ${ext('https://www.google.com/intl/en/policies/terms/')}), the Google Privacy Policy (located at ${ext('https://www.google.com/intl/en/policies/privacy/')}), and the Google Tag Manager Use Policy (located at ${ext('https://www.google.com/analytics/tag-manager/use-policy/')}), each as may be modified from time to time and collectively, the “Google Tag Manager Terms of Service.”`),
@@ -87,14 +101,15 @@ const GTM_TERMS = [
     p('Google Tag Manager terms last updated: July 24, 2018.'),
 ];
 
-export const privacy = () => legal('/privacy/', 'Privacy Policy | Mobile1X', 'How Mobile1X collects, uses and protects information on mobile1x.com: inquiries, consent-based analytics, Clarity, Tag Manager and search crawlers.', 'Privacy Policy', 'How Mobile1X handles information on mobile1x.com.', [
+export const privacy = () => legal('/privacy/', 'Privacy Policy | Mobile1X', 'How Mobile1X collects, uses and protects information on mobile1x.com: inquiries, consent-based analytics, Clarity, Tag Manager and the BhashaSetu app.', 'Privacy Policy', 'How Mobile1X handles information on mobile1x.com, including the BhashaSetu app.', [
     ['Who we are', `Mobile1X (“we”) operates mobile1x.com. Contact us about privacy at <a href="mailto:${SITE.email}">${SITE.email}</a>.`],
     ['Information you give us', 'When you send an inquiry through our form we receive the details you enter: your name, email address, optional phone number, project type and project description. If you contact us by email, phone or WhatsApp, we receive the information you share in that conversation. If you book a call, the booking is handled by Calendly under its own privacy policy.'],
     ['How we use it', 'We use inquiry details to reply to you, scope and quote projects and manage the resulting relationship. We do not sell your information.'],
     ['Analytics and cookies', ANALYTICS],
     ['Search engines and AI assistants', SEARCH_AND_AI],
+    ['BhashaSetu (spoken-English app)', BHASHASETU],
     ['Google Tag Manager', GTM_TERMS],
-    ['Service providers', 'We use Netlify to host this site, Google for the inquiry form (Google Forms), analytics (only with your consent) and fonts, Microsoft for Clarity session analytics (only with your consent), and Calendly for bookings. These providers process data on our behalf under their own terms.'],
+    ['Service providers', 'We use Netlify to host this site, Google for the inquiry form (Google Forms), analytics (only with your consent) and fonts, Microsoft for Clarity session analytics (only with your consent), Supabase for BhashaSetu sign-in and data storage, and Calendly for bookings. These providers process data on our behalf under their own terms.'],
     ['Retention', 'We keep inquiry details for as long as needed to respond and manage the relationship, and for legitimate business records afterwards.'],
     ['Your choices', `You can ask us to access, correct or delete the personal information we hold about you by emailing <a href="mailto:${SITE.email}">${SITE.email}</a>.`],
     ['Changes', 'We may update this policy. The date above shows the latest version.'],
