@@ -53,9 +53,10 @@ export const PRODUCTS = {
     },
     dedup: {
         name: 'Dedup',
-        tag: 'Android · iOS coming soon',
-        summary: 'A duplicate file remover and storage cleaner for Android.',
+        tag: 'Android · iOS',
+        summary: 'A duplicate file remover and storage cleaner for Android and iPhone.',
         play: 'https://play.google.com/store/apps/details?id=com.rp.dedup',
+        appStore: 'https://apps.apple.com/us/app/dedup-ai-photo-cleaner/id6814824281',
         web: 'https://www.dedup.space',
         icon: '/assets/apps/dedup/icon.webp',
         shots: ['/assets/apps/dedup/shot1.webp', '/assets/apps/dedup/shot2.webp', '/assets/apps/dedup/shot3.webp'],

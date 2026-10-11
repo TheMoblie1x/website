@@ -54,7 +54,7 @@ export const SERVICES = [
             { q: 'How much does mobile app development cost?', a: 'Builds with Mobile1X typically range from $5,000 to $100,000+. The main cost drivers are the number of platforms, the number and complexity of features, backend and integration work, and whether the app includes AI or payments. You receive a written scope and quote after a 30-minute discovery call.' },
             { q: 'Should I build native, Flutter or React Native?', a: 'Choose native when you need the deepest platform capability or top performance on one platform. Choose Flutter or React Native when one codebase for Android and iOS matters more. We recommend one after understanding your product, and explain why.' },
             { q: 'Can you take over or modernize an existing app?', a: 'Yes. We begin with a review of the codebase, architecture and store listing, then agree what to fix, refactor or rebuild before quoting the work.' },
-            { q: 'Do you publish apps to Google Play and the App Store?', a: 'Yes. Notes is live on Google Play and the App Store and Dedup is live on Google Play, so store submission and review are part of our normal delivery.' },
+            { q: 'Do you publish apps to Google Play and the App Store?', a: 'Yes. Notes and Dedup are both live on Google Play and the App Store, so store submission and review are part of our normal delivery.' },
         ],
         posts: ['native-vs-flutter-vs-react-native', 'how-much-does-it-cost-to-build-a-mobile-app'],
     },

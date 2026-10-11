@@ -78,7 +78,7 @@ export function home() {
     const trust = section({
         loc: 'trust', body: `${sectionHead({ eyebrow: 'Why Mobile1X', title: 'Evidence, not adjectives.' })}
         <div class="grid grid--3">
-            <article class="card reveal"><h3>We ship our own products</h3><p>Notes and Dedup are live on Google Play; Notes is also on the App Store. Every claim on this site points to something you can open.</p></article>
+            <article class="card reveal"><h3>We ship our own products</h3><p>Notes and Dedup are live on Google Play and the App Store. Every claim on this site points to something you can open.</p></article>
             <article class="card reveal"><h3>Founder-led engineering</h3><p>Mobile1X is founded and led by ${FOUNDER.name}, a software engineer in ${SITE.city} with ${FOUNDER.years} years of experience. You talk to the engineer who builds your product.</p></article>
             <article class="card reveal"><h3>Prices and scope up front</h3><p>Published ranges, a written scope and a quote before work starts. Read more <a href="/about/">about Mobile1X</a>.</p></article>
         </div>`,
@@ -94,7 +94,7 @@ export function home() {
             path: '/',
             preload: '<link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">',
             scripts: '<script defer src="/assets/js/hero-stage.js"></script>',
-            schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: k === 'notes' ? 'Android, iOS' : 'Android', description: PRODUCTS[k].summary }))],
+            schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: 'Android, iOS', description: PRODUCTS[k].summary }))],
             body: [hero, proof, services, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
         }),
     };

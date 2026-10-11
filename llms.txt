@@ -14,7 +14,7 @@ Engagements typically range from $5,000 to $100,000+; standalone web performance
 ## Products and case studies
 
 - [Notes](https://mobile1x.com/work/notes/): A private, local-first AI notes app for Android and iOS.
-- [Dedup](https://mobile1x.com/work/dedup/): A duplicate file remover and storage cleaner for Android.
+- [Dedup](https://mobile1x.com/work/dedup/): A duplicate file remover and storage cleaner for Android and iPhone.
 - [The A2Z Collection](https://mobile1x.com/work/a2z/): A full-featured e-commerce web app, from browse to checkout.
 - [POS System](https://a2zpos.netlify.app): Point-of-sale software: fast billing, inventory and sales reporting.
 - [B2B Pharma Platform](https://mobile1x.com/pharma/): Connects pharmaceutical suppliers and buyers: catalogue, pricing, ordering.
