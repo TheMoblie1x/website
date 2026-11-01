@@ -174,10 +174,10 @@ const SEGMENTS = [
 ];
 const FAQ = [
   ['Who is it for?', 'Hiring teams, recruitment agencies and training providers who need to test people on specific skills.'],
-  ['When can I start?', "We're inviting companies in small groups. We'll email you when it's your turn."],
-  ['How much will it cost?', "Pricing isn't final yet. People on the waitlist hear first."],
+  ['When can I start?', WAITLIST_OPEN ? "We're inviting companies in small groups. We'll email you when it's your turn." : "We're getting ready to open to small groups first. The waitlist opens soon."],
+  ['How much will it cost?', WAITLIST_OPEN ? "Pricing isn't final yet. People on the waitlist hear first." : "Pricing isn't final yet. We'll share it when the waitlist opens."],
   ["Will candidates see my company's branding?", "Yes. The candidate screens use your company's name and logo."],
-  ['What happens after I join?', 'We hold your place and email you when early access opens. Nothing else.'],
+  ['What happens after I join?', WAITLIST_OPEN ? 'We hold your place and email you when early access opens. Nothing else.' : "The waitlist isn't open yet. When it opens, we'll use your email only to tell you about early access."],
 ];
 const MARK_COLOURS: [string, string][] = [
   ['var(--color-ink)', 'var(--color-brand-100)'], ['var(--color-cta)', 'var(--color-ink)'], ['var(--color-brand-300)', 'var(--color-ink)'],
@@ -245,8 +245,8 @@ export const LandingPage: React.FC<{ onSignIn: () => void; onPrivacy: () => void
           <div className="right">
             {[
               ['#ffffff', 'Opening to small groups first'],
-              ['var(--color-brand-200)', 'Joining is free'],
-              ['var(--color-brand-400)', "We email when it's your turn"],
+              ['var(--color-brand-200)', WAITLIST_OPEN ? 'Joining is free' : 'Waitlist opens soon'],
+              ['var(--color-brand-400)', WAITLIST_OPEN ? "We email when it's your turn" : 'Early access is coming'],
               ['var(--color-brand-700)', 'Built for hiring teams'],
             ].map(([bg, t], i) => (
               <p key={t} className="tile fact t-body" style={{ background: bg, color: i === 3 ? '#fff' : 'var(--color-ink)' }}>{t}</p>
@@ -351,7 +351,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void; onPrivacy: () => void
             <h2 id="cta-h" className="t-statement">Be among the first</h2>
             <p className="t-body">{WAITLIST_OPEN ? "Leave your email. We'll let you know when there's room for your team." : 'The waitlist opens soon. Check back to leave your email.'}</p>
             <WaitlistForm idPrefix="cta" variant="nested" />
-            <p className="t-small">We use your email only to contact you about TakeMyTest early access. <button type="button" onClick={onPrivacy} style={{ all: 'unset', cursor: 'pointer', textDecoration: 'underline' }}>Privacy</button></p>
+            <p className="t-small">{WAITLIST_OPEN && 'We use your email only to contact you about TakeMyTest early access. '}<button type="button" onClick={onPrivacy} style={{ all: 'unset', cursor: 'pointer', textDecoration: 'underline' }}>Privacy</button></p>
           </div>
           <div className="side-r"><div style={{ position: 'absolute', right: -50, top: 28, fontSize: 'clamp(14px, 1.5vw, 22px)' }}><PaletteFragment count={20} /></div></div>
         </section>
@@ -372,7 +372,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void; onPrivacy: () => void
           </ul>
           <ul>
             <li><a href="#questions">Common questions</a></li>
-            <li><a href="#waitlist">Join the waitlist</a></li>
+            <li><a href="#waitlist">{WAITLIST_OPEN ? 'Join the waitlist' : 'Waitlist (coming soon)'}</a></li>
           </ul>
           <ul>
             <li><button type="button" onClick={onSignIn}>Sign in</button></li>
