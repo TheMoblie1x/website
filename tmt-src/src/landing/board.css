@@ -67,7 +67,8 @@
 .wl-button { background: var(--navy); color: #fff; border: 0; border-radius: var(--r); min-height: 48px; padding: 0 20px; font-weight: 700; font-family: inherit; cursor: pointer; transition: transform 0.2s var(--ease), background 0.2s var(--ease); }
 .wl-button:hover { background: var(--navy-2); }
 .wl-button:active { transform: scale(0.97); }
-.wl-button:disabled { opacity: 0.6; cursor: wait; }
+.wl-button:disabled { opacity: 0.6; cursor: not-allowed; }
+.wl-input:disabled { cursor: not-allowed; }
 .wl-stack .wl-row { display: flex; flex-direction: column; gap: 8px; }
 .wl-nested .wl-row { position: relative; }
 .wl-nested .wl-input { padding-right: 190px; }

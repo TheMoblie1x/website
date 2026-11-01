@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { joinWaitlist } from '../firebase/waitlist';
 import { LIMITS, validateWaitlist } from './waitlistLogic';
 
+/** Set to true to accept sign-ups again. While false the form is shown disabled with "Coming soon". */
+export const WAITLIST_OPEN = false;
+
 type Phase = 'idle' | 'submitting' | 'joined' | 'duplicate';
 
 /**
@@ -18,7 +21,7 @@ export const WaitlistForm: React.FC<{ idPrefix: string; variant: 'stack' | 'nest
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (phase === 'submitting') return;
+    if (!WAITLIST_OPEN || phase === 'submitting') return;
     setError('');
     const v = validateWaitlist({ email });
     if (!v.ok) {
@@ -64,14 +67,15 @@ export const WaitlistForm: React.FC<{ idPrefix: string; variant: 'stack' | 'nest
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@company.com"
+          placeholder={WAITLIST_OPEN ? 'you@company.com' : 'Opens soon'}
+          disabled={!WAITLIST_OPEN}
           maxLength={LIMITS.email}
           aria-invalid={!!error}
           aria-describedby={error ? `${id}-err` : undefined}
           className="wl-input t-body"
         />
-        <button type="submit" disabled={busy} className="wl-button t-body">
-          {busy ? 'Joining…' : 'Join the waitlist'}
+        <button type="submit" disabled={busy || !WAITLIST_OPEN} className="wl-button t-body">
+          {!WAITLIST_OPEN ? 'Coming soon' : busy ? 'Joining…' : 'Join the waitlist'}
         </button>
       </div>
       <div aria-hidden="true" className="wl-trap">

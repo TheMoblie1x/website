@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SettingSwitch } from '../components/SettingSwitch';
-import { WaitlistForm } from './WaitlistForm';
+import { WaitlistForm, WAITLIST_OPEN } from './WaitlistForm';
 import './board.css';
 
 /*
@@ -349,7 +349,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void; onPrivacy: () => void
           <div className="main tile on-pink rv">
             <p className="t-small" style={{ alignSelf: 'flex-start', background: 'var(--navy)', color: 'var(--ground)', padding: '4px 12px', borderRadius: 'var(--r)', fontWeight: 700 }}>Coming soon</p>
             <h2 id="cta-h" className="t-statement">Be among the first</h2>
-            <p className="t-body">Leave your email. We&apos;ll let you know when there&apos;s room for your team.</p>
+            <p className="t-body">{WAITLIST_OPEN ? "Leave your email. We'll let you know when there's room for your team." : 'The waitlist opens soon. Check back to leave your email.'}</p>
             <WaitlistForm idPrefix="cta" variant="nested" />
             <p className="t-small">We use your email only to contact you about TakeMyTest early access. <button type="button" onClick={onPrivacy} style={{ all: 'unset', cursor: 'pointer', textDecoration: 'underline' }}>Privacy</button></p>
           </div>
