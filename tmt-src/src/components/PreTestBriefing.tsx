@@ -279,7 +279,7 @@ export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
                 className={`px-4 py-2.5 rounded-xl font-bold text-xs shadow-xs transition flex items-center gap-2 shrink-0 cursor-pointer ${
                   roomSweep?.isVerified
                     ? 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-300'
-                    : 'bg-accent hover:bg-accent-hover text-white'
+                    : 'bg-cta hover:bg-cta-hover active:bg-cta-press text-ink'
                 }`}
               >
                 <Camera className="w-4 h-4" />

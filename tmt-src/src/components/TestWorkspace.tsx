@@ -816,7 +816,7 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
               className={`flex items-center gap-2 px-4 py-2.5 border rounded-xl text-xs font-bold transition cursor-pointer ${
                 currentStatus === 'MARKED_FOR_REVIEW' ||
                 currentStatus === 'ANSWERED_AND_MARKED_FOR_REVIEW'
-                  ? 'bg-ink border-ink text-white'
+                  ? 'bg-cta border-cta text-ink'
                   : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
               }`}
             >
@@ -890,10 +890,10 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
                 if (st === 'ANSWERED') {
                   style = 'bg-emerald-600 text-white border-emerald-600 font-extrabold';
                 } else if (st === 'MARKED_FOR_REVIEW') {
-                  style = 'bg-ink text-white border-ink font-extrabold';
+                  style = 'bg-cta text-ink border-cta font-extrabold';
                 } else if (st === 'ANSWERED_AND_MARKED_FOR_REVIEW') {
                   style =
-                    'bg-[repeating-linear-gradient(45deg,#1558d6,#1558d6_4px,#0b1220_4px,#0b1220_8px)] text-white border-ink font-extrabold';
+                    'bg-brand-600 text-white border-2 border-cta font-extrabold';
                 } else if (st === 'UNANSWERED') {
                   style = 'bg-white text-slate-700 border-slate-400 border-dashed font-extrabold';
                 }
@@ -922,11 +922,11 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
               <span>Answered</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-3.5 h-3.5 rounded bg-ink shrink-0" />
+              <span className="w-3.5 h-3.5 rounded bg-cta shrink-0" />
               <span>Marked for Review</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-3.5 h-3.5 rounded bg-[repeating-linear-gradient(45deg,#1558d6,#1558d6_2px,#0b1220_2px,#0b1220_4px)] shrink-0" />
+              <span className="w-3.5 h-3.5 rounded bg-brand-600 border-2 border-cta shrink-0" />
               <span>Answered & Marked</span>
             </div>
             <div className="flex items-center gap-2">

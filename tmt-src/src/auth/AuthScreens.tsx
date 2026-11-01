@@ -95,7 +95,7 @@ export const NoAccessScreen: React.FC = () => {
         <button
           type="button"
           onClick={recheck}
-          className="flex-1 px-4 py-2.5 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-lg transition-colors cursor-pointer"
+          className="flex-1 px-4 py-2.5 bg-cta hover:bg-cta-hover active:bg-cta-press text-ink font-semibold text-sm rounded-lg transition-colors cursor-pointer"
         >
           Try again
         </button>

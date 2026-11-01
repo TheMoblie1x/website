@@ -33,6 +33,12 @@ export default function App() {
 /** What signed-out visitors see: the public landing page, or the staff sign-in screen. */
 function PublicSite() {
   const [showSignIn, setShowSignIn] = useState(() => window.location.hash === '#sign-in');
+  // Follow the address bar if someone opens or edits the #sign-in link while the page is already open.
+  useEffect(() => {
+    const onHash = () => setShowSignIn(window.location.hash === '#sign-in');
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
   const go = (signIn: boolean) => {
     setShowSignIn(signIn);
     window.history.replaceState(null, '', window.location.pathname + window.location.search + (signIn ? '#sign-in' : ''));

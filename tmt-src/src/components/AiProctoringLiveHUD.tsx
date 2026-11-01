@@ -151,7 +151,7 @@ export const AiProctoringLiveHUD: React.FC<AiProctoringLiveHUDProps> = ({
       // Draw AI Face Reticle Bounding Box
       const boxColor =
         telemetry.faceCount === 1 && telemetry.gazeDirection === 'CENTER'
-          ? '#5b96f5' // Green
+          ? '#5aa9d8' // Green
           : telemetry.faceCount === 0 || telemetry.faceCount > 1 || telemetry.mobileDetected
           ? '#ef4444' // Red
           : '#cbd5e1'; // Amber

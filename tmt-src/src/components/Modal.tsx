@@ -82,6 +82,6 @@ export const Field: React.FC<{
 export const inputClass =
   'w-full px-3.5 py-2.5 text-sm bg-white border border-slate-300 rounded-lg text-ink placeholder:text-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20';
 export const primaryBtn =
-  'px-4 py-2.5 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
+  'px-4 py-2.5 bg-cta hover:bg-cta-hover active:bg-cta-press text-ink font-semibold text-sm rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
 export const secondaryBtn =
   'px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-semibold text-sm rounded-lg transition-colors cursor-pointer';

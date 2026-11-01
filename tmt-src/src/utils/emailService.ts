@@ -73,7 +73,7 @@ export const sendSubmissionSummaryEmail = (
 
   const verdictColor =
     verdict === 'PASSED'
-      ? '#1558d6'
+      ? '#1a5c9a'
       : verdict === 'TERMINATED_MALPRACTICE'
       ? '#dc2626'
       : '#475569';
@@ -139,7 +139,7 @@ export const sendSubmissionSummaryEmail = (
           ${
             attempt.roomSweep
               ? `
-            <div style="background: #eff5ff; border: 1px solid #bfd6fd; border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 12px; color: #12398a;">
+            <div style="background: #eef9fe; border: 1px solid #bce4f7; border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 12px; color: #0a3668;">
               <strong>✓ 360° AI Room Sweep Certified:</strong> ${attempt.roomSweep.integrityScore}% Integrity Score recorded across all 5 cardinal angles.
             </div>
           `

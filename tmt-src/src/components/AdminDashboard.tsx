@@ -418,7 +418,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </button>
                 <button
                   onClick={() => setIsCreateOpen(true)}
-                  className="px-4 py-2 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer"
+                  className="px-4 py-2 bg-cta hover:bg-cta-hover active:bg-cta-press text-ink font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   <span>New assessment</span>
@@ -962,7 +962,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <button
                 onClick={() => setQuestionModal({ sectionId: activeTest.sections[0]?.id || "" })}
                 disabled={!activeTest.sections.length}
-                className="px-4 py-2 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                className="px-4 py-2 bg-cta hover:bg-cta-hover active:bg-cta-press text-ink font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add question</span>

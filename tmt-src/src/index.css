@@ -3,40 +3,57 @@
 /*
   TakeMyTest brand template  (see ../BRAND.md)
   ---------------------------------------------------------------------------
-  Scheme : trust blue + ink black on neutral slate. Nothing else.
-  Red    : the only extra colour, reserved for errors, violations, destructive actions.
-  Meaning: never by colour alone; pair with an icon or text.
+  Three brand colours, from the brand palette:
+    Navy Blue     #072D59   structure: text, dark surfaces, logo, "on" states
+    Seal Blue     #DBF2FC   backgrounds, tints, selected states
+    Crimson Pink  #FD6E88   the call to action and highlights (text on it is NAVY, never white)
+  Red is the only extra colour, reserved for errors, violations and destructive actions.
+  Meaning is never carried by colour alone: pair it with an icon, label, shape or pattern.
 */
 @theme {
   --font-sans: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* Trust blue ramp (600 is the primary; 600 on white = 6.0:1 contrast) */
-  --color-brand-50: #eff5ff;
-  --color-brand-100: #dbe8fe;
-  --color-brand-200: #bfd6fd;
-  --color-brand-300: #93bbfb;
-  --color-brand-400: #5b96f5;
-  --color-brand-500: #2f73ea;
-  --color-brand-600: #1558d6;
-  --color-brand-700: #1145ae;
-  --color-brand-800: #12398a;
-  --color-brand-900: #12306e;
-  --color-brand-950: #0a1b40;
+  /* Blue ramp: 100 = Seal Blue and 900 = Navy Blue are the brand colours; the rest are tints/shades between them. */
+  --color-brand-50: #eef9fe;
+  --color-brand-100: #dbf2fc;
+  --color-brand-200: #bce4f7;
+  --color-brand-300: #8dcbec;
+  --color-brand-400: #5aa9d8;
+  --color-brand-500: #2f82bd;
+  --color-brand-600: #1a5c9a;
+  --color-brand-700: #0f4580;
+  --color-brand-800: #0a3668;
+  --color-brand-900: #072d59;
+  --color-brand-950: #041d3a;
 
-  /* Ink black (headings, primary text, dark surfaces) */
-  --color-ink: #0b1220;
+  /* Navy: headings, body text, dark surfaces */
+  --color-ink: #072d59;
 
-  /* Semantic roles used by components */
-  --color-accent: var(--color-brand-600);
+  /* Crimson Pink: the call to action. Always use navy text on it (white on pink fails contrast at 2.7:1). */
+  --color-cta: #fd6e88;
+  --color-cta-hover: #fe8fa4; /* lighter on hover so navy text keeps 6.3:1 */
+  --color-cta-press: #feb1c0;
+  --color-cta-soft: #ffe6ec;
+  --color-cta-line: #feccd6;
+  --color-cta-text: #c73a56; /* pink for text/icons on light backgrounds (5.0:1 on white) */
+
+  /* Roles used by components */
+  --color-accent: var(--color-brand-900); /* primary UI state: links, switches, selected tab text, focus ring */
   --color-accent-hover: var(--color-brand-700);
-  --color-accent-soft: var(--color-brand-50);
+  --color-accent-soft: var(--color-brand-100); /* selected backgrounds */
   --color-accent-line: var(--color-brand-200);
 
+  /* Neutrals lightly tinted toward Seal Blue so surfaces and borders feel part of the brand. */
+  --color-slate-50: #f5fafd;
+  --color-slate-100: #eaf3f9;
+  --color-slate-200: #d6e5ef;
+  --color-slate-300: #b9cfdf;
+
   /*
-    Palette lock: any Tailwind family outside blue/black/slate/red is mapped onto
-    the brand, so no screen can introduce a stray colour.
-      blue, emerald, purple, indigo, violet, sky, teal, cyan -> brand blue
-      amber, orange, yellow                                  -> neutral slate
+    Palette lock: any Tailwind family outside blue/slate/red is mapped onto the brand, so no screen
+    can introduce a stray colour.
+      blue, emerald, purple -> brand blue ramp
+      amber                 -> neutral slate
   */
   --color-blue-50: var(--color-brand-50);
   --color-blue-100: var(--color-brand-100);

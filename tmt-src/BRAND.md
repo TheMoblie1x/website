@@ -1,51 +1,62 @@
 # TakeMyTest brand template
 
-**Idea:** the colour of trust. Blue and black, nothing else. The product handles people's
-careers and exam integrity, so it should feel calm, exact and credible, never playful.
+Three brand colours, plus neutrals. Tokens live in `src/index.css`.
 
-## Colour
-
-| Role | Token | Hex | Use |
+| Colour | Hex | Token | Role |
 |---|---|---|---|
-| Ink (black) | `ink` | `#0B1220` | Headings, body text, dark bars, logo mark |
-| Trust blue (primary) | `brand-600` / `accent` | `#1558D6` | Primary buttons, links, selected tabs, switches, charts |
-| Blue hover | `brand-700` / `accent-hover` | `#1145AE` | Hover and pressed states |
-| Blue tint | `brand-50` / `accent-soft` | `#EFF5FF` | Selected backgrounds, soft panels |
-| Blue line | `brand-200` / `accent-line` | `#BFD6FD` | Borders on tinted panels |
-| Dark blue | `brand-800` | `#12398A` | Text on tints, deep accents |
-| Neutrals | `slate-50 … slate-900` | Tailwind slate | Surfaces, borders, secondary text |
-| Alert (only exception) | `red-600` | Tailwind red | Errors, rule violations, destructive actions |
+| **Navy Blue** | `#072D59` | `ink`, `accent`, `brand-900` | Headings and body text, dark surfaces, logo, switches that are on, focus ring |
+| **Seal Blue** | `#DBF2FC` | `accent-soft`, `brand-100` | Backgrounds, tints, selected tab, icon tiles, hero gradient |
+| **Crimson Pink** | `#FD6E88` | `cta` | The call to action and highlights |
 
-Contrast: ink on white is 18:1; brand-600 on white is 6.0:1 (AA for body text).
+Supporting shades (derived, not new hues): the blue ramp `brand-50 … brand-950` runs from Seal Blue to Navy;
+`cta-hover #FE8FA4`, `cta-press #FEB1C0`, `cta-soft #FFE6EC`, `cta-line #FECCD6`, and `cta-text #C73A56`
+(pink for text/icons on light backgrounds). Neutrals are Tailwind slate, with `slate-50…300` tinted toward Seal Blue.
 
-### Rules
-1. One primary action per screen, in `bg-accent`. Secondary actions are white with a slate border.
-2. Colour never carries meaning alone. Pair it with an icon, label, shape or pattern.
-3. Red is for things that are wrong or dangerous. It is not decoration and not "unanswered".
-4. No other hues. `index.css` remaps Tailwind's emerald/purple families to the brand blue and
-   amber to slate, so a stray `emerald-600` still renders on-brand. Prefer the `accent` and
-   `brand-*` tokens in new code.
+**Red** (Tailwind red) is the only extra colour: errors, rule violations, destructive actions. Never decoration.
 
-### Status encoding (question matrix, charts)
+## The one rule that matters: text on pink is navy, never white
+| Pairing | Contrast | Use |
+|---|---|---|
+| Navy on white | 13.7:1 | Body text, headings |
+| Navy on Seal Blue | 11.9:1 | Selected tab, tinted panels |
+| **Navy on Pink** | **5.1:1** | **Call-to-action buttons** |
+| Navy on Pink (hover, lighter) | 6.3:1 | Hover state |
+| **White on Pink** | **2.7:1, fails** | **Never** |
+| Pink on Navy | 5.1:1 | Logo word, accents on dark bands |
+| Crimson `#C73A56` on white | 5.0:1 | "MyTest" wordmark, check icons on light |
+| White on `brand-600` | 6.9:1 | Answered cell, avatar |
+| Pink `#FD6E88` icon on white | 2.7:1, fails 3:1 | Use `cta-text` instead |
+
+## Using the colours
+1. **One primary action per screen**, pink with navy text: `bg-cta hover:bg-cta-hover active:bg-cta-press text-ink`.
+   Secondary actions are white with a slate border. A dark alternative is `bg-ink text-white`.
+2. Structure and state are navy: headings, switches that are on (`bg-accent`), links (`text-accent`), focus ring.
+3. Backgrounds use Seal Blue tints (`bg-accent-soft`, `slate-50`, hero gradient). Cards stay white.
+4. Colour never carries meaning alone. Pair it with an icon, label, shape or border pattern.
+5. `index.css` maps Tailwind's emerald and purple onto the blue ramp and amber onto slate, so a stray
+   old class still renders on-brand. Prefer `accent`, `cta` and `brand-*` in new code.
+
+### Status encoding (question grid, charts)
 | State | Treatment |
 |---|---|
-| Answered | Solid blue |
-| Marked for review | Solid ink (black) |
-| Answered and marked | Blue/ink diagonal stripes |
+| Answered | Solid blue (`brand-600`) |
+| Marked for review | Solid pink |
+| Answered and marked | Blue with a pink border |
 | Visited, unanswered | White, dashed slate border |
 | Not visited | Light slate |
 | Pass / Fail / Malpractice (charts) | Blue / slate / red |
 
 ## Type
-Plus Jakarta Sans (fallback Inter, then system). Body 14-16px, line-height 1.5.
-Headings semibold/bold with slightly tight tracking. Numbers in timers and tables use
-`tabular-nums`.
+Plus Jakarta Sans (fallback Inter, then system). Body 14-16px, line-height 1.5. Headings semibold/bold with
+slightly tight tracking. Numbers in timers and tables use `tabular-nums`.
 
 ## Logo
-Ink rounded square with a blue check, then the wordmark **Take**`MyTest` (ink + blue).
-Component: `src/components/BrandMark.tsx`. On dark surfaces pass `onDark`.
+Navy rounded square with a pink check, then the wordmark **Take**`MyTest` (navy + crimson).
+On dark surfaces: Seal Blue square, navy check, white + pink wordmark. Component: `src/components/BrandMark.tsx`
+(pass `onDark`).
 
 ## Tenant (white-label) colours
-Companies can set their own colours for the candidate-facing experience (Branding tab).
-That is customer content and is exempt from this palette. The platform's own screens
-(admin, login, emails sent by the platform) always use the colours above.
+Each company sets its own colours for the candidate-facing screens (Branding tab). That is customer content and is
+exempt from this palette. The platform's own screens (landing, sign-in, console, emails sent by the platform)
+always use the colours above. Default company colours are Navy `#072D59` with Pink `#FD6E88` as secondary.
+Companies that already saved colours in a browser keep their saved values until reset.

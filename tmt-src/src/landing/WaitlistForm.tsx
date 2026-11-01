@@ -167,7 +167,7 @@ export const WaitlistForm: React.FC<{ idPrefix: string; compact?: boolean }> = (
       <button
         type="submit"
         disabled={busy}
-        className="w-full px-5 py-3 bg-accent hover:bg-accent-hover text-white text-[15px] font-semibold rounded-lg transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+        className="w-full px-5 py-3 bg-cta hover:bg-cta-hover active:bg-cta-press text-ink text-[15px] font-semibold rounded-lg transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-wait"
       >
         {busy ? 'Joining…' : 'Join the waitlist'}
       </button>

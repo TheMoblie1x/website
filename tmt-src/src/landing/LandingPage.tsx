@@ -112,7 +112,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void }> = ({ onSignIn }) =>
           </button>
           <a
             href="#waitlist"
-            className="px-4 min-h-11 inline-flex items-center bg-ink hover:bg-slate-800 text-white text-sm font-semibold rounded-lg transition-colors"
+            className="px-4 min-h-11 inline-flex items-center bg-cta hover:bg-cta-hover active:bg-cta-press text-ink text-sm font-semibold rounded-lg transition-colors"
           >
             Join the waitlist
           </a>
@@ -122,10 +122,10 @@ export const LandingPage: React.FC<{ onSignIn: () => void }> = ({ onSignIn }) =>
 
     <main id="main">
       {/* Hero */}
-      <section className="border-b border-slate-200 bg-slate-50">
+      <section className="border-b border-slate-200 bg-[radial-gradient(60rem_28rem_at_95%_-15%,rgba(253,110,136,0.20),transparent),linear-gradient(to_bottom,#dbf2fc,#ffffff)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-[1.15fr_1fr] gap-12 items-start">
           <div>
-            <p className="inline-block text-[13px] font-semibold text-accent bg-accent-soft border border-accent-line rounded-full px-3 py-1">
+            <p className="inline-block text-[13px] font-semibold text-ink bg-cta-soft border border-cta-line rounded-full px-3 py-1">
               Early access
             </p>
             <h1 className="mt-5 text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1]">
@@ -139,7 +139,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void }> = ({ onSignIn }) =>
               {['A separate test for each job role', 'Section timers and marking rules you control', 'Owner, manager and evaluator roles'].map(
                 (t) => (
                   <li key={t} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-accent shrink-0 mt-0.5" aria-hidden="true" />
+                    <Check className="w-5 h-5 text-cta-text shrink-0 mt-0.5" aria-hidden="true" />
                     {t}
                   </li>
                 )
