@@ -26,4 +26,4 @@ Brand rules and contrast table: `tmt-src/BRAND.md`. Firebase rules, tooling and 
   Working folder `tmt-src/.taste-skill/` is git-ignored.
 - **Secrets:** the Firebase service-account key lives only in `~/Downloads` (owner-only). It is not in the repo. Delete it when setup is done.
 
-See `HANDOFF-CHANGES.md` for the Firebase migration, candidate links, grading and content protection.
+See `HANDOFF-CHANGES.md` for the Firebase migration, candidate links, grading and content protection, and its "Open items" list of what is still to do.
