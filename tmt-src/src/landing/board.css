@@ -41,7 +41,7 @@
 /* Hero */
 .hero { display: grid; gap: var(--gap); padding: var(--gap); min-height: 100svh;
   grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto 64px minmax(480px, 1fr); }
-.band { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; overflow: hidden; height: clamp(150px, 18vw, 300px); }
+.band { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; overflow: hidden; height: clamp(190px, 23vw, 380px); }
 .band h1 { white-space: nowrap; }
 .band .take { color: var(--ground); }
 .band .mytest { color: var(--pink); }
@@ -158,7 +158,7 @@
 /* Phone: its own board, two columns */
 @media (max-width: 899px) {
   .hero { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto; gap: 6px; padding: 6px; }
-  .band { height: 24vw; }
+  .band { height: 27vw; }
   .t-display { font-size: 17vw; }
   .cu .art { font-size: 40px !important; }
   .links { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
