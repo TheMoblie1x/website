@@ -113,6 +113,25 @@ const rules = {
       $cid: { '.read': staffOrPA, '.write': PA },
     },
 
+    // Public waitlist. Anyone may add themselves ONCE (key = their email, so duplicates and overwrites are
+    // impossible); nobody but a platform admin can read, change or remove entries.
+    waitlist: {
+      '.read': PA,
+      $emailKey: {
+        '.write': `(!data.exists() && newData.exists()) || ${PA}`,
+        '.validate':
+          "newData.hasChildren(['email', 'createdAt']) && newData.child('email').isString() && newData.child('email').val().length <= 254 && " +
+          "newData.child('email').val().matches(/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/) && " +
+          "newData.child('email').val().toLowerCase().replace('.', ',') === $emailKey && newData.child('createdAt').val() === now",
+        email: { '.validate': true },
+        createdAt: { '.validate': true },
+        name: { '.validate': 'newData.isString() && newData.val().length <= 100' },
+        company: { '.validate': 'newData.isString() && newData.val().length <= 100' },
+        interest: { '.validate': 'newData.isString() && newData.val().length <= 40' },
+        $other: { '.validate': false },
+      },
+    },
+
     tests: { $cid: { '.read': staffOrPA, '.write': mgrOrPA } },
     answerKeys: { $cid: { '.read': staffOrPA, '.write': mgrOrPA } },
     companyInvites: { $cid: { '.read': mgrOrPA, '.write': mgrOrPA } },

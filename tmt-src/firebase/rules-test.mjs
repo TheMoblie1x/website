@@ -72,12 +72,14 @@ const U = {
   claimer: { uid: 'zz_claimer', email: 'claimer@rulestest.example' },
 };
 const CAND1 = 'zz_cand1', CAND2 = 'zz_cand2';
+// Waitlist test entries (only these exact keys are ever cleaned up, never the whole node).
+const WL = ['wl.one@rulestest.example', 'wl.full@rulestest.example', 'wl.other@rulestest.example', 'wl.admin@rulestest.example'];
 const allUids = [...Object.values(U).map((u) => u.uid), CAND1, CAND2];
 
 async function cleanup() {
   const paths = ['companies/zz_a', 'companies/zz_b', 'companyMembers/zz_a', 'companyMembers/zz_b', 'tests/zz_a', 'tests/zz_b',
     'answerKeys/zz_a', 'answerKeys/zz_b', 'attempts/zz_a', 'attempts/zz_b', 'results/zz_a', 'results/zz_b',
-    'companyInvites/zz_a', 'companyInvites/zz_b', 'companies/zz_c', 'companyPending/zz_a', 'companyPending/zz_b', 'companyPending/zz_c', 'subscriptions/zz_a', 'subscriptions/zz_b', 'subscriptions/zz_c', 'plans/zz_plan', `pendingMembers/${ek('newowner@rulestest.example')}`, `platformAdmins/${ek('pa@rulestest.example')}`, 'invites/zz_tok1', 'invites/zz_tok_revoked', 'invites/zz_tok_expired',
+    'companyInvites/zz_a', 'companyInvites/zz_b', 'companies/zz_c', 'companyPending/zz_a', 'companyPending/zz_b', 'companyPending/zz_c', 'subscriptions/zz_a', 'subscriptions/zz_b', 'subscriptions/zz_c', 'plans/zz_plan', ...WL.map((e) => `waitlist/${ek(e)}`), `pendingMembers/${ek('newowner@rulestest.example')}`, `platformAdmins/${ek('pa@rulestest.example')}`, 'invites/zz_tok1', 'invites/zz_tok_revoked', 'invites/zz_tok_expired',
     ...allUids.map((u) => `members/${u}`), ...Object.values(U).map((u) => `pendingMembers/${ek(u.email)}`)];
   for (const p of paths) await call('DELETE', p, undefined, 'admin');
   await fetch(`https://identitytoolkit.googleapis.com/v1/projects/${P}/accounts:batchDelete`, {
@@ -242,6 +244,30 @@ try {
   deny('owner B reads company A subscription', await call('GET', 'subscriptions/zz_a', undefined, tk.ownerB));
   deny('owner lists all subscriptions', await call('GET', 'subscriptions', undefined, tk.ownerA));
   deny('candidate reads a subscription', await call('GET', 'subscriptions/zz_a', undefined, tk.cand1));
+
+  console.log('\n--- public waitlist');
+  const SV = { '.sv': 'timestamp' };
+  const wl = (email, extra = {}) => ({ email, createdAt: SV, ...extra });
+  const k1 = ek(WL[0]);
+  allow('anyone (not signed in) joins the waitlist', await call('PUT', `waitlist/${k1}`, wl(WL[0]), null));
+  allow('join with all optional fields', await call('PUT', `waitlist/${ek(WL[1])}`, wl(WL[1], { name: 'Wendy', company: 'Acme', interest: 'Hiring team' }), null));
+  deny('same email joins twice (duplicate)', await call('PUT', `waitlist/${k1}`, wl(WL[0]), null));
+  deny('overwrite an existing entry with new data', await call('PUT', `waitlist/${k1}`, wl(WL[0], { name: 'Hijacked' }), null));
+  deny('signed-in non-admin overwrites an entry', await call('PUT', `waitlist/${k1}`, wl(WL[0], { name: 'Hijacked' }), tk.stranger));
+  deny('read one entry without signing in', await call('GET', `waitlist/${k1}`, undefined, null));
+  deny('list the waitlist without signing in', await call('GET', 'waitlist', undefined, null));
+  deny('company owner lists the waitlist', await call('GET', 'waitlist', undefined, tk.ownerA));
+  deny('entry whose key does not match its email', await call('PUT', `waitlist/${ek(WL[2])}`, wl('someone.else@rulestest.example'), null));
+  deny('entry with an invalid email', await call('PUT', `waitlist/${ek('not-an-email')}`, wl('not-an-email'), null));
+  deny('entry with an extra field', await call('PUT', `waitlist/${ek(WL[2])}`, wl(WL[2], { isAdmin: true }), null));
+  deny('entry with an oversized name', await call('PUT', `waitlist/${ek(WL[2])}`, wl(WL[2], { name: 'x'.repeat(101) }), null));
+  deny('entry with a forged timestamp', await call('PUT', `waitlist/${ek(WL[2])}`, { email: WL[2], createdAt: 1 }, null));
+  deny('entry with no timestamp', await call('PUT', `waitlist/${ek(WL[2])}`, { email: WL[2] }, null));
+  deny('entry that is not an object', await call('PUT', `waitlist/${ek(WL[2])}`, 'hello', null));
+  deny('delete an entry without signing in', await call('DELETE', `waitlist/${k1}`, undefined, null));
+  deny('company owner deletes an entry', await call('DELETE', `waitlist/${k1}`, undefined, tk.ownerA));
+  allow('platform admin lists the waitlist', await call('GET', 'waitlist', undefined, tk.pa));
+  allow('platform admin removes an entry', await call('DELETE', `waitlist/${k1}`, undefined, tk.pa));
 } catch (e) {
   console.error('HARNESS ERROR:', e.message);
   fail++;

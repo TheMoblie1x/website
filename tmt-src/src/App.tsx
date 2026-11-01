@@ -19,6 +19,7 @@ import { AuthProvider, useAuth } from './auth/AuthProvider';
 import { AccountMenu, LoadingScreen, NoAccessScreen, SignInScreen } from './auth/AuthScreens';
 import { ROLE_LABELS } from './auth/roles';
 import { PlatformConsole } from './components/PlatformConsole';
+import { LandingPage } from './landing/LandingPage';
 import { LayoutDashboard, GraduationCap, Mail, ExternalLink } from 'lucide-react';
 
 export default function App() {
@@ -29,11 +30,22 @@ export default function App() {
   );
 }
 
+/** What signed-out visitors see: the public landing page, or the staff sign-in screen. */
+function PublicSite() {
+  const [showSignIn, setShowSignIn] = useState(() => window.location.hash === '#sign-in');
+  const go = (signIn: boolean) => {
+    setShowSignIn(signIn);
+    window.history.replaceState(null, '', window.location.pathname + window.location.search + (signIn ? '#sign-in' : ''));
+    window.scrollTo(0, 0);
+  };
+  return showSignIn ? <SignInScreen onBack={() => go(false)} /> : <LandingPage onSignIn={() => go(true)} />;
+}
+
 /** Staff must sign in with Google and belong to a company before seeing anything. */
 function AuthGate() {
   const { status, isPlatformAdmin, platformView, membership } = useAuth();
   if (status === 'loading') return <LoadingScreen />;
-  if (status === 'signedOut') return <SignInScreen />;
+  if (status === 'signedOut') return <PublicSite />;
   if (status === 'noAccess') return <NoAccessScreen />;
   // Platform administrators (super users) get the console; they may also belong to a company.
   if (isPlatformAdmin && (!membership || platformView)) return <PlatformConsole />;

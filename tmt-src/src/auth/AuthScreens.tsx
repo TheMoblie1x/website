@@ -30,7 +30,7 @@ export const LoadingScreen: React.FC = () => (
   </Shell>
 );
 
-export const SignInScreen: React.FC = () => {
+export const SignInScreen: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   const { signInWithGoogle, signingIn, error } = useAuth();
   return (
     <Shell>
@@ -53,6 +53,16 @@ export const SignInScreen: React.FC = () => {
         <p role="alert" className="text-[13px] text-red-600 mt-3">
           {error}
         </p>
+      )}
+
+      {onBack && (
+        <button
+          type="button"
+          onClick={onBack}
+          className="mt-6 text-sm font-semibold text-slate-600 hover:text-ink cursor-pointer"
+        >
+          ← Back to home
+        </button>
       )}
     </Shell>
   );

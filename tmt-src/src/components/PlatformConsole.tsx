@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ArrowLeft, Building2, CreditCard, Plus } from 'lucide-react';
+import { ArrowLeft, Building2, CreditCard, ListChecks, Plus } from 'lucide-react';
 import { AccountMenu } from '../auth/AuthScreens';
 import { useAuth } from '../auth/AuthProvider';
 import { BrandMark } from './BrandMark';
 import { BillingPanel, formatPrice } from './BillingPanel';
 import { TeamPanel } from './TeamPanel';
+import { WaitlistAdmin } from './WaitlistAdmin';
 import { Field, Modal, inputClass, primaryBtn, secondaryBtn } from './Modal';
 import {
   CompanyRec,
@@ -16,7 +17,7 @@ import {
   slugify,
 } from '../firebase/directory';
 
-type Tab = 'COMPANIES' | 'PLANS';
+type Tab = 'COMPANIES' | 'PLANS' | 'WAITLIST';
 
 /** Home screen for platform administrators ("super users"). */
 export const PlatformConsole: React.FC = () => {
@@ -74,6 +75,7 @@ export const PlatformConsole: React.FC = () => {
           <nav className="flex items-center gap-1 ml-2" aria-label="Platform sections">
             {tabBtn('COMPANIES', 'Companies', <Building2 className="w-3.5 h-3.5" />)}
             {tabBtn('PLANS', 'Plans', <CreditCard className="w-3.5 h-3.5" />)}
+            {tabBtn('WAITLIST', 'Waitlist', <ListChecks className="w-3.5 h-3.5" />)}
           </nav>
         </div>
         <div className="flex items-center gap-3">
@@ -172,6 +174,8 @@ export const PlatformConsole: React.FC = () => {
             )}
           </>
         )}
+
+        {tab === 'WAITLIST' && <WaitlistAdmin />}
 
         {tab === 'PLANS' && (
           <>
