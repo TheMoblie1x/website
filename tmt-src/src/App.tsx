@@ -15,9 +15,25 @@ import { CandidateAttempt, Test, RoomSweepAudit, EmailNotification } from './typ
 import { evaluateAttempt } from './utils/scoring';
 import { sendSubmissionSummaryEmail, getSentEmails } from './utils/emailService';
 import { MockEmailViewerModal } from './components/MockEmailViewerModal';
+import { AuthProvider, useAuth } from './auth/AuthProvider';
+import { AccountMenu, LoadingScreen, NoAccessScreen, SignInScreen } from './auth/AuthScreens';
+import { ROLE_LABELS } from './auth/roles';
 import { LayoutDashboard, GraduationCap, Mail, ExternalLink } from 'lucide-react';
 
 export default function App() {
+  return (
+    <AuthProvider>
+      <AuthGate />
+    </AuthProvider>
+  );
+}
+
+/** Staff must sign in with Google and belong to a company before seeing anything. */
+function AuthGate() {
+  const { status } = useAuth();
+  if (status === 'loading') return <LoadingScreen />;
+  if (status === 'signedOut') return <SignInScreen />;
+  if (status === 'noAccess') return <NoAccessScreen />;
   return (
     <ThemeProvider>
       <MainAppContent />
@@ -27,6 +43,8 @@ export default function App() {
 
 function MainAppContent() {
   const { brand } = useBrand();
+  const { membership } = useAuth();
+  const role = membership!.role; // AuthGate only renders this once a membership exists
 
   const [tests, setTests] = useState<Test[]>(() => getTests());
   const [attempts, setAttempts] = useState<CandidateAttempt[]>(() => getAttempts());
@@ -193,7 +211,9 @@ function MainAppContent() {
     <div className="relative min-h-screen bg-slate-50 flex flex-col font-sans">
       {/* Floating Demo Role Switcher Bar */}
       <div className="bg-ink text-white px-4 py-2 flex items-center justify-between text-sm z-40">
-        <span className="text-slate-300">Preview mode</span>
+        <span className="text-slate-300 truncate pr-3">
+          {membership!.companyName} · {ROLE_LABELS[role]}
+        </span>
 
         <div className="flex items-center gap-1.5">
           <button
@@ -225,6 +245,9 @@ function MainAppContent() {
             <GraduationCap className="w-3.5 h-3.5" />
             <span>Candidate view</span>
           </button>
+          <div className="ml-2">
+            <AccountMenu />
+          </div>
         </div>
       </div>
 
@@ -232,6 +255,7 @@ function MainAppContent() {
       <div className="flex-1">
         {view === 'ADMIN' && (
           <AdminDashboard
+            role={role}
             tests={tests}
             onUpdateTests={(newTests) => {
               setTests(newTests);

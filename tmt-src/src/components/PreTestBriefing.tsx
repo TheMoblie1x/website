@@ -158,7 +158,7 @@ export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
               <p className="text-xl font-extrabold text-blue-900 mt-0.5">
                 {test.totalDurationMin} Minutes
               </p>
-              <p className="text-xs text-blue-700 mt-0.5">{totalQuestions} Questions total</p>
+              <p className="text-xs text-blue-700 mt-0.5">{totalQuestions} {totalQuestions === 1 ? 'question' : 'questions'} total</p>
             </div>
           </div>
 

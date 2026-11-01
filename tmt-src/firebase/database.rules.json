@@ -1,0 +1,92 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "members": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "(auth != null && root.child('members').child(auth.uid).child('role').val() === 'owner' && ((newData.exists() && newData.child('companyId').val() === root.child('members').child(auth.uid).child('companyId').val() && (!data.exists() || data.child('companyId').val() === root.child('members').child(auth.uid).child('companyId').val())) || (!newData.exists() && data.child('companyId').val() === root.child('members').child(auth.uid).child('companyId').val()))) || (auth != null && auth.uid === $uid && !data.exists() && auth.token.email_verified === true && root.child('pendingMembers').child(auth.token.email.toLowerCase().replace('.', ',')).child('companyId').val() === newData.child('companyId').val() && root.child('pendingMembers').child(auth.token.email.toLowerCase().replace('.', ',')).child('role').val() === newData.child('role').val())",
+        ".validate": "newData.hasChildren(['companyId', 'role']) && (newData.child('role').val() === 'owner' || newData.child('role').val() === 'manager' || newData.child('role').val() === 'evaluator')"
+      }
+    },
+    "companyMembers": {
+      "$cid": {
+        ".read": "auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid",
+        "$uid": {
+          ".write": "(auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid && root.child('members').child(auth.uid).child('role').val() === 'owner') || (auth != null && auth.uid === $uid && root.child('members').child(auth.uid).child('companyId').val() === $cid)"
+        }
+      }
+    },
+    "pendingMembers": {
+      "$emailKey": {
+        ".read": "auth != null && ((auth.token.email_verified === true && auth.token.email.toLowerCase().replace('.', ',') === $emailKey) || (root.child('members').child(auth.uid).child('role').val() === 'owner' && data.child('companyId').val() === root.child('members').child(auth.uid).child('companyId').val()))",
+        ".write": "auth != null && ((root.child('members').child(auth.uid).child('role').val() === 'owner' && (newData.exists() ? newData.child('companyId').val() : data.child('companyId').val()) === root.child('members').child(auth.uid).child('companyId').val()) || (!newData.exists() && auth.token.email_verified === true && auth.token.email.toLowerCase().replace('.', ',') === $emailKey))",
+        ".validate": "newData.hasChildren(['companyId', 'role']) && (newData.child('role').val() === 'owner' || newData.child('role').val() === 'manager' || newData.child('role').val() === 'evaluator')"
+      }
+    },
+    "companies": {
+      "$cid": {
+        ".read": "auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid",
+        ".write": "auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid && root.child('members').child(auth.uid).child('role').val() === 'owner' && data.exists()"
+      }
+    },
+    "tests": {
+      "$cid": {
+        ".read": "auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid",
+        ".write": "auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid && (root.child('members').child(auth.uid).child('role').val() === 'owner' || root.child('members').child(auth.uid).child('role').val() === 'manager')"
+      }
+    },
+    "answerKeys": {
+      "$cid": {
+        ".read": "auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid",
+        ".write": "auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid && (root.child('members').child(auth.uid).child('role').val() === 'owner' || root.child('members').child(auth.uid).child('role').val() === 'manager')"
+      }
+    },
+    "companyInvites": {
+      "$cid": {
+        ".read": "auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid && (root.child('members').child(auth.uid).child('role').val() === 'owner' || root.child('members').child(auth.uid).child('role').val() === 'manager')",
+        ".write": "auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid && (root.child('members').child(auth.uid).child('role').val() === 'owner' || root.child('members').child(auth.uid).child('role').val() === 'manager')"
+      }
+    },
+    "invites": {
+      "$token": {
+        ".read": "auth != null",
+        ".write": "auth != null && (root.child('members').child(auth.uid).child('role').val() === 'owner' || root.child('members').child(auth.uid).child('role').val() === 'manager') && root.child('members').child(auth.uid).child('companyId').val() === (newData.exists() ? newData.child('companyId').val() : data.child('companyId').val())",
+        "claimedBy": {
+          ".write": "auth != null && !data.exists() && newData.val() === auth.uid"
+        }
+      }
+    },
+    "attempts": {
+      "$cid": {
+        ".indexOn": [
+          "testId",
+          "candidateEmail",
+          "submittedAt"
+        ],
+        "$aid": {
+          ".read": "auth != null && (data.child('candidateUid').val() === auth.uid || root.child('members').child(auth.uid).child('companyId').val() === $cid)",
+          ".write": "auth != null && ((!newData.exists() && (root.child('members').child(auth.uid).child('role').val() === 'owner' || root.child('members').child(auth.uid).child('role').val() === 'manager') && root.child('members').child(auth.uid).child('companyId').val() === $cid) || (newData.exists() && newData.child('candidateUid').val() === auth.uid && root.child('invites').child(newData.child('inviteToken').val()).child('companyId').val() === $cid && root.child('invites').child(newData.child('inviteToken').val()).child('testId').val() === newData.child('testId').val() && root.child('invites').child(newData.child('inviteToken').val()).child('revoked').val() !== true && (data.exists() ? (data.child('candidateUid').val() === auth.uid && data.child('inviteToken').val() === newData.child('inviteToken').val() && data.child('status').val() !== 'SUBMITTED' && data.child('status').val() !== 'TERMINATED_MALPRACTICE' && data.child('status').val() !== 'EXPIRED') : (root.child('invites').child(newData.child('inviteToken').val()).child('expiresAt').val() > now && (root.child('invites').child(newData.child('inviteToken').val()).child('single').val() !== true || root.child('invites').child(newData.child('inviteToken').val()).child('claimedBy').val() === auth.uid)))))",
+          "totalScore": {
+            ".validate": false
+          },
+          "maxScore": {
+            ".validate": false
+          },
+          "percentageScore": {
+            ".validate": false
+          },
+          "isPassed": {
+            ".validate": false
+          }
+        }
+      }
+    },
+    "results": {
+      "$cid": {
+        ".read": "auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid",
+        ".write": "auth != null && root.child('members').child(auth.uid).child('companyId').val() === $cid"
+      }
+    }
+  }
+}

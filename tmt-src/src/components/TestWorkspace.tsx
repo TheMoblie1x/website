@@ -793,7 +793,7 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
                   <span>
                     {autosaveState === 'SAVING'
                       ? 'Autosaving response...'
-                      : `Synced with server • Signature ${lastSavedSig.slice(0, 10)}`}
+                      : `Saved on this device • ${lastSavedSig.slice(0, 10)}`}
                   </span>
                 </div>
 

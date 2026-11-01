@@ -7,6 +7,8 @@ import {
   Palette,
   Play,
   Plus,
+  Pencil,
+  Trash2,
   ShieldAlert,
   CheckCircle2,
   Lock,
@@ -20,11 +22,14 @@ import {
   SectionNavMode,
   Test,
   TestSection,
+  Question,
   ProctoringSettings,
   EmailNotification,
 } from '../types/testforge';
 import { BrandMark } from './BrandMark';
 import { SettingSwitch } from './SettingSwitch';
+import { can, Role } from '../auth/roles';
+import { CreateTestModal, SectionModal, QuestionModal, newId } from './TestAuthoring';
 import { BulkIngestionModal } from './BulkIngestionModal';
 import { AnalyticsTab } from './AnalyticsTab';
 import { MockEmailViewerModal } from './MockEmailViewerModal';
@@ -33,6 +38,7 @@ import { DEFAULT_ORGANIZATIONS } from '../utils/seedData';
 import { saveOrganizations, saveTests, saveAttempt } from '../utils/storage';
 
 interface AdminDashboardProps {
+  role: Role;
   tests: Test[];
   onUpdateTests: (tests: Test[]) => void;
   attempts: CandidateAttempt[];
@@ -41,6 +47,7 @@ interface AdminDashboardProps {
 }
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({
+  role,
   tests,
   onUpdateTests,
   attempts,
@@ -48,10 +55,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   onLaunchCandidateTest,
 }) => {
   const { brand, setBrand, updateBrandColors } = useBrand();
+  // What this person may do. The database rules enforce the same limits server-side.
+  const canWrite = can(role, 'tests:write');
+  const canBrand = can(role, 'branding:edit');
 
   const [activeTab, setActiveTab] = useState<'TESTS' | 'ANALYTICS' | 'BRANDING' | 'ATTEMPTS' | 'QUESTIONS'>('TESTS');
   const [selectedTestId, setSelectedTestId] = useState<string>(tests[0]?.id || '');
   const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [isSectionModalOpen, setIsSectionModalOpen] = useState(false);
+  const [questionModal, setQuestionModal] = useState<{ sectionId: string; question?: Question } | null>(null);
+  const [pendingDeleteQ, setPendingDeleteQ] = useState<string | null>(null);
+  const [publishMessage, setPublishMessage] = useState("");
   const [attemptDetailModal, setAttemptDetailModal] = useState<CandidateAttempt | null>(null);
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [selectedEmailForViewer, setSelectedEmailForViewer] = useState<EmailNotification | undefined>(undefined);
@@ -69,7 +84,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   // Update Test Settings Handler
   const handleToggleNavigationMode = () => {
-    if (!activeTest) return;
+    if (!activeTest || !canWrite) return;
     const newMode: SectionNavMode = activeTest.navigationMode === 'SEQUENTIAL' ? 'FREE' : 'SEQUENTIAL';
     const updated: Test[] = tests.map((t) => (t.id === activeTest.id ? { ...t, navigationMode: newMode } : t));
     onUpdateTests(updated);
@@ -77,7 +92,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   };
 
   const handleToggleNegativeMarking = () => {
-    if (!activeTest) return;
+    if (!activeTest || !canWrite) return;
     const updated = tests.map((t) =>
       t.id === activeTest.id ? { ...t, negativeMarking: !t.negativeMarking } : t
     );
@@ -86,7 +101,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   };
 
   const handleToggleProctoringSetting = (key: keyof ProctoringSettings) => {
-    if (!activeTest) return;
+    if (!activeTest || !canWrite) return;
     const currentVal = activeTest.proctoring ? activeTest.proctoring[key] : true;
     const updated = tests.map((t) => {
       if (t.id === activeTest.id) {
@@ -104,7 +119,101 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     saveTests(updated);
   };
 
+  // ---- Authoring: every change recalculates section marks and total duration ----
+  const commitTests = (updated: Test[]) => {
+    if (!canWrite) return;
+    onUpdateTests(updated);
+    saveTests(updated);
+  };
+
+  const updateActiveTest = (fn: (t: Test) => Test) => {
+    if (!activeTest) return;
+    commitTests(
+      tests.map((t) => {
+        if (t.id !== activeTest.id) return t;
+        const next = fn(t);
+        return {
+          ...next,
+          sections: next.sections.map((s) => ({
+            ...s,
+            totalMarks: s.questions.reduce((a, q) => a + q.marks, 0),
+          })),
+          totalDurationMin: next.sections.reduce((a, s) => a + s.durationMin, 0),
+          updatedAt: new Date().toISOString(),
+        };
+      })
+    );
+  };
+
+  const handleCreateTest = (test: Test) => {
+    commitTests([...tests, test]);
+    setSelectedTestId(test.id);
+    setIsCreateOpen(false);
+    setActiveTab("TESTS");
+  };
+
+  const handleAddSection = (s: { title: string; description: string; durationMin: number }) => {
+    updateActiveTest((t) => ({
+      ...t,
+      sections: [
+        ...t.sections,
+        {
+          id: newId("sec"),
+          testId: t.id,
+          title: s.title,
+          description: s.description,
+          orderIndex: t.sections.length,
+          durationMin: s.durationMin,
+          questions: [],
+        },
+      ],
+    }));
+    setIsSectionModalOpen(false);
+  };
+
+  const handleSaveQuestion = (sectionId: string, q: Question) => {
+    updateActiveTest((t) => ({
+      ...t,
+      sections: t.sections.map((s) => {
+        const existsHere = s.questions.some((x) => x.id === q.id);
+        if (s.id === sectionId) {
+          const list = existsHere
+            ? s.questions.map((x) => (x.id === q.id ? q : x))
+            : [...s.questions, q];
+          return { ...s, questions: list.map((x, i) => ({ ...x, orderIndex: i })) };
+        }
+        return existsHere
+          ? { ...s, questions: s.questions.filter((x) => x.id !== q.id).map((x, i) => ({ ...x, orderIndex: i })) }
+          : s;
+      }),
+    }));
+    setQuestionModal(null);
+  };
+
+  const handleDeleteQuestion = (qid: string) => {
+    updateActiveTest((t) => ({
+      ...t,
+      sections: t.sections.map((s) => ({
+        ...s,
+        questions: s.questions.filter((x) => x.id !== qid).map((x, i) => ({ ...x, orderIndex: i })),
+      })),
+    }));
+    setPendingDeleteQ(null);
+  };
+
+  const handleTogglePublished = () => {
+    if (!activeTest) return;
+    const count = activeTest.sections.reduce((a, s) => a + s.questions.length, 0);
+    if (!activeTest.isPublished && count === 0) {
+      setPublishMessage("Add at least one question before publishing.");
+      return;
+    }
+    setPublishMessage("");
+    updateActiveTest((t) => ({ ...t, isPublished: !t.isPublished }));
+  };
+
   const handleCommitBulkQuestions = (testId: string, newSections: TestSection[]) => {
+    if (!canWrite) return;
     const updated = tests.map((t) => {
       if (t.id === testId) {
         return {
@@ -121,6 +230,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   // Branding apply
   const handleSaveBranding = () => {
+    if (!canBrand) return;
     updateBrandColors(
       brandForm.primaryColor,
       brandForm.secondaryColor,
@@ -131,6 +241,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   };
 
   const handleSelectOrgPreset = (org: Organization) => {
+    if (!canBrand) return;
     setBrand(org);
     setBrandForm({
       name: org.name,
@@ -184,6 +295,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <span>Analytics</span>
             </button>
 
+            {canBrand && (
             <button
               onClick={() => setActiveTab('BRANDING')}
               className={`px-3 py-2 rounded-lg text-sm font-semibold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
@@ -195,6 +307,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <Palette className="w-3.5 h-3.5" />
               Branding
             </button>
+            )}
 
             <button
               onClick={() => setActiveTab('ATTEMPTS')}
@@ -226,7 +339,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         <div className="flex items-center justify-end gap-2 shrink-0">
           <button
             onClick={() => onLaunchCandidateTest(activeTest.id)}
-            className="w-full sm:w-auto px-4 py-2 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2 bg-ink hover:bg-slate-800 text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             <span>Preview as candidate</span>
@@ -247,13 +360,42 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </p>
               </div>
 
-              <button
-                onClick={() => setIsBulkModalOpen(true)}
-                className="px-4 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer"
-              >
-                <FileSpreadsheet className="w-4 h-4 text-slate-500" />
-                <span>Import questions (.xlsx)</span>
-              </button>
+              <div className="flex flex-wrap items-center gap-3">
+                <select
+                  aria-label="Choose assessment"
+                  value={activeTest?.id || ""}
+                  onChange={(e) => {
+                    setSelectedTestId(e.target.value);
+                    setPublishMessage("");
+                  }}
+                  className="max-w-[16rem] truncate px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg text-ink font-medium cursor-pointer"
+                >
+                  {tests.map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.title}
+                      {t.jobRole ? " (" + t.jobRole + ")" : ""}
+                    </option>
+                  ))}
+                </select>
+                {canWrite && (
+                  <>
+                <button
+                  onClick={() => setIsBulkModalOpen(true)}
+                  className="px-4 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer"
+                >
+                  <FileSpreadsheet className="w-4 h-4 text-slate-500" />
+                  <span>Import questions</span>
+                </button>
+                <button
+                  onClick={() => setIsCreateOpen(true)}
+                  className="px-4 py-2 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>New assessment</span>
+                </button>
+                  </>
+                )}
+              </div>
             </div>
 
             {/* Test overview */}
@@ -272,7 +414,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   <div className="bg-white border border-slate-200 rounded-xl">
                     <div className="p-6 border-b border-slate-200">
                       <p className="text-[13px] text-slate-500 tabular-nums">
-                        {plural(questionCount, 'question')} · {plural(activeTest.sections.length, 'section')} ·{' '}
+                        {activeTest.jobRole ? activeTest.jobRole + ' · ' : ''}{plural(questionCount, 'question')} · {plural(activeTest.sections.length, 'section')} ·{' '}
                         {totalMinutes} min · {plural(totalMarks, 'mark')}
                       </p>
                       <h2 className="text-xl font-semibold text-ink mt-1">{activeTest.title}</h2>
@@ -288,16 +430,32 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       <div className="p-6">
                         <h3 className="text-sm font-semibold text-ink">Test rules</h3>
                         <div className="divide-y divide-slate-100 mt-1">
+                          <div>
+                            <SettingSwitch
+                              label="Published"
+                              description="Only published assessments can be sent to candidates."
+                              checked={activeTest.isPublished}
+                              disabled={!canWrite}
+                              onChange={handleTogglePublished}
+                            />
+                            {publishMessage && (
+                              <p role="alert" className="text-[13px] text-red-600 pb-3 -mt-1">
+                                {publishMessage}
+                              </p>
+                            )}
+                          </div>
                           <SettingSwitch
                             label="Lock sections in order"
                             description="Candidates finish each section before the next one opens."
                             checked={activeTest.navigationMode === 'SEQUENTIAL'}
+                            disabled={!canWrite}
                             onChange={handleToggleNavigationMode}
                           />
                           <SettingSwitch
                             label="Negative marking"
                             description="Wrong answers deduct marks."
                             checked={activeTest.negativeMarking}
+                            disabled={!canWrite}
                             onChange={handleToggleNegativeMarking}
                           />
                           <div className="flex items-start justify-between gap-4 py-3">
@@ -321,24 +479,28 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             label="Room check"
                             description="Candidate scans their room before the test starts."
                             checked={proctoringOn('enable360RoomSweep')}
+                            disabled={!canWrite}
                             onChange={() => handleToggleProctoringSetting('enable360RoomSweep')}
                           />
                           <SettingSwitch
                             label="Gaze tracking"
                             description="Flags repeated looking away from the screen."
                             checked={proctoringOn('enableAiGazeTracking')}
+                            disabled={!canWrite}
                             onChange={() => handleToggleProctoringSetting('enableAiGazeTracking')}
                           />
                           <SettingSwitch
                             label="Second-device detection"
                             description="Flags a phone or extra screen in view."
                             checked={proctoringOn('enableDeviceDetection')}
+                            disabled={!canWrite}
                             onChange={() => handleToggleProctoringSetting('enableDeviceDetection')}
                           />
                           <SettingSwitch
                             label="Audio monitoring"
                             description="Flags voices and background talking."
                             checked={proctoringOn('enableAudioMonitoring')}
+                            disabled={!canWrite}
                             onChange={() => handleToggleProctoringSetting('enableAudioMonitoring')}
                           />
                         </div>
@@ -346,7 +508,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     </div>
 
                     <div className="p-6 border-t border-slate-200">
-                      <h3 className="text-sm font-semibold text-ink mb-4">Sections</h3>
+                      <div className="flex items-center justify-between gap-3 mb-4">
+                        <h3 className="text-sm font-semibold text-ink">Sections</h3>
+{canWrite && (
+                        <button
+                          onClick={() => setIsSectionModalOpen(true)}
+                          className="text-sm font-semibold text-accent hover:text-accent-hover flex items-center gap-1.5 cursor-pointer"
+                        >
+                          <Plus className="w-4 h-4" />
+                          Add section
+                        </button>
+)}
+                      </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {activeTest.sections.map((sec, idx) => (
                           <div key={sec.id} className="rounded-lg border border-slate-200 p-4">
@@ -364,6 +537,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             <p className="mt-3 text-[13px] text-slate-500 tabular-nums">
                               {plural(sec.questions.length, 'question')} · {plural(sectionMarks(sec), 'mark')}
                             </p>
+{canWrite && (
+                            <button
+                              onClick={() => setQuestionModal({ sectionId: sec.id })}
+                              className="mt-3 text-sm font-semibold text-accent hover:text-accent-hover flex items-center gap-1.5 cursor-pointer"
+                            >
+                              <Plus className="w-4 h-4" />
+                              Add question
+                            </button>
+)}
                           </div>
                         ))}
                       </div>
@@ -388,7 +570,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         )}
 
         {/* ================= TAB 2: WHITE-LABEL BRANDING STUDIO ================= */}
-        {activeTab === 'BRANDING' && (
+        {activeTab === 'BRANDING' && canBrand && (
           <div className="space-y-6">
             <div>
               <h1 className="text-xl font-extrabold text-slate-900">
@@ -707,21 +889,32 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-xl font-extrabold text-slate-900">
-                  Question Bank Repository
-                </h1>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Browse question items across sections, inspection metadata, and explanations.
+                <h1 className="text-2xl font-bold tracking-tight text-ink">Question bank</h1>
+                <p className="text-sm text-slate-600 mt-1">
+                  Add, edit and review the questions in{" "}
+                  <span className="font-semibold text-ink">{activeTest.title}</span>.
                 </p>
               </div>
 
+              {canWrite && (
+                <div className="flex items-center gap-3">
               <button
                 onClick={() => setIsBulkModalOpen(true)}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs transition flex items-center gap-2 cursor-pointer"
+                className="px-4 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <FileSpreadsheet className="w-4 h-4" />
-                <span>Upload Questions Spreadsheet</span>
+                <FileSpreadsheet className="w-4 h-4 text-slate-500" />
+                <span>Import questions</span>
               </button>
+              <button
+                onClick={() => setQuestionModal({ sectionId: activeTest.sections[0]?.id || "" })}
+                disabled={!activeTest.sections.length}
+                className="px-4 py-2 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add question</span>
+              </button>
+                </div>
+              )}
             </div>
 
             <div className="space-y-6">
@@ -730,12 +923,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
                     <div>
                       <h3 className="text-sm font-bold text-slate-900">
-                        Section {sIdx + 1}: {sec.title}
+                        {sIdx + 1}. {sec.title}
                       </h3>
                       <p className="text-xs text-slate-500">{sec.description}</p>
                     </div>
-                    <span className="text-xs font-mono font-bold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md">
-                      {sec.questions.length} questions
+                    <span className="text-[13px] font-semibold text-slate-600 tabular-nums">
+                      {sec.questions.length} {sec.questions.length === 1 ? "question" : "questions"}
                     </span>
                   </div>
 
@@ -754,9 +947,47 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                               {q.type}
                             </span>
                           </div>
-                          <span className="text-xs font-bold text-emerald-700 font-mono">
-                            +{q.marks} pts {q.negativeMarks > 0 && `(-${q.negativeMarks} penalty)`}
-                          </span>
+                          <div className="flex items-center gap-1">
+                            <span className="text-xs font-semibold text-slate-600 tabular-nums mr-2">
+                              +{q.marks} {q.marks === 1 ? "mark" : "marks"}
+                              {q.negativeMarks > 0 && ` · -${q.negativeMarks} if wrong`}
+                            </span>
+                            {canWrite && (
+                              <>
+                            <button
+                              onClick={() => setQuestionModal({ sectionId: sec.id, question: q })}
+                              aria-label={`Edit question ${qIdx + 1}`}
+                              className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 cursor-pointer"
+                            >
+                              <Pencil className="w-4 h-4" />
+                            </button>
+                            {pendingDeleteQ === q.id ? (
+                              <>
+                                <button
+                                  onClick={() => handleDeleteQuestion(q.id)}
+                                  className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-red-600 text-white hover:bg-red-700 cursor-pointer"
+                                >
+                                  Delete
+                                </button>
+                                <button
+                                  onClick={() => setPendingDeleteQ(null)}
+                                  className="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-100 cursor-pointer"
+                                >
+                                  Cancel
+                                </button>
+                              </>
+                            ) : (
+                              <button
+                                onClick={() => setPendingDeleteQ(q.id)}
+                                aria-label={`Delete question ${qIdx + 1}`}
+                                className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 cursor-pointer"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            )}
+                              </>
+                            )}
+                          </div>
                         </div>
 
                         <p className="text-xs sm:text-sm font-medium text-slate-800 leading-relaxed">
@@ -806,6 +1037,27 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       </div>
 
       {/* Bulk Upload Modal */}
+      {isCreateOpen && (
+        <CreateTestModal
+          tests={tests}
+          orgId={brand.id}
+          authorId="usr_admin_1"
+          onCreate={handleCreateTest}
+          onClose={() => setIsCreateOpen(false)}
+        />
+      )}
+      {isSectionModalOpen && (
+        <SectionModal onSave={handleAddSection} onClose={() => setIsSectionModalOpen(false)} />
+      )}
+      {questionModal && activeTest && (
+        <QuestionModal
+          test={activeTest}
+          sectionId={questionModal.sectionId}
+          question={questionModal.question}
+          onSave={handleSaveQuestion}
+          onClose={() => setQuestionModal(null)}
+        />
+      )}
       <BulkIngestionModal
         isOpen={isBulkModalOpen}
         onClose={() => setIsBulkModalOpen(false)}

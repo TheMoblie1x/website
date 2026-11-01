@@ -83,6 +83,8 @@ export interface Test {
   id: string;
   orgId: string;
   authorId: string;
+  /** Job role this test is for, e.g. "Android Developer". */
+  jobRole?: string;
   title: string;
   description?: string;
   guidelines: string;
