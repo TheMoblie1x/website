@@ -347,6 +347,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void; onPrivacy: () => void
         <section aria-labelledby="cta-h" className="cta" style={{ paddingBottom: 0 }}>
           <div className="side-l"><div style={{ position: 'absolute', left: -150, top: 36 }}><TeamFragment /></div></div>
           <div className="main tile on-pink rv">
+            <p className="t-small" style={{ alignSelf: 'flex-start', background: 'var(--navy)', color: 'var(--ground)', padding: '4px 12px', borderRadius: 'var(--r)', fontWeight: 700 }}>Coming soon</p>
             <h2 id="cta-h" className="t-statement">Be among the first</h2>
             <p className="t-body">Leave your email. We&apos;ll let you know when there&apos;s room for your team.</p>
             <WaitlistForm idPrefix="cta" variant="nested" />
@@ -379,7 +380,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void; onPrivacy: () => void
           </ul>
         </div>
         <div className="foot-last t-small">
-          <span>© {year} TakeMyTest</span>
+          <span>© {year} TakeMyTest · Powered by <a href="https://mobile1x.com" target="_blank" rel="noopener" style={{ textDecoration: 'underline' }}>Mobile1x</a></span>
           <button type="button" className="wl-button t-small" style={{ minHeight: 44 }} onClick={onSignIn}>Sign in</button>
         </div>
       </footer>
