@@ -1,28 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { ThemeProvider, useBrand } from './components/ThemeProvider';
+import { ThemeProvider } from './components/ThemeProvider';
 import { PreTestBriefing } from './components/PreTestBriefing';
 import { TestWorkspace } from './components/TestWorkspace';
 import { SubmissionSuccessScreen } from './components/SubmissionSuccessScreen';
 import { AdminDashboard } from './components/AdminDashboard';
 import {
-  getTests,
-  saveTests,
+  getActiveOrganization,
   getAttempts,
-  saveAttempt,
-  getTestById,
+  getResults,
+  getTests,
+  loadCompanyData,
+  reloadAttempts,
+  saveResult,
+  saveTests,
+  subscribeSync,
+  SyncState,
 } from './utils/storage';
-import { CandidateAttempt, Test, RoomSweepAudit, EmailNotification } from './types/testforge';
-import { evaluateAttempt } from './utils/scoring';
-import { sendSubmissionSummaryEmail, getSentEmails } from './utils/emailService';
-import { MockEmailViewerModal } from './components/MockEmailViewerModal';
+import { CandidateAttempt, Test } from './types/testforge';
+import { buildResult, isFinished } from './data/grading';
 import { AuthProvider, useAuth } from './auth/AuthProvider';
 import { AccountMenu, LoadingScreen, NoAccessScreen, SignInScreen } from './auth/AuthScreens';
 import { ROLE_LABELS } from './auth/roles';
 import { PlatformConsole } from './components/PlatformConsole';
 import { LandingPage } from './landing/LandingPage';
-import { LayoutDashboard, GraduationCap, Mail, ExternalLink } from 'lucide-react';
+import { PrivacyPage } from './landing/PrivacyPage';
+import { CandidateApp } from './candidate/CandidateApp';
+import { LayoutDashboard, GraduationCap } from 'lucide-react';
+
+/** A candidate invite link looks like ?invite=<32 hex characters>. */
+function inviteTokenFromUrl(): string | null {
+  const t = new URLSearchParams(window.location.search).get('invite');
+  return t ? t.trim().toLowerCase() : null;
+}
 
 export default function App() {
+  const token = inviteTokenFromUrl();
+  // Candidates never touch the staff sign-in: they use their own session (see firebase/candidateClient.ts).
+  if (token) return <CandidateApp token={token} />;
   return (
     <AuthProvider>
       <AuthGate />
@@ -30,21 +44,28 @@ export default function App() {
   );
 }
 
-/** What signed-out visitors see: the public landing page, or the staff sign-in screen. */
+/** What signed-out visitors see: the public landing page, the privacy policy, or the staff sign-in screen. */
 function PublicSite() {
-  const [showSignIn, setShowSignIn] = useState(() => window.location.hash === '#sign-in');
-  // Follow the address bar if someone opens or edits the #sign-in link while the page is already open.
+  const route = () => (window.location.hash === '#sign-in' ? 'signin' : window.location.hash === '#privacy' ? 'privacy' : 'home');
+  const [page, setPage] = useState(route);
+  // Follow the address bar if someone opens or edits the hash link while the page is already open.
   useEffect(() => {
-    const onHash = () => setShowSignIn(window.location.hash === '#sign-in');
+    const onHash = () => setPage(route());
     window.addEventListener('hashchange', onHash);
     return () => window.removeEventListener('hashchange', onHash);
   }, []);
-  const go = (signIn: boolean) => {
-    setShowSignIn(signIn);
-    window.history.replaceState(null, '', window.location.pathname + window.location.search + (signIn ? '#sign-in' : ''));
+  const go = (next: 'signin' | 'privacy' | 'home') => {
+    setPage(next);
+    const hash = next === 'signin' ? '#sign-in' : next === 'privacy' ? '#privacy' : '';
+    window.history.replaceState(null, '', window.location.pathname + window.location.search + hash);
     window.scrollTo(0, 0);
   };
-  return showSignIn ? <SignInScreen onBack={() => go(false)} /> : <LandingPage onSignIn={() => go(true)} />;
+  if (page === 'privacy') return <PrivacyPage onBack={() => go('home')} />;
+  return page === 'signin' ? (
+    <SignInScreen onBack={() => go('home')} />
+  ) : (
+    <LandingPage onSignIn={() => go('signin')} onPrivacy={() => go('privacy')} />
+  );
 }
 
 /** Staff must sign in with Google and belong to a company before seeing anything. */
@@ -55,53 +76,110 @@ function AuthGate() {
   if (status === 'noAccess') return <NoAccessScreen />;
   // Platform administrators (super users) get the console; they may also belong to a company.
   if (isPlatformAdmin && (!membership || platformView)) return <PlatformConsole />;
+  return <CompanyLoader />;
+}
+
+/** Loads the company's data from Firebase before showing the app. */
+function CompanyLoader() {
+  const { membership } = useAuth();
+  const [state, setState] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [error, setError] = useState('');
+  const [attempt, setAttempt] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+    setState('loading');
+    loadCompanyData(membership!.companyId, membership!.companyName)
+      .then(() => !cancelled && setState('ready'))
+      .catch((e: unknown) => {
+        if (cancelled) return;
+        setError(e instanceof Error ? e.message : 'Unknown error');
+        setState('error');
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [membership!.companyId, attempt]);
+
+  if (state === 'loading') return <LoadingScreen />;
+  if (state === 'error')
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6">
+        <div role="alert" className="max-w-md bg-white border border-slate-200 rounded-2xl p-8 text-center">
+          <h1 className="text-xl font-bold text-ink">We could not load your data</h1>
+          <p className="text-sm text-slate-600 mt-2">Check your internet connection and try again. ({error})</p>
+          <button
+            onClick={() => setAttempt((n) => n + 1)}
+            className="mt-5 px-4 py-2 bg-ink text-white rounded-lg text-sm font-semibold cursor-pointer"
+          >
+            Try again
+          </button>
+        </div>
+      </div>
+    );
   return (
-    <ThemeProvider>
-      <MainAppContent />
+    <ThemeProvider initialBrand={getActiveOrganization()}>
+      <StaffApp />
     </ThemeProvider>
   );
 }
 
-function MainAppContent() {
-  const { brand } = useBrand();
-  const { membership } = useAuth();
+/** Shows whether the last change reached the database. */
+function SyncBadge() {
+  const [s, setS] = useState<SyncState>({ status: 'idle', message: '' });
+  useEffect(() => subscribeSync(setS), []);
+  if (s.status === 'error')
+    return (
+      <span role="alert" className="text-xs bg-red-700 text-white px-2.5 py-1 rounded-md max-w-[40ch] truncate" title={s.message}>
+        {s.message}
+      </span>
+    );
+  return (
+    <span role="status" className="text-xs text-slate-300">
+      {s.status === 'saving' ? 'Saving…' : 'All changes saved'}
+    </span>
+  );
+}
+
+function StaffApp() {
+  const { membership, user } = useAuth();
   const role = membership!.role; // AuthGate only renders this once a membership exists
 
   const [tests, setTests] = useState<Test[]>(() => getTests());
   const [attempts, setAttempts] = useState<CandidateAttempt[]>(() => getAttempts());
 
-  // Active view: 'ADMIN' | 'BRIEFING' | 'TEST' | 'SUBMITTED'
+  // Active view: 'ADMIN' | 'BRIEFING' | 'TEST' | 'SUBMITTED'. The last three are a staff PREVIEW only.
   const [view, setView] = useState<'ADMIN' | 'BRIEFING' | 'TEST' | 'SUBMITTED'>('ADMIN');
   const [activeTestId, setActiveTestId] = useState<string>(() => tests[0]?.id || '');
   const [activeAttempt, setActiveAttempt] = useState<CandidateAttempt | null>(null);
 
-  // Mock Email Notification State
-  const [latestEmail, setLatestEmail] = useState<EmailNotification | null>(null);
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-  const [emailToast, setEmailToast] = useState<{ message: string; receipt: string } | null>(null);
-
-  // Check URL query parameters for ?autostart=1
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('autostart') === '1' && tests[0]) {
-        initiateNewAttempt(tests[0], 'Test Candidate', 'candidate@example.com', true);
-      }
-    }
-  }, []);
-
   const activeTest = tests.find((t) => t.id === activeTestId) || tests[0];
 
-  const initiateNewAttempt = (
-    targetTest: Test,
-    candidateName: string,
-    candidateEmail: string,
-    skipBriefing = false,
-    roomSweep?: RoomSweepAudit
-  ) => {
-    const attemptId = `att_${Date.now()}`;
-    const initialSectionStates: Record<string, any> = {};
+  // Mark finished attempts that have no result yet (objective questions only; written answers wait for an evaluator).
+  useEffect(() => {
+    let changed = false;
+    for (const a of attempts) {
+      if (!isFinished(a) || getResults()[a.id]) continue;
+      const t = tests.find((x) => x.id === a.testId);
+      if (!t) continue;
+      saveResult(a.id, buildResult(t, a).result);
+      changed = true;
+    }
+    if (changed) setAttempts(getAttempts());
+  }, [attempts, tests]);
 
+  // New submissions arrive while the page is open: refresh every 30 seconds while it is visible.
+  useEffect(() => {
+    const refresh = () => {
+      if (view !== 'ADMIN' || document.hidden) return;
+      reloadAttempts().then(() => setAttempts(getAttempts())).catch(() => undefined);
+    };
+    const id = window.setInterval(refresh, 30000);
+    return () => window.clearInterval(id);
+  }, [view]);
+
+  const startPreview = (targetTest: Test, name: string, email: string, skipBriefing: boolean) => {
+    const initialSectionStates: CandidateAttempt['sectionStates'] = {};
     targetTest.sections.forEach((s, idx) => {
       initialSectionStates[s.id] = {
         sectionId: s.id,
@@ -110,139 +188,59 @@ function MainAppContent() {
         timeRemainingSec: s.durationMin * 60,
       };
     });
-
-    const newAttempt: CandidateAttempt = {
-      id: attemptId,
+    // Preview attempts exist only in this tab. They are never written to the database.
+    setActiveAttempt({
+      id: `preview_${Date.now()}`,
       testId: targetTest.id,
-      candidateEmail,
-      candidateName,
+      candidateEmail: email,
+      candidateName: name,
       status: 'IN_PROGRESS',
       startedAt: new Date().toISOString(),
       infractionCount: 0,
       infractions: [],
       sectionStates: initialSectionStates,
       responses: {},
-      roomSweep,
-    };
-
-    setActiveAttempt(newAttempt);
-    saveAttempt(newAttempt);
-    setAttempts(getAttempts());
-
-    if (skipBriefing) {
-      setView('TEST');
-    } else {
-      setView('BRIEFING');
-    }
+    });
+    setView(skipBriefing ? 'TEST' : 'BRIEFING');
   };
 
-  const handleStartFromBriefing = ({
-    name,
-    email,
-    roomSweep,
-  }: {
-    name: string;
-    email: string;
-    roomSweep?: RoomSweepAudit;
-  }) => {
+  const handleStartFromBriefing = ({ name, email }: { name: string; email: string }) => {
     if (!activeAttempt) {
-      initiateNewAttempt(activeTest, name, email, true, roomSweep);
+      startPreview(activeTest, name, email, true);
     } else {
-      const updated = {
-        ...activeAttempt,
-        candidateName: name,
-        candidateEmail: email,
-        roomSweep: roomSweep || activeAttempt.roomSweep,
-      };
-      setActiveAttempt(updated);
-      saveAttempt(updated);
+      setActiveAttempt({ ...activeAttempt, candidateName: name, candidateEmail: email });
       setView('TEST');
     }
   };
 
-  const handleUpdateAttempt = (updated: CandidateAttempt) => {
-    setActiveAttempt(updated);
-    saveAttempt(updated);
-    setAttempts(getAttempts());
-  };
-
-  const handleSubmitFinal = (attemptToSubmit: CandidateAttempt) => {
-    const evaluated = evaluateAttempt(activeTest, attemptToSubmit);
-    const receipt = `TMT-${Math.random().toString(36).substring(2, 8).toUpperCase()}-2026`;
-
-    const finalizedAttempt: CandidateAttempt = {
-      ...attemptToSubmit,
-      status: 'SUBMITTED',
+  const finishPreview = (a: CandidateAttempt, status: 'SUBMITTED' | 'TERMINATED_MALPRACTICE') => {
+    const { result } = buildResult(activeTest, { ...a, status });
+    setActiveAttempt({
+      ...a,
+      status,
       submittedAt: new Date().toISOString(),
-      totalScore: evaluated.totalScore,
-      maxScore: evaluated.maxScore,
-      percentageScore: evaluated.percentage,
-      isPassed: evaluated.isPassed,
-      confirmationReceipt: receipt,
-    };
-
-    setActiveAttempt(finalizedAttempt);
-    saveAttempt(finalizedAttempt);
-    setAttempts(getAttempts());
-
-    // Trigger Mock Email Notification Service
-    const sentEmail = sendSubmissionSummaryEmail(activeTest, finalizedAttempt, brand.name);
-    setLatestEmail(sentEmail);
-    setEmailToast({
-      message: `Official summary report dispatched to ${finalizedAttempt.candidateEmail}`,
-      receipt,
+      totalScore: result.totalScore,
+      maxScore: result.maxScore,
+      percentageScore: result.percentageScore,
+      isPassed: result.isPassed,
+      confirmationReceipt: `PREVIEW-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
     });
-    setTimeout(() => setEmailToast(null), 10000);
-
-    setView('SUBMITTED');
-  };
-
-  const handleTerminatedMalpractice = (attemptTerminated: CandidateAttempt) => {
-    const evaluated = evaluateAttempt(activeTest, attemptTerminated);
-    const receipt = `TMT-MALPRACTICE-${Date.now().toString().slice(-4)}`;
-
-    const terminatedAttempt: CandidateAttempt = {
-      ...attemptTerminated,
-      status: 'TERMINATED_MALPRACTICE',
-      submittedAt: new Date().toISOString(),
-      totalScore: evaluated.totalScore,
-      maxScore: evaluated.maxScore,
-      percentageScore: evaluated.percentage,
-      isPassed: false,
-      confirmationReceipt: receipt,
-    };
-
-    setActiveAttempt(terminatedAttempt);
-    saveAttempt(terminatedAttempt);
-    setAttempts(getAttempts());
-
-    // Trigger Mock Email Notification Service for Disqualification Statement
-    const sentEmail = sendSubmissionSummaryEmail(activeTest, terminatedAttempt, brand.name);
-    setLatestEmail(sentEmail);
-    setEmailToast({
-      message: `Disqualification statement dispatched to ${terminatedAttempt.candidateEmail}`,
-      receipt,
-    });
-    setTimeout(() => setEmailToast(null), 10000);
-
     setView('SUBMITTED');
   };
 
   return (
     <div className="relative min-h-screen bg-slate-50 flex flex-col font-sans">
-      {/* Floating Demo Role Switcher Bar */}
       <div className="bg-ink text-white px-4 py-2 flex items-center justify-between text-sm z-40">
         <span className="text-slate-300 truncate pr-3">
           {membership!.companyName} · {ROLE_LABELS[role]}
         </span>
 
         <div className="flex items-center gap-1.5">
+          <SyncBadge />
           <button
             onClick={() => setView('ADMIN')}
             className={`px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5 cursor-pointer ${
-              view === 'ADMIN'
-                ? 'bg-white text-ink'
-                : 'text-slate-300 hover:bg-white/10'
+              view === 'ADMIN' ? 'bg-white text-ink' : 'text-slate-300 hover:bg-white/10'
             }`}
           >
             <LayoutDashboard className="w-3.5 h-3.5" />
@@ -250,21 +248,20 @@ function MainAppContent() {
           </button>
 
           <button
+            disabled={!activeTest}
             onClick={() => {
               if (!activeAttempt || activeAttempt.status !== 'IN_PROGRESS') {
-                initiateNewAttempt(activeTest, 'Jordan Lee', 'jordan.lee@example.edu', false);
+                startPreview(activeTest, 'Preview candidate', 'preview@example.com', false);
               } else {
                 setView('TEST');
               }
             }}
-            className={`px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5 cursor-pointer ${
-              view === 'TEST' || view === 'BRIEFING'
-                ? 'bg-white text-ink'
-                : 'text-slate-300 hover:bg-white/10'
+            className={`px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
+              view === 'TEST' || view === 'BRIEFING' ? 'bg-white text-ink' : 'text-slate-300 hover:bg-white/10'
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>Candidate view</span>
+            <span>Preview as candidate</span>
           </button>
           <div className="ml-2">
             <AccountMenu />
@@ -272,7 +269,6 @@ function MainAppContent() {
         </div>
       </div>
 
-      {/* Main Content Router */}
       <div className="flex-1">
         {view === 'ADMIN' && (
           <AdminDashboard
@@ -283,23 +279,25 @@ function MainAppContent() {
               saveTests(newTests);
             }}
             attempts={attempts}
-            onUpdateAttempts={(newAttempts) => {
-              setAttempts(newAttempts);
+            onRefreshAttempts={async () => {
+              await reloadAttempts();
+              setAttempts(getAttempts());
             }}
+            onGraded={() => setAttempts(getAttempts())}
             onLaunchCandidateTest={(tId) => {
               setActiveTestId(tId);
               const target = tests.find((t) => t.id === tId) || tests[0];
-              initiateNewAttempt(target, 'Jordan Lee', 'jordan.lee@example.edu', false);
+              startPreview(target, 'Preview candidate', 'preview@example.com', false);
             }}
+            staffEmail={user?.email || ''}
           />
         )}
 
         {view === 'BRIEFING' && (
           <PreTestBriefing
             test={activeTest}
-            defaultCandidateName={activeAttempt?.candidateName || 'Jordan Lee'}
-            defaultCandidateEmail={activeAttempt?.candidateEmail || 'jordan.lee@example.edu'}
-            initialRoomSweep={activeAttempt?.roomSweep}
+            defaultCandidateName={activeAttempt?.candidateName || 'Preview candidate'}
+            defaultCandidateEmail={activeAttempt?.candidateEmail || 'preview@example.com'}
             onStart={handleStartFromBriefing}
           />
         )}
@@ -308,9 +306,9 @@ function MainAppContent() {
           <TestWorkspace
             test={activeTest}
             attempt={activeAttempt}
-            onUpdateAttempt={handleUpdateAttempt}
-            onSubmitAssessment={handleSubmitFinal}
-            onTerminatedMalpractice={handleTerminatedMalpractice}
+            onUpdateAttempt={setActiveAttempt}
+            onSubmitAssessment={(a) => finishPreview(a, 'SUBMITTED')}
+            onTerminatedMalpractice={(a) => finishPreview(a, 'TERMINATED_MALPRACTICE')}
           />
         )}
 
@@ -318,52 +316,11 @@ function MainAppContent() {
           <SubmissionSuccessScreen
             test={activeTest}
             attempt={activeAttempt}
-            onRetakeOrExit={() => {
-              initiateNewAttempt(activeTest, 'Jordan Lee', 'jordan.lee@example.edu', false);
-            }}
+            onRetakeOrExit={() => startPreview(activeTest, 'Preview candidate', 'preview@example.com', false)}
             onGoToAdmin={() => setView('ADMIN')}
-            onViewEmailReport={() => setIsEmailModalOpen(true)}
           />
         )}
       </div>
-
-      {/* Floating Mock Email Dispatch Notification Toast */}
-      {emailToast && (
-        <aside
-          aria-label="Email notification"
-          className="fixed bottom-6 left-6 z-50 bg-slate-900 text-white p-4 rounded-2xl shadow-2xl border border-slate-700 max-w-md flex items-center justify-between gap-3 animate-in fade-in slide-in-from-bottom-4"
-        >
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 text-white">
-              <Mail className="w-4 h-4" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-xs font-bold text-white leading-snug truncate">
-                {emailToast.message}
-              </p>
-              <p className="text-[10px] text-slate-400 font-mono mt-0.5">
-                Receipt: {emailToast.receipt} • Status: Delivered
-              </p>
-            </div>
-          </div>
-
-          <button
-            onClick={() => setIsEmailModalOpen(true)}
-            className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-lg transition shrink-0 cursor-pointer flex items-center gap-1"
-          >
-            <span>View Email</span>
-            <ExternalLink className="w-3 h-3" />
-          </button>
-        </aside>
-      )}
-
-      {/* Mock Email Viewer Modal */}
-      <MockEmailViewerModal
-        isOpen={isEmailModalOpen}
-        onClose={() => setIsEmailModalOpen(false)}
-        initialEmail={latestEmail || undefined}
-        allEmails={getSentEmails()}
-      />
     </div>
   );
 }

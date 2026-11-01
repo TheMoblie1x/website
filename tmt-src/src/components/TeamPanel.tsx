@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { canAddSeat } from '../data/limits';
 import { Trash2, X } from 'lucide-react';
 import { ROLES, ROLE_DESCRIPTIONS, ROLE_LABELS, Role } from '../auth/roles';
 import {
@@ -18,7 +19,9 @@ export const TeamPanel: React.FC<{
   canManage: boolean;
   /** The signed-in person, so they cannot remove or demote themselves. */
   currentUid?: string;
-}> = ({ companyId, canManage, currentUid }) => {
+  /** Plan seat limit (guard rail, enforced in the app only). */
+  seatLimit?: number | null;
+}> = ({ companyId, canManage, currentUid, seatLimit }) => {
   const [members, setMembers] = useState<MemberRec[]>([]);
   const [pending, setPending] = useState<PendingRec[]>([]);
   const [loading, setLoading] = useState(true);
@@ -63,6 +66,11 @@ export const TeamPanel: React.FC<{
 
   const invite = (e: React.FormEvent) => {
     e.preventDefault();
+    const seats = canAddSeat(seatLimit ? { assessments: 0, candidatesPerMonth: 0, seats: seatLimit } : null, members.length, pending.length);
+    if (!seats.ok) {
+      setError(seats.message);
+      return;
+    }
     run(async () => {
       await inviteMember(companyId, email, role);
       setEmail('');

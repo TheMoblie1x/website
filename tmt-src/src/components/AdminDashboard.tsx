@@ -26,7 +26,6 @@ import {
   TestSection,
   Question,
   ProctoringSettings,
-  EmailNotification,
 } from '../types/testforge';
 import { BrandMark } from './BrandMark';
 import { SettingSwitch } from './SettingSwitch';
@@ -37,17 +36,21 @@ import { BillingPanel } from './BillingPanel';
 import { CreateTestModal, SectionModal, QuestionModal, newId } from './TestAuthoring';
 import { BulkIngestionModal } from './BulkIngestionModal';
 import { AnalyticsTab } from './AnalyticsTab';
-import { MockEmailViewerModal } from './MockEmailViewerModal';
-import { getSentEmails, getLatestEmailForCandidate } from '../utils/emailService';
-import { DEFAULT_ORGANIZATIONS } from '../utils/seedData';
-import { saveOrganizations, saveTests, saveAttempt } from '../utils/storage';
+import { AttemptReviewModal } from './AttemptReviewModal';
+import { getResults, saveTests } from '../utils/storage';
+import { InvitePanel } from './InvitePanel';
+import { usePlanInfo } from '../data/usePlanInfo';
+import { candidatesThisMonth, canAddAssessment, canInviteCandidates, subscriptionAllows } from '../data/limits';
+import { LEGACY_TESTS_KEY, findLegacyTests, sampleAssessmentFor } from '../data/legacyImport';
 
 interface AdminDashboardProps {
   role: Role;
   tests: Test[];
   onUpdateTests: (tests: Test[]) => void;
   attempts: CandidateAttempt[];
-  onUpdateAttempts: (attempts: CandidateAttempt[]) => void;
+  onRefreshAttempts: () => Promise<void>;
+  onGraded: () => void;
+  staffEmail: string;
   onLaunchCandidateTest: (testId: string) => void;
 }
 
@@ -56,7 +59,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   tests,
   onUpdateTests,
   attempts,
-  onUpdateAttempts,
+  onRefreshAttempts,
+  onGraded,
+  staffEmail,
   onLaunchCandidateTest,
 }) => {
   const { brand, setBrand, updateBrandColors } = useBrand();
@@ -65,6 +70,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const canBrand = can(role, 'branding:edit');
   const canManageTeam = can(role, 'members:manage');
   const { user: authUser, membership } = useAuth();
+  const { sub, limits } = usePlanInfo(membership?.companyId);
+  const assessmentLimit = canAddAssessment(limits, tests.length);
+  const inviteBlock =
+    subscriptionAllows(sub).message || canInviteCandidates(limits, candidatesThisMonth(attempts, new Date())).message;
+  const [refreshing, setRefreshing] = useState(false);
+  const [legacyDismissed, setLegacyDismissed] = useState(false);
+  const legacyTests = (() => {
+    try {
+      return findLegacyTests(localStorage.getItem(LEGACY_TESTS_KEY), new Set(tests.map((t) => t.id)));
+    } catch {
+      return [];
+    }
+  })();
 
   const [activeTab, setActiveTab] = useState<'TESTS' | 'ANALYTICS' | 'BRANDING' | 'ATTEMPTS' | 'QUESTIONS' | 'TEAM' | 'BILLING'>('TESTS');
   const [selectedTestId, setSelectedTestId] = useState<string>(tests[0]?.id || '');
@@ -75,8 +93,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [pendingDeleteQ, setPendingDeleteQ] = useState<string | null>(null);
   const [publishMessage, setPublishMessage] = useState("");
   const [attemptDetailModal, setAttemptDetailModal] = useState<CandidateAttempt | null>(null);
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-  const [selectedEmailForViewer, setSelectedEmailForViewer] = useState<EmailNotification | undefined>(undefined);
 
   // Branding Studio State
   const [brandForm, setBrandForm] = useState({
@@ -109,7 +125,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   const handleToggleProctoringSetting = (key: keyof ProctoringSettings) => {
     if (!activeTest || !canWrite) return;
-    const currentVal = activeTest.proctoring ? activeTest.proctoring[key] : true;
+    const currentVal = activeTest.proctoring ? (activeTest.proctoring[key] ?? true) : true;
     const updated = tests.map((t) => {
       if (t.id === activeTest.id) {
         return {
@@ -257,18 +273,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     );
   };
 
-  const handleSelectOrgPreset = (org: Organization) => {
-    if (!canBrand) return;
-    setBrand(org);
-    setBrandForm({
-      name: org.name,
-      logoUrl: org.logoUrl,
-      primaryColor: org.primaryColor,
-      secondaryColor: org.secondaryColor,
-      fontFamily: org.fontFamily,
-    });
-  };
-
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       {/* Platform Header */}
@@ -378,8 +382,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         {/* Global Action CTA */}
         <div className="flex items-center justify-end gap-2 shrink-0">
           <button
-            onClick={() => onLaunchCandidateTest(activeTest.id)}
-            className="w-full sm:w-auto px-4 py-2 bg-ink hover:bg-slate-800 text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer"
+            disabled={!activeTest}
+            onClick={() => activeTest && onLaunchCandidateTest(activeTest.id)}
+            className="w-full sm:w-auto px-4 py-2 bg-ink hover:bg-slate-800 text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             <span>Preview as candidate</span>
@@ -428,7 +433,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </button>
                 <button
                   onClick={() => setIsCreateOpen(true)}
-                  className="px-4 py-2 bg-cta hover:bg-cta-hover active:bg-cta-press text-ink font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer"
+                  disabled={!assessmentLimit.ok}
+                  title={assessmentLimit.message || undefined}
+                  className="px-4 py-2 bg-cta hover:bg-cta-hover active:bg-cta-press text-ink font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Plus className="w-4 h-4" />
                   <span>New assessment</span>
@@ -437,6 +444,58 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 )}
               </div>
             </div>
+
+            {assessmentLimit.message && (
+              <p role="status" className="text-[13px] text-amber-700">{assessmentLimit.message}</p>
+            )}
+
+            {canWrite && !legacyDismissed && legacyTests.length > 0 && (
+              <div role="status" className="p-4 bg-brand-50 border border-brand-200 rounded-xl text-sm text-ink flex flex-wrap items-center justify-between gap-3">
+                <span>
+                  {legacyTests.length} assessment{legacyTests.length === 1 ? ' is' : 's are'} saved only in this browser from an older version. Import {legacyTests.length === 1 ? 'it' : 'them'} so your whole team can use {legacyTests.length === 1 ? 'it' : 'them'}.
+                </span>
+                <span className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      const imported = legacyTests.map((t) => ({ ...t, orgId: membership?.companyId || t.orgId, isPublished: false }));
+                      onUpdateTests([...tests, ...imported]);
+                      setSelectedTestId(imported[0].id);
+                    }}
+                    className="px-3 py-1.5 bg-ink text-white rounded-lg font-semibold cursor-pointer"
+                  >
+                    Import
+                  </button>
+                  <button onClick={() => setLegacyDismissed(true)} className="px-3 py-1.5 border border-slate-300 rounded-lg font-semibold cursor-pointer">
+                    Not now
+                  </button>
+                </span>
+              </div>
+            )}
+
+            {!activeTest && (
+              <div className="bg-white border border-slate-200 rounded-xl p-8 text-center">
+                <h2 className="text-lg font-semibold text-ink">No assessments yet</h2>
+                <p className="text-sm text-slate-600 mt-1 max-w-md mx-auto">
+                  {canWrite
+                    ? 'Create your first assessment, or start from a sample you can edit.'
+                    : 'Ask an owner or manager to create an assessment.'}
+                </p>
+                {canWrite && (
+                  <div className="mt-4 flex justify-center gap-3">
+                    <button
+                      onClick={() => {
+                        const sample = sampleAssessmentFor(membership?.companyId || 'org', authUser?.uid || 'staff');
+                        onUpdateTests([...tests, sample]);
+                        setSelectedTestId(sample.id);
+                      }}
+                      className="px-4 py-2 border border-slate-300 rounded-lg text-sm font-semibold cursor-pointer"
+                    >
+                      Add a sample assessment
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Test overview */}
             {activeTest &&
@@ -529,6 +588,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             disabled={!canWrite}
                             onChange={handleToggleTabLimit}
                           />
+                          <SettingSwitch
+                            label="Discourage screenshots and copying"
+                            description="Hides the questions when the window loses focus, blocks copy, print and right-click, and tiles the candidate's name, email and attempt ID over the page so a leaked photo is traceable. It cannot stop a phone camera or an operating-system screen recorder."
+                            checked={activeTest.proctoring?.protectContent !== false}
+                            disabled={!canWrite}
+                            onChange={() => handleToggleProctoringSetting('protectContent')}
+                          />
                         </div>
                       </div>
                     </div>
@@ -579,6 +645,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   </div>
                 );
               })()}
+
+            {activeTest && membership && (
+              <InvitePanel
+                companyId={membership.companyId}
+                test={activeTest}
+                canInvite={can(role, 'invites:manage')}
+                blockedReason={inviteBlock}
+              />
+            )}
           </div>
         )}
 
@@ -591,7 +666,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 Invite people from {membership.companyName} and choose what each can do.
               </p>
             </div>
-            <TeamPanel companyId={membership.companyId} canManage currentUid={authUser?.uid} />
+            <TeamPanel companyId={membership.companyId} canManage currentUid={authUser?.uid} seatLimit={limits?.seats ?? null} />
           </div>
         )}
 
@@ -611,11 +686,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <AnalyticsTab
             tests={tests}
             attempts={attempts}
-            emails={getSentEmails()}
-            onOpenEmailOutbox={() => {
-              setSelectedEmailForViewer(undefined);
-              setIsEmailModalOpen(true);
-            }}
           />
         )}
 
@@ -629,42 +699,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <p className="text-xs text-slate-500 mt-0.5">
                 Customize colors, typography, and logos. The candidate interface completely insulates your organization brand.
               </p>
-            </div>
-
-            {/* Quick Preset Organizations */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
-              <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-3">
-                Pre-Configured Enterprise Tenants
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {DEFAULT_ORGANIZATIONS.map((org) => (
-                  <button
-                    key={org.id}
-                    onClick={() => handleSelectOrgPreset(org)}
-                    className={`p-3.5 rounded-xl border-2 text-left transition flex items-center gap-3 cursor-pointer ${
-                      brand.name === org.name
-                        ? 'border-blue-600 bg-blue-50/50'
-                        : 'border-slate-200 hover:border-slate-300 bg-slate-50'
-                    }`}
-                  >
-                    <img
-                      src={org.logoUrl}
-                      alt={org.name}
-                      className="h-10 w-10 rounded-lg object-cover border border-slate-200"
-                    />
-                    <div className="min-w-0">
-                      <p className="text-xs font-bold text-slate-900 truncate">{org.name}</p>
-                      <div className="flex items-center gap-1.5 mt-1">
-                        <span
-                          className="w-3 h-3 rounded-full border border-black/10"
-                          style={{ backgroundColor: org.primaryColor }}
-                        />
-                        <span className="text-[11px] text-slate-500">{org.primaryColor}</span>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
             </div>
 
             {/* Custom Brand Colors & Assets Form */}
@@ -770,11 +804,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   >
                     <div className="flex items-center justify-between pb-3 border-b border-slate-200">
                       <div className="flex items-center gap-2">
-                        <img
-                          src={brandForm.logoUrl}
+                        {brandForm.logoUrl && <img src={brandForm.logoUrl}
                           alt="preview logo"
                           className="h-7 w-7 rounded object-cover"
-                        />
+                        />}
                         <span className="text-xs font-bold text-slate-800">{brandForm.name}</span>
                       </div>
                       <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono">
@@ -831,10 +864,29 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   Candidate Attempts & Integrity Audit
                 </h1>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Inspect scores, section performance, proctoring tab-switch infractions, and submission receipts.
+                  Review answers, mark written responses, and see violations and receipts. New submissions appear automatically.
                 </p>
               </div>
+              <button
+                disabled={refreshing}
+                onClick={async () => {
+                  setRefreshing(true);
+                  try {
+                    await onRefreshAttempts();
+                  } finally {
+                    setRefreshing(false);
+                  }
+                }}
+                className="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold cursor-pointer disabled:opacity-50"
+              >
+                {refreshing ? 'Refreshing…' : 'Refresh'}
+              </button>
             </div>
+            {attempts.length === 0 && (
+              <p className="text-sm text-slate-600">
+                No submissions yet. Share a candidate link from the Assessments tab; submissions appear here.
+              </p>
+            )}
 
             {/* Attempts Table */}
             <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
@@ -906,22 +958,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         <td className="px-4 py-3 text-right">
                           <div className="flex items-center justify-end gap-1.5">
                             <button
-                              onClick={() => {
-                                const email = getLatestEmailForCandidate(att.candidateEmail);
-                                setSelectedEmailForViewer(email);
-                                setIsEmailModalOpen(true);
-                              }}
-                              className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition cursor-pointer"
-                              title="View Dispatched Email Report"
-                            >
-                              <Mail className="w-4 h-4" />
-                            </button>
-
-                            <button
                               onClick={() => setAttemptDetailModal(att)}
                               className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-lg transition cursor-pointer"
                             >
-                              Inspect Audit
+                              Review & mark
                             </button>
                           </div>
                         </td>
@@ -935,7 +975,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         )}
 
         {/* ================= TAB 4: QUESTION BANK ================= */}
-        {activeTab === 'QUESTIONS' && (
+        {activeTab === 'QUESTIONS' && activeTest && (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
@@ -1091,7 +1131,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         <CreateTestModal
           tests={tests}
           orgId={brand.id}
-          authorId="usr_admin_1"
+          authorId={authUser?.uid || "staff"}
           onCreate={handleCreateTest}
           onClose={() => setIsCreateOpen(false)}
         />
@@ -1115,154 +1155,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         onCommitQuestions={handleCommitBulkQuestions}
       />
 
-      {/* Candidate Attempt Detailed Audit Inspection Modal */}
       {attemptDetailModal && (
-        <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white max-w-3xl w-full rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
-            <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900">
-                  Candidate Assessment Audit: {attemptDetailModal.candidateName}
-                </h3>
-                <p className="text-xs text-slate-500 font-mono">
-                  {attemptDetailModal.candidateEmail} • Receipt: {attemptDetailModal.confirmationReceipt}
-                </p>
-              </div>
-              <button
-                onClick={() => setAttemptDetailModal(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-600"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
-              {/* 360° AI Room Sweep Audit Inspection */}
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Compass className="w-4 h-4 text-blue-600" />
-                    <span className="font-bold uppercase tracking-wider text-slate-800 text-xs">
-                      360° AI Room Sweep & Perimeter Certification
-                    </span>
-                  </div>
-                  {attemptDetailModal.roomSweep?.isVerified ? (
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" />
-                      CERTIFIED ({attemptDetailModal.roomSweep.integrityScore}% INTEGRITY)
-                    </span>
-                  ) : (
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200">
-                      SWEEP NOT COMPLETED
-                    </span>
-                  )}
-                </div>
-
-                {attemptDetailModal.roomSweep ? (
-                  <div className="space-y-2">
-                    <p className="text-[11px] text-slate-500">
-                      Verified at: {new Date(attemptDetailModal.roomSweep.verifiedAt || Date.now()).toLocaleString()} • {attemptDetailModal.roomSweep.notes || 'Full 5-angle perimeter verified clean'}
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                      {attemptDetailModal.roomSweep.steps.map((step) => (
-                        <div
-                          key={step.angle}
-                          className="p-2 bg-white rounded-lg border border-slate-200 text-[11px]"
-                        >
-                          <div className="flex items-center justify-between font-semibold text-slate-800 mb-0.5">
-                            <span>{step.label.split(' - ')[0]}</span>
-                            <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                              {step.status}
-                            </span>
-                          </div>
-                          <div className="text-[10px] text-slate-500">
-                            {step.detectedObjects.join(' • ')}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <p className="text-[11px] text-slate-500 italic">
-                    Candidate did not complete a 360° panoramic room sweep prior to this attempt.
-                  </p>
-                )}
-              </div>
-
-              {/* Infraction Log */}
-              {attemptDetailModal.infractions && attemptDetailModal.infractions.length > 0 && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-xl space-y-1.5 text-red-900">
-                  <div className="font-bold uppercase tracking-wider flex items-center gap-1.5">
-                    <ShieldAlert className="w-4 h-4 text-red-600" />
-                    <span>Malpractice Warnings Triggered:</span>
-                  </div>
-                  {attemptDetailModal.infractions.map((inf) => (
-                    <div key={inf.id} className="font-mono">
-                      Warning #{inf.warningNumber}: {inf.description} (
-                      {new Date(inf.timestamp).toLocaleTimeString()})
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Answers Inspection */}
-              <div>
-                <h4 className="font-bold text-slate-800 uppercase tracking-wider mb-2">
-                  Responses Record:
-                </h4>
-                <div className="space-y-2">
-                  {Object.entries(attemptDetailModal.responses).map(([qId, resp]) => (
-                    <div key={qId} className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                      <div className="flex items-center justify-between font-mono font-bold mb-1">
-                        <span>Question ID: {qId}</span>
-                        <span className="text-blue-600">Status: {resp.status}</span>
-                      </div>
-                      <div className="font-mono text-slate-700">
-                        Saved Response:{' '}
-                        {typeof resp.savedAnswer === 'object'
-                          ? JSON.stringify(resp.savedAnswer)
-                          : String(resp.savedAnswer || 'None')}
-                      </div>
-                      <div className="text-[11px] text-slate-400 mt-1">
-                        Time spent: {resp.timeSpentSec}s • Score awarded: {resp.scoreAwarded ?? 'N/A'}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
-              <button
-                onClick={() => {
-                  const email = getLatestEmailForCandidate(attemptDetailModal.candidateEmail);
-                  setSelectedEmailForViewer(email);
-                  setIsEmailModalOpen(true);
-                }}
-                className="px-3.5 py-2 bg-blue-50 border border-blue-200 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl flex items-center gap-1.5 transition cursor-pointer"
-              >
-                <Mail className="w-3.5 h-3.5 text-blue-600" />
-                <span>View Dispatched Email Report</span>
-              </button>
-
-              <button
-                onClick={() => setAttemptDetailModal(null)}
-                className="px-4 py-2 bg-slate-900 text-white font-bold text-xs rounded-xl cursor-pointer"
-              >
-                Close Audit
-              </button>
-            </div>
-          </div>
-        </div>
+        <AttemptReviewModal
+          attempt={attemptDetailModal}
+          test={tests.find((t) => t.id === attemptDetailModal.testId)}
+          result={getResults()[attemptDetailModal.id]}
+          canGrade={can(role, 'submissions:grade')}
+          staffEmail={staffEmail}
+          onClose={() => setAttemptDetailModal(null)}
+          onSaved={onGraded}
+        />
       )}
-
-      {/* Mock Email Dispatch Outbox / Candidate Email Viewer Modal */}
-      <MockEmailViewerModal
-        isOpen={isEmailModalOpen}
-        onClose={() => setIsEmailModalOpen(false)}
-        initialEmail={selectedEmailForViewer}
-        allEmails={getSentEmails()}
-      />
     </div>
   );
 };

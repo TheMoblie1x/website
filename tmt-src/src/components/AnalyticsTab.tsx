@@ -36,8 +36,6 @@ import { EmailNotification } from '../types/testforge';
 interface AnalyticsTabProps {
   tests: Test[];
   attempts: CandidateAttempt[];
-  emails: EmailNotification[];
-  onOpenEmailOutbox: () => void;
 }
 
 const SCORE_BUCKETS = [
@@ -57,8 +55,6 @@ const PIE_COLORS = {
 export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
   tests,
   attempts,
-  emails,
-  onOpenEmailOutbox,
 }) => {
   const [selectedTestId, setSelectedTestId] = useState<string>('ALL');
 
@@ -84,8 +80,6 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
         malpracticeCount: 0,
         passRate: 0,
         avgTimeMins: 0,
-        roomSweepCount: 0,
-        sweepRate: 0,
       };
     }
 
@@ -94,7 +88,6 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
     let failCount = 0;
     let malpracticeCount = 0;
     let totalTimeSec = 0;
-    let roomSweepCount = 0;
 
     filteredAttempts.forEach((att) => {
       sumPercentage += att.percentageScore || 0;
@@ -113,16 +106,11 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
       } else {
         totalTimeSec += 35 * 60; // fallback avg 35 mins
       }
-
-      if (att.roomSweep?.isVerified) {
-        roomSweepCount++;
-      }
     });
 
     const avgScore = Math.round((sumPercentage / total) * 10) / 10;
     const passRate = Math.round((passCount / total) * 100);
     const avgTimeMins = Math.round(totalTimeSec / total / 60);
-    const sweepRate = Math.round((roomSweepCount / total) * 100);
 
     return {
       total,
@@ -132,8 +120,6 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
       malpracticeCount,
       passRate,
       avgTimeMins,
-      roomSweepCount,
-      sweepRate,
     };
   }, [filteredAttempts]);
 
@@ -242,14 +228,13 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
 
   // Export analytics CSV helper
   const handleExportCSV = () => {
-    const headers = ['Candidate Name', 'Candidate Email', 'Score', 'Percentage', 'Status', '360 Sweep', 'Infractions', 'Receipt'];
+    const headers = ['Candidate Name', 'Candidate Email', 'Score', 'Percentage', 'Status', 'Infractions', 'Receipt'];
     const rows = filteredAttempts.map((a) => [
       `"${a.candidateName}"`,
       `"${a.candidateEmail}"`,
       a.totalScore ?? 'N/A',
       `${a.percentageScore ?? 'N/A'}%`,
       `"${a.status}"`,
-      a.roomSweep?.isVerified ? `"${a.roomSweep.integrityScore}%"` : '"None"',
       a.infractionCount || 0,
       `"${a.confirmationReceipt || ''}"`,
     ]);
@@ -295,15 +280,6 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
               ))}
             </select>
           </div>
-
-          {/* Outbox Emails Button */}
-          <button
-            onClick={onOpenEmailOutbox}
-            className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-2xs transition flex items-center gap-1.5 cursor-pointer"
-          >
-            <Mail className="w-3.5 h-3.5" />
-            <span>Dispatched Outbox ({emails.length})</span>
-          </button>
 
           {/* CSV Export */}
           <button
@@ -360,17 +336,6 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
           </div>
           <p className="text-2xl font-black text-slate-900">{metrics.avgTimeMins}m</p>
           <p className="text-[10px] text-slate-400 mt-0.5">Budget: {activeTest?.totalDurationMin || 45} mins</p>
-        </div>
-
-        <div className="p-4 bg-white border border-slate-200 rounded-2xl shadow-2xs col-span-2 sm:col-span-1">
-          <div className="flex items-center justify-between text-slate-400 mb-1">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-              360° Sweep Certified
-            </span>
-            <Compass className="w-4 h-4 text-slate-400" />
-          </div>
-          <p className="text-2xl font-bold text-ink">{metrics.sweepRate}%</p>
-          <p className="text-[10px] text-slate-400 mt-0.5">{metrics.roomSweepCount} certified rooms</p>
         </div>
       </div>
 

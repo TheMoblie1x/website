@@ -33,13 +33,17 @@ import {
   ProctoringEventType,
 } from '../types/testforge';
 import { SubmissionReviewModal, QuestionSummaryItem } from './SubmissionReviewModal';
-import { AiProctoringLiveHUD } from './AiProctoringLiveHUD';
-import { AiProctoringSweepModal } from './AiProctoringSweepModal';
 import { computePayloadSignature } from '../utils/storage';
+import { ProtectionLayer, useContentProtection } from './ContentProtection';
+
+/** 'saved' / 'saving' / 'error' describe the server copy; undefined means a staff preview that is never saved. */
+export type SaveStatus = 'saved' | 'saving' | 'error';
 
 interface TestWorkspaceProps {
   test: Test;
   attempt: CandidateAttempt;
+  saveStatus?: SaveStatus;
+  onRetrySave?: () => void;
   onUpdateAttempt: (updated: CandidateAttempt) => void;
   onSubmitAssessment: (attempt: CandidateAttempt) => void;
   onTerminatedMalpractice: (attempt: CandidateAttempt) => void;
@@ -48,6 +52,8 @@ interface TestWorkspaceProps {
 export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
   test,
   attempt,
+  saveStatus,
+  onRetrySave,
   onUpdateAttempt,
   onSubmitAssessment,
   onTerminatedMalpractice,
@@ -57,9 +63,10 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
   const [activeSecIdx, setActiveSecIdx] = useState(0);
   const [activeQIdx, setActiveQIdx] = useState(0);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-  const [isSweepModalOpen, setIsSweepModalOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [autosaveState, setAutosaveState] = useState<'IDLE' | 'SAVING' | 'SAVED'>('SAVED');
+  const protect = test.proctoring.protectContent !== false;
+  const protection = useContentProtection(protect);
   const [lastSavedSig, setLastSavedSig] = useState(computePayloadSignature(JSON.stringify(attempt.responses)));
 
   // Current Section and Question
@@ -75,7 +82,13 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
   );
 
   // Global time remaining state
-  const [globalTimeRemaining, setGlobalTimeRemaining] = useState(test.totalDurationMin * 60);
+  // Derived from the start time so reloading the page cannot hand back time that has already passed.
+  const [globalTimeRemaining, setGlobalTimeRemaining] = useState(() => {
+    const total = test.totalDurationMin * 60;
+    const started = attempt.startedAt ? Date.parse(attempt.startedAt) : NaN;
+    if (Number.isNaN(started)) return total;
+    return Math.max(0, total - Math.floor((Date.now() - started) / 1000));
+  });
 
   // Infraction detection modal state
   const [infractionModal, setInfractionModal] = useState<{
@@ -404,11 +417,10 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
       <header className="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between shrink-0 z-20">
         <div className="flex items-center gap-4 sm:gap-6 min-w-0">
           <div className="flex items-center gap-2.5 shrink-0">
-            <img
-              src={brand.logoUrl}
+            {brand.logoUrl && <img src={brand.logoUrl}
               alt={brand.name}
               className="h-8 w-8 rounded-lg object-cover border border-slate-200"
-            />
+            />}
             <div className="hidden md:block">
               <span className="text-xs font-bold text-slate-800 block leading-tight truncate max-w-[180px]">
                 {brand.name}
@@ -456,30 +468,6 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
 
         {/* Timers & Actions */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {/* 360° AI Guard Status Indicator */}
-          <button
-            type="button"
-            onClick={() => setIsSweepModalOpen(true)}
-            title="360° AI Proctor Sentinel is guarding this session. Click to view Room Sweep Certification."
-            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-[11px] font-semibold text-slate-700 cursor-pointer hover:bg-slate-100 transition"
-          >
-            <div className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </div>
-            <Shield className="w-3.5 h-3.5 text-emerald-600" />
-            <span className="hidden md:inline">360° AI Guard</span>
-            {attempt.roomSweep?.isVerified ? (
-              <span className="px-1.5 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-mono font-bold">
-                {attempt.roomSweep.integrityScore}%
-              </span>
-            ) : (
-              <span className="px-1.5 py-0.5 rounded text-[10px] bg-emerald-50 text-emerald-700 font-mono font-bold">
-                Active
-              </span>
-            )}
-          </button>
-
           {/* Section Timer with Visual Warnings */}
           <div
             title="Section Countdown Timer"
@@ -790,11 +778,20 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
                         : 'bg-emerald-500'
                     }`}
                   />
-                  <span>
-                    {autosaveState === 'SAVING'
-                      ? 'Autosaving response...'
-                      : `Saved on this device • ${lastSavedSig.slice(0, 10)}`}
+                  <span role="status">
+                    {saveStatus === undefined
+                      ? 'Preview: nothing is saved'
+                      : saveStatus === 'error'
+                      ? 'Not saved. Check your internet connection.'
+                      : saveStatus === 'saving' || autosaveState === 'SAVING'
+                      ? 'Saving…'
+                      : 'Saved'}
                   </span>
+                  {saveStatus === 'error' && onRetrySave && (
+                    <button type="button" onClick={onRetrySave} className="ml-2 underline font-semibold cursor-pointer">
+                      Retry
+                    </button>
+                  )}
                 </div>
 
                 {activeAnswer !== null && activeAnswer !== undefined && activeAnswer !== '' && (
@@ -991,6 +988,12 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
         </div>
       )}
 
+      <ProtectionLayer
+        enabled={protect}
+        hidden={protection.hidden}
+        notice={protection.notice}
+        watermark={{ name: attempt.candidateName, email: attempt.candidateEmail, attemptId: attempt.id }}
+      />
     </div>
   );
 };

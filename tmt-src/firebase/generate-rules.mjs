@@ -139,7 +139,11 @@ const rules = {
     invites: {
       $token: {
         '.read': 'auth != null',
-        '.write': `auth != null && ${isMgr} && ${myCo} === (newData.exists() ? newData.child('companyId').val() : data.child('companyId').val())`,
+        // A new link may only be created for a PUBLISHED test of the manager's own company. Revoking or deleting an
+        // existing link is always allowed, so the publish check applies to creation only.
+        '.write':
+          `auth != null && ${isMgr} && ${myCo} === (newData.exists() ? newData.child('companyId').val() : data.child('companyId').val()) && ` +
+          `(data.exists() || !newData.exists() || root.child('tests').child(newData.child('companyId').val()).child(newData.child('testId').val()).child('isPublished').val() === true)`,
         claimedBy: { '.write': 'auth != null && !data.exists() && newData.val() === auth.uid' },
       },
     },

@@ -7,6 +7,8 @@ export interface QuestionScoreResult {
   maxScore: number;
   negativeMarksApplied: number;
   feedback?: string;
+  /** Written and coding answers cannot be marked by the browser; a person gives the marks. */
+  needsReview?: boolean;
 }
 
 export interface SectionScoreSummary {
@@ -27,6 +29,8 @@ export interface TestScoreResult {
   isPassed: boolean;
   sectionsSummary: SectionScoreSummary[];
   questionResults: Record<string, QuestionScoreResult>;
+  /** Written/coding answers with no marks entered yet. */
+  pendingReview: number;
 }
 
 export function evaluateQuestion(question: Question, response?: CandidateResponse): QuestionScoreResult {
@@ -141,35 +145,17 @@ export function evaluateQuestion(question: Question, response?: CandidateRespons
       }
     }
 
-    case 'SUBJECTIVE': {
-      // Long-form text evaluated by default baseline or length heuristic (evaluated by author)
-      const text = String(saved || '').trim();
-      const hasContent = text.split(/\s+/).filter(Boolean).length >= 15;
-      const score = hasContent ? parseFloat((maxScore * 0.85).toFixed(1)) : 0;
-      return {
-        questionId: question.id,
-        isCorrect: hasContent,
-        scoreAwarded: score,
-        maxScore,
-        negativeMarksApplied: 0,
-        feedback: hasContent
-          ? 'Completed subjective response recorded for evaluator review.'
-          : 'Response too brief for full mark consideration.',
-      };
-    }
-
+    case 'SUBJECTIVE':
     case 'CODING': {
-      // Coding answers evaluation
-      const code = String(saved || '').trim();
-      const hasSolution = code.length > 30 && !code.includes('pass') && (code.includes('return') || code.includes('console.log'));
-      const score = hasSolution ? maxScore : parseFloat((maxScore * 0.4).toFixed(1));
+      // Not marked automatically: the browser cannot judge prose or run submitted code. An evaluator enters marks.
       return {
         questionId: question.id,
-        isCorrect: hasSolution,
-        scoreAwarded: score,
+        isCorrect: false,
+        scoreAwarded: 0,
         maxScore,
         negativeMarksApplied: 0,
-        feedback: hasSolution ? 'All automated unit test cases passed.' : 'Partial test cases passed.',
+        needsReview: true,
+        feedback: 'Awaiting manual marks from an evaluator.',
       };
     }
 
@@ -184,7 +170,16 @@ export function evaluateQuestion(question: Question, response?: CandidateRespons
   }
 }
 
-export function evaluateAttempt(test: Test, attempt: CandidateAttempt): TestScoreResult {
+/**
+ * Scores an attempt. `manualMarks` (question id -> marks) are entered by an evaluator and take precedence for the
+ * questions that need review; they are clamped to 0..question marks.
+ */
+export function evaluateAttempt(
+  test: Test,
+  attempt: CandidateAttempt,
+  manualMarks: Record<string, number> = {}
+): TestScoreResult {
+  let pendingReview = 0;
   let totalScore = 0;
   let maxScore = 0;
   const sectionsSummary: SectionScoreSummary[] = [];
@@ -200,7 +195,14 @@ export function evaluateAttempt(test: Test, attempt: CandidateAttempt): TestScor
     section.questions.forEach((q) => {
       secMax += q.marks;
       const resp = attempt.responses[q.id];
-      const evaluated = evaluateQuestion(q, resp);
+      let evaluated = evaluateQuestion(q, resp);
+      const manual = manualMarks[q.id];
+      if (typeof manual === 'number' && Number.isFinite(manual)) {
+        const marks = Math.min(Math.max(manual, 0), q.marks);
+        evaluated = { ...evaluated, scoreAwarded: marks, isCorrect: marks >= q.marks, needsReview: false, feedback: 'Marked by an evaluator.' };
+      } else if (evaluated.needsReview && resp && resp.savedAnswer) {
+        pendingReview++;
+      }
       questionResults[q.id] = evaluated;
 
       secAwarded += evaluated.scoreAwarded;
@@ -235,5 +237,6 @@ export function evaluateAttempt(test: Test, attempt: CandidateAttempt): TestScor
     isPassed,
     sectionsSummary,
     questionResults,
+    pendingReview,
   };
 }

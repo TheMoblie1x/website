@@ -104,7 +104,7 @@
     "invites": {
       "$token": {
         ".read": "auth != null",
-        ".write": "auth != null && (root.child('members').child(auth.uid).child('role').val() === 'owner' || root.child('members').child(auth.uid).child('role').val() === 'manager') && root.child('members').child(auth.uid).child('companyId').val() === (newData.exists() ? newData.child('companyId').val() : data.child('companyId').val())",
+        ".write": "auth != null && (root.child('members').child(auth.uid).child('role').val() === 'owner' || root.child('members').child(auth.uid).child('role').val() === 'manager') && root.child('members').child(auth.uid).child('companyId').val() === (newData.exists() ? newData.child('companyId').val() : data.child('companyId').val()) && (data.exists() || !newData.exists() || root.child('tests').child(newData.child('companyId').val()).child(newData.child('testId').val()).child('isPublished').val() === true)",
         "claimedBy": {
           ".write": "auth != null && !data.exists() && newData.val() === auth.uid"
         }

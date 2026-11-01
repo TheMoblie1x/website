@@ -104,12 +104,7 @@ export const CreateTestModal: React.FC<{
       proctoring: source?.proctoring ?? {
         enforceFullscreen: true,
         maxTabSwitchViolations: 3,
-        recordCameraCheck: true,
-        enable360RoomSweep: false,
-        enableAiGazeTracking: false,
-        enableMultiPersonDetection: false,
-        enableDeviceDetection: false,
-        enableAudioMonitoring: false,
+        protectContent: true,
       },
       createdAt: now,
       updatedAt: now,

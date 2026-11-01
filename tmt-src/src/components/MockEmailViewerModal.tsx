@@ -260,21 +260,6 @@ export const MockEmailViewerModal: React.FC<MockEmailViewerModalProps> = ({
                         </div>
                       </div>
 
-                      {/* 360 AI Proctoring Room Sweep Badge */}
-                      {emailToDisplay.roomSweepStatus?.isVerified && (
-                        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between text-emerald-900">
-                          <div className="flex items-center gap-2">
-                            <Compass className="w-4 h-4 text-emerald-600 shrink-0" />
-                            <span className="font-bold text-xs">
-                              360° AI Room Sweep Certified:
-                            </span>
-                          </div>
-                          <span className="font-mono font-bold text-xs">
-                            {emailToDisplay.roomSweepStatus.integrityScore}% Score
-                          </span>
-                        </div>
-                      )}
-
                       {/* Malpractice Notice if any */}
                       {emailToDisplay.infractionsCount > 0 && (
                         <div className="p-3 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2 text-red-900">

@@ -79,7 +79,7 @@ const allUids = [...Object.values(U).map((u) => u.uid), CAND1, CAND2];
 async function cleanup() {
   const paths = ['companies/zz_a', 'companies/zz_b', 'companyMembers/zz_a', 'companyMembers/zz_b', 'tests/zz_a', 'tests/zz_b',
     'answerKeys/zz_a', 'answerKeys/zz_b', 'attempts/zz_a', 'attempts/zz_b', 'results/zz_a', 'results/zz_b',
-    'companyInvites/zz_a', 'companyInvites/zz_b', 'companies/zz_c', 'companyPending/zz_a', 'companyPending/zz_b', 'companyPending/zz_c', 'subscriptions/zz_a', 'subscriptions/zz_b', 'subscriptions/zz_c', 'plans/zz_plan', ...WL.map((e) => `waitlist/${ek(e)}`), `pendingMembers/${ek('newowner@rulestest.example')}`, `platformAdmins/${ek('pa@rulestest.example')}`, 'invites/zz_tok1', 'invites/zz_tok_revoked', 'invites/zz_tok_expired',
+    'companyInvites/zz_a', 'companyInvites/zz_b', 'companies/zz_c', 'companyPending/zz_a', 'companyPending/zz_b', 'companyPending/zz_c', 'subscriptions/zz_a', 'subscriptions/zz_b', 'subscriptions/zz_c', 'plans/zz_plan', ...WL.map((e) => `waitlist/${ek(e)}`), `pendingMembers/${ek('newowner@rulestest.example')}`, `platformAdmins/${ek('pa@rulestest.example')}`, 'invites/zz_tok1', 'invites/zz_tok_revoked', 'invites/zz_tok_expired', 'invites/zz_tok_draft', 'tests/zz_a', 'tests/zz_b',
     ...allUids.map((u) => `members/${u}`), ...Object.values(U).map((u) => `pendingMembers/${ek(u.email)}`)];
   for (const p of paths) await call('DELETE', p, undefined, 'admin');
   await fetch(`https://identitytoolkit.googleapis.com/v1/projects/${P}/accounts:batchDelete`, {
@@ -161,11 +161,17 @@ try {
   deny('owner A creates a brand-new company', await call('PUT', 'companies/zz_new', { name: 'Rogue' }, tk.ownerA));
 
   console.log('\n--- candidate invite links');
+  await call('PUT', 'tests/zz_a/t1', { id: 't1', isPublished: true }, 'admin');
+  await call('PUT', 'tests/zz_a/t_draft', { id: 't_draft', isPublished: false }, 'admin');
+  deny('manager A creates invite for an UNPUBLISHED test', await call('PUT', 'invites/zz_tok_draft', { companyId: 'zz_a', testId: 't_draft', expiresAt: Date.now() + 3600e3 }, tk.mgrA));
+  deny('manager A creates invite for a test that does not exist', await call('PUT', 'invites/zz_tok_draft', { companyId: 'zz_a', testId: 'nope', expiresAt: Date.now() + 3600e3 }, tk.mgrA));
   allow('manager A creates invite link', await call('PUT', 'invites/zz_tok1', { companyId: 'zz_a', testId: 't1', expiresAt: Date.now() + 3600e3, single: false }, tk.mgrA));
   deny('manager B (owner B) creates invite for company A', await call('PUT', 'invites/zz_tok_x', { companyId: 'zz_a', testId: 't1', expiresAt: Date.now() + 3600e3 }, tk.ownerB));
   deny('evaluator A creates invite link', await call('PUT', 'invites/zz_tok_y', { companyId: 'zz_a', testId: 't1', expiresAt: Date.now() + 3600e3 }, tk.evalA));
   await call('PUT', 'invites/zz_tok_revoked', { companyId: 'zz_a', testId: 't1', expiresAt: Date.now() + 3600e3, revoked: true }, 'admin');
   await call('PUT', 'invites/zz_tok_expired', { companyId: 'zz_a', testId: 't1', expiresAt: Date.now() - 1000 }, 'admin');
+  allow('manager A revokes an invite (even if the test is later unpublished)', await call('PUT', 'invites/zz_tok1/revoked', true, tk.mgrA));
+  await call('PUT', 'invites/zz_tok1/revoked', false, 'admin');
   allow('candidate reads invite by its token', await call('GET', 'invites/zz_tok1', undefined, tk.cand1));
   deny('candidate lists ALL invites', await call('GET', 'invites', undefined, tk.cand1));
   deny('no-auth reads an invite', await call('GET', 'invites/zz_tok1', undefined, null));

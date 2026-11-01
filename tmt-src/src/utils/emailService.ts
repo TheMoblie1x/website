@@ -97,12 +97,6 @@ export const sendSubmissionSummaryEmail = (
       percentage: evaluated.percentage,
     },
     sectionBreakdown,
-    roomSweepStatus: attempt.roomSweep
-      ? {
-          isVerified: attempt.roomSweep.isVerified,
-          integrityScore: attempt.roomSweep.integrityScore,
-        }
-      : undefined,
     infractionsCount: attempt.infractionCount || 0,
     htmlContent: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
@@ -135,16 +129,6 @@ export const sendSubmissionSummaryEmail = (
               <span style="color: #475569;">${test.passPercentage}%</span>
             </div>
           </div>
-
-          ${
-            attempt.roomSweep
-              ? `
-            <div style="background: #eef9fe; border: 1px solid #bce4f7; border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 12px; color: #0a3668;">
-              <strong>✓ 360° AI Room Sweep Certified:</strong> ${attempt.roomSweep.integrityScore}% Integrity Score recorded across all 5 cardinal angles.
-            </div>
-          `
-              : ''
-          }
 
           ${
             attempt.infractionCount > 0
@@ -229,10 +213,6 @@ const getSeededEmails = (): EmailNotification[] => [
       { title: 'Algorithmic Coding Sandbox', score: 15.0, total: 15.0, timeSpentSec: 840 },
       { title: 'Incident Post-Mortem & Subjective Analysis', score: 5.5, total: 10.0, timeSpentSec: 540 },
     ],
-    roomSweepStatus: {
-      isVerified: true,
-      integrityScore: 98,
-    },
     infractionsCount: 0,
     htmlContent: '',
   },
@@ -261,10 +241,6 @@ const getSeededEmails = (): EmailNotification[] => [
       { title: 'Algorithmic Coding Sandbox', score: 0, total: 15.0, timeSpentSec: 0 },
       { title: 'Incident Post-Mortem & Subjective Analysis', score: 0, total: 10.0, timeSpentSec: 0 },
     ],
-    roomSweepStatus: {
-      isVerified: true,
-      integrityScore: 92,
-    },
     infractionsCount: 3,
     htmlContent: '',
   },

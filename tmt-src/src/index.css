@@ -132,3 +132,21 @@
     }
   }
 }
+
+/* Content protection (see src/components/ContentProtection.tsx). Discourages capture; it cannot prevent it. */
+html.tmt-protected body :not(input):not(textarea):not([contenteditable="true"]) {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+@media print {
+  html.tmt-protected body * {
+    display: none !important;
+  }
+  html.tmt-protected body::before {
+    content: "Printing this test is not permitted.";
+    display: block;
+    font: 600 16px sans-serif;
+    padding: 24px;
+  }
+}

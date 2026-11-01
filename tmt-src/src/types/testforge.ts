@@ -121,51 +121,13 @@ export interface CandidateSectionState {
 export type ProctoringEventType =
   | 'TAB_SWITCH'
   | 'FULLSCREEN_EXIT'
-  | 'FOCUS_LOST'
-  | 'MULTI_PERSON_DETECTED'
-  | 'NO_PERSON_DETECTED'
-  | 'GAZE_AWAY'
-  | 'MOBILE_PHONE_DETECTED'
-  | 'AUDIO_VOICE_DETECTED'
-  | 'ROOM_SWEEP_FAILED';
-
-export interface RoomSweepStep {
-  angle: '0_FRONT' | '90_RIGHT' | '180_REAR' | '270_LEFT' | 'DESK_SURFACE';
-  label: string;
-  description: string;
-  isCompleted: boolean;
-  snapshotUrl?: string;
-  detectedObjects: string[];
-  status: 'CLEAN' | 'WARNING' | 'PENDING';
-}
-
-export interface RoomSweepAudit {
-  isVerified: boolean;
-  verifiedAt?: string;
-  integrityScore: number; // 0 - 100
-  steps: RoomSweepStep[];
-  notes?: string;
-}
-
-export interface ProctoringTelemetry {
-  gazeDirection: 'CENTER' | 'LEFT' | 'RIGHT' | 'DOWN' | 'AWAY';
-  faceCount: number;
-  mobileDetected: boolean;
-  audioDecibels: number; // e.g. 15-85 dB
-  speechDetected: boolean;
-  suspicionScore: number; // 0 - 100
-  lastEvent?: string;
-}
+  | 'FOCUS_LOST';
 
 export interface ProctoringSettings {
   enforceFullscreen: boolean;
   maxTabSwitchViolations: number;
-  recordCameraCheck: boolean;
-  enable360RoomSweep: boolean;
-  enableAiGazeTracking: boolean;
-  enableMultiPersonDetection: boolean;
-  enableDeviceDetection: boolean;
-  enableAudioMonitoring: boolean;
+  /** Content protection (deterrents only: a browser cannot prevent screenshots or photos of the screen). */
+  protectContent: boolean;
 }
 
 export interface InfractionLog {
@@ -198,8 +160,9 @@ export interface CandidateAttempt {
   responses: Record<string, CandidateResponse>;
   confirmationReceipt?: string;
   activeSectionId?: string;
-  roomSweep?: RoomSweepAudit;
-  proctoringTelemetry?: ProctoringTelemetry;
+  /** Set for attempts started from a candidate invite link (anonymous sign-in uid and the link used). */
+  candidateUid?: string;
+  inviteToken?: string;
 }
 
 export interface EmailNotification {
@@ -226,10 +189,6 @@ export interface EmailNotification {
     total: number;
     timeSpentSec: number;
   }[];
-  roomSweepStatus?: {
-    isVerified: boolean;
-    integrityScore: number;
-  };
   infractionsCount: number;
   htmlContent: string;
 }

@@ -203,7 +203,7 @@ const Marquee: React.FC = () => {
   );
 };
 
-export const LandingPage: React.FC<{ onSignIn: () => void }> = ({ onSignIn }) => {
+export const LandingPage: React.FC<{ onSignIn: () => void; onPrivacy: () => void }> = ({ onSignIn, onPrivacy }) => {
   useReveal();
   const year = new Date().getFullYear();
 
@@ -288,7 +288,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void }> = ({ onSignIn }) =>
               <p className="cap"><strong>Question palette</strong><span className="t-small">Answered, marked and not visited, at a glance.</span></p>
             </div>
             <div className="cu rv" style={{ gridColumn: 'span 3', gridRow: 'span 4', background: 'var(--color-brand-300)', '--i': 1 } as React.CSSProperties}>
-              <div className="art" style={{ fontSize: 64, alignItems: 'flex-start', justifyContent: 'flex-end', padding: '9% 7% 0 0', transform: 'translate(14%, 0)' }}>
+              <div className="art" style={{ fontSize: 64, alignItems: 'flex-start', justifyContent: 'flex-end', padding: '9% 7% 0 0' }}>
                 <span data-ui style={{ display: 'inline-block', width: '2.4em', height: '1.3em', borderRadius: '1em', background: 'var(--color-ink)', position: 'relative' }}>
                   <span style={{ position: 'absolute', top: '0.15em', left: '1.25em', width: '1em', height: '1em', borderRadius: '50%', background: '#fff' }} />
                 </span>
@@ -300,11 +300,11 @@ export const LandingPage: React.FC<{ onSignIn: () => void }> = ({ onSignIn }) =>
               <p className="cap"><strong>Section clock</strong><span className="t-small">Every section has its own time limit.</span></p>
             </div>
             <div className="cu cu-t rv" style={{ gridColumn: 'span 3', gridRow: 'span 2', background: 'var(--color-brand-50)' }}>
-              <div className="art" style={{ fontSize: 66, fontWeight: 800, transform: 'translate(8%, 12%)' }}><span data-ui className="tabular-nums">−0.5</span></div>
+              <div className="art" style={{ fontSize: 66, fontWeight: 800 }}><span data-ui className="tabular-nums">−0.5</span></div>
               <p className="cap"><strong>Negative marking</strong><span className="t-small">Wrong answers can cost marks.</span></p>
             </div>
             <div className="cu cu-t on-navy rv" style={{ gridColumn: 'span 3', gridRow: 'span 2', '--i': 1 } as React.CSSProperties}>
-              <div className="art" style={{ fontSize: 44, transform: 'translate(14%, 18%)' }}>
+              <div className="art" style={{ fontSize: 44 }}>
                 <span data-ui style={{ display: 'flex' }}>
                   {[['O', 'var(--color-cta)', 'var(--color-ink)'], ['M', 'var(--color-brand-300)', 'var(--color-ink)'], ['E', 'var(--color-brand-100)', 'var(--color-ink)']].map(([l, bg, fg], i) => (
                     <span key={l} style={{ width: '1.5em', height: '1.5em', borderRadius: '50%', background: bg, color: fg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, marginLeft: i ? '-0.35em' : 0 }}>{l}</span>
@@ -314,15 +314,15 @@ export const LandingPage: React.FC<{ onSignIn: () => void }> = ({ onSignIn }) =>
               <p className="cap"><strong>Three roles</strong><span className="t-small">Owner, manager and evaluator see different things.</span></p>
             </div>
             <div className="cu cu-t rv" style={{ gridColumn: 'span 6', gridRow: 'span 2', background: 'var(--color-brand-300)', '--i': 2 } as React.CSSProperties}>
-              <div className="art" style={{ fontSize: 66, fontWeight: 800, letterSpacing: '-0.04em', transform: 'translate(4%, 14%)' }}><span data-ui>.xlsx</span></div>
+              <div className="art" style={{ fontSize: 66, fontWeight: 800, letterSpacing: '-0.04em' }}><span data-ui>.xlsx</span></div>
               <p className="cap"><strong>Import from Excel</strong><span className="t-small">Bring your questions in from a spreadsheet.</span></p>
             </div>
             <div className="cu cu-t on-paper rv" style={{ gridColumn: 'span 6', gridRow: 'span 2' }}>
-              <div className="art" style={{ fontSize: 66, fontWeight: 800, transform: 'translate(4%, 14%)' }}><span data-ui className="tabular-nums">2 / 3</span></div>
+              <div className="art" style={{ fontSize: 66, fontWeight: 800 }}><span data-ui className="tabular-nums">2 / 3</span></div>
               <p className="cap"><strong>Integrity checks</strong><span className="t-small">Tab switches and leaving full screen are logged.</span></p>
             </div>
             <div className="cu cu-t rv" style={{ gridColumn: 'span 6', gridRow: 'span 2', background: 'var(--color-brand-50)', '--i': 1 } as React.CSSProperties}>
-              <div className="art" style={{ transform: 'translate(-3%, 16%)' }}>
+              <div className="art">
                 <span data-ui className="t-body" style={{ textAlign: 'right' }}>Acme Cloud &amp; Systems<br /><span className="t-small">Candidate Examination Portal</span></span>
               </div>
               <p className="cap"><strong>Your brand</strong><span className="t-small">Candidates see your company&apos;s name and logo.</span></p>
@@ -350,7 +350,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void }> = ({ onSignIn }) =>
             <h2 id="cta-h" className="t-statement">Be among the first</h2>
             <p className="t-body">Leave your email. We&apos;ll let you know when there&apos;s room for your team.</p>
             <WaitlistForm idPrefix="cta" variant="nested" />
-            <p className="t-small">We use your email only to contact you about TakeMyTest early access.</p>
+            <p className="t-small">We use your email only to contact you about TakeMyTest early access. <button type="button" className="link" style={{ textDecoration: 'underline' }} onClick={onPrivacy}>Privacy</button></p>
           </div>
           <div className="side-r"><div style={{ position: 'absolute', right: -50, top: 28, fontSize: 'clamp(14px, 1.5vw, 22px)' }}><PaletteFragment count={20} /></div></div>
         </section>
@@ -375,6 +375,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void }> = ({ onSignIn }) =>
           </ul>
           <ul>
             <li><button type="button" onClick={onSignIn}>Sign in</button></li>
+            <li><button type="button" onClick={onPrivacy}>Privacy</button></li>
           </ul>
         </div>
         <div className="foot-last t-small">

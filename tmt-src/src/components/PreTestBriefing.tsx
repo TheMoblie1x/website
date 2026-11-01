@@ -12,16 +12,14 @@ import {
   ArrowRight,
   Info,
 } from 'lucide-react';
-import { Test, RoomSweepAudit } from '../types/testforge';
-import { AiProctoringSweepModal } from './AiProctoringSweepModal';
+import { Test } from '../types/testforge';
 import { Compass, Sparkles } from 'lucide-react';
 
 interface PreTestBriefingProps {
   test: Test;
-  onStart: (candidateInfo: { name: string; email: string; roomSweep?: RoomSweepAudit }) => void;
+  onStart: (candidateInfo: { name: string; email: string }) => void;
   defaultCandidateName?: string;
   defaultCandidateEmail?: string;
-  initialRoomSweep?: RoomSweepAudit;
 }
 
 export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
@@ -29,14 +27,11 @@ export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
   onStart,
   defaultCandidateName = 'Jordan Lee',
   defaultCandidateEmail = 'jordan.lee@example.edu',
-  initialRoomSweep,
 }) => {
   const { brand } = useBrand();
   const [candidateName, setCandidateName] = useState(defaultCandidateName);
   const [candidateEmail, setCandidateEmail] = useState(defaultCandidateEmail);
   const [agreed, setAgreed] = useState(false);
-  const [roomSweep, setRoomSweep] = useState<RoomSweepAudit | undefined>(initialRoomSweep);
-  const [isSweepModalOpen, setIsSweepModalOpen] = useState(false);
 
   // Hardware and environment live checks
   const [screenRes, setScreenRes] = useState({
@@ -70,7 +65,7 @@ export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
 
   const handleStartClicked = () => {
     if (!agreed || !candidateName.trim() || !candidateEmail.trim()) return;
-    onStart({ name: candidateName.trim(), email: candidateEmail.trim(), roomSweep });
+    onStart({ name: candidateName.trim(), email: candidateEmail.trim() });
   };
 
   return (
@@ -78,11 +73,10 @@ export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
       {/* Branded Header - Complete suppression of platform identity */}
       <header className="bg-white border-b border-slate-200 px-6 sm:px-10 py-4 flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center gap-3">
-          <img
-            src={brand.logoUrl}
+          {brand.logoUrl && <img src={brand.logoUrl}
             alt={brand.name}
             className="h-9 w-9 rounded-lg object-cover border border-slate-200"
-          />
+          />}
           <div>
             <span className="text-sm font-bold text-slate-900 block leading-tight">
               {brand.name}
