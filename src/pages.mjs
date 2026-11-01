@@ -54,6 +54,31 @@ export function home() {
 </div>
 </section>`;
 
+    // Featured product: TakeMyTest (coming soon). Uses its own brand colours (navy, seal blue, crimson pink) as a contrast panel.
+    const TMT_FEATURES = [
+        ['One test per role', 'Build a timed assessment for each role you hire for, with its own sections and time limits.'],
+        ['Questions your way', 'Choice, short-answer, written and coding questions, or import them from an Excel sheet.'],
+        ['A clock for every section', 'Set the order and the time limit for each section, with negative marking if you want it.'],
+        ['Your name on the test', 'Candidates see your company\u2019s name and logo, not ours.'],
+        ['Send a link', 'Candidates take the test from a link in the browser. No account needed.'],
+        ['Owner, manager, evaluator', 'Three roles, so the people who build tests, run them and mark them see the right things.'],
+    ];
+    const takemytest = section({
+        id: 'takemytest', loc: 'product-takemytest', cls: 'tmt', body: `<div class="tmt__panel reveal">
+        <div class="tmt__top">
+            <div class="tmt__copy">
+                <p class="tmt__pill">Coming soon</p>
+                <p class="tmt__eyebrow">New from Mobile1X</p>
+                <h2 class="tmt__title">A timed test for every role you hire, <em>in the browser.</em></h2>
+                <p class="tmt__lede">TakeMyTest lets hiring teams build timed, role-based assessments, send candidates a link, and review and mark the results together. The waitlist opens soon.</p>
+                <div class="tmt__actions">${btn({ href: '/tmt/', label: 'See TakeMyTest', variant: 'primary', arrow: true, loc: 'product-takemytest' })}</div>
+            </div>
+            <p class="tmt__mark" aria-hidden="true"><span>Take</span><span>MyTest</span></p>
+        </div>
+        <ul class="tmt__grid">${TMT_FEATURES.map(([t, d], i) => `<li class="tmt__cell tmt__cell--${i % 3}"><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('')}</ul>
+    </div>`,
+    });
+
     const proof = section({
         id: 'portfolio', loc: 'case-study', body: `${sectionHead({ eyebrow: 'Proof', title: 'Products we’ve actually shipped.', lede: 'Real products, live on the web. This is our track record, not a mock-up.' })}
         <div class="products products--four">${['pos', 'pharma', 'auction', 'bhashasetu'].map((k) => productCard(PRODUCTS[k])).join('')}</div>`,
@@ -97,7 +122,7 @@ export function home() {
             preload: '<link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">',
             scripts: `<script defer src="${asset('/assets/js/hero-stage.js')}"></script>`,
             schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: 'Android, iOS', description: PRODUCTS[k].summary, installUrl: storeLinks(PRODUCTS[k]).map((s) => s.url) }))],
-            body: [hero, proof, services, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
+            body: [hero, takemytest, proof, services, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
         }),
     };
 }

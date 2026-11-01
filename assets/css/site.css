@@ -416,3 +416,28 @@ tr:last-child > * { border-bottom: 0; }
 .link-btn { display: inline-flex; align-items: center; min-height: 36px; padding: 0; font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 .link-btn:hover { color: var(--ink); }
 @media (max-width: 900px) { .consent { left: var(--space-3); right: var(--space-3); bottom: calc(76px + var(--space-3) + env(safe-area-inset-bottom)); max-width: none; } }
+
+/* ---------- Featured product: TakeMyTest (own brand colours: navy #072D59, seal blue #DBF2FC, crimson pink #FD6E88) ---------- */
+.tmt { padding-block: var(--space-8); }
+.tmt__panel { background: #072d59; color: #dbf2fc; border-radius: var(--radius-lg); padding: clamp(24px, 5vw, 64px); display: grid; gap: var(--space-7); }
+.tmt__top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-7); align-items: center; }
+.tmt__pill { display: inline-block; background: #fd6e88; color: #072d59; font-weight: 700; font-size: .8125rem; letter-spacing: .04em; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; }
+.tmt__eyebrow { margin-top: var(--space-4); font-size: .9375rem; color: #bce4f7; }
+.tmt__title { margin-top: var(--space-2); font-size: clamp(1.9rem, 4.2vw, 3.25rem); line-height: 1.1; font-weight: 700; letter-spacing: -.02em; color: #dbf2fc; }
+.tmt__title em { font-style: normal; color: #fd6e88; }
+.tmt__lede { margin-top: var(--space-4); max-width: 56ch; color: #dbf2fc; font-size: 1.0625rem; }
+.tmt__actions { margin-top: var(--space-5); }
+.tmt__actions .btn { background: #fd6e88; color: #072d59; border-color: #fd6e88; }
+.tmt__actions .btn:hover { background: #fe8fa4; border-color: #fe8fa4; }
+.tmt__mark { margin: 0; font-weight: 800; letter-spacing: -.045em; line-height: 1; font-size: clamp(2rem, 5vw, 4.5rem); white-space: nowrap; text-align: right; min-width: 0; }
+.tmt__mark span:first-child { color: #dbf2fc; }
+.tmt__mark span:last-child { color: #fd6e88; }
+.tmt__grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); }
+.tmt__cell { border-radius: var(--radius-sm); padding: var(--space-5); color: #072d59; }
+.tmt__cell--0 { background: #dbf2fc; }
+.tmt__cell--1 { background: #8dcbec; }
+.tmt__cell--2 { background: #eef9fe; }
+.tmt__cell h3 { font-size: 1.125rem; font-weight: 700; color: #072d59; }
+.tmt__cell p { margin-top: var(--space-2); font-size: .9375rem; color: #072d59; }
+@media (max-width: 900px) { .tmt__top { grid-template-columns: 1fr; } .tmt__mark { text-align: left; } .tmt__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .tmt__grid { grid-template-columns: 1fr; } }
