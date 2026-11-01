@@ -7,25 +7,12 @@ import {
   Palette,
   Play,
   Plus,
-  Clock,
   ShieldAlert,
   CheckCircle2,
-  AlertTriangle,
   Lock,
-  Unlock,
-  Eye,
-  FileCheck,
-  Building,
-  RefreshCw,
-  Search,
-  ExternalLink,
   Compass,
-  Smartphone,
-  Mic,
-  Shield,
   TrendingUp,
   Mail,
-  Inbox,
 } from 'lucide-react';
 import {
   CandidateAttempt,
@@ -36,6 +23,8 @@ import {
   ProctoringSettings,
   EmailNotification,
 } from '../types/testforge';
+import { BrandMark } from './BrandMark';
+import { SettingSwitch } from './SettingSwitch';
 import { BulkIngestionModal } from './BulkIngestionModal';
 import { AnalyticsTab } from './AnalyticsTab';
 import { MockEmailViewerModal } from './MockEmailViewerModal';
@@ -153,22 +142,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       {/* Platform Header */}
       <header className="bg-white border-b border-slate-200 px-4 sm:px-6 py-2.5 sm:py-0 sm:h-16 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sticky top-0 z-30">
         <div className="flex items-center justify-between sm:justify-start gap-3 sm:gap-4 overflow-x-auto no-scrollbar">
-          <div className="flex items-center gap-2.5 shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-black text-sm">
-              TF
-            </div>
-            <div>
-              <span className="text-sm font-extrabold text-slate-900 block leading-tight">
-                TakeMyTest
-              </span>
-              <span className="text-[10px] text-slate-500 font-medium truncate max-w-[140px] block">
-                {brand.name}
-              </span>
-            </div>
+          <div className="flex items-center gap-3 shrink-0">
+            <BrandMark />
+            <span
+              className="hidden lg:block text-xs text-slate-500 truncate max-w-[160px] pl-3 border-l border-slate-200"
+              title={brand.name}
+            >
+              {brand.name}
+            </span>
           </div>
 
           <div className="h-5 w-px bg-slate-200 shrink-0 hidden sm:block" />
@@ -177,9 +162,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <nav className="flex items-center gap-1 overflow-x-auto no-scrollbar py-1 shrink-0">
             <button
               onClick={() => setActiveTab('TESTS')}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
+              className={`px-3 py-2 rounded-lg text-sm font-semibold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
                 activeTab === 'TESTS'
-                  ? 'bg-slate-900 text-white shadow-xs'
+                  ? 'bg-accent-soft text-accent'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
@@ -189,33 +174,33 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             <button
               onClick={() => setActiveTab('ANALYTICS')}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
+              className={`px-3 py-2 rounded-lg text-sm font-semibold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
                 activeTab === 'ANALYTICS'
-                  ? 'bg-slate-900 text-white shadow-xs'
+                  ? 'bg-accent-soft text-accent'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
-              <TrendingUp className="w-3.5 h-3.5 text-blue-400" />
+              <TrendingUp className="w-3.5 h-3.5" />
               <span>Analytics</span>
             </button>
 
             <button
               onClick={() => setActiveTab('BRANDING')}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
+              className={`px-3 py-2 rounded-lg text-sm font-semibold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
                 activeTab === 'BRANDING'
-                  ? 'bg-slate-900 text-white shadow-xs'
+                  ? 'bg-accent-soft text-accent'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
               <Palette className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">White-Label</span> Branding
+              Branding
             </button>
 
             <button
               onClick={() => setActiveTab('ATTEMPTS')}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
+              className={`px-3 py-2 rounded-lg text-sm font-semibold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
                 activeTab === 'ATTEMPTS'
-                  ? 'bg-slate-900 text-white shadow-xs'
+                  ? 'bg-accent-soft text-accent'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
@@ -225,9 +210,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             <button
               onClick={() => setActiveTab('QUESTIONS')}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
+              className={`px-3 py-2 rounded-lg text-sm font-semibold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
                 activeTab === 'QUESTIONS'
-                  ? 'bg-slate-900 text-white shadow-xs'
+                  ? 'bg-accent-soft text-accent'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
@@ -241,10 +226,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         <div className="flex items-center justify-end gap-2 shrink-0">
           <button
             onClick={() => onLaunchCandidateTest(activeTest.id)}
-            className="w-full sm:w-auto px-4 py-2 bg-[var(--brand-primary)] hover:opacity-95 text-white font-bold text-xs rounded-xl shadow-xs transition flex items-center justify-center gap-1.5 cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2 bg-accent hover:bg-accent-hover text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
-            <span>Launch Candidate Test</span>
+            <span>Preview as candidate</span>
           </button>
         </div>
       </header>
@@ -254,183 +239,138 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         {/* ================= TAB 1: TESTS MANAGEMENT ================= */}
         {activeTab === 'TESTS' && (
           <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div>
-                <h1 className="text-xl font-extrabold text-slate-900">
-                  Assessment Structure & Authoring
-                </h1>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Configure multi-section timers, sequential navigation lockouts, and negative marking rules.
+                <h1 className="text-2xl font-bold tracking-tight text-ink">Assessments</h1>
+                <p className="text-sm text-slate-600 mt-1">
+                  Set the rules, timing and proctoring for each test.
                 </p>
               </div>
 
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setIsBulkModalOpen(true)}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs transition flex items-center gap-2 cursor-pointer"
-                >
-                  <FileSpreadsheet className="w-4 h-4" />
-                  <span>Bulk Ingest via Excel (.xlsx)</span>
-                </button>
-              </div>
+              <button
+                onClick={() => setIsBulkModalOpen(true)}
+                className="px-4 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 font-semibold text-sm rounded-lg transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <FileSpreadsheet className="w-4 h-4 text-slate-500" />
+                <span>Import questions (.xlsx)</span>
+              </button>
             </div>
 
-            {/* Test Configuration Card */}
-            {activeTest && (
-              <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-6">
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-slate-100">
-                  <div>
-                    <div className="flex items-center gap-2 text-xs font-bold text-blue-600 mb-1">
-                      <span>Test ID: {activeTest.id}</span>
-                      <span>•</span>
-                      <span>{activeTest.sections.length} Sections</span>
-                      <span>•</span>
-                      <span>
-                        {activeTest.sections.reduce((a, b) => a + b.questions.length, 0)} Questions
-                      </span>
-                    </div>
-                    <h2 className="text-lg font-bold text-slate-900">{activeTest.title}</h2>
-                    <p className="text-xs text-slate-500 mt-1 max-w-2xl">{activeTest.description}</p>
-                  </div>
+            {/* Test overview */}
+            {activeTest &&
+              (() => {
+                const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+                const sectionMarks = (s: TestSection) =>
+                  s.totalMarks || s.questions.reduce((a, b) => a + b.marks, 0);
+                const questionCount = activeTest.sections.reduce((a, s) => a + s.questions.length, 0);
+                const totalMinutes = activeTest.sections.reduce((a, s) => a + s.durationMin, 0);
+                const totalMarks = activeTest.sections.reduce((a, s) => a + sectionMarks(s), 0);
+                const proctoringOn = (key: keyof ProctoringSettings) =>
+                  activeTest.proctoring?.[key] !== false;
 
-                  {/* Toggle Policies */}
-                  <div className="flex flex-wrap items-center gap-3 shrink-0">
-                    {/* Navigation Policy Toggle */}
-                    <button
-                      onClick={handleToggleNavigationMode}
-                      className={`px-3.5 py-2 rounded-xl border text-xs font-bold flex items-center gap-2 transition cursor-pointer ${
-                        activeTest.navigationMode === 'SEQUENTIAL'
-                          ? 'bg-purple-50 border-purple-200 text-purple-700'
-                          : 'bg-slate-50 border-slate-200 text-slate-700'
-                      }`}
-                    >
-                      {activeTest.navigationMode === 'SEQUENTIAL' ? (
-                        <Lock className="w-3.5 h-3.5 text-purple-600" />
-                      ) : (
-                        <Unlock className="w-3.5 h-3.5 text-slate-600" />
-                      )}
-                      <span>
-                        Mode: {activeTest.navigationMode === 'SEQUENTIAL' ? 'Sequential Locked' : 'Free Roam'}
-                      </span>
-                    </button>
-
-                    {/* Negative Marking Toggle */}
-                    <button
-                      onClick={handleToggleNegativeMarking}
-                      className={`px-3.5 py-2 rounded-xl border text-xs font-bold flex items-center gap-2 transition cursor-pointer ${
-                        activeTest.negativeMarking
-                          ? 'bg-amber-50 border-amber-200 text-amber-800'
-                          : 'bg-slate-50 border-slate-200 text-slate-700'
-                      }`}
-                    >
-                      <AlertTriangle className="w-3.5 h-3.5" />
-                      <span>
-                        Negative Marking: {activeTest.negativeMarking ? 'Active' : 'Disabled'}
-                      </span>
-                    </button>
-
-                    {/* Passing Score Badge */}
-                    <div className="px-3 py-2 bg-emerald-50 border border-emerald-200 rounded-xl text-xs font-bold text-emerald-800">
-                      Pass Threshold: {activeTest.passPercentage}%
-                    </div>
-
-                    {/* 360 AI Proctoring Guardrails */}
-                    <div className="w-full pt-3 mt-1 border-t border-slate-100">
-                      <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                        <Shield className="w-3.5 h-3.5 text-blue-600" />
-                        <span>360° AI Proctoring Guardrails</span>
+                return (
+                  <div className="bg-white border border-slate-200 rounded-xl">
+                    <div className="p-6 border-b border-slate-200">
+                      <p className="text-[13px] text-slate-500 tabular-nums">
+                        {plural(questionCount, 'question')} · {plural(activeTest.sections.length, 'section')} ·{' '}
+                        {totalMinutes} min · {plural(totalMarks, 'mark')}
                       </p>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => handleToggleProctoringSetting('enable360RoomSweep')}
-                          className={`px-3 py-1.5 rounded-lg border text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
-                            activeTest.proctoring?.enable360RoomSweep !== false
-                              ? 'bg-blue-50 border-blue-200 text-blue-700'
-                              : 'bg-slate-50 border-slate-200 text-slate-500'
-                          }`}
-                        >
-                          <Compass className="w-3.5 h-3.5" />
-                          <span>360° Room Sweep: {activeTest.proctoring?.enable360RoomSweep !== false ? 'Enforced' : 'Off'}</span>
-                        </button>
+                      <h2 className="text-xl font-semibold text-ink mt-1">{activeTest.title}</h2>
+                      {activeTest.description && (
+                        <p className="text-sm text-slate-600 mt-1.5 max-w-3xl">{activeTest.description}</p>
+                      )}
+                      <p className="text-xs text-slate-400 mt-3">
+                        ID <span className="font-mono">{activeTest.id}</span>
+                      </p>
+                    </div>
 
-                        <button
-                          type="button"
-                          onClick={() => handleToggleProctoringSetting('enableAiGazeTracking')}
-                          className={`px-3 py-1.5 rounded-lg border text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
-                            activeTest.proctoring?.enableAiGazeTracking !== false
-                              ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
-                              : 'bg-slate-50 border-slate-200 text-slate-500'
-                          }`}
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>Gaze Vector Tracking: {activeTest.proctoring?.enableAiGazeTracking !== false ? 'Active' : 'Off'}</span>
-                        </button>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 lg:divide-x divide-slate-200">
+                      <div className="p-6">
+                        <h3 className="text-sm font-semibold text-ink">Test rules</h3>
+                        <div className="divide-y divide-slate-100 mt-1">
+                          <SettingSwitch
+                            label="Lock sections in order"
+                            description="Candidates finish each section before the next one opens."
+                            checked={activeTest.navigationMode === 'SEQUENTIAL'}
+                            onChange={handleToggleNavigationMode}
+                          />
+                          <SettingSwitch
+                            label="Negative marking"
+                            description="Wrong answers deduct marks."
+                            checked={activeTest.negativeMarking}
+                            onChange={handleToggleNegativeMarking}
+                          />
+                          <div className="flex items-start justify-between gap-4 py-3">
+                            <div>
+                              <p className="text-sm font-semibold text-slate-900">Pass mark</p>
+                              <p className="text-[13px] text-slate-500 mt-0.5">
+                                Minimum score a candidate needs to pass.
+                              </p>
+                            </div>
+                            <span className="text-sm font-semibold text-ink tabular-nums">
+                              {activeTest.passPercentage}%
+                            </span>
+                          </div>
+                        </div>
+                      </div>
 
-                        <button
-                          type="button"
-                          onClick={() => handleToggleProctoringSetting('enableDeviceDetection')}
-                          className={`px-3 py-1.5 rounded-lg border text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
-                            activeTest.proctoring?.enableDeviceDetection !== false
-                              ? 'bg-indigo-50 border-indigo-200 text-indigo-700'
-                              : 'bg-slate-50 border-slate-200 text-slate-500'
-                          }`}
-                        >
-                          <Smartphone className="w-3.5 h-3.5" />
-                          <span>Secondary Device AI: {activeTest.proctoring?.enableDeviceDetection !== false ? 'Active' : 'Off'}</span>
-                        </button>
+                      <div className="p-6 border-t border-slate-200 lg:border-t-0">
+                        <h3 className="text-sm font-semibold text-ink">Proctoring</h3>
+                        <div className="divide-y divide-slate-100 mt-1">
+                          <SettingSwitch
+                            label="Room check"
+                            description="Candidate scans their room before the test starts."
+                            checked={proctoringOn('enable360RoomSweep')}
+                            onChange={() => handleToggleProctoringSetting('enable360RoomSweep')}
+                          />
+                          <SettingSwitch
+                            label="Gaze tracking"
+                            description="Flags repeated looking away from the screen."
+                            checked={proctoringOn('enableAiGazeTracking')}
+                            onChange={() => handleToggleProctoringSetting('enableAiGazeTracking')}
+                          />
+                          <SettingSwitch
+                            label="Second-device detection"
+                            description="Flags a phone or extra screen in view."
+                            checked={proctoringOn('enableDeviceDetection')}
+                            onChange={() => handleToggleProctoringSetting('enableDeviceDetection')}
+                          />
+                          <SettingSwitch
+                            label="Audio monitoring"
+                            description="Flags voices and background talking."
+                            checked={proctoringOn('enableAudioMonitoring')}
+                            onChange={() => handleToggleProctoringSetting('enableAudioMonitoring')}
+                          />
+                        </div>
+                      </div>
+                    </div>
 
-                        <button
-                          type="button"
-                          onClick={() => handleToggleProctoringSetting('enableAudioMonitoring')}
-                          className={`px-3 py-1.5 rounded-lg border text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
-                            activeTest.proctoring?.enableAudioMonitoring !== false
-                              ? 'bg-purple-50 border-purple-200 text-purple-700'
-                              : 'bg-slate-50 border-slate-200 text-slate-500'
-                          }`}
-                        >
-                          <Mic className="w-3.5 h-3.5" />
-                          <span>Acoustic Whisper: {activeTest.proctoring?.enableAudioMonitoring !== false ? 'Active' : 'Off'}</span>
-                        </button>
+                    <div className="p-6 border-t border-slate-200">
+                      <h3 className="text-sm font-semibold text-ink mb-4">Sections</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {activeTest.sections.map((sec, idx) => (
+                          <div key={sec.id} className="rounded-lg border border-slate-200 p-4">
+                            <div className="flex items-baseline justify-between gap-3">
+                              <h4 className="text-sm font-semibold text-ink">
+                                {idx + 1}. {sec.title}
+                              </h4>
+                              <span className="text-[13px] text-slate-500 tabular-nums shrink-0">
+                                {sec.durationMin} min
+                              </span>
+                            </div>
+                            {sec.description && (
+                              <p className="text-[13px] text-slate-600 mt-1">{sec.description}</p>
+                            )}
+                            <p className="mt-3 text-[13px] text-slate-500 tabular-nums">
+                              {plural(sec.questions.length, 'question')} · {plural(sectionMarks(sec), 'mark')}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
-                </div>
-
-                {/* Sections List in this Test */}
-                <div>
-                  <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-4">
-                    Configured Evaluation Sections
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {activeTest.sections.map((sec, idx) => (
-                      <div
-                        key={sec.id}
-                        className="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white transition shadow-2xs"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-bold text-slate-400 uppercase">
-                            Section {idx + 1}
-                          </span>
-                          <span className="text-xs font-mono font-bold text-slate-700 flex items-center gap-1">
-                            <Clock className="w-3 h-3 text-slate-400" />
-                            {sec.durationMin} mins
-                          </span>
-                        </div>
-                        <h4 className="text-sm font-bold text-slate-900">{sec.title}</h4>
-                        <p className="text-xs text-slate-500 mt-1">{sec.description}</p>
-                        <div className="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-600">
-                          <span>{sec.questions.length} questions</span>
-                          <span className="font-bold text-slate-800">
-                            {sec.totalMarks || sec.questions.reduce((a, b) => a + b.marks, 0)} total marks
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
+                );
+              })()}
           </div>
         )}
 

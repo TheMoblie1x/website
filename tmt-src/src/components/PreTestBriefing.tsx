@@ -242,12 +242,12 @@ export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
           <div className={`p-4 rounded-xl border transition-all ${
             roomSweep?.isVerified
               ? 'bg-emerald-50/70 border-emerald-200'
-              : 'bg-indigo-50/70 border-indigo-200'
+              : 'bg-accent-soft border-accent-line'
           }`}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-start gap-3">
                 <div className={`p-2.5 rounded-xl shrink-0 ${
-                  roomSweep?.isVerified ? 'bg-emerald-100 text-emerald-700' : 'bg-indigo-100 text-indigo-700'
+                  roomSweep?.isVerified ? 'bg-emerald-100 text-emerald-700' : 'bg-accent-soft text-accent'
                 }`}>
                   <Compass className="w-6 h-6 animate-spin-slow" />
                 </div>
@@ -261,7 +261,7 @@ export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
                         ✓ CERTIFIED ({roomSweep.integrityScore}% INTEGRITY)
                       </span>
                     ) : (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-800 border border-indigo-300">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-accent-soft text-accent border border-accent-line">
                         MANDATORY AI SCAN
                       </span>
                     )}
@@ -279,7 +279,7 @@ export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
                 className={`px-4 py-2.5 rounded-xl font-bold text-xs shadow-xs transition flex items-center gap-2 shrink-0 cursor-pointer ${
                   roomSweep?.isVerified
                     ? 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-300'
-                    : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                    : 'bg-accent hover:bg-accent-hover text-white'
                 }`}
               >
                 <Camera className="w-4 h-4" />

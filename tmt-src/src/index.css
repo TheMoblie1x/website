@@ -1,1 +1,44 @@
 @import "tailwindcss";
+
+/*
+  TakeMyTest design tokens ("Trust & Authority": navy neutrals, one blue accent).
+  Colour carries meaning only: accent = primary action/selection,
+  emerald = success/pass, amber = warning, red = error/destructive.
+*/
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --color-ink: #0f172a;
+  --color-accent: #0369a1;
+  --color-accent-hover: #075985;
+  --color-accent-soft: #f0f7fb;
+  --color-accent-line: #bcd9ea;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  /* Visible keyboard focus everywhere (never remove outlines without a replacement). */
+  :where(a, button, input, select, textarea, summary, [role="switch"], [tabindex]):focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

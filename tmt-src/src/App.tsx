@@ -15,7 +15,7 @@ import { CandidateAttempt, Test, RoomSweepAudit, EmailNotification } from './typ
 import { evaluateAttempt } from './utils/scoring';
 import { sendSubmissionSummaryEmail, getSentEmails } from './utils/emailService';
 import { MockEmailViewerModal } from './components/MockEmailViewerModal';
-import { LayoutDashboard, GraduationCap, ShieldCheck, ArrowRight, Mail, ExternalLink } from 'lucide-react';
+import { LayoutDashboard, GraduationCap, Mail, ExternalLink } from 'lucide-react';
 
 export default function App() {
   return (
@@ -190,26 +190,22 @@ function MainAppContent() {
   };
 
   return (
-    <div className="relative min-h-screen bg-slate-100 flex flex-col font-sans">
+    <div className="relative min-h-screen bg-slate-50 flex flex-col font-sans">
       {/* Floating Demo Role Switcher Bar */}
-      <div className="bg-slate-900 text-white px-4 py-2 flex items-center justify-between text-xs z-40 border-b border-slate-800">
-        <div className="flex items-center gap-2">
-          <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span className="font-extrabold tracking-tight">TakeMyTest Engine</span>
-          <span className="text-slate-400 hidden sm:inline">• Switch View:</span>
-        </div>
+      <div className="bg-ink text-white px-4 py-2 flex items-center justify-between text-sm z-40">
+        <span className="text-slate-300">Preview mode</span>
 
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => setView('ADMIN')}
-            className={`px-3 py-1 rounded-md font-bold transition flex items-center gap-1.5 cursor-pointer ${
+            className={`px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5 cursor-pointer ${
               view === 'ADMIN'
-                ? 'bg-blue-600 text-white'
-                : 'text-slate-300 hover:bg-slate-800'
+                ? 'bg-white text-ink'
+                : 'text-slate-300 hover:bg-white/10'
             }`}
           >
             <LayoutDashboard className="w-3.5 h-3.5" />
-            <span>Admin / Evaluator</span>
+            <span>Admin view</span>
           </button>
 
           <button
@@ -220,14 +216,14 @@ function MainAppContent() {
                 setView('TEST');
               }
             }}
-            className={`px-3 py-1 rounded-md font-bold transition flex items-center gap-1.5 cursor-pointer ${
+            className={`px-3 py-1.5 rounded-md font-semibold transition-colors flex items-center gap-1.5 cursor-pointer ${
               view === 'TEST' || view === 'BRIEFING'
-                ? 'bg-emerald-600 text-white'
-                : 'text-slate-300 hover:bg-slate-800'
+                ? 'bg-white text-ink'
+                : 'text-slate-300 hover:bg-white/10'
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>Candidate Experience</span>
+            <span>Candidate view</span>
           </button>
         </div>
       </div>

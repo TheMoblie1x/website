@@ -356,7 +356,7 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               Avg Total Duration
             </span>
-            <Clock className="w-4 h-4 text-purple-500" />
+            <Clock className="w-4 h-4 text-slate-400" />
           </div>
           <p className="text-2xl font-black text-slate-900">{metrics.avgTimeMins}m</p>
           <p className="text-[10px] text-slate-400 mt-0.5">Budget: {activeTest?.totalDurationMin || 45} mins</p>
@@ -367,9 +367,9 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               360° Sweep Certified
             </span>
-            <Compass className="w-4 h-4 text-indigo-500" />
+            <Compass className="w-4 h-4 text-slate-400" />
           </div>
-          <p className="text-2xl font-black text-indigo-600">{metrics.sweepRate}%</p>
+          <p className="text-2xl font-bold text-ink">{metrics.sweepRate}%</p>
           <p className="text-[10px] text-slate-400 mt-0.5">{metrics.roomSweepCount} certified rooms</p>
         </div>
       </div>
@@ -481,7 +481,7 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
                 Comparing allocated time limits against candidate average completion time
               </p>
             </div>
-            <Clock className="w-4 h-4 text-purple-500" />
+            <Clock className="w-4 h-4 text-slate-400" />
           </div>
 
           <div className="h-64 w-full">
