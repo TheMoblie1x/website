@@ -6,7 +6,7 @@ import {
   signOut as firebaseSignOut,
   User,
 } from 'firebase/auth';
-import { get, ref, remove, set } from 'firebase/database';
+import { get, ref, set, update } from 'firebase/database';
 import { auth, db } from '../firebase/client';
 import { emailKey, isRole, Role } from './roles';
 
@@ -36,6 +36,11 @@ interface AuthContextValue {
   signOut: () => Promise<void>;
   /** Re-check access (e.g. after an owner adds this email). */
   recheck: () => void;
+  /** Platform administrator ("super user"). May have no company at all. */
+  isPlatformAdmin: boolean;
+  /** Super users with a company can switch between the platform console and their company. */
+  platformView: boolean;
+  setPlatformView: (v: boolean) => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -85,7 +90,10 @@ async function resolveMembership(u: User): Promise<Membership | null> {
       const profile = { email: u.email, name: u.displayName || u.email };
       await set(ref(db, `members/${u.uid}`), { companyId: p.companyId, role: p.role, ...profile });
       await set(ref(db, `companyMembers/${p.companyId}/${u.uid}`), { role: p.role, ...profile });
-      await remove(pendingRef);
+      await update(ref(db), {
+        [`pendingMembers/${emailKey(u.email)}`]: null,
+        [`companyPending/${p.companyId}/${emailKey(u.email)}`]: null,
+      });
       snap = await get(ref(db, `members/${u.uid}`));
     }
   }
@@ -102,6 +110,15 @@ async function resolveMembership(u: User): Promise<Membership | null> {
   return { companyId: m.companyId, companyName: companyName || 'Your company', role: m.role };
 }
 
+async function checkPlatformAdmin(u: User): Promise<boolean> {
+  if (!u.email || !u.emailVerified) return false;
+  try {
+    return (await get(ref(db, `platformAdmins/${emailKey(u.email)}`))).exists();
+  } catch {
+    return false;
+  }
+}
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [status, setStatus] = useState<AuthStatus>('loading');
   const [user, setUser] = useState<StaffUser | null>(null);
@@ -109,6 +126,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [error, setError] = useState('');
   const [signingIn, setSigningIn] = useState(false);
   const [recheckTick, setRecheckTick] = useState(0);
+  const [isPlatformAdmin, setIsPlatformAdmin] = useState(false);
+  const [platformView, setPlatformView] = useState(false);
   const currentUser = useRef<User | null>(null);
 
   useEffect(() => {
@@ -119,20 +138,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (!u || u.isAnonymous) {
         setUser(null);
         setMembership(null);
+        setIsPlatformAdmin(false);
+        setPlatformView(false);
         setStatus('signedOut');
         return;
       }
       setUser(toStaffUser(u));
       setStatus('loading');
       try {
-        const m = await resolveMembership(u);
+        const [m, pa] = await Promise.all([resolveMembership(u), checkPlatformAdmin(u)]);
         if (cancelled) return;
         setMembership(m);
+        setIsPlatformAdmin(pa);
+        setPlatformView(pa); // super users land on the platform console
         setError('');
-        setStatus(m ? 'ready' : 'noAccess');
+        setStatus(m || pa ? 'ready' : 'noAccess');
       } catch {
         if (cancelled) return;
         setMembership(null);
+        setIsPlatformAdmin(false);
         setError('We could not verify your access. Check your connection and try again.');
         setStatus('noAccess');
       }
@@ -165,8 +189,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const recheck = useCallback(() => setRecheckTick((n) => n + 1), []);
 
   const value = useMemo<AuthContextValue>(
-    () => ({ status, user, membership, error, signingIn, signInWithGoogle, signOut, recheck }),
-    [status, user, membership, error, signingIn, signInWithGoogle, signOut, recheck]
+    () => ({
+      status,
+      user,
+      membership,
+      error,
+      signingIn,
+      signInWithGoogle,
+      signOut,
+      recheck,
+      isPlatformAdmin,
+      platformView,
+      setPlatformView,
+    }),
+    [status, user, membership, error, signingIn, signInWithGoogle, signOut, recheck, isPlatformAdmin, platformView]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

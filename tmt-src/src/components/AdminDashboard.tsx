@@ -15,6 +15,8 @@ import {
   Compass,
   TrendingUp,
   Mail,
+  UserCog,
+  CreditCard,
 } from 'lucide-react';
 import {
   CandidateAttempt,
@@ -29,6 +31,9 @@ import {
 import { BrandMark } from './BrandMark';
 import { SettingSwitch } from './SettingSwitch';
 import { can, Role } from '../auth/roles';
+import { useAuth } from '../auth/AuthProvider';
+import { TeamPanel } from './TeamPanel';
+import { BillingPanel } from './BillingPanel';
 import { CreateTestModal, SectionModal, QuestionModal, newId } from './TestAuthoring';
 import { BulkIngestionModal } from './BulkIngestionModal';
 import { AnalyticsTab } from './AnalyticsTab';
@@ -58,8 +63,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   // What this person may do. The database rules enforce the same limits server-side.
   const canWrite = can(role, 'tests:write');
   const canBrand = can(role, 'branding:edit');
+  const canManageTeam = can(role, 'members:manage');
+  const { user: authUser, membership } = useAuth();
 
-  const [activeTab, setActiveTab] = useState<'TESTS' | 'ANALYTICS' | 'BRANDING' | 'ATTEMPTS' | 'QUESTIONS'>('TESTS');
+  const [activeTab, setActiveTab] = useState<'TESTS' | 'ANALYTICS' | 'BRANDING' | 'ATTEMPTS' | 'QUESTIONS' | 'TEAM' | 'BILLING'>('TESTS');
   const [selectedTestId, setSelectedTestId] = useState<string>(tests[0]?.id || '');
   const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -332,6 +339,29 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <FileSpreadsheet className="w-3.5 h-3.5" />
               <span>Question Bank</span>
             </button>
+
+            {canManageTeam && (
+              <>
+                <button
+                  onClick={() => setActiveTab('TEAM')}
+                  className={`px-3 py-2 rounded-lg text-sm font-semibold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
+                    activeTab === 'TEAM' ? 'bg-accent-soft text-accent' : 'text-slate-600 hover:bg-slate-100'
+                  }`}
+                >
+                  <UserCog className="w-3.5 h-3.5" />
+                  <span>Team</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('BILLING')}
+                  className={`px-3 py-2 rounded-lg text-sm font-semibold transition cursor-pointer flex items-center gap-1.5 shrink-0 ${
+                    activeTab === 'BILLING' ? 'bg-accent-soft text-accent' : 'text-slate-600 hover:bg-slate-100'
+                  }`}
+                >
+                  <CreditCard className="w-3.5 h-3.5" />
+                  <span>Billing</span>
+                </button>
+              </>
+            )}
           </nav>
         </div>
 
@@ -553,6 +583,30 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   </div>
                 );
               })()}
+          </div>
+        )}
+
+        {/* ================= TAB: TEAM & ROLES ================= */}
+        {activeTab === 'TEAM' && canManageTeam && membership && (
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight text-ink">Team</h1>
+              <p className="text-sm text-slate-600 mt-1">
+                Invite people from {membership.companyName} and choose what each can do.
+              </p>
+            </div>
+            <TeamPanel companyId={membership.companyId} canManage currentUid={authUser?.uid} />
+          </div>
+        )}
+
+        {/* ================= TAB: BILLING ================= */}
+        {activeTab === 'BILLING' && canManageTeam && membership && (
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight text-ink">Billing</h1>
+              <p className="text-sm text-slate-600 mt-1">Your plan, its limits and renewal date.</p>
+            </div>
+            <BillingPanel companyId={membership.companyId} canEdit={false} />
           </div>
         )}
 

@@ -18,6 +18,7 @@ import { MockEmailViewerModal } from './components/MockEmailViewerModal';
 import { AuthProvider, useAuth } from './auth/AuthProvider';
 import { AccountMenu, LoadingScreen, NoAccessScreen, SignInScreen } from './auth/AuthScreens';
 import { ROLE_LABELS } from './auth/roles';
+import { PlatformConsole } from './components/PlatformConsole';
 import { LayoutDashboard, GraduationCap, Mail, ExternalLink } from 'lucide-react';
 
 export default function App() {
@@ -30,10 +31,12 @@ export default function App() {
 
 /** Staff must sign in with Google and belong to a company before seeing anything. */
 function AuthGate() {
-  const { status } = useAuth();
+  const { status, isPlatformAdmin, platformView, membership } = useAuth();
   if (status === 'loading') return <LoadingScreen />;
   if (status === 'signedOut') return <SignInScreen />;
   if (status === 'noAccess') return <NoAccessScreen />;
+  // Platform administrators (super users) get the console; they may also belong to a company.
+  if (isPlatformAdmin && (!membership || platformView)) return <PlatformConsole />;
   return (
     <ThemeProvider>
       <MainAppContent />

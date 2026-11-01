@@ -103,7 +103,7 @@ export const NoAccessScreen: React.FC = () => {
 
 /** Avatar button with name, role and sign-out. */
 export const AccountMenu: React.FC = () => {
-  const { user, membership, signOut } = useAuth();
+  const { user, membership, signOut, isPlatformAdmin, platformView, setPlatformView } = useAuth();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -121,7 +121,7 @@ export const AccountMenu: React.FC = () => {
     };
   }, [open]);
 
-  if (!user || !membership) return null;
+  if (!user || (!membership && !isPlatformAdmin)) return null;
   const initial = (user.name || user.email || '?').charAt(0).toUpperCase();
 
   return (
@@ -157,9 +157,24 @@ export const AccountMenu: React.FC = () => {
             <p className="text-sm font-semibold truncate">{user.name}</p>
             <p className="text-[13px] text-slate-500 truncate">{user.email}</p>
             <p className="text-[13px] text-slate-600 mt-1.5">
-              {ROLE_LABELS[membership.role]} · {membership.companyName}
+              {isPlatformAdmin && (platformView || !membership)
+                ? 'Platform administrator'
+                : `${ROLE_LABELS[membership!.role]} · ${membership!.companyName}`}
             </p>
           </div>
+          {isPlatformAdmin && membership && (
+            <button
+              type="button"
+              role="menuitem"
+              onClick={() => {
+                setPlatformView(!platformView);
+                setOpen(false);
+              }}
+              className="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 cursor-pointer"
+            >
+              {platformView ? `Open ${membership.companyName}` : 'Open platform console'}
+            </button>
+          )}
           <button
             type="button"
             role="menuitem"

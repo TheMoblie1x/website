@@ -3,6 +3,13 @@
 Project: `takemytest-d6714`. Staff sign in with **Google**; candidates will use Firebase
 **anonymous** sign-in plus an invite link.
 
+## Super users (platform administrators)
+Listed under `platformAdmins/{emailKey}` and recognised by their **verified** Google email.
+Nobody can write this path from the app: add or remove one with an admin token or the console, e.g.
+`PUT platformAdmins/jane,doe@gmail,com` = `true`. A super user can create companies, invite owners,
+change anyone's role, and manage `plans/` and `subscriptions/`. Companies' own owners cannot touch
+plans or subscriptions, so a company cannot upgrade itself.
+
 ## Access model
 - `members/{uid}` — which company a signed-in person belongs to and their role
   (`owner`, `manager`, `evaluator`). Only an owner can change it, or the person themselves

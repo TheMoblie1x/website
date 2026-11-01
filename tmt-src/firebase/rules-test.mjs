@@ -68,6 +68,8 @@ const U = {
   ownerB: { uid: 'zz_ownerB', email: 'owner.b@rulestest.example' },
   stranger: { uid: 'zz_stranger', email: 'stranger@rulestest.example' },
   unverified: { uid: 'zz_unverified', email: 'unverified@rulestest.example' },
+  pa: { uid: 'zz_pa', email: 'pa@rulestest.example' },
+  claimer: { uid: 'zz_claimer', email: 'claimer@rulestest.example' },
 };
 const CAND1 = 'zz_cand1', CAND2 = 'zz_cand2';
 const allUids = [...Object.values(U).map((u) => u.uid), CAND1, CAND2];
@@ -75,7 +77,7 @@ const allUids = [...Object.values(U).map((u) => u.uid), CAND1, CAND2];
 async function cleanup() {
   const paths = ['companies/zz_a', 'companies/zz_b', 'companyMembers/zz_a', 'companyMembers/zz_b', 'tests/zz_a', 'tests/zz_b',
     'answerKeys/zz_a', 'answerKeys/zz_b', 'attempts/zz_a', 'attempts/zz_b', 'results/zz_a', 'results/zz_b',
-    'companyInvites/zz_a', 'companyInvites/zz_b', 'invites/zz_tok1', 'invites/zz_tok_revoked', 'invites/zz_tok_expired',
+    'companyInvites/zz_a', 'companyInvites/zz_b', 'companies/zz_c', 'companyPending/zz_a', 'companyPending/zz_b', 'companyPending/zz_c', 'subscriptions/zz_a', 'subscriptions/zz_b', 'subscriptions/zz_c', 'plans/zz_plan', `pendingMembers/${ek('newowner@rulestest.example')}`, `platformAdmins/${ek('pa@rulestest.example')}`, 'invites/zz_tok1', 'invites/zz_tok_revoked', 'invites/zz_tok_expired',
     ...allUids.map((u) => `members/${u}`), ...Object.values(U).map((u) => `pendingMembers/${ek(u.email)}`)];
   for (const p of paths) await call('DELETE', p, undefined, 'admin');
   await fetch(`https://identitytoolkit.googleapis.com/v1/projects/${P}/accounts:batchDelete`, {
@@ -103,6 +105,9 @@ try {
   await call('PUT', `pendingMembers/${ek(U.evalA.email)}`, { companyId: 'zz_a', role: 'evaluator' }, 'admin');
   await call('PUT', `pendingMembers/${ek(U.ownerB.email)}`, { companyId: 'zz_b', role: 'owner' }, 'admin');
   await call('PUT', `pendingMembers/${ek(U.unverified.email)}`, { companyId: 'zz_a', role: 'owner' }, 'admin');
+  await call('PUT', `platformAdmins/${ek(U.pa.email)}`, true, 'admin');
+  await call('PUT', `pendingMembers/${ek(U.claimer.email)}`, { companyId: 'zz_a', role: 'evaluator' }, 'admin');
+  await call('PUT', `companyPending/zz_a/${ek(U.claimer.email)}`, { email: U.claimer.email, role: 'evaluator' }, 'admin');
 
   console.log('--- anonymous / no sign-in');
   deny('unauthenticated read of whole database', await call('GET', '', undefined, null));
@@ -190,6 +195,53 @@ try {
   deny('candidate writes a result', await call('PUT', 'results/zz_a/a1', { totalScore: 100 }, tk.cand1));
   deny('candidate reads results', await call('GET', 'results/zz_a/a1', undefined, tk.cand1));
   deny('owner B reads company A results', await call('GET', 'results/zz_a/a1', undefined, tk.ownerB));
+
+  console.log('\n--- team management (owner)');
+  const key2 = (e) => ek(e);
+  allow('owner A adds an invite to the company list', await call('PUT', `companyPending/zz_a/${key2('hire@rulestest.example')}`, { email: 'hire@rulestest.example', role: 'manager' }, tk.ownerA));
+  deny('owner A adds an invite to ANOTHER company\'s list', await call('PUT', `companyPending/zz_b/${key2('hire@rulestest.example')}`, { email: 'hire@rulestest.example', role: 'manager' }, tk.ownerA));
+  deny('manager A adds to the invite list', await call('PUT', `companyPending/zz_a/${key2('m@rulestest.example')}`, { email: 'm@rulestest.example', role: 'manager' }, tk.mgrA));
+  allow('owner A reads the company invite list', await call('GET', 'companyPending/zz_a', undefined, tk.ownerA));
+  deny('manager A reads the company invite list', await call('GET', 'companyPending/zz_a', undefined, tk.mgrA));
+  deny('owner B reads company A invite list', await call('GET', 'companyPending/zz_a', undefined, tk.ownerB));
+  allow('owner A changes a teammate\'s role (own company)', await call('PUT', `members/${U.evalA.uid}`, { companyId: 'zz_a', role: 'manager', email: U.evalA.email, name: 'T' }, tk.ownerA));
+  deny('owner A moves a company B member into company A', await call('PUT', `members/${U.ownerB.uid}`, { companyId: 'zz_a', role: 'owner', email: U.ownerB.email, name: 'T' }, tk.ownerA));
+  deny('owner A removes a company B member', await call('DELETE', `members/${U.ownerB.uid}`, undefined, tk.ownerA));
+  deny('manager A changes a teammate\'s role', await call('PUT', `members/${U.evalA.uid}`, { companyId: 'zz_a', role: 'owner', email: U.evalA.email, name: 'T' }, tk.mgrA));
+  allow('owner A removes a teammate (own company)', await call('DELETE', `members/${U.evalA.uid}`, undefined, tk.ownerA));
+  allow('invitee removes their own invite entries when claiming', await call('DELETE', `companyPending/zz_a/${key2(U.claimer.email)}`, undefined, tk.claimer));
+  deny('stranger removes someone else\'s invite entry', await call('DELETE', `companyPending/zz_a/${key2('hire@rulestest.example')}`, undefined, tk.stranger));
+
+  console.log('\n--- platform admin (super user)');
+  allow('platform admin reads own platformAdmins entry', await call('GET', `platformAdmins/${ek(U.pa.email)}`, undefined, tk.pa));
+  deny('stranger reads the platform admin entry', await call('GET', `platformAdmins/${ek(U.pa.email)}`, undefined, tk.stranger));
+  deny('owner makes themselves a platform admin', await call('PUT', `platformAdmins/${ek(U.ownerA.email)}`, true, tk.ownerA));
+  deny('platform admin writes platformAdmins from the app', await call('PUT', `platformAdmins/${ek('other@rulestest.example')}`, true, tk.pa));
+  allow('platform admin creates a company', await call('PUT', 'companies/zz_c', { name: 'Test Co C' }, tk.pa));
+  allow('platform admin lists all companies', await call('GET', 'companies', undefined, tk.pa));
+  deny('owner lists all companies', await call('GET', 'companies', undefined, tk.ownerA));
+  allow('platform admin invites an owner into any company', await call('PUT', `pendingMembers/${key2('newowner@rulestest.example')}`, { companyId: 'zz_c', role: 'owner' }, tk.pa));
+  allow('platform admin lists any company invites', await call('GET', 'companyPending/zz_c', undefined, tk.pa));
+  allow('platform admin changes any member role', await call('PUT', `members/${U.mgrA.uid}`, { companyId: 'zz_a', role: 'evaluator', email: U.mgrA.email, name: 'T' }, tk.pa));
+  allow('platform admin reads any company tests', await call('GET', 'tests/zz_a', undefined, tk.pa));
+  allow('platform admin reads any company attempts', await call('GET', 'attempts/zz_a', undefined, tk.pa));
+  allow('manager lists own company attempts', await call('GET', 'attempts/zz_a', undefined, tk.mgrA));
+  deny('candidate lists a company\'s attempts', await call('GET', 'attempts/zz_a', undefined, tk.cand1));
+  deny('owner of another company lists attempts', await call('GET', 'attempts/zz_a', undefined, tk.ownerB));
+
+  console.log('\n--- plans & subscriptions');
+  allow('platform admin creates a plan', await call('PUT', 'plans/zz_plan', { name: 'Test', priceMonthly: 0 }, tk.pa));
+  deny('owner edits a plan', await call('PUT', 'plans/zz_plan', { name: 'Free forever', priceMonthly: 0 }, tk.ownerA));
+  allow('owner reads the plans catalogue', await call('GET', 'plans', undefined, tk.ownerA));
+  deny('unauthenticated reads plans', await call('GET', 'plans', undefined, null));
+  allow('platform admin sets a company subscription', await call('PUT', 'subscriptions/zz_a', { planId: 'zz_plan', status: 'active', currentPeriodEnd: Date.now() + 864e5 }, tk.pa));
+  deny('owner upgrades own subscription', await call('PUT', 'subscriptions/zz_a', { planId: 'enterprise', status: 'active' }, tk.ownerA));
+  deny('owner writes subscription status field', await call('PUT', 'subscriptions/zz_a/status', 'active', tk.ownerA));
+  allow('owner reads own subscription', await call('GET', 'subscriptions/zz_a', undefined, tk.ownerA));
+  allow('evaluator reads own company subscription', await call('GET', 'subscriptions/zz_a', undefined, tk.mgrA));
+  deny('owner B reads company A subscription', await call('GET', 'subscriptions/zz_a', undefined, tk.ownerB));
+  deny('owner lists all subscriptions', await call('GET', 'subscriptions', undefined, tk.ownerA));
+  deny('candidate reads a subscription', await call('GET', 'subscriptions/zz_a', undefined, tk.cand1));
 } catch (e) {
   console.error('HARNESS ERROR:', e.message);
   fail++;
