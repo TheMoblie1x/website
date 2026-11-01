@@ -292,9 +292,9 @@ export const SubmissionReviewModal: React.FC<SubmissionReviewModalProps> = ({
                                 'bg-emerald-500 text-white border-emerald-600 hover:bg-emerald-600';
                             } else if (resp?.status === 'MARKED_FOR_REVIEW') {
                               badge =
-                                'bg-purple-600 text-white border-purple-700 hover:bg-purple-700';
+                                'bg-ink text-white border-ink hover:bg-slate-800';
                             } else if (resp?.status === 'UNANSWERED') {
-                              badge = 'bg-red-50 text-red-700 border-red-300 hover:bg-red-100';
+                              badge = 'bg-white text-slate-700 border-slate-400 border-dashed hover:bg-slate-50';
                             }
 
                             return (

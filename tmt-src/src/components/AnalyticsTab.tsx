@@ -49,8 +49,8 @@ const SCORE_BUCKETS = [
 ];
 
 const PIE_COLORS = {
-  PASSED: '#10b981', // emerald-500
-  FAILED: '#f59e0b', // amber-500
+  PASSED: '#1558d6', // emerald-500
+  FAILED: '#94a3b8', // amber-500
   MALPRACTICE: '#ef4444', // red-500
 };
 
@@ -403,7 +403,7 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
                   labelFormatter={(lbl) => `Score Bracket: ${lbl}`}
                   contentStyle={{ backgroundColor: '#0f172a', color: '#fff', borderRadius: '8px', fontSize: '12px' }}
                 />
-                <Bar dataKey="candidates" fill="#3b82f6" radius={[6, 6, 0, 0]} name="Candidates Count" />
+                <Bar dataKey="candidates" fill="#1558d6" radius={[6, 6, 0, 0]} name="Candidates Count" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -500,7 +500,7 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
                   formatter={(value) => (value === 'allocatedMins' ? 'Allocated Budget (mins)' : 'Actual Avg Spent (mins)')}
                 />
                 <Bar dataKey="allocatedMins" fill="#cbd5e1" radius={[4, 4, 0, 0]} name="allocatedMins" />
-                <Bar dataKey="actualSpentMins" fill="#8b5cf6" radius={[4, 4, 0, 0]} name="actualSpentMins" />
+                <Bar dataKey="actualSpentMins" fill="#5b96f5" radius={[4, 4, 0, 0]} name="actualSpentMins" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -538,7 +538,7 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
                   formatter={(value) => (value === 'avgScore' ? 'Avg Scored Marks' : 'Total Section Marks')}
                 />
                 <Bar dataKey="maxMarks" fill="#e2e8f0" radius={[4, 4, 0, 0]} name="maxMarks" />
-                <Bar dataKey="avgScore" fill="#10b981" radius={[4, 4, 0, 0]} name="avgScore" />
+                <Bar dataKey="avgScore" fill="#1558d6" radius={[4, 4, 0, 0]} name="avgScore" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -584,8 +584,8 @@ export const AnalyticsTab: React.FC<AnalyticsTabProps> = ({
                       entry.status === 'Disqualified'
                         ? '#ef4444'
                         : entry.score >= (activeTest?.passPercentage || 60)
-                        ? '#10b981'
-                        : '#f59e0b'
+                        ? '#1558d6'
+                        : '#94a3b8'
                     }
                   />
                 ))}

@@ -18,10 +18,10 @@ export const BrandMark: React.FC<{
       aria-label="TakeMyTest"
       className="shrink-0"
     >
-      <rect width="28" height="28" rx="7" fill={onDark ? '#ffffff' : '#0f172a'} />
+      <rect width="28" height="28" rx="7" fill={onDark ? '#ffffff' : '#0b1220'} />
       <path
         d="M8 14.5l4 4 8-9"
-        stroke={onDark ? '#0f172a' : '#ffffff'}
+        stroke={onDark ? '#1558d6' : '#5b96f5'}
         strokeWidth="2.6"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -31,7 +31,7 @@ export const BrandMark: React.FC<{
       <span
         className={`text-[15px] font-bold tracking-tight ${onDark ? 'text-white' : 'text-ink'}`}
       >
-        TakeMyTest
+        Take<span className={onDark ? 'text-brand-300' : 'text-brand-600'}>MyTest</span>
       </span>
     )}
   </span>

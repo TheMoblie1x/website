@@ -816,7 +816,7 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
               className={`flex items-center gap-2 px-4 py-2.5 border rounded-xl text-xs font-bold transition cursor-pointer ${
                 currentStatus === 'MARKED_FOR_REVIEW' ||
                 currentStatus === 'ANSWERED_AND_MARKED_FOR_REVIEW'
-                  ? 'bg-purple-100 border-purple-400 text-purple-800 shadow-xs'
+                  ? 'bg-ink border-ink text-white'
                   : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
               }`}
             >
@@ -869,7 +869,7 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
         </main>
 
         {/* Right Palette Grid Drawer - Real-time Matrix */}
-        <aside className="w-80 bg-white border-l border-slate-200 p-6 hidden lg:flex flex-col justify-between shrink-0 overflow-y-auto">
+        <aside className="w-80 bg-white border-l border-slate-200 p-6 hidden lg:flex flex-col gap-2 shrink-0 overflow-y-auto">
           <div>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
@@ -890,12 +890,12 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
                 if (st === 'ANSWERED') {
                   style = 'bg-emerald-600 text-white border-emerald-600 font-extrabold';
                 } else if (st === 'MARKED_FOR_REVIEW') {
-                  style = 'bg-purple-600 text-white border-purple-600 font-extrabold';
+                  style = 'bg-ink text-white border-ink font-extrabold';
                 } else if (st === 'ANSWERED_AND_MARKED_FOR_REVIEW') {
                   style =
-                    'bg-[repeating-linear-gradient(45deg,#059669,#059669_4px,#7c3aed_4px,#7c3aed_8px)] text-white border-purple-700 font-extrabold';
+                    'bg-[repeating-linear-gradient(45deg,#1558d6,#1558d6_4px,#0b1220_4px,#0b1220_8px)] text-white border-ink font-extrabold';
                 } else if (st === 'UNANSWERED') {
-                  style = 'bg-red-50 text-red-600 border-red-300 font-extrabold';
+                  style = 'bg-white text-slate-700 border-slate-400 border-dashed font-extrabold';
                 }
 
                 if (activeQIdx === idx) {
@@ -922,15 +922,15 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
               <span>Answered</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-3.5 h-3.5 rounded bg-purple-600 shrink-0" />
+              <span className="w-3.5 h-3.5 rounded bg-ink shrink-0" />
               <span>Marked for Review</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-3.5 h-3.5 rounded bg-[repeating-linear-gradient(45deg,#059669,#059669_2px,#7c3aed_2px,#7c3aed_4px)] shrink-0" />
+              <span className="w-3.5 h-3.5 rounded bg-[repeating-linear-gradient(45deg,#1558d6,#1558d6_2px,#0b1220_2px,#0b1220_4px)] shrink-0" />
               <span>Answered & Marked</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-3.5 h-3.5 rounded bg-red-50 border border-red-300 shrink-0" />
+              <span className="w-3.5 h-3.5 rounded bg-white border border-dashed border-slate-400 shrink-0" />
               <span>Visited / Unanswered</span>
             </div>
             <div className="flex items-center gap-2">

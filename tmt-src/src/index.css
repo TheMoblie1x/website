@@ -1,18 +1,90 @@
 @import "tailwindcss";
 
 /*
-  TakeMyTest design tokens ("Trust & Authority": navy neutrals, one blue accent).
-  Colour carries meaning only: accent = primary action/selection,
-  emerald = success/pass, amber = warning, red = error/destructive.
+  TakeMyTest brand template  (see ../BRAND.md)
+  ---------------------------------------------------------------------------
+  Scheme : trust blue + ink black on neutral slate. Nothing else.
+  Red    : the only extra colour, reserved for errors, violations, destructive actions.
+  Meaning: never by colour alone; pair with an icon or text.
 */
 @theme {
   --font-sans: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --color-ink: #0f172a;
-  --color-accent: #0369a1;
-  --color-accent-hover: #075985;
-  --color-accent-soft: #f0f7fb;
-  --color-accent-line: #bcd9ea;
+  /* Trust blue ramp (600 is the primary; 600 on white = 6.0:1 contrast) */
+  --color-brand-50: #eff5ff;
+  --color-brand-100: #dbe8fe;
+  --color-brand-200: #bfd6fd;
+  --color-brand-300: #93bbfb;
+  --color-brand-400: #5b96f5;
+  --color-brand-500: #2f73ea;
+  --color-brand-600: #1558d6;
+  --color-brand-700: #1145ae;
+  --color-brand-800: #12398a;
+  --color-brand-900: #12306e;
+  --color-brand-950: #0a1b40;
+
+  /* Ink black (headings, primary text, dark surfaces) */
+  --color-ink: #0b1220;
+
+  /* Semantic roles used by components */
+  --color-accent: var(--color-brand-600);
+  --color-accent-hover: var(--color-brand-700);
+  --color-accent-soft: var(--color-brand-50);
+  --color-accent-line: var(--color-brand-200);
+
+  /*
+    Palette lock: any Tailwind family outside blue/black/slate/red is mapped onto
+    the brand, so no screen can introduce a stray colour.
+      blue, emerald, purple, indigo, violet, sky, teal, cyan -> brand blue
+      amber, orange, yellow                                  -> neutral slate
+  */
+  --color-blue-50: var(--color-brand-50);
+  --color-blue-100: var(--color-brand-100);
+  --color-blue-200: var(--color-brand-200);
+  --color-blue-300: var(--color-brand-300);
+  --color-blue-400: var(--color-brand-400);
+  --color-blue-500: var(--color-brand-500);
+  --color-blue-600: var(--color-brand-600);
+  --color-blue-700: var(--color-brand-700);
+  --color-blue-800: var(--color-brand-800);
+  --color-blue-900: var(--color-brand-900);
+  --color-blue-950: var(--color-brand-950);
+
+  --color-emerald-50: var(--color-brand-50);
+  --color-emerald-100: var(--color-brand-100);
+  --color-emerald-200: var(--color-brand-200);
+  --color-emerald-300: var(--color-brand-300);
+  --color-emerald-400: var(--color-brand-400);
+  --color-emerald-500: var(--color-brand-500);
+  --color-emerald-600: var(--color-brand-600);
+  --color-emerald-700: var(--color-brand-700);
+  --color-emerald-800: var(--color-brand-800);
+  --color-emerald-900: var(--color-brand-900);
+  --color-emerald-950: var(--color-brand-950);
+
+  --color-purple-50: var(--color-brand-50);
+  --color-purple-100: var(--color-brand-100);
+  --color-purple-200: var(--color-brand-200);
+  --color-purple-300: var(--color-brand-300);
+  --color-purple-400: var(--color-brand-400);
+  --color-purple-500: var(--color-brand-500);
+  --color-purple-600: var(--color-brand-600);
+  --color-purple-700: var(--color-brand-700);
+  --color-purple-800: var(--color-brand-800);
+  --color-purple-900: var(--color-brand-900);
+  --color-purple-950: var(--color-brand-950);
+
+  --color-amber-50: var(--color-slate-50);
+  --color-amber-100: var(--color-slate-100);
+  --color-amber-200: var(--color-slate-200);
+  --color-amber-300: var(--color-slate-300);
+  --color-amber-400: var(--color-slate-400);
+  --color-amber-500: var(--color-slate-500);
+  --color-amber-600: var(--color-slate-600);
+  --color-amber-700: var(--color-slate-700);
+  --color-amber-800: var(--color-slate-800);
+  --color-amber-900: var(--color-slate-900);
+  --color-amber-950: var(--color-slate-950);
 }
 
 @layer base {
@@ -23,6 +95,7 @@
   body {
     font-family: var(--font-sans);
     line-height: 1.5;
+    color: var(--color-ink);
   }
 
   /* Visible keyboard focus everywhere (never remove outlines without a replacement). */

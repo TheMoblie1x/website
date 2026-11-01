@@ -6,8 +6,8 @@ export const DEFAULT_ORGANIZATIONS: Organization[] = [
     slug: 'acme-corp',
     name: 'Acme Cloud & Systems',
     logoUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=120&auto=format&fit=crop&q=80',
-    primaryColor: '#2563EB',
-    secondaryColor: '#1E40AF',
+    primaryColor: '#1558D6',
+    secondaryColor: '#12398A',
     fontFamily: "'Inter', sans-serif",
   },
   {
