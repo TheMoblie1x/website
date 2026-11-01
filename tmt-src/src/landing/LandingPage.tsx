@@ -1,301 +1,387 @@
-import React from 'react';
-import {
-  ArrowRight,
-  Briefcase,
-  Check,
-  FileSpreadsheet,
-  Palette,
-  ShieldCheck,
-  Timer,
-  UserCog,
-} from 'lucide-react';
-import { BrandMark } from '../components/BrandMark';
+import React, { useEffect, useState } from 'react';
+import { SettingSwitch } from '../components/SettingSwitch';
 import { WaitlistForm } from './WaitlistForm';
+import './board.css';
 
 /*
-  Copy rule for this page: say only what the product does today. No claims about AI detection,
-  security certifications, uptime, customer counts or pricing.
+  Copy rule: say only what the product does today. No AI-detection claims, no customers, no proof we do not have.
+  Every picture is a real piece of the product's interface (data-ui), built in HTML.
 */
 
-const FEATURES: { icon: React.ReactNode; title: string; text: string }[] = [
-  {
-    icon: <Briefcase className="w-5 h-5" aria-hidden="true" />,
-    title: 'A test for every role',
-    text: 'Group assessments by job role, copy one as a starting point for the next, and keep them organised.',
-  },
-  {
-    icon: <FileSpreadsheet className="w-5 h-5" aria-hidden="true" />,
-    title: 'Mixed question types',
-    text: 'Single choice, multiple choice, true or false, short answer and written answers. Import questions from Excel.',
-  },
-  {
-    icon: <Timer className="w-5 h-5" aria-hidden="true" />,
-    title: 'Timed sections',
-    text: 'Give each section its own timer. Optionally lock sections in order and apply negative marking.',
-  },
-  {
-    icon: <ShieldCheck className="w-5 h-5" aria-hidden="true" />,
-    title: 'Integrity checks',
-    text: 'Flags tab switching and leaving full screen during a test, with an optional webcam check before it starts.',
-  },
-  {
-    icon: <UserCog className="w-5 h-5" aria-hidden="true" />,
-    title: 'Roles for your team',
-    text: 'Owners run the account, managers build and publish tests, and evaluators review submissions.',
-  },
-  {
-    icon: <Palette className="w-5 h-5" aria-hidden="true" />,
-    title: 'Your brand, not ours',
-    text: "Candidates see your company's name and logo throughout the test.",
-  },
-];
+const noop = () => {};
+const inertProps = { inert: true } as Record<string, unknown>;
 
-const STEPS = [
-  { n: '1', title: 'Build the test', text: 'Pick the role, add sections with time limits, then write or import the questions.' },
-  { n: '2', title: 'Run it', text: 'Candidates take it in the browser, one section at a time, with the rules you chose.' },
-  { n: '3', title: 'Review together', text: 'Look through submissions and scores with your team, each person with the right access.' },
-];
+/** Entrances: parts rise in as they arrive. Content stays visible if script fails (see index.html). */
+function useReveal() {
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll('.rv'));
+    if (!('IntersectionObserver' in window)) {
+      els.forEach((e) => e.classList.add('in'));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.classList.add('in');
+            io.unobserve(en.target);
+          }
+        }),
+      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+    );
+    els.forEach((e) => io.observe(e));
+    return () => io.disconnect();
+  }, []);
+}
 
-const FAQ = [
-  {
-    q: 'Who is it for?',
-    a: 'Hiring teams, recruitment agencies and training providers who need to test people on specific skills.',
-  },
-  {
-    q: 'When can I start?',
-    a: "We're inviting companies in small groups. We'll email you when it's your turn.",
-  },
-  {
-    q: 'How much will it cost?',
-    a: "Pricing isn't final yet. People on the waitlist hear first.",
-  },
-  {
-    q: "Will candidates see my company's branding?",
-    a: "Yes. The candidate screens use your company's name and logo.",
-  },
-];
+const rv = (i = 0) => ({ className: 'rv', style: { '--i': i } as React.CSSProperties });
 
-const EXAMPLE_SECTIONS = [
-  { title: 'Kotlin fundamentals', meta: '6 questions · 15 min' },
-  { title: 'Android architecture', meta: '4 questions · 20 min' },
-  { title: 'Problem solving', meta: '2 questions · 10 min' },
-];
+/* ----------------------------- interface fragments ----------------------------- */
 
-export const LandingPage: React.FC<{ onSignIn: () => void }> = ({ onSignIn }) => (
-  <div className="min-h-screen bg-white text-ink">
-    <a
-      href="#main"
-      className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-white focus:text-ink focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg"
-    >
-      Skip to content
-    </a>
+type Cell = 'ans' | 'mark' | 'both' | 'una' | 'unv';
+const CELL_CLASS: Record<Cell, string> = {
+  ans: 'bg-brand-600 text-white',
+  mark: 'bg-cta text-ink',
+  both: 'bg-brand-600 text-white border-2 border-cta',
+  una: 'bg-white text-slate-700 border border-dashed border-slate-400',
+  unv: 'bg-slate-100 text-slate-700',
+};
+const PALETTE: Cell[] = ['ans', 'ans', 'mark', 'ans', 'both', 'ans', 'una', 'ans', 'mark', 'ans', 'ans', 'both', 'ans', 'una', 'unv', 'ans', 'mark', 'unv', 'unv', 'unv', 'unv', 'unv', 'unv', 'unv', 'unv', 'unv', 'unv', 'unv', 'unv', 'unv'];
 
-    <header className="border-b border-slate-200">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-        <BrandMark />
-        <nav aria-label="Main" className="flex items-center gap-1 sm:gap-2">
-          <a href="#how" className="hidden md:block px-3 py-2 text-sm font-semibold text-slate-600 hover:text-ink">
-            How it works
-          </a>
-          <a href="#features" className="hidden md:block px-3 py-2 text-sm font-semibold text-slate-600 hover:text-ink">
-            Features
-          </a>
-          <a href="#faq" className="hidden md:block px-3 py-2 text-sm font-semibold text-slate-600 hover:text-ink">
-            FAQ
-          </a>
-          <button
-            type="button"
-            onClick={onSignIn}
-            className="px-3 min-h-11 inline-flex items-center text-sm font-semibold text-slate-700 hover:text-ink cursor-pointer"
-          >
-            Sign in
-          </button>
-          <a
-            href="#waitlist"
-            className="px-4 min-h-11 inline-flex items-center bg-cta hover:bg-cta-hover active:bg-cta-press text-ink text-sm font-semibold rounded-lg transition-colors"
-          >
-            Join the waitlist
-          </a>
-        </nav>
+const PaletteFragment: React.FC<{ cols?: number; size?: string; count?: number }> = ({ cols = 5, size = '2em', count = 30 }) => (
+  <div data-ui role="img" aria-label="Question palette: answered, marked for review and not visited questions" {...inertProps}
+    className="grid gap-[0.35em]" style={{ gridTemplateColumns: `repeat(${cols}, ${size})` }}>
+    {PALETTE.slice(0, count).map((c, i) => (
+      <span key={i} className={`flex items-center justify-center rounded-md text-[0.8em] font-bold ${CELL_CLASS[c]}`} style={{ height: size }}>
+        {i + 1}
+      </span>
+    ))}
+  </div>
+);
+
+const TeamFragment: React.FC = () => (
+  <div data-ui role="img" aria-label="The team list: three people with the roles owner, manager and evaluator" {...inertProps}
+    className="bg-white text-ink rounded-xl w-[340px] p-5 text-[15px]">
+    <p className="font-semibold text-sm">People</p>
+    <ul className="divide-y divide-slate-100 mt-2">
+      {[['Priya Nair', 'priya@acme.example', 'Owner'], ['Daniel Okafor', 'daniel@acme.example', 'Manager'], ['Mei Tan', 'mei@acme.example', 'Evaluator']].map(([n, e, r]) => (
+        <li key={n} className="py-3 flex items-center justify-between gap-3">
+          <span><span className="block font-semibold">{n}</span><span className="block text-[13px] text-slate-500">{e}</span></span>
+          <span className="px-2.5 py-1 rounded-lg bg-slate-100 text-sm font-semibold">{r}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+const OverviewFragment: React.FC = () => (
+  <div data-ui role="img" aria-label="An assessment overview: Android Developer Screening with its sections and rules" {...inertProps}
+    className="bg-white text-ink w-full h-full p-5 md:p-8 text-[17px]">
+    <p className="text-slate-500 text-[14px] tabular-nums">Android Developer · 16 questions · 5 sections · 75 min</p>
+    <p className="text-2xl md:text-4xl font-semibold mt-2 tracking-tight">Android Developer Screening</p>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mt-6 md:mt-8">
+      <ul className="divide-y divide-slate-100">
+        {[['1. Kotlin fundamentals', '6 questions · 15 min'], ['2. Android architecture', '4 questions · 20 min'], ['3. Coroutines and Flow', '3 questions · 10 min'], ['4. Debugging a crash', '1 question · 15 min'], ['5. Code review', '2 questions · 15 min']].map(([a, b]) => (
+          <li key={a} className="py-4 flex justify-between gap-3"><span className="font-semibold">{a}</span><span className="text-slate-500 tabular-nums text-[14px]">{b}</span></li>
+        ))}
+      </ul>
+      <div className="divide-y divide-slate-100">
+        <SettingSwitch label="Lock sections in order" description="Finish one section before the next opens." checked onChange={noop} />
+        <SettingSwitch label="Negative marking" description="Wrong answers deduct marks." checked onChange={noop} />
       </div>
-    </header>
+    </div>
+  </div>
+);
 
-    <main id="main">
-      {/* Hero */}
-      <section className="border-b border-slate-200 bg-[radial-gradient(60rem_28rem_at_95%_-15%,rgba(253,110,136,0.20),transparent),linear-gradient(to_bottom,#dbf2fc,#ffffff)]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-[1.15fr_1fr] gap-12 items-start">
-          <div>
-            <p className="inline-block text-[13px] font-semibold text-ink bg-cta-soft border border-cta-line rounded-full px-3 py-1">
-              Early access
-            </p>
-            <h1 className="mt-5 text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1]">
-              Hiring assessments, built for every role you hire for
-            </h1>
-            <p className="mt-5 text-lg text-slate-600 max-w-xl leading-relaxed">
-              Set up a timed test for each job, run it in the browser, and review the results with your team. We&apos;re
-              opening early access to a small group of companies first.
-            </p>
-            <ul className="mt-8 space-y-3 text-[15px] text-slate-700">
-              {['A separate test for each job role', 'Section timers and marking rules you control', 'Owner, manager and evaluator roles'].map(
-                (t) => (
-                  <li key={t} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-cta-text shrink-0 mt-0.5" aria-hidden="true" />
-                    {t}
-                  </li>
-                )
-              )}
+/* ------------------------------- sample tests ---------------------------------- */
+
+type Row = { name: string; q: number; min: number; kind: 'Choice' | 'Short' | 'Written'; label: string };
+const ROLES: Record<string, Row[]> = {
+  'Android Developer': [
+    { name: 'Kotlin fundamentals', q: 6, min: 15, kind: 'Choice', label: 'Choice' },
+    { name: 'Android architecture', q: 4, min: 20, kind: 'Choice', label: 'Choice' },
+    { name: 'Coroutines and Flow', q: 3, min: 10, kind: 'Short', label: 'Short answer' },
+    { name: 'Debugging a crash', q: 1, min: 15, kind: 'Written', label: 'Written' },
+    { name: 'Code review', q: 2, min: 15, kind: 'Written', label: 'Written' },
+  ],
+  'QA Engineer': [
+    { name: 'Testing fundamentals', q: 8, min: 15, kind: 'Choice', label: 'Choice' },
+    { name: 'Writing test cases', q: 3, min: 20, kind: 'Written', label: 'Written' },
+    { name: 'SQL basics', q: 5, min: 10, kind: 'Short', label: 'Short answer' },
+    { name: 'Bug reports', q: 2, min: 15, kind: 'Written', label: 'Written' },
+    { name: 'Automation concepts', q: 4, min: 15, kind: 'Choice', label: 'Choice' },
+  ],
+  'Sales Executive': [
+    { name: 'Product knowledge', q: 10, min: 15, kind: 'Choice', label: 'Choice' },
+    { name: 'Handling objections', q: 3, min: 20, kind: 'Written', label: 'Written' },
+    { name: 'Pipeline maths', q: 5, min: 15, kind: 'Short', label: 'Short answer' },
+    { name: 'An email to a lead', q: 1, min: 15, kind: 'Written', label: 'Written' },
+  ],
+};
+const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? '' : 's'}`;
+
+const RoleBoard: React.FC = () => {
+  const names = Object.keys(ROLES);
+  const [role, setRole] = useState(names[0]);
+  const [open, setOpen] = useState(0);
+  const rows = ROLES[role];
+  const total = rows.reduce((a, r) => a + r.min, 0);
+
+  return (
+    <section id="roles" aria-labelledby="roles-h" className="rows-wrap">
+      <div className="section-head">
+        <h2 id="roles-h" className="t-heading rv">Pick a role. See its test.</h2>
+        <p className="t-body rv" style={{ '--i': 1 } as React.CSSProperties}>
+          Each role gets its own sections, time limits and question types. These are examples; you build your own.
+        </p>
+      </div>
+      <div className="roles" role="group" aria-label="Choose a role">
+        {names.map((n) => (
+          <button key={n} type="button" className="role" aria-pressed={n === role} onClick={() => { setRole(n); setOpen(0); }}>
+            {n}
+          </button>
+        ))}
+      </div>
+      <div className="rb" data-ui key={role}>
+        {rows.map((r, i) => (
+          <button key={r.name} type="button" className="rb-row" style={{ '--i': i } as React.CSSProperties}
+            aria-expanded={open === i} onClick={() => setOpen(i)}>
+            <span className="rb-name t-statement">{r.name}</span>
+            <span className="rb-f q t-body tabular-nums">{plural(r.q, 'question')}</span>
+            <span className="rb-f m t-body tabular-nums">{r.min} min</span>
+            <span className="rb-status t-body"><span className={r.kind}>{r.label}</span></span>
+            {open === i && (
+              <span className="rb-detail t-body">
+                {role} test, {rows.length} sections, {total} minutes in all. Each section has its own clock; with the order locked, the next section opens when this one closes.
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+      <p className="t-small" style={{ margin: '16px 8px 0', color: 'var(--ground)' }}>Example tests, shown with sample content.</p>
+    </section>
+  );
+};
+
+/* ------------------------------- the page -------------------------------------- */
+
+const MARQUEE = 'A test for every role you hire';
+const SEGMENTS = [
+  { min: 15, word: 'Fifteen minutes', bg: 'var(--color-brand-100)', fg: 'var(--color-ink)', note: 'First, candidates work through the opening section.' },
+  { min: 15, word: 'Fifteen minutes', bg: 'var(--color-brand-300)', fg: 'var(--color-ink)', note: 'Then its clock ends and the next section opens.' },
+  { min: 15, word: 'Fifteen minutes', bg: 'var(--color-cta)', fg: 'var(--color-ink)', note: 'Then the same again. With the order locked, finished sections stay closed.' },
+  { min: 10, word: 'Ten minutes', bg: 'var(--color-ink)', fg: '#fff', note: 'Last, when the final clock ends, the candidate reviews and submits.' },
+];
+const FAQ = [
+  ['Who is it for?', 'Hiring teams, recruitment agencies and training providers who need to test people on specific skills.'],
+  ['When can I start?', "We're inviting companies in small groups. We'll email you when it's your turn."],
+  ['How much will it cost?', "Pricing isn't final yet. People on the waitlist hear first."],
+  ["Will candidates see my company's branding?", "Yes. The candidate screens use your company's name and logo."],
+  ['What happens after I join?', 'We hold your place and email you when early access opens. Nothing else.'],
+];
+const MARK_COLOURS: [string, string][] = [
+  ['var(--color-ink)', 'var(--color-brand-100)'], ['var(--color-cta)', 'var(--color-ink)'], ['var(--color-brand-300)', 'var(--color-ink)'],
+  ['var(--color-ink)', 'var(--color-brand-100)'], ['var(--color-brand-700)', '#fff'], ['var(--color-cta)', 'var(--color-ink)'],
+  ['var(--color-brand-300)', 'var(--color-ink)'], ['var(--color-ink)', 'var(--color-brand-100)'], ['var(--color-brand-700)', '#fff'], ['var(--color-cta)', 'var(--color-ink)'],
+];
+const MARK_H = [100, 78, 92, 66, 100, 84, 70, 96, 62, 88];
+
+const Marquee: React.FC = () => {
+  const group = (hidden: boolean) => (
+    <div className="marquee-group t-heading" aria-hidden={hidden || undefined}>
+      {[0, 1, 2].map((k) => (
+        <React.Fragment key={k}>
+          <span>{MARQUEE}</span><span className="dot">·</span><span>TakeMyTest</span><span className="dot">·</span>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+  return (
+    <div className="marquee" role="presentation">
+      <div className="marquee-track">{group(false)}{group(true)}</div>
+    </div>
+  );
+};
+
+export const LandingPage: React.FC<{ onSignIn: () => void }> = ({ onSignIn }) => {
+  useReveal();
+  const year = new Date().getFullYear();
+
+  return (
+    <div className="board">
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-white focus:text-ink focus:px-4 focus:py-2 focus:rounded-lg">
+        Skip to content
+      </a>
+
+      <main id="main">
+        {/* Hero: name band and rails */}
+        <header className="hero">
+          <div className="band tile on-navy" style={{ padding: 0 }}>
+            <h1 className="t-display"><span className="take">Take</span><span className="mytest">MyTest</span></h1>
+          </div>
+          <nav className="links" aria-label="Main">
+            <a className="link" href="#how">How it works</a>
+            <a className="link" href="#inside">What&apos;s inside</a>
+            <a className="link" href="#questions">Questions</a>
+            <button type="button" className="link" onClick={onSignIn}>Sign in</button>
+          </nav>
+
+          <div className="left">
+            <div className="tile on-navy" style={{ padding: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 'clamp(11px, 1.18vw, 17px)' }}>
+              <PaletteFragment />
+            </div>
+            <ul className="tile on-paper facts t-small">
+              {['Five kinds of question', 'A clock for every section', 'Owner, manager, evaluator', 'Questions from Excel', 'Your name on the test'].map((f) => (
+                <li key={f} className="t-body">{f}</li>
+              ))}
             </ul>
           </div>
 
-          <div id="waitlist" className="scroll-mt-6 relative bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
-            <h2 className="text-xl font-bold tracking-tight">Get early access</h2>
-            <p className="text-sm text-slate-600 mt-1.5 mb-6">Join the waitlist and we&apos;ll email you when it&apos;s your turn.</p>
-            <WaitlistForm idPrefix="hero" />
+          <div className="center">
+            <OverviewFragment />
+            <p className="statement t-statement">A timed test for every role you hire, in the browser.</p>
           </div>
-        </div>
-      </section>
 
-      {/* Product example */}
-      <section aria-labelledby="example-title" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-        <div className="max-w-2xl">
-          <h2 id="example-title" className="text-3xl font-bold tracking-tight">
-            One place for every test
-          </h2>
-          <p className="mt-3 text-slate-600 text-lg leading-relaxed">
-            Each assessment shows its sections, time and rules at a glance, so anyone on the team can see how a candidate
-            will be tested.
-          </p>
-        </div>
-
-        <figure className="mt-10">
-          <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-            <div className="p-6 border-b border-slate-200">
-              <p className="text-[13px] text-slate-500">Android Developer · 12 questions · 3 sections · 45 min</p>
-              <p className="text-xl font-semibold mt-1">Android Developer Screening</p>
-            </div>
-            <div className="grid sm:grid-cols-[1.2fr_1fr] sm:divide-x divide-slate-200">
-              <ul className="divide-y divide-slate-100">
-                {EXAMPLE_SECTIONS.map((s, i) => (
-                  <li key={s.title} className="px-6 py-4 flex items-baseline justify-between gap-4">
-                    <span className="text-sm font-semibold">
-                      {i + 1}. {s.title}
-                    </span>
-                    <span className="text-[13px] text-slate-500 tabular-nums shrink-0">{s.meta}</span>
-                  </li>
-                ))}
-              </ul>
-              <ul className="divide-y divide-slate-100 border-t sm:border-t-0 border-slate-200">
-                {[
-                  ['Lock sections in order', true],
-                  ['Negative marking', true],
-                  ['Published', false],
-                ].map(([label, on]) => (
-                  <li key={String(label)} className="px-6 py-4 flex items-center justify-between gap-4">
-                    <span className="text-sm font-semibold">{label as string}</span>
-                    <span className="text-[13px] font-semibold text-slate-600">{on ? 'On' : 'Off'}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <figcaption className="mt-3 text-[13px] text-slate-500">An example assessment, shown with sample data.</figcaption>
-        </figure>
-      </section>
-
-      {/* How it works */}
-      <section id="how" aria-labelledby="how-title" className="bg-slate-50 border-y border-slate-200 scroll-mt-4">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-          <h2 id="how-title" className="text-3xl font-bold tracking-tight">
-            How it works
-          </h2>
-          <ol className="mt-10 grid md:grid-cols-3 gap-6">
-            {STEPS.map((s) => (
-              <li key={s.n} className="bg-white border border-slate-200 rounded-xl p-6">
-                <span className="w-8 h-8 rounded-full bg-ink text-white text-sm font-bold flex items-center justify-center" aria-hidden="true">
-                  {s.n}
-                </span>
-                <h3 className="mt-4 text-lg font-semibold">
-                  <span className="sr-only">Step {s.n}: </span>
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-slate-600 leading-relaxed">{s.text}</p>
-              </li>
+          <div className="right">
+            {[
+              ['#ffffff', 'Opening to small groups first'],
+              ['var(--color-brand-200)', 'Joining is free'],
+              ['var(--color-brand-400)', "We email when it's your turn"],
+              ['var(--color-brand-700)', 'Built for hiring teams'],
+            ].map(([bg, t], i) => (
+              <p key={t} className="tile fact t-body" style={{ background: bg, color: i === 3 ? '#fff' : 'var(--color-ink)' }}>{t}</p>
             ))}
-          </ol>
-        </div>
-      </section>
+            <div id="waitlist" className="tile on-pink action" style={{ scrollMarginTop: 16 }}>
+              <WaitlistForm idPrefix="hero" variant="stack" />
+            </div>
+          </div>
+        </header>
 
-      {/* Features */}
-      <section id="features" aria-labelledby="features-title" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 scroll-mt-4">
-        <h2 id="features-title" className="text-3xl font-bold tracking-tight">
-          What you can do today
-        </h2>
-        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURES.map((f) => (
-            <article key={f.title} className="border border-slate-200 rounded-xl p-6">
-              <span className="w-10 h-10 rounded-lg bg-accent-soft text-accent flex items-center justify-center">{f.icon}</span>
-              <h3 className="mt-4 text-lg font-semibold">{f.title}</h3>
-              <p className="mt-2 text-slate-600 leading-relaxed">{f.text}</p>
-            </article>
+        <div style={{ marginTop: 120 }}><Marquee /></div>
+
+        <RoleBoard />
+
+        {/* Stages as one bar */}
+        <section id="how" aria-labelledby="how-h" className="section">
+          <div className="section-head">
+            <h2 id="how-h" className="t-heading rv">Each section, its own clock</h2>
+            <p className="t-body rv" style={{ '--i': 1 } as React.CSSProperties}>A sample test with four sections and &ldquo;Lock sections in order&rdquo; switched on.</p>
+          </div>
+          <div className="bar" data-ui>
+            {SEGMENTS.map((s, i) => (
+              <p key={i} className="seg t-statement rv" style={{ '--w': s.min, '--i': i, background: s.bg, color: s.fg } as React.CSSProperties}>{s.word}</p>
+            ))}
+          </div>
+          <div className="bar-notes">
+            {SEGMENTS.map((s, i) => (
+              <p key={i} className="t-body rv" style={{ '--w': s.min, '--i': i + 2 } as React.CSSProperties}>{s.note}</p>
+            ))}
+          </div>
+        </section>
+
+        {/* Close-ups on a board */}
+        <section id="inside" aria-labelledby="inside-h" className="section">
+          <div className="section-head"><h2 id="inside-h" className="t-heading rv">What&apos;s inside</h2></div>
+          <div className="mosaic">
+            <div className="cu on-navy wide rv" style={{ gridColumn: 'span 6', gridRow: 'span 4' }}>
+              <div className="art" style={{ alignItems: 'flex-start', justifyContent: 'flex-end', padding: '6% 5% 0 0' }}><div style={{ fontSize: 16, transform: 'scale(2.7)', transformOrigin: '100% 0' }}><PaletteFragment count={20} /></div></div>
+              <p className="cap"><strong>Question palette</strong><span className="t-small">Answered, marked and not visited, at a glance.</span></p>
+            </div>
+            <div className="cu rv" style={{ gridColumn: 'span 3', gridRow: 'span 4', background: 'var(--color-brand-300)', '--i': 1 } as React.CSSProperties}>
+              <div className="art" style={{ fontSize: 64, alignItems: 'flex-start', justifyContent: 'flex-end', padding: '9% 7% 0 0', transform: 'translate(14%, 0)' }}>
+                <span data-ui style={{ display: 'inline-block', width: '2.4em', height: '1.3em', borderRadius: '1em', background: 'var(--color-ink)', position: 'relative' }}>
+                  <span style={{ position: 'absolute', top: '0.15em', left: '1.25em', width: '1em', height: '1em', borderRadius: '50%', background: '#fff' }} />
+                </span>
+              </div>
+              <p className="cap"><strong>Lock sections in order</strong><span className="t-small">Finish one section before the next opens.</span></p>
+            </div>
+            <div className="cu rv" style={{ gridColumn: 'span 3', gridRow: 'span 4', background: 'var(--color-cta)', '--i': 2 } as React.CSSProperties}>
+              <div className="art" style={{ fontSize: 76, fontWeight: 800, letterSpacing: '-0.04em', alignItems: 'flex-start', justifyContent: 'flex-start', padding: '9% 0 0 7%', transform: 'translate(-6%, 0)' }}><span data-ui className="tabular-nums">14:58</span></div>
+              <p className="cap"><strong>Section clock</strong><span className="t-small">Every section has its own time limit.</span></p>
+            </div>
+            <div className="cu cu-t rv" style={{ gridColumn: 'span 3', gridRow: 'span 2', background: 'var(--color-brand-50)' }}>
+              <div className="art" style={{ fontSize: 66, fontWeight: 800, transform: 'translate(8%, 12%)' }}><span data-ui className="tabular-nums">−0.5</span></div>
+              <p className="cap"><strong>Negative marking</strong><span className="t-small">Wrong answers can cost marks.</span></p>
+            </div>
+            <div className="cu cu-t on-navy rv" style={{ gridColumn: 'span 3', gridRow: 'span 2', '--i': 1 } as React.CSSProperties}>
+              <div className="art" style={{ fontSize: 44, transform: 'translate(14%, 18%)' }}>
+                <span data-ui style={{ display: 'flex' }}>
+                  {[['O', 'var(--color-cta)', 'var(--color-ink)'], ['M', 'var(--color-brand-300)', 'var(--color-ink)'], ['E', 'var(--color-brand-100)', 'var(--color-ink)']].map(([l, bg, fg], i) => (
+                    <span key={l} style={{ width: '1.5em', height: '1.5em', borderRadius: '50%', background: bg, color: fg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, marginLeft: i ? '-0.35em' : 0 }}>{l}</span>
+                  ))}
+                </span>
+              </div>
+              <p className="cap"><strong>Three roles</strong><span className="t-small">Owner, manager and evaluator see different things.</span></p>
+            </div>
+            <div className="cu cu-t rv" style={{ gridColumn: 'span 6', gridRow: 'span 2', background: 'var(--color-brand-300)', '--i': 2 } as React.CSSProperties}>
+              <div className="art" style={{ fontSize: 66, fontWeight: 800, letterSpacing: '-0.04em', transform: 'translate(4%, 14%)' }}><span data-ui>.xlsx</span></div>
+              <p className="cap"><strong>Import from Excel</strong><span className="t-small">Bring your questions in from a spreadsheet.</span></p>
+            </div>
+            <div className="cu cu-t on-paper rv" style={{ gridColumn: 'span 6', gridRow: 'span 2' }}>
+              <div className="art" style={{ fontSize: 66, fontWeight: 800, transform: 'translate(4%, 14%)' }}><span data-ui className="tabular-nums">2 / 3</span></div>
+              <p className="cap"><strong>Integrity checks</strong><span className="t-small">Tab switches and leaving full screen are logged.</span></p>
+            </div>
+            <div className="cu cu-t rv" style={{ gridColumn: 'span 6', gridRow: 'span 2', background: 'var(--color-brand-50)', '--i': 1 } as React.CSSProperties}>
+              <div className="art" style={{ transform: 'translate(-3%, 16%)' }}>
+                <span data-ui className="t-body" style={{ textAlign: 'right' }}>Acme Cloud &amp; Systems<br /><span className="t-small">Candidate Examination Portal</span></span>
+              </div>
+              <p className="cap"><strong>Your brand</strong><span className="t-small">Candidates see your company&apos;s name and logo.</span></p>
+            </div>
+          </div>
+        </section>
+
+        {/* A band per question */}
+        <section id="questions" aria-labelledby="q-h" className="section" style={{ padding: '120px 0 0' }}>
+          <div className="qa-head"><h2 id="q-h" className="t-heading rv">Common questions</h2></div>
+          <dl style={{ margin: 0 }}>
+            {FAQ.map(([q, a], i) => (
+              <div key={q} className={`qa ${i % 2 ? 'b' : 'a'}`}>
+                <dt className="t-statement rv">{q}</dt>
+                <dd className="t-body rv" style={{ '--i': 1 } as React.CSSProperties}>{a}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        {/* The action tile */}
+        <section aria-labelledby="cta-h" className="cta" style={{ paddingBottom: 0 }}>
+          <div className="side-l"><div style={{ position: 'absolute', left: -150, top: 36 }}><TeamFragment /></div></div>
+          <div className="main tile on-pink rv">
+            <h2 id="cta-h" className="t-statement">Be among the first</h2>
+            <p className="t-body">Leave your email. We&apos;ll let you know when there&apos;s room for your team.</p>
+            <WaitlistForm idPrefix="cta" variant="nested" />
+            <p className="t-small">We use your email only to contact you about TakeMyTest early access.</p>
+          </div>
+          <div className="side-r"><div style={{ position: 'absolute', right: -50, top: 28, fontSize: 'clamp(14px, 1.5vw, 22px)' }}><PaletteFragment count={20} /></div></div>
+        </section>
+      </main>
+
+      {/* Footer: the mark, built large */}
+      <footer className="foot">
+        <div className="mark">
+          <span className="sr-only" style={{ position: 'absolute' }}>TakeMyTest</span>
+          {'TakeMyTest'.split('').map((l, i) => (
+            <span key={i} aria-hidden="true" style={{ '--h': `${MARK_H[i]}%`, background: MARK_COLOURS[i][0], color: MARK_COLOURS[i][1] } as React.CSSProperties}>{l}</span>
           ))}
         </div>
-      </section>
-
-      {/* FAQ */}
-      <section id="faq" aria-labelledby="faq-title" className="bg-slate-50 border-y border-slate-200 scroll-mt-4">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-          <h2 id="faq-title" className="text-3xl font-bold tracking-tight">
-            Questions
-          </h2>
-          <div className="mt-8 divide-y divide-slate-200 border-y border-slate-200">
-            {FAQ.map((f) => (
-              <details key={f.q} className="group py-5">
-                <summary className="flex items-center justify-between gap-4 cursor-pointer list-none text-[17px] font-semibold">
-                  {f.q}
-                  <ArrowRight
-                    className="w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 group-open:rotate-90"
-                    aria-hidden="true"
-                  />
-                </summary>
-                <p className="mt-3 text-slate-600 leading-relaxed">{f.a}</p>
-              </details>
-            ))}
-          </div>
+        <div className="foot-cols">
+          <ul>
+            <li><a href="#how">How it works</a></li>
+            <li><a href="#inside">What&apos;s inside</a></li>
+          </ul>
+          <ul>
+            <li><a href="#questions">Common questions</a></li>
+            <li><a href="#waitlist">Join the waitlist</a></li>
+          </ul>
+          <ul>
+            <li><button type="button" onClick={onSignIn}>Sign in</button></li>
+          </ul>
         </div>
-      </section>
-
-      {/* Closing call to action */}
-      <section aria-labelledby="cta-title" className="bg-ink text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
-          <div>
-            <h2 id="cta-title" className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Be among the first to try it
-            </h2>
-            <p className="mt-4 text-slate-300 text-lg leading-relaxed max-w-md">
-              Leave your email and we&apos;ll let you know as soon as there&apos;s room for your team.
-            </p>
-          </div>
-          <div className="bg-white text-ink rounded-2xl p-6 sm:p-8">
-            <WaitlistForm idPrefix="footer" compact />
-          </div>
+        <div className="foot-last t-small">
+          <span>© {year} TakeMyTest</span>
+          <button type="button" className="wl-button t-small" style={{ minHeight: 44 }} onClick={onSignIn}>Sign in</button>
         </div>
-      </section>
-    </main>
-
-    <footer className="border-t border-slate-200">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-        <div className="flex items-center gap-3">
-          <BrandMark />
-          <span>© {new Date().getFullYear()}</span>
-        </div>
-        <button
-          type="button"
-          onClick={onSignIn}
-          className="px-3 min-h-11 inline-flex items-center font-semibold text-slate-700 hover:text-ink cursor-pointer"
-        >
-          Sign in
-        </button>
-      </div>
-    </footer>
-  </div>
-);
+      </footer>
+    </div>
+  );
+};
