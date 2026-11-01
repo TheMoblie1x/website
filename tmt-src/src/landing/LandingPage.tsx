@@ -350,7 +350,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void; onPrivacy: () => void
             <h2 id="cta-h" className="t-statement">Be among the first</h2>
             <p className="t-body">Leave your email. We&apos;ll let you know when there&apos;s room for your team.</p>
             <WaitlistForm idPrefix="cta" variant="nested" />
-            <p className="t-small">We use your email only to contact you about TakeMyTest early access. <button type="button" className="link" style={{ textDecoration: 'underline' }} onClick={onPrivacy}>Privacy</button></p>
+            <p className="t-small">We use your email only to contact you about TakeMyTest early access. <button type="button" onClick={onPrivacy} style={{ all: 'unset', cursor: 'pointer', textDecoration: 'underline' }}>Privacy</button></p>
           </div>
           <div className="side-r"><div style={{ position: 'absolute', right: -50, top: 28, fontSize: 'clamp(14px, 1.5vw, 22px)' }}><PaletteFragment count={20} /></div></div>
         </section>
@@ -361,7 +361,7 @@ export const LandingPage: React.FC<{ onSignIn: () => void; onPrivacy: () => void
         <div className="mark">
           <span className="sr-only" style={{ position: 'absolute' }}>TakeMyTest</span>
           {'TakeMyTest'.split('').map((l, i) => (
-            <span key={i} aria-hidden="true" style={{ '--h': `${MARK_H[i]}%`, background: MARK_COLOURS[i][0], color: MARK_COLOURS[i][1] } as React.CSSProperties}>{l}</span>
+            <span key={i} aria-hidden="true" style={{ '--k': MARK_H[i] / 100, background: MARK_COLOURS[i][0], color: MARK_COLOURS[i][1] } as React.CSSProperties}>{l}</span>
           ))}
         </div>
         <div className="foot-cols">

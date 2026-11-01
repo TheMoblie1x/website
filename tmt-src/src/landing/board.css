@@ -147,8 +147,9 @@
 
 /* Footer: the mark, built large */
 .foot { padding: 72px var(--gap) var(--gap); }
-.mark { position: relative; display: flex; align-items: flex-end; gap: 4px; height: 30svh; min-height: 200px; }
-.mark span { flex: 1; display: flex; align-items: flex-start; justify-content: center; font-weight: 800; letter-spacing: -0.04em; line-height: 1; font-size: clamp(56px, 14vw, 230px); height: var(--h); padding-top: 0.06em; border-radius: var(--r); }
+.mark { --u: clamp(80px, 14vw, 240px); position: relative; display: flex; align-items: flex-end; gap: 4px; height: var(--u); }
+/* Each block's height is --u x --k, and its letter is sized from that same height, so a letter always fits inside its block. */
+.mark span { flex: 1; display: flex; align-items: flex-start; justify-content: center; font-weight: 800; letter-spacing: -0.04em; line-height: 1; height: calc(var(--u) * var(--k)); font-size: calc(var(--u) * var(--k) * 0.78); padding-top: 0.04em; border-radius: var(--r); overflow: hidden; }
 .foot-cols { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; margin: 56px 8px 0; }
 .foot-cols ul { grid-column: span 3; list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; align-content: start; }
 .foot-cols a, .foot-cols button { color: var(--navy); text-decoration: none; font: inherit; font-size: 15px; font-weight: 600; background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
