@@ -1,0 +1,6 @@
+{
+  "name": "TakeMyTest - White-Label Assessment & Test Management Platform",
+  "description": "Enterprise multi-tenant assessment platform with white-label branding, Excel bulk question ingestion, section-level timed assessments, real-time autosave resilience, and anti-malpractice proctoring.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
