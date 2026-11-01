@@ -1,0 +1,1161 @@
+# Product Requirements Document (PRD)
+
+**Product Name:** TestForge (Working Title)
+
+**Document Version:** 1.0.0
+
+**Status:** Ready for Engineering Review
+
+**Target Release:** Q3 2026
+
+---
+
+## 1. Executive Summary & Problem Statement
+
+### 1.1 Executive Summary
+
+TestForge is a white-label, multi-tenant assessment and test management SaaS platform designed for enterprise talent acquisition and higher education institutions. The platform handles end-to-end evaluation lifecycles: administrative authoring via bulk Excel ingestion, dynamic brand theming, strictly timed multi-sectional assessments (Technical, Aptitude, Behavioral), candidate pre-briefing, real-time autosaved test navigation, and pre-submission audit reviews.
+
+### 1.2 Problem Statement
+
+Current assessment tooling forces organizations into one of two compromises: rigid, off-the-shelf software with third-party branding and brittle question import formats, or bloated enterprise LMS systems that lack section-level timer enforcement and autosave resilience during unreliable network conditions. Organizations require a customizable assessment engine that safeguards academic and hiring integrity while offering candidates an intuitive, low-friction evaluation experience.
+
+### 1.3 Goals & Success Metrics
+
+| Metric Category | Target KPI | Measurement Method |
+| --- | --- | --- |
+| **System Reliability** | $\ge 99.99\%$ response persistence | Telemetry logging of sync events vs. total client events |
+| **Operational Efficiency** | $\le 60$ seconds to ingest 500 questions via Excel | Pipeline execution logging from upload to database write |
+| **Candidate Experience** | $\le 0.1\%$ support tickets regarding lost progress | Help-desk ticket categorization tagged with `assessment-drop` |
+| **Test Completion Integrity** | 100% server-side timer enforcement accuracy | Discrepancy delta between client clock and server validation token |
+
+---
+
+## 2. User Personas & Permissions (RBAC)
+
+```
+[Platform Super Admin] ─── Manages Tenants & Billing
+         │
+         ▼
+[Tenant Admin (HR/Dean)] ── Configures Branding, Users & Global Settings
+         │
+         ▼
+[Test Author / Evaluator] ── Uploads Questions, Builds Sections & Sets Timers
+         │
+         ▼
+[Candidate / Student] ───── Accepts Guidelines, Solves Questions & Reviews Submissions
+
+```
+
+* **Tenant Administrator:** Manages organization branding (hex palettes, typography, logos), invites evaluators, and views organization-wide performance dashboards.
+* **Test Author / Evaluator:** Uploads questions via Excel, structures multi-section tests, defines section timers and navigation modes (sequential vs. free), and inspects candidate results.
+* **Candidate / Test-Taker:** Accesses assessments via secure, signed invitation tokens, undergoes hardware/guideline verification, completes assessments with offline autosave fallback, and conducts pre-submission review sweeps.
+
+---
+
+## 3. Detailed Functional Requirements
+
+### 3.1 Module 1: White-Label Branding Engine
+
+The system must generate dedicated organizational theme contexts based on tenant configurations.
+
+* **Tenant Assets:** Upload and storage for primary logo (SVG/PNG, max 2MB), square favicon (`.ico`, `.png`), and custom company display name.
+* **Dynamic Styling Engine:** Configuration of primary, secondary, surface, and text colors injected via CSS custom properties at runtime.
+* **Typography:** Support for system font stacks and curated web font pairings (e.g., Inter, Roboto, Plus Jakarta Sans).
+* **Test Interface Insulation:** Complete suppression of TestForge platform identity on the candidate view; candidate URLs support custom subdomains (e.g., `assessment.clientcompany.com`).
+
+### 3.2 Module 2: Pre-Test Onboarding & Guidelines
+
+Before initializing the assessment timer, the candidate must pass through an onboarding checklist:
+
+* **Hardware & Environment Check:** Client-side verification of browser compatibility (Chromium $\ge 110$, Firefox $\ge 115$, Safari $\ge 16$), screen resolution ($\ge 1280 \times 720$), and network latency test.
+* **Rules Briefing Display:** Dynamic aggregation of test attributes:
+* Total duration vs. section duration breakdown.
+* Section access model (Sequential non-reversible vs. Free-roam).
+* Marking schemes: Correct points, negative marking penalties, and non-attempt impact.
+* Integrity flags: Fullscreen enforcement, webcam proctoring notice (if enabled), and tab-switch warning limits (e.g., maximum 3 violations before auto-lock).
+
+
+* **Acknowledgment Gate:** A mandatory, stateful checkbox (`"I have read, understood, and agree to abide by the assessment rules"`) enabling the primary **"Start Assessment"** trigger.
+
+### 3.3 Module 3: Bulk Question Ingestion & Validation Engine
+
+The platform must support high-volume question imports via an administrative bulk ingestion pipeline.
+
+* **Supported Question Formats:**
+1. `SCQ`: Single-Choice Question (exactly one valid answer).
+2. `MCQ`: Multiple-Choice Question (multi-select with configurable partial credit).
+3. `TRUE_FALSE`: Boolean single-choice.
+4. `FILL_BLANKS`: Case-sensitive or regex-matched textual entry.
+5. `SUBJECTIVE`: Long-form text evaluation with word limits.
+6. `CODING`: Code execution snippet with pre-configured language, boilerplate, and hidden/public test cases.
+
+
+* **Excel Parsing Specification:** Strict column layout enforcement with real-time validation preview before committing to the database.
+* **Sanitization Safeguards:** Strip executable formulas (`=`, `+`, `-`, `@`) from spreadsheet cells to prevent CSV/Formula Injection attacks.
+
+### 3.4 Module 4: Multi-Section Architecture & Timer Enforcement
+
+Tests are composed of $N$ discrete sections, each acting as an isolated evaluation container.
+
+* **Section Types:** Technical, Quantitative Reasoning, Behavioral/Psychometric, Verbal Ability, Subjective Essay.
+* **Time Enforcement Policies:**
+* **Global Timer:** Total time budget for the entire test.
+* **Section Timer:** Hard time budget per section. When the section countdown hits `00:00:00`, the active responses are locked, committed to the database, and the system advances to the next section or concludes the test.
+
+
+* **Navigation Controls:**
+* **Sequential Mode:** Candidate must complete Section 1 before unlocking Section 2. Candidates cannot navigate back to Section 1 once completed.
+* **Free Navigation Mode:** Candidate can toggle between sections at will, provided section-specific timers have not expired.
+
+
+* **Visual Warnings:** Modals and auditory indicators (optional) at 5 minutes and 1 minute prior to section expiration.
+
+### 3.5 Module 5: Test Execution & State Synchronization
+
+The candidate workspace balances low visual distraction with comprehensive state feedback.
+
+* **Question Palette Matrix:** Visual numeric grid reflecting real-time item status:
+* `Unvisited`: Neutral slate gray.
+* `Visited / Unanswered`: Danger red/amber outline.
+* `Answered`: Solid brand success color.
+* `Marked for Review`: Purple circular badge.
+* `Answered & Marked for Review`: Striped brand success/review pattern.
+
+
+* **State Preservation (Autosave):**
+* Immediate dispatch of response payloads to the backend API via debounced endpoints (300ms for text, instant for clicks).
+* Redundant local caching in browser `IndexedDB` with cryptographic verification signatures to withstand network disconnects and hard browser refreshes.
+
+
+* **Anti-Tamper Server-Synchronized Timer:** Test start and end timestamps are stored server-side. The client polls a lightweight heartbeat endpoint (`/api/v1/sessions/:id/heartbeat`) every 30 seconds to adjust client drift against the authoritative server time.
+
+### 3.6 Module 6: Review, Edit & Submission Flow
+
+Candidates are given a comprehensive review surface before finalizing their submission.
+
+* **Summary Matrix View:** Aggregated metrics table showing questions Answered, Unanswered, and Marked for Review across every section.
+* **Direct Deep-Linking:** Clicking any item in the review matrix returns the candidate directly to that question in the test workspace.
+* **Lockout Restrictions:** Candidates cannot jump to or alter questions belonging to an already expired or locked section.
+* **Two-Step Final Submission:**
+1. Step 1: Candidate clicks "Submit Assessment" on the review page.
+2. Step 2: System displays a high-contrast modal highlighting unanswered items. Candidate must confirm by typing a confirmation phrase or clicking a timed double-confirmation button.
+
+
+
+---
+
+## 4. Technical Architecture & Non-Functional Requirements
+
+```
+                       ┌─────────────────────────┐
+                       │ Cloudflare CDN / WAF    │
+                       └────────────┬────────────┘
+                                    │
+                  ┌─────────────────┴─────────────────┐
+                  ▼                                   ▼
+      ┌───────────────────────┐           ┌───────────────────────┐
+      │ Next.js Candidate App │           │ Next.js Admin App     │
+      │ (Edge Hosted / React) │           │ (Multi-Tenant Dash)   │
+      └───────────┬───────────┘           └───────────┬───────────┘
+                  │                                   │
+                  └─────────────────┬─────────────────┘
+                                    ▼
+                      ┌───────────────────────────┐
+                      │ API Gateway / Express/Fast│
+                      └─────────────┬─────────────┘
+                                    │
+           ┌────────────────────────┼────────────────────────┐
+           ▼                        ▼                        ▼
+┌────────────────────┐   ┌────────────────────┐   ┌────────────────────┐
+│ Session & Autosave │   │ Ingestion Pipeline │   │ Evaluation Service │
+│ Worker (Redis)     │   │ (Worker Queue)     │   │ (Async Worker)     │
+└──────────┬─────────┘   └──────────┬─────────┘   └──────────┬─────────┘
+           │                        │                        │
+           └────────────────────────┴────────────────────────┘
+                                    │
+                                    ▼
+                      ┌───────────────────────────┐
+                      │ PostgreSQL (Primary DB)   │
+                      └───────────────────────────┘
+
+```
+
+* **Frontend:** Next.js (App Router), React, Tailwind CSS, Zustand (client state), TanStack Query (server state), and Lucide Icons.
+* **Backend:** Node.js (Fastify/Express) or Python (FastAPI) structured around domain-driven modules.
+* **Database & Cache:** PostgreSQL 16 (relational integrity, JSONB support for polymorphic question structures) and Redis 7 (caching active candidate session countdowns, rate-limiting, and debounced autosave queues).
+* **Storage:** AWS S3 or Cloudflare R2 for organization assets (logos, custom fonts) and Excel uploads.
+* **Security & Non-Functional Specifications:**
+* **Zero Client-Side Authoritative State:** Score calculation and time expiration logic reside strictly on the server.
+* **Payload Protection:** Rate limiting on the autosave endpoint (120 requests/minute per session).
+* **Formula Injection Prevention:** Sanitize all string fields extracted from Excel by stripping initial characters (`=`, `+`, `-`, `@`).
+* **Data Privacy:** Full encryption at rest (AES-256) and in transit (TLS 1.3). PII compliance for GDPR/FERPA.
+
+
+
+---
+
+## 5. Deliverable 1: Database Schema (Prisma ORM)
+
+```prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum QuestionType {
+  SCQ
+  MCQ
+  TRUE_FALSE
+  FILL_BLANKS
+  SUBJECTIVE
+  CODING
+}
+
+enum SectionNavMode {
+  FREE
+  SEQUENTIAL
+}
+
+enum AttemptStatus {
+  INITIALIZED
+  IN_PROGRESS
+  SUBMITTED
+  EXPIRED
+  TERMINATED_MALPRACTICE
+}
+
+enum QuestionStatus {
+  UNVISITED
+  UNANSWERED
+  ANSWERED
+  MARKED_FOR_REVIEW
+  ANSWERED_AND_MARKED_FOR_REVIEW
+}
+
+model Organization {
+  id             String         @id @default(uuid())
+  slug           String         @unique
+  name           String
+  logoUrl        String?
+  faviconUrl     String?
+  primaryColor   String         @default("#2563EB")
+  secondaryColor String         @default("#1E40AF")
+  fontFamily     String         @default("Inter")
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  tests          Test[]
+  users          User[]
+
+  @@map("organizations")
+}
+
+model User {
+  id             String         @id @default(uuid())
+  orgId          String
+  email          String         @unique
+  fullName       String
+  role           String         @default("EVALUATOR") // TENANT_ADMIN, EVALUATOR
+  organization   Organization   @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  testsCreated   Test[]         @relation("AuthorTests")
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@map("users")
+}
+
+model Test {
+  id               String             @id @default(uuid())
+  orgId            String
+  authorId         String
+  title            String
+  description      String?
+  guidelines       String             @db.Text
+  totalDurationMin Int
+  passPercentage   Float              @default(40.0)
+  negativeMarking  Boolean            @default(false)
+  navigationMode   SectionNavMode     @default(SEQUENTIAL)
+  shuffleQuestions Boolean            @default(false)
+  isPublished      Boolean            @default(false)
+  organization     Organization       @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  author           User               @relation("AuthorTests", fields: [authorId], references: [id])
+  sections         TestSection[]
+  attempts         CandidateAttempt[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  @@map("tests")
+}
+
+model TestSection {
+  id               String             @id @default(uuid())
+  testId           String
+  title            String             // e.g. "Technical Core", "Behavioral"
+  description      String?
+  orderIndex       Int
+  durationMin      Int?               // Nullable if governed purely by global test timer
+  totalMarks       Float              @default(0.0)
+  test             Test               @relation(fields: [testId], references: [id], onDelete: Cascade)
+  questions        Question[]
+  sectionAttempts  CandidateSectionAttempt[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  @@unique([testId, orderIndex])
+  @@map("test_sections")
+}
+
+model Question {
+  id             String          @id @default(uuid())
+  sectionId      String
+  type           QuestionType
+  content        String          @db.Text
+  orderIndex     Int
+  marks          Float           @default(1.0)
+  negativeMarks  Float           @default(0.0)
+  options        Json?           // Array: [{ id: "A", text: "...", isCorrect: true }]
+  correctAnswers Json?           // Array or scalar: ["A"] or regex patterns for FILL_BLANKS
+  codingMetadata Json?           // { language: "python", boilerplate: "...", testCases: [...] }
+  section        TestSection     @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  responses      CandidateResponse[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@map("questions")
+}
+
+model CandidateAttempt {
+  id             String                  @id @default(uuid())
+  testId         String
+  candidateEmail String
+  candidateName  String
+  status         AttemptStatus           @default(INITIALIZED)
+  startedAt      DateTime?
+  submittedAt    DateTime?
+  serverExpiresAt DateTime?
+  totalScore     Float?
+  clientIp       String?
+  userAgent      String?
+  test           Test                    @relation(fields: [testId], references: [id], onDelete: Cascade)
+  sectionStates  CandidateSectionAttempt[]
+  responses      CandidateResponse[]
+  createdAt      DateTime                @default(now())
+  updatedAt      DateTime                @updatedAt
+
+  @@index([testId, candidateEmail])
+  @@map("candidate_attempts")
+}
+
+model CandidateSectionAttempt {
+  id             String            @id @default(uuid())
+  attemptId      String
+  sectionId      String
+  isUnlocked     Boolean           @default(false)
+  isCompleted    Boolean           @default(false)
+  startedAt      DateTime?
+  completedAt    DateTime?
+  attempt        CandidateAttempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  section        TestSection       @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, sectionId])
+  @@map("candidate_section_attempts")
+}
+
+model CandidateResponse {
+  id             String          @id @default(uuid())
+  attemptId      String
+  questionId     String
+  status         QuestionStatus  @default(UNVISITED)
+  savedAnswer    Json?           // Stores ["A"], "Text content", or code string
+  timeSpentSec   Int             @default(0)
+  scoreAwarded   Float?
+  attempt        CandidateAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question       Question        @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  updatedAt      DateTime        @updatedAt
+
+  @@unique([attemptId, questionId])
+  @@map("candidate_responses")
+}
+
+```
+
+---
+
+## 6. Deliverable 2: Excel Bulk Upload Specification
+
+The spreadsheet ingestion engine parses `.xlsx` and `.csv` files. Each row represents a single question.
+
+### 6.1 Column Data Dictionary
+
+| Column Header | Data Type | Required? | Valid Values / Constraints | Example |
+| --- | --- | --- | --- | --- |
+| `SectionName` | String | **Yes** | 1 to 50 characters; matches or creates section | `Technical Core` |
+| `QuestionType` | Enum | **Yes** | `SCQ`, `MCQ`, `TRUE_FALSE`, `FILL_BLANKS`, `SUBJECTIVE`, `CODING` | `SCQ` |
+| `QuestionContent` | String | **Yes** | Markdown text or plain text | `What is the output of 2 + 2 in Python?` |
+| `Marks` | Float | **Yes** | Decimal > 0 (Defaults to 1.0) | `2.0` |
+| `NegativeMarks` | Float | No | Decimal $\ge 0$ (Defaults to 0.0) | `0.5` |
+| `Option_A` | String | Conditional | Required for `SCQ`, `MCQ`, `TRUE_FALSE` | `4` |
+| `Option_B` | String | Conditional | Required for `SCQ`, `MCQ`, `TRUE_FALSE` | `22` |
+| `Option_C` | String | Conditional | Optional for `SCQ`, `MCQ` | `None of the above` |
+| `Option_D` | String | Conditional | Optional for `SCQ`, `MCQ` | `SyntaxError` |
+| `CorrectAnswer` | String | **Yes** | Single ID (e.g. `A`), delimited (`A,B`), boolean (`TRUE`), or fill string | `A` |
+| `Explanation` | String | No | Markdown post-assessment feedback | `In Python, 2 + 2 evaluates to integer 4.` |
+
+### 6.2 Ingestion & Parser Invariant Rules
+
+1. **Header Normalization:** Case-insensitive, whitespace-trimmed matching on first-row headers.
+2. **Boolean Standardizing:** For `TRUE_FALSE`, `Option_A` defaults to "True" and `Option_B` defaults to "False" if omitted.
+3. **Empty Option Defense:** For `SCQ`/`MCQ`, `CorrectAnswer` identifiers pointing to blank option columns throw an unprocessable entity error (e.g., `Row 14: Correct answer refers to Option_C, which is blank`).
+4. **Formula Neutralization:** Cells beginning with dangerous characters (`=`, `+`, `-`, `@`) must be prepended with a single quote (`'`) during parsing to defuse formula interpretation.
+
+---
+
+## 7. Deliverable 3: Core API Endpoints Specification
+
+### 7.1 Bulk Upload Questions
+
+* **Route:** `POST /api/v1/tests/:testId/questions/bulk-upload`
+* **Content-Type:** `multipart/form-data`
+* **Response (200 OK):**
+
+```json
+{
+  "success": true,
+  "data": {
+    "sectionsCreated": 2,
+    "questionsIngested": 45,
+    "validationWarnings": [
+      {
+        "row": 12,
+        "warning": "Negative marks left blank; defaulted to 0.0"
+      }
+    ]
+  }
+}
+
+```
+
+### 7.2 Initialize Assessment Session
+
+* **Route:** `POST /api/v1/sessions/:attemptId/initialize`
+* **Body:**
+
+```json
+{
+  "systemInfo": {
+    "browser": "Chrome 126.0",
+    "screenResolution": "1920x1080",
+    "timezone": "America/New_York"
+  },
+  "guidelinesAccepted": true
+}
+
+```
+
+* **Response (200 OK):**
+
+```json
+{
+  "success": true,
+  "data": {
+    "attemptId": "8f9b2d8e-1a2b-4c3d-9e8f-7a6b5c4d3e2f",
+    "status": "IN_PROGRESS",
+    "serverTime": "2026-11-01T10:00:00.000Z",
+    "serverExpiresAt": "2026-11-01T11:00:00.000Z",
+    "activeSectionId": "sec_tech_01",
+    "sections": [
+      {
+        "id": "sec_tech_01",
+        "title": "Technical Assessment",
+        "durationMin": 30,
+        "orderIndex": 0,
+        "isUnlocked": true,
+        "questions": [
+          {
+            "id": "q_101",
+            "type": "SCQ",
+            "content": "Which data structure implements FIFO?",
+            "marks": 2.0,
+            "orderIndex": 0,
+            "options": [
+              { "id": "A", "text": "Stack" },
+              { "id": "B", "text": "Queue" },
+              { "id": "C", "text": "Binary Tree" }
+            ],
+            "currentStatus": "UNVISITED",
+            "savedAnswer": null
+          }
+        ]
+      }
+    ]
+  }
+}
+
+```
+
+### 7.3 Real-Time Response Autosave
+
+* **Route:** `PUT /api/v1/sessions/:attemptId/questions/:questionId/autosave`
+* **Body:**
+
+```json
+{
+  "status": "ANSWERED",
+  "savedAnswer": ["B"],
+  "timeSpentIncrementSec": 15
+}
+
+```
+
+* **Response (200 OK):**
+
+```json
+{
+  "success": true,
+  "data": {
+    "syncedAt": "2026-11-01T10:08:42.120Z",
+    "remainingGlobalSeconds": 3078,
+    "remainingSectionSeconds": 1278
+  }
+}
+
+```
+
+### 7.4 Final Assessment Submission
+
+* **Route:** `POST /api/v1/sessions/:attemptId/submit`
+* **Body:**
+
+```json
+{
+  "forceSubmit": false
+}
+
+```
+
+* **Response (200 OK):**
+
+```json
+{
+  "success": true,
+  "data": {
+    "status": "SUBMITTED",
+    "submittedAt": "2026-11-01T10:45:12.890Z",
+    "confirmationReceipt": "TF-8F9B2D-2026"
+  }
+}
+
+```
+
+---
+
+## 8. Deliverable 4: Production Frontend Components
+
+The following reference implementations are written in React 19, TypeScript, and Tailwind CSS. They include all branding context injection, section switching, timer syncing, and modal review capabilities.
+
+### 8.1 Branding Theme Provider (`ThemeProvider.tsx`)
+
+```tsx
+import React, { createContext, useContext, useEffect } from "react";
+
+export interface BrandConfig {
+  orgName: string;
+  logoUrl: string;
+  primaryColor: string;
+  secondaryColor: string;
+  fontFamily: string;
+}
+
+const defaultBrand: BrandConfig = {
+  orgName: "Acme Assessments",
+  logoUrl: "https://placehold.co/180x40/png?text=Acme+Corp",
+  primaryColor: "#2563EB",
+  secondaryColor: "#1E40AF",
+  fontFamily: "Inter, sans-serif",
+};
+
+const ThemeContext = createContext<BrandConfig>(defaultBrand);
+
+export const ThemeProvider: React.FC<{
+  config?: Partial<BrandConfig>;
+  children: React.ReactNode;
+}> = ({ config, children }) => {
+  const merged = { ...defaultBrand, ...config };
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty("--brand-primary", merged.primaryColor);
+    root.style.setProperty("--brand-secondary", merged.secondaryColor);
+    root.style.setProperty("--brand-font", merged.fontFamily);
+    document.body.style.fontFamily = merged.fontFamily;
+  }, [merged]);
+
+  return (
+    <ThemeContext.Provider value={merged}>{children}</ThemeContext.Provider>
+  );
+};
+
+export const useBrand = () => useContext(ThemeContext);
+
+```
+
+---
+
+### 8.2 Pre-Test Guidelines & System Check Screen (`PreTestBriefing.tsx`)
+
+```tsx
+import React, { useState } from "react";
+import { useBrand } from "./ThemeProvider";
+import { CheckCircle2, AlertTriangle, Monitor, ShieldAlert, Clock } from "lucide-react";
+
+interface PreTestBriefingProps {
+  testTitle: string;
+  totalDurationMin: number;
+  sectionsSummary: Array<{ title: string; durationMin: number; questionsCount: number }>;
+  negativeMarking: boolean;
+  onStart: () => void;
+}
+
+export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
+  testTitle,
+  totalDurationMin,
+  sectionsSummary,
+  negativeMarking,
+  onStart,
+}) => {
+  const brand = useBrand();
+  const [agreed, setAgreed] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
+      {/* Branded Header */}
+      <header className="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between">
+        <img src={brand.logoUrl} alt={brand.orgName} className="h-8 object-contain" />
+        <span className="text-sm font-semibold text-slate-600">{testTitle}</span>
+      </header>
+
+      {/* Main Content Area */}
+      <main className="max-w-4xl w-full mx-auto my-8 p-6 bg-white border border-slate-200 rounded-xl shadow-sm">
+        <h1 className="text-2xl font-bold text-slate-900 mb-2">Assessment Guidelines & Instructions</h1>
+        <p className="text-slate-600 mb-6">
+          Please review the instructions, section breakdown, and system requirements carefully before starting.
+        </p>
+
+        {/* Section Breakdown Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg flex items-start gap-3">
+            <Clock className="w-5 h-5 text-blue-600 mt-0.5" />
+            <div>
+              <p className="text-xs uppercase font-bold text-slate-500">Total Duration</p>
+              <p className="text-lg font-semibold text-slate-800">{totalDurationMin} Minutes</p>
+            </div>
+          </div>
+          <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5" />
+            <div>
+              <p className="text-xs uppercase font-bold text-slate-500">Negative Marking</p>
+              <p className="text-lg font-semibold text-slate-800">{negativeMarking ? "Active" : "None"}</p>
+            </div>
+          </div>
+          <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg flex items-start gap-3">
+            <Monitor className="w-5 h-5 text-emerald-600 mt-0.5" />
+            <div>
+              <p className="text-xs uppercase font-bold text-slate-500">Browser Status</p>
+              <p className="text-lg font-semibold text-emerald-700">Supported & Ready</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Sectional Structure Details */}
+        <div className="mb-8">
+          <h2 className="text-lg font-semibold text-slate-800 mb-3">Sections in this Test</h2>
+          <div className="border border-slate-200 rounded-lg overflow-hidden">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-slate-50 border-b border-slate-200 text-slate-600">
+                <tr>
+                  <th className="px-4 py-3">Section</th>
+                  <th className="px-4 py-3">Allocated Time</th>
+                  <th className="px-4 py-3">Total Questions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {sectionsSummary.map((sec, idx) => (
+                  <tr key={idx} className="hover:bg-slate-50">
+                    <td className="px-4 py-3 font-medium text-slate-800">{sec.title}</td>
+                    <td className="px-4 py-3 text-slate-600">{sec.durationMin} mins</td>
+                    <td className="px-4 py-3 text-slate-600">{sec.questionsCount} items</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Integrity Guardrails */}
+        <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex gap-3 mb-8">
+          <ShieldAlert className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+          <div className="text-sm text-red-800 leading-relaxed">
+            <p className="font-semibold mb-1">Strict Anti-Malpractice Rules:</p>
+            <ul className="list-disc pl-4 space-y-1">
+              <li>Exiting fullscreen or switching browser tabs triggers security infractions.</li>
+              <li>Reaching three violations will instantly terminate and auto-submit your attempt.</li>
+              <li>Section timers enforce hard lockouts; incomplete sections submit automatically upon expiry.</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Candidate Acknowledgment */}
+        <label className="flex items-start gap-3 p-4 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-slate-100 transition">
+          <input
+            type="checkbox"
+            checked={agreed}
+            onChange={(e) => setAgreed(e.target.checked)}
+            className="w-5 h-5 mt-0.5 accent-[var(--brand-primary)] rounded cursor-pointer"
+          />
+          <span className="text-sm text-slate-700 select-none">
+            I confirm that I am taking this assessment independently, without unauthorized assistance, under a stable
+            internet connection. I understand and agree to the rules and timer constraints outlined above.
+          </span>
+        </label>
+      </main>
+
+      {/* Branded Footer CTA */}
+      <footer className="bg-white border-t border-slate-200 px-8 py-4 flex justify-between items-center">
+        <p className="text-xs text-slate-400">Powered by {brand.orgName} Assessment Engine</p>
+        <button
+          onClick={onStart}
+          disabled={!agreed}
+          style={{
+            backgroundColor: agreed ? "var(--brand-primary)" : "#CBD5E1",
+          }}
+          className="px-6 py-2.5 rounded-lg text-white font-medium shadow-sm transition-all disabled:cursor-not-allowed cursor-pointer"
+        >
+          Start Assessment
+        </button>
+      </footer>
+    </div>
+  );
+};
+
+```
+
+---
+
+### 8.3 Core Test Interface & Section Switcher (`TestWorkspace.tsx`)
+
+```tsx
+import React, { useState, useEffect } from "react";
+import { useBrand } from "./ThemeProvider";
+import { Bookmark, Clock, CheckCircle2, ChevronLeft, ChevronRight, AlertCircle } from "lucide-react";
+
+export type QuestionStatusType = "UNVISITED" | "UNANSWERED" | "ANSWERED" | "MARKED_FOR_REVIEW";
+
+export interface QuestionData {
+  id: string;
+  type: "SCQ" | "MCQ" | "TRUE_FALSE" | "FILL_BLANKS" | "SUBJECTIVE";
+  content: string;
+  marks: number;
+  options?: Array<{ id: string; text: string }>;
+}
+
+export interface SectionData {
+  id: string;
+  title: string;
+  durationSeconds: number;
+  questions: QuestionData[];
+}
+
+export const TestWorkspace: React.FC<{
+  sections: SectionData[];
+  onTriggerReview: () => void;
+  onAutosave: (questionId: string, answer: any, status: QuestionStatusType) => void;
+}> = ({ sections, onTriggerReview, onAutosave }) => {
+  const brand = useBrand();
+
+  const [activeSecIdx, setActiveSecIdx] = useState(0);
+  const [activeQIdx, setActiveQIdx] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState(sections[0].durationSeconds);
+
+  // Keyed by Question ID
+  const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [statuses, setStatuses] = useState<Record<string, QuestionStatusType>>({});
+
+  const currentSection = sections[activeSecIdx];
+  const currentQuestion = currentSection.questions[activeQIdx];
+
+  // Section-specific Countdown Timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          handleSectionAutoAdvance();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [activeSecIdx]);
+
+  const handleSectionAutoAdvance = () => {
+    if (activeSecIdx < sections.length - 1) {
+      setActiveSecIdx((prev) => prev + 1);
+      setActiveQIdx(0);
+      setTimeRemaining(sections[activeSecIdx + 1].durationSeconds);
+    } else {
+      onTriggerReview();
+    }
+  };
+
+  const handleSelectOption = (optId: string) => {
+    const isSelected = answers[currentQuestion.id] === optId;
+    const newAnswer = isSelected ? null : optId;
+    const newStatus: QuestionStatusType = newAnswer ? "ANSWERED" : "UNANSWERED";
+
+    setAnswers((prev) => ({ ...prev, [currentQuestion.id]: newAnswer }));
+    setStatuses((prev) => ({ ...prev, [currentQuestion.id]: newStatus }));
+    onAutosave(currentQuestion.id, newAnswer, newStatus);
+  };
+
+  const toggleMarkForReview = () => {
+    const current = statuses[currentQuestion.id];
+    const updated: QuestionStatusType = current === "MARKED_FOR_REVIEW" ? "ANSWERED" : "MARKED_FOR_REVIEW";
+    setStatuses((prev) => ({ ...prev, [currentQuestion.id]: updated }));
+    onAutosave(currentQuestion.id, answers[currentQuestion.id], updated);
+  };
+
+  const formatTimer = (sec: number) => {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  };
+
+  return (
+    <div className="h-screen flex flex-col bg-slate-100 overflow-hidden">
+      {/* Top Application Bar */}
+      <header className="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between shrink-0">
+        <div className="flex items-center gap-6">
+          <img src={brand.logoUrl} alt={brand.orgName} className="h-7 object-contain" />
+          <div className="h-6 w-px bg-slate-200" />
+          <nav className="flex items-center gap-1">
+            {sections.map((sec, idx) => (
+              <button
+                key={sec.id}
+                onClick={() => {
+                  setActiveSecIdx(idx);
+                  setActiveQIdx(0);
+                  setTimeRemaining(sec.durationSeconds);
+                }}
+                className={`px-3 py-1.5 text-xs font-semibold rounded-md transition ${
+                  activeSecIdx === idx
+                    ? "bg-slate-900 text-white"
+                    : "text-slate-600 hover:bg-slate-100"
+                }`}
+              >
+                {sec.title}
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        {/* Synchronized Timer Display */}
+        <div className="flex items-center gap-4">
+          <div
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border font-mono text-sm font-bold ${
+              timeRemaining < 300
+                ? "bg-red-50 border-red-200 text-red-600 animate-pulse"
+                : "bg-slate-50 border-slate-200 text-slate-800"
+            }`}
+          >
+            <Clock className="w-4 h-4" />
+            <span>{formatTimer(timeRemaining)}</span>
+          </div>
+
+          <button
+            onClick={onTriggerReview}
+            className="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs rounded-md shadow-sm transition"
+          >
+            Review & Submit
+          </button>
+        </div>
+      </header>
+
+      {/* Workspace Body */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Main Interaction Canvas */}
+        <main className="flex-1 p-8 flex flex-col justify-between overflow-y-auto">
+          <div className="max-w-3xl w-full mx-auto bg-white border border-slate-200 rounded-xl p-8 shadow-sm">
+            <div className="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                Question {activeQIdx + 1} of {currentSection.questions.length}
+              </span>
+              <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-700 rounded">
+                +{currentQuestion.marks} Marks
+              </span>
+            </div>
+
+            <h2 className="text-lg font-medium text-slate-800 leading-relaxed mb-6">
+              {currentQuestion.content}
+            </h2>
+
+            {/* Render Multiple Choice Radio / Options */}
+            {currentQuestion.options && (
+              <div className="space-y-3 mb-8">
+                {currentQuestion.options.map((opt) => {
+                  const isChecked = answers[currentQuestion.id] === opt.id;
+                  return (
+                    <div
+                      key={opt.id}
+                      onClick={() => handleSelectOption(opt.id)}
+                      className={`flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition ${
+                        isChecked
+                          ? "border-blue-600 bg-blue-50/50"
+                          : "border-slate-200 hover:bg-slate-50"
+                      }`}
+                    >
+                      <div
+                        className={`w-5 h-5 rounded-full border flex items-center justify-center text-xs font-bold ${
+                          isChecked
+                            ? "border-blue-600 bg-blue-600 text-white"
+                            : "border-slate-300 text-slate-600"
+                        }`}
+                      >
+                        {opt.id}
+                      </div>
+                      <span className="text-sm font-normal text-slate-700">{opt.text}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Bottom Step Actions */}
+          <div className="max-w-3xl w-full mx-auto flex items-center justify-between pt-6">
+            <button
+              onClick={toggleMarkForReview}
+              className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-xs font-medium transition ${
+                statuses[currentQuestion.id] === "MARKED_FOR_REVIEW"
+                  ? "bg-purple-50 border-purple-300 text-purple-700"
+                  : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              <Bookmark className="w-4 h-4" />
+              {statuses[currentQuestion.id] === "MARKED_FOR_REVIEW"
+                ? "Flagged for Review"
+                : "Mark for Review"}
+            </button>
+
+            <div className="flex items-center gap-3">
+              <button
+                disabled={activeQIdx === 0}
+                onClick={() => setActiveQIdx((prev) => prev - 1)}
+                className="flex items-center gap-1.5 px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40"
+              >
+                <ChevronLeft className="w-4 h-4" /> Previous
+              </button>
+              <button
+                disabled={activeQIdx === currentSection.questions.length - 1}
+                onClick={() => setActiveQIdx((prev) => prev + 1)}
+                className="flex items-center gap-1.5 px-4 py-2 bg-slate-900 text-white rounded-lg text-xs font-medium hover:bg-slate-800 disabled:opacity-40"
+              >
+                Next <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </main>
+
+        {/* Right Palette Grid Drawer */}
+        <aside className="w-80 bg-white border-l border-slate-200 p-6 flex flex-col justify-between shrink-0">
+          <div>
+            <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wide mb-4">
+              Question Palette
+            </h3>
+            <div className="grid grid-cols-5 gap-2.5 mb-6">
+              {currentSection.questions.map((q, idx) => {
+                const st = statuses[q.id] || "UNVISITED";
+                let style = "bg-slate-100 text-slate-600 border-slate-200";
+
+                if (st === "ANSWERED") style = "bg-blue-600 text-white border-blue-600";
+                if (st === "MARKED_FOR_REVIEW")
+                  style = "bg-purple-600 text-white border-purple-600";
+                if (activeQIdx === idx) style += " ring-2 ring-slate-900 ring-offset-2";
+
+                return (
+                  <button
+                    key={q.id}
+                    onClick={() => setActiveQIdx(idx)}
+                    className={`h-9 rounded-lg border text-xs font-bold flex items-center justify-center transition ${style}`}
+                  >
+                    {idx + 1}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Palette Legend */}
+          <div className="border-t border-slate-100 pt-4 space-y-2 text-xs">
+            <div className="flex items-center gap-2 text-slate-600">
+              <span className="w-3 h-3 rounded bg-blue-600" /> Answered
+            </div>
+            <div className="flex items-center gap-2 text-slate-600">
+              <span className="w-3 h-3 rounded bg-purple-600" /> Marked for Review
+            </div>
+            <div className="flex items-center gap-2 text-slate-600">
+              <span className="w-3 h-3 rounded bg-slate-100 border border-slate-300" /> Unvisited
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+};
+
+```
+
+---
+
+### 8.4 Pre-Submission Review & Edit Modal (`SubmissionReviewModal.tsx`)
+
+```tsx
+import React, { useState } from "react";
+import { AlertCircle, ArrowLeft, CheckCircle2 } from "lucide-react";
+
+interface QuestionSummary {
+  id: string;
+  orderIndex: number;
+  sectionIndex: number;
+  sectionTitle: string;
+  status: "ANSWERED" | "UNANSWERED" | "MARKED_FOR_REVIEW" | "UNVISITED";
+}
+
+interface SubmissionReviewModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onJumpToQuestion: (sectionIndex: number, questionIndex: number) => void;
+  onSubmitFinal: () => void;
+  questionsSummary: QuestionSummary[];
+}
+
+export const SubmissionReviewModal: React.FC<SubmissionReviewModalProps> = ({
+  isOpen,
+  onClose,
+  onJumpToQuestion,
+  onSubmitFinal,
+  questionsSummary,
+}) => {
+  const [doubleConfirm, setDoubleConfirm] = useState(false);
+
+  if (!isOpen) return null;
+
+  const totalAnswered = questionsSummary.filter((q) => q.status === "ANSWERED").length;
+  const totalMarked = questionsSummary.filter((q) => q.status === "MARKED_FOR_REVIEW").length;
+  const totalUnanswered = questionsSummary.length - totalAnswered;
+
+  return (
+    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="bg-white max-w-3xl w-full rounded-2xl shadow-2xl border border-slate-100 overflow-hidden flex flex-col max-h-[90vh]">
+        {/* Modal Header */}
+        <div className="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-slate-900">Review Assessment Before Submission</h2>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Verify your responses below. You may return to any unlocked question to adjust answers.
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-50"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Aggregated Metric Cards */}
+        <div className="grid grid-cols-3 gap-4 px-6 py-4 bg-slate-50 border-b border-slate-100">
+          <div className="p-3 bg-white rounded-lg border border-slate-200">
+            <span className="text-xs font-semibold text-slate-400 uppercase">Answered</span>
+            <p className="text-xl font-bold text-emerald-600">{totalAnswered}</p>
+          </div>
+          <div className="p-3 bg-white rounded-lg border border-slate-200">
+            <span className="text-xs font-semibold text-slate-400 uppercase">Unanswered</span>
+            <p className="text-xl font-bold text-red-500">{totalUnanswered}</p>
+          </div>
+          <div className="p-3 bg-white rounded-lg border border-slate-200">
+            <span className="text-xs font-semibold text-slate-400 uppercase">Flagged for Review</span>
+            <p className="text-xl font-bold text-purple-600">{totalMarked}</p>
+          </div>
+        </div>
+
+        {/* Question Inspection Grid */}
+        <div className="p-6 overflow-y-auto space-y-3">
+          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+            Detailed Question Status
+          </h3>
+          <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-2">
+            {questionsSummary.map((q, idx) => {
+              let badgeColor = "bg-slate-100 text-slate-600 border-slate-200";
+              if (q.status === "ANSWERED") badgeColor = "bg-emerald-50 text-emerald-700 border-emerald-300";
+              if (q.status === "MARKED_FOR_REVIEW")
+                badgeColor = "bg-purple-50 text-purple-700 border-purple-300";
+              if (q.status === "UNANSWERED") badgeColor = "bg-red-50 text-red-600 border-red-200";
+
+              return (
+                <button
+                  key={q.id}
+                  onClick={() => {
+                    onClose();
+                    onJumpToQuestion(q.sectionIndex, q.orderIndex);
+                  }}
+                  className={`h-10 rounded-lg border flex flex-col items-center justify-center hover:scale-105 transition cursor-pointer ${badgeColor}`}
+                >
+                  <span className="text-xs font-bold">{idx + 1}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Double-Confirmation Submission Footer */}
+        <div className="p-6 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="confirmCheck"
+              checked={doubleConfirm}
+              onChange={(e) => setDoubleConfirm(e.target.checked)}
+              className="w-4 h-4 accent-blue-600 rounded cursor-pointer"
+            />
+            <label htmlFor="confirmCheck" className="text-xs text-slate-600 select-none cursor-pointer">
+              I am ready to finalize my test. I understand answers cannot be edited after this step.
+            </label>
+          </div>
+
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <button
+              onClick={onClose}
+              className="flex-1 sm:flex-none px-4 py-2 border border-slate-200 bg-white rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-100"
+            >
+              Continue Test
+            </button>
+            <button
+              disabled={!doubleConfirm}
+              onClick={onSubmitFinal}
+              className="flex-1 sm:flex-none px-6 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white rounded-lg text-xs font-semibold shadow-sm transition disabled:cursor-not-allowed cursor-pointer"
+            >
+              Submit Test Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+```

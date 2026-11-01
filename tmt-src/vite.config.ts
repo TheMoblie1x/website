@@ -7,6 +7,8 @@ export default defineConfig(() => {
   return {
     // Served from https://mobile1x.com/tmt/
     base: '/tmt/',
+    // The website repo has no build step, so the built site is committed at ../tmt.
+    build: {outDir: '../tmt', emptyOutDir: true},
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
