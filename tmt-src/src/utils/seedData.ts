@@ -300,7 +300,7 @@ export const SAMPLE_CANDIDATE_ATTEMPTS: CandidateAttempt[] = [
     isPassed: true,
     infractionCount: 0,
     infractions: [],
-    confirmationReceipt: 'TF-ALEX-98104',
+    confirmationReceipt: 'TMT-ALEX-98104',
     roomSweep: {
       isVerified: true,
       verifiedAt: '2026-10-31T09:59:12Z',
@@ -399,7 +399,7 @@ export const SAMPLE_CANDIDATE_ATTEMPTS: CandidateAttempt[] = [
       { id: 'inf_2', timestamp: '2026-10-31T11:21:05Z', type: 'FULLSCREEN_EXIT', warningNumber: 2, description: 'Candidate exited fullscreen mode' },
       { id: 'inf_3', timestamp: '2026-10-31T11:24:45Z', type: 'TAB_SWITCH', warningNumber: 3, description: 'Third violation reached; session auto-locked and terminated.' },
     ],
-    confirmationReceipt: 'TF-MALPRACTICE-TERMINATED',
+    confirmationReceipt: 'TMT-MALPRACTICE-TERMINATED',
     sectionStates: {
       sec_tech_core: { sectionId: 'sec_tech_core', isUnlocked: true, isCompleted: true, timeRemainingSec: 0 },
       sec_quant_reasoning: { sectionId: 'sec_quant_reasoning', isUnlocked: false, isCompleted: false, timeRemainingSec: 900 },
@@ -428,7 +428,7 @@ export const SAMPLE_CANDIDATE_ATTEMPTS: CandidateAttempt[] = [
     isPassed: true,
     infractionCount: 0,
     infractions: [],
-    confirmationReceipt: 'TF-KUMAR-77312',
+    confirmationReceipt: 'TMT-KUMAR-77312',
     roomSweep: {
       isVerified: true,
       verifiedAt: '2026-10-31T13:58:30Z',
@@ -477,7 +477,7 @@ export const SAMPLE_CANDIDATE_ATTEMPTS: CandidateAttempt[] = [
     infractions: [
       { id: 'inf_el_1', timestamp: '2026-10-31T16:22:10Z', type: 'GAZE_AWAY', warningNumber: 1, description: 'Gaze diverted away from screen' },
     ],
-    confirmationReceipt: 'TF-ROSTOVA-44019',
+    confirmationReceipt: 'TMT-ROSTOVA-44019',
     sectionStates: {
       sec_tech_core: { sectionId: 'sec_tech_core', isUnlocked: true, isCompleted: true, timeRemainingSec: 0 },
       sec_quant_reasoning: { sectionId: 'sec_quant_reasoning', isUnlocked: true, isCompleted: true, timeRemainingSec: 0 },
@@ -511,7 +511,7 @@ export const SAMPLE_CANDIDATE_ATTEMPTS: CandidateAttempt[] = [
     isPassed: true,
     infractionCount: 0,
     infractions: [],
-    confirmationReceipt: 'TF-VANCE-99411',
+    confirmationReceipt: 'TMT-VANCE-99411',
     roomSweep: {
       isVerified: true,
       verifiedAt: '2026-10-31T17:28:40Z',

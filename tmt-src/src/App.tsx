@@ -168,7 +168,7 @@ function MainAppContent() {
 
   const handleSubmitFinal = (attemptToSubmit: CandidateAttempt) => {
     const evaluated = evaluateAttempt(activeTest, attemptToSubmit);
-    const receipt = `TF-${Math.random().toString(36).substring(2, 8).toUpperCase()}-2026`;
+    const receipt = `TMT-${Math.random().toString(36).substring(2, 8).toUpperCase()}-2026`;
 
     const finalizedAttempt: CandidateAttempt = {
       ...attemptToSubmit,
@@ -199,7 +199,7 @@ function MainAppContent() {
 
   const handleTerminatedMalpractice = (attemptTerminated: CandidateAttempt) => {
     const evaluated = evaluateAttempt(activeTest, attemptTerminated);
-    const receipt = `TF-MALPRACTICE-${Date.now().toString().slice(-4)}`;
+    const receipt = `TMT-MALPRACTICE-${Date.now().toString().slice(-4)}`;
 
     const terminatedAttempt: CandidateAttempt = {
       ...attemptTerminated,

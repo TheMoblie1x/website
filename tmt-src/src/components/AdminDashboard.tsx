@@ -219,6 +219,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     updateActiveTest((t) => ({ ...t, isPublished: !t.isPublished }));
   };
 
+  const handleToggleTabLimit = () => {
+    if (!activeTest || !canWrite) return;
+    const current = activeTest.proctoring?.maxTabSwitchViolations ?? 3;
+    const updated = tests.map((t) =>
+      t.id === activeTest.id ? { ...t, proctoring: { ...t.proctoring, maxTabSwitchViolations: current > 0 ? 0 : 3 } } : t
+    );
+    onUpdateTests(updated);
+    saveTests(updated);
+  };
+
   const handleCommitBulkQuestions = (testId: string, newSections: TestSection[]) => {
     if (!canWrite) return;
     const updated = tests.map((t) => {
@@ -503,35 +513,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       </div>
 
                       <div className="p-6 border-t border-slate-200 lg:border-t-0">
-                        <h3 className="text-sm font-semibold text-ink">Proctoring</h3>
+                        <h3 className="text-sm font-semibold text-ink">Integrity checks</h3>
                         <div className="divide-y divide-slate-100 mt-1">
                           <SettingSwitch
-                            label="Room check"
-                            description="Candidate scans their room before the test starts."
-                            checked={proctoringOn('enable360RoomSweep')}
+                            label="Require full screen"
+                            description="Leaving full screen during the test counts as a violation."
+                            checked={activeTest.proctoring?.enforceFullscreen !== false}
                             disabled={!canWrite}
-                            onChange={() => handleToggleProctoringSetting('enable360RoomSweep')}
+                            onChange={() => handleToggleProctoringSetting('enforceFullscreen')}
                           />
                           <SettingSwitch
-                            label="Gaze tracking"
-                            description="Flags repeated looking away from the screen."
-                            checked={proctoringOn('enableAiGazeTracking')}
+                            label="Limit tab switches"
+                            description="Switching tabs or windows counts as a violation. The third one ends the test."
+                            checked={(activeTest.proctoring?.maxTabSwitchViolations ?? 3) > 0}
                             disabled={!canWrite}
-                            onChange={() => handleToggleProctoringSetting('enableAiGazeTracking')}
-                          />
-                          <SettingSwitch
-                            label="Second-device detection"
-                            description="Flags a phone or extra screen in view."
-                            checked={proctoringOn('enableDeviceDetection')}
-                            disabled={!canWrite}
-                            onChange={() => handleToggleProctoringSetting('enableDeviceDetection')}
-                          />
-                          <SettingSwitch
-                            label="Audio monitoring"
-                            description="Flags voices and background talking."
-                            checked={proctoringOn('enableAudioMonitoring')}
-                            disabled={!canWrite}
-                            onChange={() => handleToggleProctoringSetting('enableAudioMonitoring')}
+                            onChange={handleToggleTabLimit}
                           />
                         </div>
                       </div>

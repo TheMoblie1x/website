@@ -238,55 +238,6 @@ export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
             </div>
           </div>
 
-          {/* 360° AI Room Sweep Certification Card */}
-          <div className={`p-4 rounded-xl border transition-all ${
-            roomSweep?.isVerified
-              ? 'bg-emerald-50/70 border-emerald-200'
-              : 'bg-accent-soft border-accent-line'
-          }`}>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="flex items-start gap-3">
-                <div className={`p-2.5 rounded-xl shrink-0 ${
-                  roomSweep?.isVerified ? 'bg-emerald-100 text-emerald-700' : 'bg-accent-soft text-accent'
-                }`}>
-                  <Compass className="w-6 h-6 animate-spin-slow" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-extrabold text-slate-900">
-                      360° AI Room Sweep & Perimeter Certification
-                    </h3>
-                    {roomSweep?.isVerified ? (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
-                        ✓ CERTIFIED ({roomSweep.integrityScore}% INTEGRITY)
-                      </span>
-                    ) : (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-accent-soft text-accent border border-accent-line">
-                        MANDATORY AI SCAN
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-xs text-slate-600 mt-1 max-w-xl">
-                    {roomSweep?.isVerified
-                      ? `All 5 perimeter angles (Front 0°, Right 90°, Rear 180°, Left 270°, Desk Surface) scanned and verified clear of unauthorized devices or personnel.`
-                      : `Rotate your camera through 5 panoramic angles to certify a clean testing perimeter before entering the assessment.`}
-                  </p>
-                </div>
-              </div>
-
-              <button
-                onClick={() => setIsSweepModalOpen(true)}
-                className={`px-4 py-2.5 rounded-xl font-bold text-xs shadow-xs transition flex items-center gap-2 shrink-0 cursor-pointer ${
-                  roomSweep?.isVerified
-                    ? 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-300'
-                    : 'bg-cta hover:bg-cta-hover active:bg-cta-press text-ink'
-                }`}
-              >
-                <Camera className="w-4 h-4" />
-                <span>{roomSweep?.isVerified ? 'Re-scan / Review Audit' : 'Launch 360° Room Sweep'}</span>
-              </button>
-            </div>
-          </div>
         </div>
 
         {/* Section Breakdown Table */}
@@ -399,15 +350,6 @@ export const PreTestBriefing: React.FC<PreTestBriefingProps> = ({
         </button>
       </footer>
 
-      {/* 360 Degree AI Proctoring Panoramic Room Sweep Modal */}
-      <AiProctoringSweepModal
-        isOpen={isSweepModalOpen}
-        onClose={() => setIsSweepModalOpen(false)}
-        onCompleteAudit={(audit) => {
-          setRoomSweep(audit);
-          setIsSweepModalOpen(false);
-        }}
-      />
     </div>
   );
 };

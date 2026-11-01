@@ -36,7 +36,7 @@ export const sendSubmissionSummaryEmail = (
   const evaluated = evaluateAttempt(test, attempt);
   const receipt =
     attempt.confirmationReceipt ||
-    `TF-${Math.random().toString(36).substring(2, 8).toUpperCase()}-2026`;
+    `TMT-${Math.random().toString(36).substring(2, 8).toUpperCase()}-2026`;
 
   const isMalpractice = attempt.status === 'TERMINATED_MALPRACTICE';
   const verdict = isMalpractice
@@ -213,9 +213,9 @@ const getSeededEmails = (): EmailNotification[] => [
     fromName: 'Acme Cloud & Systems Examination Directorate',
     fromEmail: 'noreply@examinations.takemytest.cloud',
     subject:
-      '[Official Report] Assessment Results: Senior Software Engineer Assessment (Receipt: TF-ALEX-98104)',
+      '[Official Report] Assessment Results: Senior Software Engineer Assessment (Receipt: TMT-ALEX-98104)',
     sentAt: '2026-10-31T09:42:20Z',
-    receiptId: 'TF-ALEX-98104',
+    receiptId: 'TMT-ALEX-98104',
     status: 'DELIVERED',
     verdict: 'PASSED',
     scoreSummary: {
@@ -245,9 +245,9 @@ const getSeededEmails = (): EmailNotification[] => [
     fromName: 'Acme Cloud & Systems Examination Directorate',
     fromEmail: 'noreply@examinations.takemytest.cloud',
     subject:
-      '[Official Report] Assessment Results: Senior Software Engineer Assessment (Receipt: TF-MALPRACTICE-TERMINATED)',
+      '[Official Report] Assessment Results: Senior Software Engineer Assessment (Receipt: TMT-MALPRACTICE-TERMINATED)',
     sentAt: '2026-10-31T11:24:50Z',
-    receiptId: 'TF-MALPRACTICE-TERMINATED',
+    receiptId: 'TMT-MALPRACTICE-TERMINATED',
     status: 'DELIVERED',
     verdict: 'TERMINATED_MALPRACTICE',
     scoreSummary: {

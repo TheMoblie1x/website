@@ -26,9 +26,11 @@ Brand rules and contrast table: `tmt-src/BRAND.md`. Firebase rules, tooling and 
 - **Secrets:** the Firebase service-account key lives only in `~/Downloads` (owner-only). It is not in the repo. Delete it when setup is done.
 
 ## FLAGS (open, in rough priority order)
-1. **Simulated "AI" proctoring is presented as real.** Gaze, second-device and audio detection use a Simulate panel and random numbers; no
-   vision/audio model exists. Only tab-switch detection, forced full screen and a webcam preview are real. The in-app labels
-   ("Gaze tracking", "Second-device detection", "Audio monitoring", the live camera panel) can mislead candidates and customers. Relabel or remove before real use.
+1. **Simulated "AI" proctoring: mostly fixed, one leftover.** Gaze, second-device and audio detection were simulated (random numbers, a Simulate panel).
+   The room-sweep step, the live camera HUD and the four fake switches are removed from the candidate and admin screens; the admin now offers only the two
+   real checks (full screen, tab-switch limit). **Leftover:** the sample submissions in `seedData.ts` still carry a `roomSweep` record, so Analytics shows a
+   "360° sweep certified" tile, the success screen can show a sweep badge, and the sent email can say "Room Sweep Certified" for those samples. Remove the
+   tile/badge/email text and the sample `roomSweep` data. The component files `AiProctoringLiveHUD.tsx` and `AiProctoringSweepModal.tsx` are unused but still in the repo.
 2. **Data is still per browser.** Tests, attempts and results are in `localStorage` (keys `testforge_*`), not Firebase. Not shared across devices
    or users. The footer on the test screen now says "Saved on this device" (it used to claim "Synced with server").
 3. **Candidate invite links are not built.** Candidates cannot take a test from a link. "Preview as candidate" is the only way in.
@@ -37,8 +39,8 @@ Brand rules and contrast table: `tmt-src/BRAND.md`. Firebase rules, tooling and 
 5. **Payments are not built.** Needs: a provider choice (Razorpay or Stripe), account and keys entered by the owner as Netlify
    environment variables (never in the repo or chat), and real plan prices.
 6. **Evaluators cannot score anything.** The `submissions:grade` permission exists, but there is no grading screen, and written answers are not auto-scored.
-7. **Stale branding "TF-".** Receipts, emails and seed data still use the old TestForge `TF-` prefix (`App.tsx`, `emailService.ts`,
-   `seedData.ts`, `SubmissionSuccessScreen.tsx`). Internals also still say `testforge` (module `types/testforge`, storage keys); renaming storage keys would orphan saved data.
+7. **Stale branding: partly fixed.** Receipt prefixes are now `TMT-` (code and sample data). Internals still say `testforge` (module `types/testforge`,
+   `testforge_*` storage keys); renaming the storage keys would orphan saved data, so it was left.
 8. **Waitlist.** Email only now (the name/company/interest fields were dropped in the redesign; the console columns remain, blank for new entries).
    No email is sent automatically; export the CSV and mail people yourself. There is no privacy-policy page. The public write endpoint has
    field validation and a honeypot but no rate limit. The line "We use your email only to contact you about TakeMyTest early access" is a commitment written for the owner; review it.

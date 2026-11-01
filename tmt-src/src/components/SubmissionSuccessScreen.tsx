@@ -38,7 +38,7 @@ export const SubmissionSuccessScreen: React.FC<SubmissionSuccessScreenProps> = (
 
   const receiptId =
     attempt.confirmationReceipt ||
-    `TF-${Math.random().toString(36).substring(2, 8).toUpperCase()}-2026`;
+    `TMT-${Math.random().toString(36).substring(2, 8).toUpperCase()}-2026`;
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between p-4 sm:p-8">

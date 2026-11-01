@@ -991,23 +991,6 @@ export const TestWorkspace: React.FC<TestWorkspaceProps> = ({
         </div>
       )}
 
-      {/* 360 Degree AI Proctoring Live HUD */}
-      <AiProctoringLiveHUD
-        roomSweepAudit={attempt.roomSweep}
-        infractionCount={attempt.infractionCount}
-        onTriggerInfraction={(type, desc) => handleInfractionTrigger(type, desc)}
-        onOpenRoomSweepModal={() => setIsSweepModalOpen(true)}
-      />
-
-      {/* 360 Degree AI Room Sweep Modal (Can be reviewed/performed during test if requested) */}
-      <AiProctoringSweepModal
-        isOpen={isSweepModalOpen}
-        onClose={() => setIsSweepModalOpen(false)}
-        onCompleteAudit={(audit) => {
-          onUpdateAttempt({ ...attempt, roomSweep: audit });
-          setIsSweepModalOpen(false);
-        }}
-      />
     </div>
   );
 };
