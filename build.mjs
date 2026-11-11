@@ -10,7 +10,7 @@ import { WORK } from './src/content/work.mjs';
 import { POSTS } from './src/content/posts.mjs';
 import { home, servicePage, workPage, blogIndex, postPage } from './src/pages.mjs';
 import { syncForm } from './src/google-form.mjs';
-import { about, privacy, terms, notFound, pharma, magnet, MAGNETS } from './src/pages-static.mjs';
+import { about, privacy, terms, notFound, pharma, magnet, MAGNETS, storePlatform } from './src/pages-static.mjs';
 
 if (process.argv.includes('--sync-form')) { console.log('Google Form snapshot updated:', JSON.stringify(await syncForm())); console.log('Run "node build.mjs" again to rebuild pages from it.'); process.exit(0); }
 
@@ -19,7 +19,7 @@ const write = (rel, content) => { const f = join(root, rel); mkdirSync(dirname(f
 
 const pages = [
     home(), ...SERVICES.map(servicePage), ...WORK.map(workPage), blogIndex(), ...POSTS.map(postPage),
-    about(), privacy(), terms(), pharma(), notFound(), ...MAGNETS.map(magnet),
+    about(), privacy(), terms(), pharma(), storePlatform(), notFound(), ...MAGNETS.map(magnet),
 ];
 
 for (const p of pages) write(p.path === '/' ? 'index.html' : p.path.endsWith('.html') ? p.path.slice(1) : `${p.path.slice(1)}index.html`, p.html);

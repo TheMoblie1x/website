@@ -168,3 +168,30 @@ ${section({ loc: 'lead-magnet', body: `<div class="contact"><div class="reveal">
         }),
     };
 }
+
+/** Productised e-commerce store: features, screenshots and three membership plans. */
+export function storePlatform() {
+    const path = '/ecommerce-store-platform/';
+    const trail = [{ name: 'Home', href: '/' }, { name: 'E-commerce Store Platform', href: path }];
+    const WA = 'https://wa.me/918819091000?text=' + encodeURIComponent('Hi, I am interested in the e-commerce store platform');
+    const shot = (src, alt, cap) => `<figure class="card"><img src="/assets/store-platform/${src}" alt="${esc(alt)}" loading="lazy" width="1563" height="784"><figcaption>${esc(cap)}</figcaption></figure>`;
+    const plan = (name, price, amc, items, featured) => `<div class="card plan">${featured ? '<p class="card__meta">Most popular</p>' : ''}<h3>${esc(name)}</h3><p class="h2">${esc(price)}</p><p class="card__meta">One-time cost</p><p>Then ${esc(amc)} / year maintenance</p>${checks(items.map(esc))}${btn({ href: WA, label: 'Choose ' + name, variant: featured ? 'primary' : 'ghost', loc: 'pricing' })}</div>`;
+    return {
+        path,
+        html: page({
+            title: 'E-commerce Store Platform for Indian Shops | Mobile1X',
+            description: 'A complete online store for Indian shops: storefront, admin panel, WhatsApp ordering, Razorpay payments, GST billing and SEO. Standard, Pro and Pro Max plans.',
+            path, schema: [breadcrumbList(trail)],
+            body: `${hero(trail, 'E-commerce · Web', 'Your own online fashion store, ready to sell', 'A complete storefront and admin panel built for Indian shops. Customers browse by Men and Women, order on WhatsApp or pay online, and you run everything from one dashboard.')}
+${section({ loc: 'shots', body: `${sectionHead({ eyebrow: 'Screens', title: 'See it live', lede: 'Real screens from a store running on the platform today.' })}<div class="grid grid--3">${shot('home.jpg', 'Store home page with category strip, banner carousel and Men and Women navigation', 'Home: category strip, banner carousel, search, Profile, Wishlist and Bag.')}${shot('listing.jpg', 'Product listing with filters for category, gender, collection, price, colour and size', 'Listing: filters for category, gender, collection, price, colour and size.')}${shot('product.jpg', 'Product page with photo gallery, description and share button', 'Product page: gallery, description, sizes, colours and share.')}</div>` })}
+${prose(`${h2('What you get')}${h3('Storefront')}${ul(['ALL / MEN / WOMEN tabs that change the banner, category icons and product rows', 'Category icon strip, banner carousel, collections and a trending row', 'Search and filters by category, subcategory, gender, collection, price, colour and size', 'Wishlist, cart, coupons and order tracking', 'Works on phones and desktops'])}
+${h3('Product pages')}${ul(['Up to 20 photos per product, each tagged with its colour', 'Colour thumbnails that jump the gallery to the right photo', 'Stock by colour and size, discounts with countdown timers', 'Specifications with an optional HSN code, reviews and FAQs', 'Buy on WhatsApp with a pre-filled order message'])}
+${h3('Orders and payments')}${ul(['Razorpay online payments with server-side payment checks', 'Phone OTP sign-in', 'Order history for customers; order management, bulk tracking updates and CSV export for you'])}
+${h3('Admin panel, no coding')}${ul(['Products, categories (with icons and audience) and collections', 'Rearrange home page sections, banners and category bubbles', 'Top navigation builder: categories, gender, subcategory, collection, price and discount links', 'Theme controls, bill template and coupon manager'])}
+${h3('In-store billing')}${ul(['Local billing with barcode scan and GST', 'Bill template from A4 to 58 mm thermal printers'])}
+${h3('Marketing and growth')}${ul(['Blog editor with 8 article formats, scheduled publishing and SEO fields', 'Per-page SEO and link-preview images', 'Shots: short reel videos with likes, views and sharing', 'Google Analytics events, including Buy on WhatsApp intent'])}`)}
+${section({ id: 'plans', loc: 'pricing', body: `${sectionHead({ eyebrow: 'Memberships', title: 'Pick your plan', lede: 'Pay once to get your store built and launched. A yearly maintenance fee then covers updates, security fixes and support. No commission on your sales.' })}<div class="grid grid--3">${plan('Standard', '₹5,00,000', '₹80,000', ['Storefront and admin panel on your domain', 'Up to 100 products', 'Men / Women / All tabs and category strip', 'Buy on WhatsApp and Razorpay payments', 'Phone OTP sign-in', 'Basic SEO and link previews', 'Email support'])}${plan('Pro', '₹8,00,000', '₹1,28,000', ['Everything in Standard', 'Unlimited products', 'Collections, home layout and nav link builder', 'Blog with scheduled publishing', 'Coupons, bulk order updates and CSV export', 'GST billing with barcode scan', 'Google Analytics event setup', 'Priority support on WhatsApp'], true)}${plan('Pro Max', '₹12,00,000', '₹1,92,000', ['Everything in Pro', 'Your branding, colours and logo set up for you', 'Shots (reel videos) for product promotion', 'Product and customer data moved in for you', 'Custom pages built on request', 'Onboarding call and staff training', 'Monthly review of your store performance'])}</div><p class="prose">Prices are in Indian rupees. GST extra where applicable. The first year of maintenance starts after launch. Domain, hosting and cloud usage are billed at actual cost to your own accounts. Need the source code instead? Ask about a one-time licence.</p><div class="hero__actions">${btn({ href: WA, label: 'Chat on WhatsApp', ic: 'phone', loc: 'pricing' })}</div>` })}
+${contactSection({ source: path, title: 'Want a store like this?' })}`,
+        }),
+    };
+}
