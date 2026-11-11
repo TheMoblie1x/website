@@ -79,6 +79,13 @@ export function home() {
     </div>`,
     });
 
+    // Featured offer: the e-commerce store platform (full page at /ecommerce-store-platform/).
+    const storePlatform = section({
+        id: 'store-platform', loc: 'product-store-platform', body: `${sectionHead({ eyebrow: 'New · E-commerce', title: 'Your own online store, built and ready to sell.', lede: 'A complete storefront and admin panel for Indian shops: Men and Women tabs, WhatsApp ordering, Razorpay payments, GST billing and SEO. Three memberships: Standard, Pro and Pro Max.' })}
+        <div class="split"><div class="reveal"><img src="/assets/store-platform/home.jpg" alt="Online fashion store built on the Mobile1X store platform" loading="lazy" width="1563" height="784" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border,#2a2a2a)"></div>
+        <div class="reveal">${checks(['Storefront and admin panel on your own domain', 'Up to 20 colour-tagged photos per product', 'WhatsApp ordering and Razorpay payments', 'Plans from ₹5,00,000 one-time, with yearly maintenance'])}<div class="hero__actions">${btn({ href: '/ecommerce-store-platform/', label: 'See plans and screens', variant: 'primary', arrow: true, loc: 'product-store-platform' })}</div></div></div>`,
+    });
+
     const proof = section({
         id: 'portfolio', loc: 'case-study', body: `${sectionHead({ eyebrow: 'Proof', title: 'Products we’ve actually shipped.', lede: 'Real products, live on the web. This is our track record, not a mock-up.' })}
         <div class="products products--four">${['pos', 'pharma', 'auction', 'bhashasetu'].map((k) => productCard(PRODUCTS[k])).join('')}</div>`,
@@ -122,7 +129,7 @@ export function home() {
             preload: '<link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">',
             scripts: `<script defer src="${asset('/assets/js/hero-stage.js')}"></script>`,
             schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: 'Android, iOS', description: PRODUCTS[k].summary, installUrl: storeLinks(PRODUCTS[k]).map((s) => s.url) }))],
-            body: [hero, takemytest, proof, services, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
+            body: [hero, storePlatform, takemytest, proof, services, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
         }),
     };
 }

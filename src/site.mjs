@@ -105,6 +105,7 @@ export const PRODUCTS = {
 export const SERVICE_ORDER = ['mobile-app-development', 'ai-development', 'mvp-development', 'fintech-development'];
 
 export const NAV = [
+    { label: 'Store Platform', href: '/ecommerce-store-platform/' },
     { label: 'Work', href: '/#portfolio' },
     { label: 'Pricing', href: '/#pricing' },
     { label: 'Blog', href: '/blog/' },

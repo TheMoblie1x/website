@@ -1,63 +1,63 @@
 {
   "/": {
-    "hash": "0a435edec2f9",
-    "date": "2026-11-01"
+    "hash": "7ba15b705534",
+    "date": "2026-11-11"
   },
   "/services/mobile-app-development/": {
-    "hash": "8a6a48894f05",
-    "date": "2026-10-11"
+    "hash": "431674ab5162",
+    "date": "2026-11-11"
   },
   "/services/ai-development/": {
-    "hash": "764042090fe1",
-    "date": "2026-10-11"
+    "hash": "8b5b9e98c8c6",
+    "date": "2026-11-11"
   },
   "/services/mvp-development/": {
-    "hash": "481c0d2c381d",
-    "date": "2026-10-11"
+    "hash": "ca3f3eaf7b29",
+    "date": "2026-11-11"
   },
   "/services/fintech-development/": {
-    "hash": "73613f9029bf",
-    "date": "2026-10-11"
+    "hash": "c28a81a03a13",
+    "date": "2026-11-11"
   },
   "/work/notes/": {
-    "hash": "dc4c6596bca3",
-    "date": "2026-10-11"
+    "hash": "dca32400bf3e",
+    "date": "2026-11-11"
   },
   "/work/dedup/": {
-    "hash": "135b40811dd7",
-    "date": "2026-10-11"
+    "hash": "5b54cc75530b",
+    "date": "2026-11-11"
   },
   "/work/a2z/": {
-    "hash": "c98879d8486a",
-    "date": "2026-10-11"
+    "hash": "162a802f281d",
+    "date": "2026-11-11"
   },
   "/blog/": {
-    "hash": "dd2c46e20c29",
-    "date": "2026-10-11"
+    "hash": "0da299e6b1d0",
+    "date": "2026-11-11"
   },
   "/blog/how-much-does-it-cost-to-build-a-mobile-app/": {
-    "hash": "105dd07a5ead",
-    "date": "2026-10-11"
+    "hash": "1d77646dac7d",
+    "date": "2026-11-11"
   },
   "/blog/native-vs-flutter-vs-react-native/": {
-    "hash": "ec11f39b1ba9",
-    "date": "2026-10-11"
+    "hash": "3373400acd05",
+    "date": "2026-11-11"
   },
   "/about/": {
-    "hash": "f8b22fd6e617",
-    "date": "2026-10-11"
+    "hash": "1b57a4f1116b",
+    "date": "2026-11-11"
   },
   "/privacy/": {
-    "hash": "68f06601105c",
-    "date": "2026-10-11"
+    "hash": "b0ea9f6291da",
+    "date": "2026-11-11"
   },
   "/terms/": {
-    "hash": "0029fdba7f36",
-    "date": "2026-10-11"
+    "hash": "241d93c55837",
+    "date": "2026-11-11"
   },
   "/pharma/": {
-    "hash": "eb71062ea22a",
-    "date": "2026-10-11"
+    "hash": "310271b82cbd",
+    "date": "2026-11-11"
   },
   "/notes/": {
     "hash": "35ec730579cc",
@@ -72,7 +72,7 @@
     "date": "2026-10-11"
   },
   "/ecommerce-store-platform/": {
-    "hash": "e6bc3af2f9cc",
+    "hash": "6beedd389f62",
     "date": "2026-11-11"
   }
 }
