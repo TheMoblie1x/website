@@ -217,7 +217,7 @@ ul, ol { padding: 0; }
 .stage__spin:hover { transform: scale(1.1); background: rgb(200 155 60 / 18%); }
 /* Device: a front face plus stacked slices behind it give real thickness when it rotates. */
 .device { --w: clamp(170px, 19vw, 262px); --h: calc(var(--w) * 2.083); --r: 34px; position: relative; width: var(--w); height: var(--h); transform-style: preserve-3d; }
-.device--wide { --w: clamp(260px, 34vw, 500px); --h: calc(var(--w) * 0.473); --r: 14px; }
+.device--wide { --w: clamp(260px, 34vw, 500px); --h: calc(var(--w) * 0.552); --r: 14px; }
 .device:not(.is-active), .info:not(.is-active) { visibility: hidden; }
 .device__slices i, .device__face { position: absolute; inset: 0; border-radius: var(--r); }
 .device__slices i { transform: translateZ(calc(var(--i) * -1.4px)); background: linear-gradient(135deg, #5a5a62, #1f1f23); }

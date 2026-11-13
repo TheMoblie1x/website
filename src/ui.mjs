@@ -68,7 +68,7 @@ export const productCard = (p) => {
     const shots = p.shots && p.shots.length && p.icon
         ? `<div class="product__shots">${p.shots.slice(0, 3).map((s, i) => phone(s, `${p.name} app screenshot ${i + 1}`)).join('')}</div>`
         : p.shots && p.shots.length
-            ? `<div class="product__shots product__shots--wide">${picture(p.shots[0], `${p.name} home page`, 1200, 567)}</div>`
+            ? `<div class="product__shots product__shots--wide">${picture(p.shots[0], `${p.name} home page`, 1200, 662)}</div>`
             : '';
     const links = [
         p.case && link({ href: p.case, label: 'Case study', loc: 'case-study' }),
@@ -148,7 +148,7 @@ const SLICES = 9;
 const stageBadge = (p) => (p.play && p.appStore ? 'Live on Google Play & App Store' : p.play ? 'Live on Google Play' : 'Live on the web');
 const stageDevice = (p, i) => {
     const wide = !p.icon;
-    const face = wide ? picture(p.shots[0], `${p.name} home page`, 1200, 568, i > 0) : picture(p.shots[0], `${p.name} app screenshot`, 640, 1334, i > 0);
+    const face = wide ? picture(p.shots[0], `${p.name} home page`, 1200, 662, i > 0) : picture(p.shots[0], `${p.name} app screenshot`, 640, 1334, i > 0);
     return `<div class="device device--${wide ? 'wide' : 'phone'}${i === 0 ? ' is-active' : ''}" data-index="${i}"><div class="device__slices" aria-hidden="true">${Array.from({ length: SLICES }, (_, n) => `<i style="--i:${n + 1}"></i>`).join('')}</div><div class="device__face">${face}</div></div>`;
 };
 export const heroStage = (products) => `<div class="stage" id="stage" aria-roledescription="carousel" aria-label="Products Mobile1X has shipped">

@@ -73,7 +73,7 @@ export const PRODUCTS = {
         tag: 'E-commerce · Web',
         summary: 'A full-featured e-commerce web app, from browse to checkout.',
         web: 'https://thea2zcollection.com',
-        shots: ['/assets/a2z/home.webp', '/assets/a2z/product.webp'],
+        shots: ['/assets/a2z/home.webp', '/assets/a2z/product.webp', '/assets/a2z/listing.webp', '/assets/a2z/checkout.webp', '/assets/a2z/cart.webp', '/assets/a2z/reviews.webp', '/assets/a2z/footer.webp'],
         case: '/work/a2z/',
     },
     pos: {

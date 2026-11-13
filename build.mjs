@@ -102,7 +102,7 @@ ${POSTS.map((p) => `- [${p.title}](${SITE.url}/blog/${p.slug}/): ${p.description
 `);
 
 // Brand mark (used as logo, favicon and in Organization schema).
-const mark = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4C15D"/><stop offset="1" stop-color="#C89B3C"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#g)"/><g fill="none" stroke="#050505" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11.5 10.5 9v14"/><path d="M15.5 12.5 24.5 22M24.5 12.5 15.5 22"/></g></svg>\n';
+const mark = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0A0A0A"/><text x="16" y="22" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="17" letter-spacing="-0.5"><tspan fill="#FFD600">1</tspan><tspan fill="#FFFFFF">x</tspan></text></svg>\n';
 write('assets/logo.svg', mark);
 write('assets/favicon.svg', mark);
 
