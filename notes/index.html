@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script src="assets/js/analytics.js"></script>
   <script defer src="assets/js/track.js"></script>
+  <script>
+    /* Set the theme before first paint so there is no flash. Saved choice wins, then the device setting. */
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('app-theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.classList.add('js');
+    })();
+  </script>
 
   <title>Notes by Mobile1X — Voice, handwriting and text notes for Android & iPhone</title>
   <meta name="description" content="Notes lets you write, dictate in Hindi and English, or photograph handwriting. It sorts your notes for you and keeps them on your phone. For Android and iPhone, by Mobile1X." />
   <link rel="canonical" href="https://mobile1x.com/notes/" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Mobile1X" />
-  <meta name="theme-color" content="#050811" />
+  <meta name="theme-color" content="#0D1013" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Notes by Mobile1X — Voice, handwriting and text notes for Android & iPhone" />
   <meta property="og:description" content="Write, dictate in Hindi and English, or photograph handwriting. Notes sorts it for you. For Android and iPhone." />
@@ -26,46 +36,304 @@
   <meta name="twitter:description" content="Write, dictate in Hindi and English, or photograph handwriting. Notes sorts it for you. For Android and iPhone." />
   <meta name="twitter:image" content="https://mobile1x.com/assets/apps/notes/shot1.png" />
   <meta name="twitter:image:alt" content="Mobile1X Notes app on an Android phone" />
+  <link rel="icon" href="/assets/apps/notes/icon.webp" type="image/webp" />
+  <link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high" />
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Notes",
-    "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Android, iOS",
-    "description": "Notes lets you write, dictate in Hindi and English, or photograph handwriting, and keeps your notes on your phone. For Android and iPhone.",
-    "url": "https://mobile1x.com/notes/",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Mobile1X",
-      "url": "https://mobile1x.com/"
-    }
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Notes - Voice Record & AI",
+        "alternateName": "Notes by Mobile1X",
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": "Android, iOS",
+        "description": "Notes lets you write, dictate in Hindi and English, or photograph handwriting, and keeps your notes on your phone. For Android and iPhone.",
+        "url": "https://mobile1x.com/notes/",
+        "image": "https://mobile1x.com/assets/apps/notes/icon.png",
+        "installUrl": [
+          "https://play.google.com/store/apps/details?id=com.rp.notes",
+          "https://apps.apple.com/us/app/notes-voice-record-ai/id6798175378"
+        ],
+        "publisher": { "@type": "Organization", "name": "Mobile1X", "url": "https://mobile1x.com/" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Which languages does voice notes support?", "acceptedAnswer": { "@type": "Answer", "text": "Hindi and English. You can speak in either, or mix both in one sentence." } },
+          { "@type": "Question", "name": "Is Notes available on both Android and iPhone?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Notes is on Google Play for Android and on the App Store for iPhone." } },
+          { "@type": "Question", "name": "Where are my notes stored?", "acceptedAnswer": { "@type": "Answer", "text": "On your phone. You can lock individual notes behind your biometrics." } },
+          { "@type": "Question", "name": "Can I search handwriting?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Photograph a page or whiteboard and the text becomes searchable and editable inside the note." } },
+          { "@type": "Question", "name": "What is Magic Sort?", "acceptedAnswer": { "@type": "Answer", "text": "Magic Sort categorizes your notes as you write them, so you don't build folders or remember tags." } }
+        ]
+      }
+    ]
   }
   </script>
 
-  <!-- Tailwind CSS CDN with Class-based Dark Mode -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="assets/js/notes-tailwind-config.js"></script>
-  
-  <!-- React, ReactDOM, Babel -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
-  <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/notes.css">
 </head>
-<body class="bg-[#F8FAFC] dark:bg-[#050811] text-slate-900 dark:text-slate-100 overflow-x-hidden antialiased selection:bg-indigo-600 selection:text-white">
-  <div id="root"></div>
-  <noscript>
-    <h1>Notes by Mobile1X — Voice, handwriting and text notes for Android &amp; iPhone</h1>
-    <p>Notes is an app by Mobile1X for writing, dictating in Hindi and English, and photographing handwriting. Visit <a href="https://mobile1x.com/">mobile1x.com</a> to learn more.</p>
-  </noscript>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <script type="text/babel" src="assets/js/notes-app.jsx"></script>
+  <header class="nav" data-loc="nav">
+    <div class="wrap nav__in">
+      <a href="#top" class="brand" aria-label="Notes by Mobile1X, back to top">
+        <img src="/assets/apps/notes/icon.webp" alt="" width="36" height="36" class="brand__icon">
+        <span class="brand__name">Notes</span>
+        <span class="brand__by">by Mobile1X</span>
+      </a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a href="blogs/">Blog</a>
+      </nav>
+      <div class="nav__actions">
+        <button type="button" class="theme" id="theme-toggle" aria-label="Switch colour theme">
+          <span class="theme__dark">Light</span><span class="theme__light">Dark</span>
+        </button>
+        <a href="#download" class="btn btn--sm" id="nav-cta" data-store-cta>Get the app</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 1. Hero -->
+    <section class="hero" id="hero" data-loc="hero">
+      <div class="wrap hero__in" id="top">
+        <div class="hero__copy">
+          <p class="pill"><span class="pill__dot"></span>Android &amp; iPhone &middot; Hindi + English voice notes</p>
+          <h1 class="display">Say it. Snap it.<br><em>Notes files it for you.</em></h1>
+          <p class="lead">Dictate in Hindi, English, or both in one sentence. Photograph handwriting and get text you can search. Magic Sort puts every note where it belongs, so you never build another folder.</p>
+          <div class="badges" data-badges>
+            <a class="badge badge--apple" href="https://apps.apple.com/us/app/notes-voice-record-ai/id6798175378" target="_blank" rel="noopener noreferrer" aria-label="Download Notes on the App Store">
+              <img src="assets/img/app-store-badge.svg" alt="Download on the App Store" width="150" height="50">
+            </a>
+            <a class="badge badge--play" href="https://play.google.com/store/apps/details?id=com.rp.notes" target="_blank" rel="noopener noreferrer" aria-label="Get Notes on Google Play">
+              <img src="assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250">
+            </a>
+          </div>
+          <ul class="ticks">
+            <li>Notes stay on your phone</li>
+            <li>Lock private notes with biometrics</li>
+            <li>Same app on Android and iPhone</li>
+          </ul>
+        </div>
+        <div class="hero__visual" aria-hidden="false">
+          <div class="glow"></div>
+          <img class="phone phone--back" src="/assets/apps/notes/shot2.webp" alt="Editing a note in Notes, with the toolbar for photos, drawing, voice and scanning" width="640" height="1331" loading="lazy">
+          <img class="phone phone--front" src="/assets/apps/notes/shot1.webp" alt="The Notes home screen with a collection of voice memos and a search bar" width="640" height="1331" fetchpriority="high">
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. The problem -->
+    <section class="section section--tight" id="problem" data-loc="problem">
+      <div class="wrap">
+        <header class="head head--center reveal">
+          <p class="eyebrow">Sound familiar?</p>
+          <h2 class="h2">Good ideas get lost in the gap between thinking and typing.</h2>
+        </header>
+        <div class="cards3">
+          <article class="card reveal">
+            <h3>The thought you'll "type later"</h3>
+            <p>It's gone by the time you find a free hand. Speaking takes two seconds.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Pages you can't search</h3>
+            <p>A notebook full of handwriting is a notebook you can't look anything up in.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Folders you never open</h3>
+            <p>Filing is homework. If it takes effort, notes pile up unsorted.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Features, as three ways in -->
+    <section class="section" id="features" data-loc="features">
+      <div class="wrap">
+        <header class="head reveal">
+          <p class="eyebrow">One app, three ways in</p>
+          <h2 class="h2">Capture it however it arrives.</h2>
+        </header>
+
+        <div class="tabs reveal" data-tabs>
+          <div class="tabs__list" role="tablist" aria-label="Ways to capture a note">
+            <button type="button" role="tab" id="tab-speak" aria-controls="panel-speak" aria-selected="true" data-feature="speak">Speak</button>
+            <button type="button" role="tab" id="tab-scan" aria-controls="panel-scan" aria-selected="false" tabindex="-1" data-feature="scan">Scan</button>
+            <button type="button" role="tab" id="tab-sort" aria-controls="panel-sort" aria-selected="false" tabindex="-1" data-feature="sort">Sort</button>
+          </div>
+
+          <div class="tabs__panel" role="tabpanel" id="panel-speak" aria-labelledby="tab-speak">
+            <div class="tabs__copy">
+              <h3 class="h3">Talk. It writes.</h3>
+              <p>Dictate in Hindi, in English, or both in the same sentence. Your words appear as you speak, and Notes keeps up when you switch language halfway through.</p>
+              <ul class="checks">
+                <li>Hindi, English, or mixed</li>
+                <li>Text appears as you speak</li>
+                <li>Switch languages mid-sentence</li>
+              </ul>
+            </div>
+            <img class="tabs__shot" src="/assets/apps/notes/shot3.webp" alt="The Notes capture screen with the prompt 'Speak or type your thought'" width="640" height="1331" loading="lazy">
+          </div>
+
+          <div class="tabs__panel" role="tabpanel" id="panel-scan" aria-labelledby="tab-scan" hidden>
+            <div class="tabs__copy">
+              <h3 class="h3">Photograph it. Search it.</h3>
+              <p>Point the camera at handwriting or a whiteboard. The text is pulled out of the photo, so it's searchable and editable like anything you typed.</p>
+              <ul class="checks">
+                <li>Handwriting and whiteboards</li>
+                <li>Searchable and editable text</li>
+                <li>Lives inside the note, not as a flat image</li>
+              </ul>
+            </div>
+            <img class="tabs__shot" src="/assets/apps/notes/shot2.webp" alt="Editing a note in Notes, with the toolbar for photos, drawing, voice and scanning" width="640" height="1331" loading="lazy">
+          </div>
+
+          <div class="tabs__panel" role="tabpanel" id="panel-sort" aria-labelledby="tab-sort" hidden>
+            <div class="tabs__copy">
+              <h3 class="h3">Magic Sort does the filing.</h3>
+              <p>Notes categorize themselves as you write. There are no folders to maintain and no tags to remember, so your collection stays tidy without you.</p>
+              <ul class="checks">
+                <li>Categorizes as you write</li>
+                <li>No folders to maintain</li>
+                <li>No tags to remember</li>
+              </ul>
+            </div>
+            <img class="tabs__shot" src="/assets/apps/notes/shot1.webp" alt="The Notes home screen with a collection of voice memos and a search bar" width="640" height="1331" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. How it works -->
+    <section class="section section--alt" id="how-it-works" data-loc="how-it-works">
+      <div class="wrap">
+        <header class="head head--center reveal">
+          <p class="eyebrow">How it works</p>
+          <h2 class="h2">From thought to findable in three steps.</h2>
+        </header>
+        <ol class="steps">
+          <li class="step reveal"><span class="step__n">1</span><h3>Capture</h3><p>Type it, say it, or photograph it. Whatever is fastest right now.</p></li>
+          <li class="step reveal"><span class="step__n">2</span><h3>Let it sort</h3><p>Magic Sort files the note as you write. You do nothing.</p></li>
+          <li class="step reveal"><span class="step__n">3</span><h3>Find it</h3><p>Search by what's in the note, including text read from your photos.</p></li>
+        </ol>
+
+        <div class="extras reveal">
+          <h3 class="extras__title">Everything else a notes app should do</h3>
+          <ul class="extras__grid">
+            <li><strong>Reminders</strong><span>Attach one to any note.</span></li>
+            <li><strong>Locked notes</strong><span>Keep private ones behind your biometrics.</span></li>
+            <li><strong>Archive</strong><span>Put finished notes away without deleting them.</span></li>
+            <li><strong>Share</strong><span>Send a note out when you need to.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Privacy -->
+    <section class="section" id="privacy" data-loc="privacy">
+      <div class="wrap privacy reveal">
+        <div class="privacy__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><circle cx="12" cy="15.5" r="1.2" fill="currentColor"/></svg>
+        </div>
+        <div>
+          <p class="eyebrow">Your notes stay yours</p>
+          <h2 class="h2">Kept on your phone, behind your lock.</h2>
+          <p class="lead">Notes are stored on your device, and you can lock any of them with your biometrics. Read the <a href="/privacy/">privacy policy</a> for the details.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Who it's for -->
+    <section class="section section--alt" id="use-cases" data-loc="use-cases">
+      <div class="wrap">
+        <header class="head head--center reveal">
+          <p class="eyebrow">Made for real days</p>
+          <h2 class="h2">For people who think in more than one language.</h2>
+        </header>
+        <div class="cards3">
+          <article class="card reveal">
+            <h3>In the lecture hall</h3>
+            <p>Photograph the whiteboard before it's wiped, then search it the night before the exam.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Between meetings</h3>
+            <p>Dictate the follow-up while you walk. Say it in Hindi, English, or whichever comes out first.</p>
+          </article>
+          <article class="card reveal">
+            <h3>At home</h3>
+            <p>Shopping lists, recipes and reminders, all in one place and sorted without you lifting a finger.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FAQ -->
+    <section class="section" id="faq" data-loc="faq">
+      <div class="wrap wrap--narrow">
+        <header class="head head--center reveal">
+          <p class="eyebrow">Questions</p>
+          <h2 class="h2">Quick answers.</h2>
+        </header>
+        <div class="faq reveal">
+          <details><summary>Which languages does voice notes support?</summary><p>Hindi and English. Speak in either, or mix both in one sentence.</p></details>
+          <details><summary>Is Notes on both Android and iPhone?</summary><p>Yes. Get it on Google Play for Android or the App Store for iPhone.</p></details>
+          <details><summary>Where are my notes stored?</summary><p>On your phone. You can lock individual notes behind your biometrics.</p></details>
+          <details><summary>Can I search my handwriting?</summary><p>Yes. Photograph a page or whiteboard and the text becomes searchable and editable inside the note.</p></details>
+          <details><summary>What is Magic Sort?</summary><p>It categorizes your notes as you write them, so you don't have to build folders or remember tags.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Final call to action -->
+    <section class="section section--cta" id="download" data-loc="download">
+      <div class="wrap">
+        <div class="cta reveal">
+          <img src="/assets/apps/notes/icon.webp" alt="Notes app icon" width="80" height="80" class="cta__icon" loading="lazy">
+          <h2 class="display display--sm">Get the next thought down.</h2>
+          <p class="lead">Notes is on Android and iPhone. Install it, say the first thing on your mind, and see it written.</p>
+          <div class="badges badges--center" data-badges>
+            <a class="badge badge--apple" href="https://apps.apple.com/us/app/notes-voice-record-ai/id6798175378" target="_blank" rel="noopener noreferrer" aria-label="Download Notes on the App Store">
+              <img src="assets/img/app-store-badge.svg" alt="Download on the App Store" width="150" height="50" loading="lazy">
+            </a>
+            <a class="badge badge--play" href="https://play.google.com/store/apps/details?id=com.rp.notes" target="_blank" rel="noopener noreferrer" aria-label="Get Notes on Google Play">
+              <img src="assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot" data-loc="footer">
+    <div class="wrap foot__in">
+      <p>&copy; 2026 Mobile1X. Notes is an app by <a href="/">Mobile1X</a>.</p>
+      <nav aria-label="Footer">
+        <a href="https://apps.apple.com/us/app/notes-voice-record-ai/id6798175378" target="_blank" rel="noopener noreferrer">App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.rp.notes" target="_blank" rel="noopener noreferrer">Google Play</a>
+        <a href="blogs/">Blog</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Sticky install bar: small screens only, appears once the hero has scrolled away -->
+  <div class="sticky" id="sticky" data-loc="sticky" hidden>
+    <img src="/assets/apps/notes/icon.webp" alt="" width="40" height="40">
+    <div class="sticky__txt"><strong>Notes</strong><span>Voice, scan &amp; auto-sort</span></div>
+    <a class="btn btn--sm" href="#download" id="sticky-cta" data-store-cta>Get the app</a>
+  </div>
+
+  <noscript><p class="wrap" style="padding:1rem 0">Notes by Mobile1X is on <a href="https://play.google.com/store/apps/details?id=com.rp.notes">Google Play</a> and the <a href="https://apps.apple.com/us/app/notes-voice-record-ai/id6798175378">App Store</a>.</p></noscript>
+  <script defer src="assets/js/notes.js"></script>
 </body>
 </html>

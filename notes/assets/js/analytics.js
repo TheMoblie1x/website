@@ -53,8 +53,18 @@
     { host: 'producthunt.com', event: 'product_hunt_click' }
   ];
 
-  // Which of the (repeated) store buttons was clicked: nav, footer, a section id, else the hero.
+  // Visitor's device family, for store clicks and landing events: 'ios', 'android' or 'desktop'.
+  window.m1xDeviceOS = function () {
+    var ua = navigator.userAgent || '';
+    if (/android/i.test(ua)) return 'android';
+    if (/iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1)) return 'ios';
+    return 'desktop';
+  };
+
+  // Which of the (repeated) store buttons was clicked: an explicit data-loc, nav, footer, a section id, else the hero.
   function linkLocation(link) {
+    var tagged = link.closest('[data-loc]');
+    if (tagged) return tagged.getAttribute('data-loc');
     if (link.closest('header')) return 'nav';
     if (link.closest('footer')) return 'footer';
     var section = link.closest('section[id]');
@@ -67,29 +77,24 @@
     var href = link.href || '';
     for (var i = 0; i < OUTBOUND.length; i++) {
       if (href.indexOf(OUTBOUND[i].host) !== -1) {
-        window.m1xTrack(OUTBOUND[i].event, { link_url: href, link_domain: OUTBOUND[i].host, link_location: linkLocation(link) });
+        var params = { link_url: href, link_domain: OUTBOUND[i].host, link_location: linkLocation(link), device_os: window.m1xDeviceOS() };
+        if (/com\.rp\.notes|id6798175378/.test(href)) params.app_name = 'notes';
+        else if (/com\.rp\.dedup|id6814824281/.test(href)) params.app_name = 'dedup';
+        window.m1xTrack(OUTBOUND[i].event, params);
         return;
       }
     }
   }, true);
 
-  // --- Landing-page demo: which parts of the product do visitors try? Counts only, never what they type. ---
+  // --- Declarative events: <a|button data-track="event_name" data-track-foo="bar"> reports event_name with foo=bar. ---
   document.addEventListener('click', function (e) {
-    var button = e.target.closest && e.target.closest('button');
-    if (!button) return;
-    if (button.getAttribute('aria-label') === 'Toggle Dark and Light Mode') {
-      window.m1xTrack('theme_toggle', { theme_after: document.documentElement.classList.contains('dark') ? 'light' : 'dark' });
-    } else if (/^(HOME|SEARCH|ARCHIVE|SETTINGS)$/.test(button.textContent.trim())) { // the phone mockup's tab bar
-      window.m1xTrack('demo_tab_click', { tab: button.textContent.trim().toLowerCase() });
-    }
-  }, true);
-
-  var searchTimer;
-  document.addEventListener('input', function (e) {
-    if (!e.target.closest || !e.target.closest('#interactive-search')) return;
-    var length = e.target.value.length;
-    clearTimeout(searchTimer);
-    searchTimer = setTimeout(function () { window.m1xTrack('demo_search', { query_length: length }); }, 800);
+    var el = e.target.closest && e.target.closest('[data-track]');
+    if (!el) return;
+    var params = { link_location: linkLocation(el), device_os: window.m1xDeviceOS() };
+    Array.prototype.forEach.call(el.attributes, function (attr) {
+      if (attr.name.indexOf('data-track-') === 0) params[attr.name.slice(11).replace(/-/g, '_')] = attr.value;
+    });
+    window.m1xTrack(el.getAttribute('data-track'), params);
   }, true);
 
   // --- Consent UI (self-contained: these pages use their own Tailwind styling) ---
