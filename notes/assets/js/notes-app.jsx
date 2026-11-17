@@ -6,6 +6,9 @@
       playStore: "https://play.google.com/store/apps/details?id=com.rp.notes"
     };
 
+    // App icon, same file the Mobile1X home page uses.
+    const APP_ICON = "/assets/apps/notes/icon.webp";
+
     // Real screenshots from the app (already framed). Same files the Mobile1X home page uses.
     const SHOTS = {
       home: { src: "/assets/apps/notes/shot1.webp", alt: "The Notes home screen with a collection of voice memos and a search bar" },
@@ -88,9 +91,12 @@
           {/* Header */}
           <header className="sticky top-0 z-30 border-b border-slate-200 bg-[#F8FAFC]/90 backdrop-blur dark:border-slate-800 dark:bg-[#050811]/90">
             <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-              <a href="#top" className="flex items-baseline gap-2">
-                <span className="text-xl font-bold tracking-tight">Notes</span>
-                <span className="text-sm text-slate-500 dark:text-slate-400">by Mobile1X</span>
+              <a href="#top" className="flex items-center gap-3">
+                <img src={APP_ICON} alt="Notes app icon" width="36" height="36" className="h-9 w-9 rounded-xl" />
+                <span className="flex items-baseline gap-2">
+                  <span className="text-xl font-bold tracking-tight">Notes</span>
+                  <span className="text-sm text-slate-500 dark:text-slate-400">by Mobile1X</span>
+                </span>
               </a>
               <nav aria-label="Main" className="flex items-center gap-5 text-sm text-slate-600 dark:text-slate-300">
                 <a href="#what-it-does" className="hidden hover:text-slate-900 dark:hover:text-white sm:inline">What it does</a>
@@ -110,7 +116,13 @@
             {/* Hero */}
             <section className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 md:py-24 lg:grid-cols-2">
               <div className="space-y-6">
-                <Eyebrow>For Android and iPhone</Eyebrow>
+                <div className="flex items-center gap-4">
+                  <img src={APP_ICON} alt="Notes app icon" width="72" height="72" className="h-[72px] w-[72px] rounded-2xl shadow-lg" />
+                  <div>
+                    <p className="text-lg font-bold leading-tight">Notes - Voice Record &amp; AI</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">For Android and iPhone, by Mobile1X</p>
+                  </div>
+                </div>
                 <h1 className="font-serif-custom text-5xl font-bold leading-[1.05] tracking-tight md:text-6xl">
                   Write it, say it, or snap it. Find it later.
                 </h1>
@@ -180,6 +192,7 @@
             {/* Download */}
             <section id="download" className="px-6 pb-20">
               <div className="mx-auto max-w-4xl rounded-3xl bg-slate-900 px-8 py-14 text-center text-white dark:bg-slate-900/80 dark:ring-1 dark:ring-slate-700">
+                <img src={APP_ICON} alt="Notes app icon" width="80" height="80" className="mx-auto mb-5 h-20 w-20 rounded-[22px] shadow-lg" />
                 <h2 className="font-serif-custom text-4xl font-bold tracking-tight md:text-5xl">Get Notes</h2>
                 <p className="mx-auto mt-3 max-w-md text-slate-300">Available on Android and iPhone.</p>
                 <StoreBadges className="mt-8 justify-center" />
