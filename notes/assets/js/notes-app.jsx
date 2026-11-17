@@ -2,7 +2,7 @@
 
     // --- Store links ---
     const STORE_LINKS = {
-      appStore: "https://apps.apple.com/us/app/notes-archive-reflect/id6798175378",
+      appStore: "https://apps.apple.com/us/app/notes-voice-record-ai/id6798175378",
       playStore: "https://play.google.com/store/apps/details?id=com.rp.notes"
     };
 
