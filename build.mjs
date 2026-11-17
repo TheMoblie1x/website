@@ -10,6 +10,7 @@ import { WORK } from './src/content/work.mjs';
 import { POSTS } from './src/content/posts.mjs';
 import { home, servicePage, workPage, blogIndex, postPage } from './src/pages.mjs';
 import { syncForm } from './src/google-form.mjs';
+import { notesBlogPages } from './src/notes-blog.mjs';
 import { about, privacy, terms, notFound, pharma, magnet, MAGNETS, storePlatform } from './src/pages-static.mjs';
 
 if (process.argv.includes('--sync-form')) { console.log('Google Form snapshot updated:', JSON.stringify(await syncForm())); console.log('Run "node build.mjs" again to rebuild pages from it.'); process.exit(0); }
@@ -27,6 +28,10 @@ for (const p of pages) write(p.path === '/' ? 'index.html' : p.path.endsWith('.h
 // The Notes pages are hand-written and also load the tracker; copy it so assets/js/track.js stays the only source.
 copyFileSync(join(root, 'assets/js/track.js'), join(root, 'notes/assets/js/track.js'));
 
+// Notes blog: pre-rendered from notes/blogs/data/posts.json (the studio's output).
+const notesBlog = notesBlogPages();
+for (const p of notesBlog) write(p.file, p.html);
+
 // Sitemap: same-host, canonical, indexable URLs only. A URL's <lastmod> moves only when its content does:
 // src/lastmod.json remembers each page's content hash (asset ?v= hashes stripped) and the date it last changed.
 const LASTMOD_FILE = join(root, 'src/lastmod.json');
@@ -40,7 +45,7 @@ const modified = (path, html) => {
 const entries = [
     ...pages.filter((p) => p.indexable !== false).map((p) => [p.path, p.html]),
     ['/notes/', readFileSync(join(root, 'notes/index.html'), 'utf8')], // hand-written Notes pages
-    ['/notes/blogs/', readFileSync(join(root, 'notes/blogs/index.html'), 'utf8')],
+    ...notesBlog.map((p) => [p.path, p.html]),
     ['/english/', readFileSync(join(root, 'english/index.html'), 'utf8')], // BhashaSetu, a separately built web app
 ].map(([path, html]) => [path, modified(path, html)]);
 writeFileSync(LASTMOD_FILE, `${JSON.stringify(lastmod, null, 2)}\n`);

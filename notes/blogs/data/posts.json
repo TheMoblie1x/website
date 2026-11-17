@@ -1,16 +1,153 @@
 {
   "posts": [
     {
-      "id": "1756456800000",
-      "type": "blog",
-      "title": "Welcome to the Notes blog",
-      "slug": "welcome-to-the-notes-blog",
-      "platforms": ["android", "ios", "web"],
-      "excerpt": "Guides, release notes, and tips for getting more out of Notes by Mobile1X.",
-      "thumbnail": "",
+      "id": "1763340000000",
+      "type": "howto",
+      "title": "How to create a note in Notes for Android",
+      "slug": "how-to-create-a-note-in-notes-for-android",
+      "platforms": [
+        "android"
+      ],
+      "excerpt": "Add a new note from the Home screen: tap +, choose Note, write, and save.",
+      "thumbnail": "/assets/apps/notes/shot2.webp",
       "youtubeUrl": "",
-      "body": "## Why this blog exists\n\nNotes is built to stay out of your way. This blog is where we share the small things that make it faster to use — keyboard shortcuts, sync tips, organisation ideas — plus what changed in each release.\n\n## What to expect\n\n- **How-to videos** for Android, iOS, and Web, each under two minutes.\n- **Written guides** for the workflows that don't fit in a short clip.\n- **Release notes** whenever something ships.\n\nUse the platform filter at the top of the [blog home](./) to see only what applies to the device you're on.\n\n_This is a sample post. Delete it from the editor once you've published your own._",
-      "date": "2026-08-29",
+      "body": "A new note takes four taps and a few words. This guide walks through it on Android.\n\n## Before you start\n\nInstall Notes from [Google Play](https://play.google.com/store/apps/details?id=com.rp.notes) and open it. You start on **Home**, where your notes and folders live.\n\n## Steps\n\n1. Tap the round **+** button at the bottom right of Home. A menu opens with four choices: **Recording**, **Drawing**, **Scan** and **Note**.\n2. Tap **Note**. A blank note opens. The title field says \"Untitled Thought\" and the body says \"Begin your narrative here...\".\n3. Type a title, then write your note. The date and a live word count sit above the title.\n4. Tap the round **Save** button (the check mark) at the bottom right.\n\nYour note now appears on Home.\n\n## Good to know\n\n- The bar above the bottom tabs has **Bold**, **Italic** and **List**. Swipe it left to reach **Image**, **Draw**, **Record**, **Scan** and **Video**.\n- The star at the top right marks the note as a favourite.\n- The top bar also holds **Share**, **Reminder** and **Lock**, covered in the guides below.\n\n## Related guides\n\n- [How to record a voice note](/notes/blogs/how-to-record-a-voice-note-in-notes-for-android/)\n- [How to lock a note](/notes/blogs/how-to-lock-a-note-in-notes-for-android/)\n- [How to set a reminder on a note](/notes/blogs/how-to-set-a-reminder-on-a-note-in-notes-for-android/)",
+      "date": "2026-11-10",
+      "published": true
+    },
+    {
+      "id": "1763340001000",
+      "type": "howto",
+      "title": "How to record a voice note in Notes for Android",
+      "slug": "how-to-record-a-voice-note-in-notes-for-android",
+      "platforms": [
+        "android"
+      ],
+      "excerpt": "Speak instead of typing, in Hindi, English or both in one sentence.",
+      "thumbnail": "/assets/apps/notes/shot3.webp",
+      "youtubeUrl": "",
+      "body": "Notes can take a note from your voice. It understands Hindi and English, so you can speak in either one, or mix both in a single sentence.\n\n## Two ways to start\n\n**From Home**\n\n1. Tap the round **+** button.\n2. Tap **Recording**.\n\n**From inside a note**\n\n1. Open or create a note.\n2. Tap **Record** in the toolbar above the bottom tabs. Swipe the toolbar left if you do not see it.\n\n## Record\n\n1. If Android asks to let Notes use the microphone, allow it. Notes needs it to hear you.\n2. Speak naturally. A live waveform shows that Notes is listening.\n3. When you are finished, stop the recording and tap **Save**.\n\nA saved voice note shows on Home with a **Play Note** button, so you can listen back without opening it.\n\n## Change how the waveform looks\n\nOpen **Settings** and scroll to **Recording Waveform**. You can pick **Flowing Wave**, **Equalizer Bars** or **Pulse Dots**.\n\n## Tips\n\n- Speak in short sentences. They are easier to read back later.\n- You do not need to switch languages in a setting. Say it the way you would say it out loud.\n\n## Related guides\n\n- [How to create a note](/notes/blogs/how-to-create-a-note-in-notes-for-android/)\n- [How to change the look of Notes](/notes/blogs/how-to-change-the-look-of-notes-on-android/)",
+      "date": "2026-11-10",
+      "published": true
+    },
+    {
+      "id": "1763340002000",
+      "type": "howto",
+      "title": "How to turn a photo of handwriting into text in Notes for Android",
+      "slug": "how-to-turn-handwriting-into-text-in-notes-for-android",
+      "platforms": [
+        "android"
+      ],
+      "excerpt": "Scan a page or whiteboard photo so the words become text you can search and edit.",
+      "thumbnail": "/assets/apps/notes/shot2.webp",
+      "youtubeUrl": "",
+      "body": "Handwritten pages and whiteboards are hard to search. Scan fixes that: pick a photo, and Notes reads the text into the note.\n\n## Before you start\n\n**Scan** opens your phone's photo picker, so take the photo first with your camera app. Make it a good one:\n\n- Use even light and avoid shadows across the page.\n- Hold the phone square to the page so the lines are straight.\n- Fill the frame with the writing, and keep the page flat.\n\n## Steps\n\n1. Tap the round **+** button on Home, then tap **Scan**. You can also open a note and tap **Scan** in the toolbar above the bottom tabs.\n2. Your photo picker opens. Choose the photo of the handwriting or whiteboard.\n3. Wait a moment for Notes to read the photo.\n4. Check the text, fix anything it misread, and tap **Save**.\n\n## After scanning\n\nThe text is part of the note, not a flat picture. You can edit it, add to it, and find it later with Search.\n\n## If a word comes out wrong\n\nNeat, dark handwriting on plain paper reads best. If a page gives you trouble, retake the photo with better light and try again.\n\n## Related guides\n\n- [How to create a note](/notes/blogs/how-to-create-a-note-in-notes-for-android/)\n- [A tour of Notes for Android](/notes/blogs/a-tour-of-notes-for-android/)",
+      "date": "2026-11-11",
+      "published": true
+    },
+    {
+      "id": "1763340003000",
+      "type": "howto",
+      "title": "How to lock a note in Notes for Android",
+      "slug": "how-to-lock-a-note-in-notes-for-android",
+      "platforms": [
+        "android"
+      ],
+      "excerpt": "Protect a private note so it opens only with your biometrics.",
+      "thumbnail": "/assets/apps/notes/shot1.webp",
+      "youtubeUrl": "",
+      "body": "Some notes are private. Locking a note keeps it behind your biometrics.\n\n## Before you start\n\nSet up fingerprint or face unlock in your Android settings first. Notes uses your phone's biometrics to unlock protected notes.\n\n## Lock a note\n\n1. Open the note you want to protect.\n2. Tap the **Lock** icon in the top bar, next to **Share** and **Reminder**.\n3. Tap **Save** to keep the note.\n\n## How a locked note looks\n\nOn Home, a locked note shows as **Protected Note**, with the line \"This note is encrypted and locked. Tap to unlock.\" Its contents stay hidden until you unlock it.\n\n## Open it later\n\n1. Tap the locked note on Home.\n2. Unlock with your biometrics.\n\n## Good to know\n\n- Lock only the notes that need it. Everything else stays quick to open.\n- Notes is offline-first, so your notes are kept on your device.\n\n## Related guides\n\n- [How to create a note](/notes/blogs/how-to-create-a-note-in-notes-for-android/)\n- [How to set a reminder on a note](/notes/blogs/how-to-set-a-reminder-on-a-note-in-notes-for-android/)",
+      "date": "2026-11-12",
+      "published": true
+    },
+    {
+      "id": "1763340004000",
+      "type": "howto",
+      "title": "How to set a reminder on a note in Notes for Android",
+      "slug": "how-to-set-a-reminder-on-a-note-in-notes-for-android",
+      "platforms": [
+        "android"
+      ],
+      "excerpt": "Attach a reminder to any note so it comes back to you when you need it.",
+      "thumbnail": "/assets/apps/notes/shot2.webp",
+      "youtubeUrl": "",
+      "body": "A note is only useful if you see it at the right time. A reminder brings it back.\n\n## Steps\n\n1. Open the note, or create a new one.\n2. Tap the **Reminder** icon (the bell) in the top bar, between **Share** and **Lock**.\n3. Choose when you want to be reminded.\n4. Tap **Save**.\n\nIf Android asks to let Notes send notifications, allow it. Without that permission, a reminder cannot reach you.\n\n## Show times your way\n\nOpen **Settings** and find **Time Format**. Turn the 12-hour option on or off to choose how times appear on notes and reminders.\n\n## Tips\n\n- Put the action in the title, such as \"Call the electrician\", so the reminder tells you what to do.\n- Pair a reminder with a folder like Work or Personal so it is easy to find afterwards.\n\n## Related guides\n\n- [How to create a note](/notes/blogs/how-to-create-a-note-in-notes-for-android/)\n- [How to organise notes with folders and Magic Sort](/notes/blogs/how-to-organise-notes-with-folders-and-magic-sort/)",
+      "date": "2026-11-13",
+      "published": true
+    },
+    {
+      "id": "1763340005000",
+      "type": "howto",
+      "title": "How to organise notes with folders and Magic Sort in Notes for Android",
+      "slug": "how-to-organise-notes-with-folders-and-magic-sort",
+      "platforms": [
+        "android"
+      ],
+      "excerpt": "Use folders, the date filter and Magic Sort to keep a growing collection tidy.",
+      "thumbnail": "/assets/apps/notes/shot1.webp",
+      "youtubeUrl": "",
+      "body": "The top of the Home screen is your control panel for finding and organising notes.\n\n## What is on Home\n\n- **Magic Sort**, the wand icon beside the word \"Collection\".\n- **Filter by date**, the calendar icon at the top right.\n- **Create Folder**, the folder icon with a plus.\n- **Folder chips** such as **All**, **Personal**, **Work** and **Ideas**.\n\n## Let Magic Sort do the filing\n\nMagic Sort categorizes your notes as you write them, so you do not have to build folders or remember tags. Tap the wand beside \"Collection\" to use it.\n\n## Make your own folders\n\n1. Tap **Create Folder** at the left of the folder row.\n2. Name the folder.\n3. Tap a folder chip to see only the notes inside it. Tap **All** to see everything again.\n\n## Find notes by date\n\nTap the calendar icon to **Filter by date** and narrow the list to the day you remember writing something.\n\n## Habits that help\n\n- Keep a small number of folders. Magic Sort handles the rest.\n- Use **Search** when you remember a word from the note but not where you put it.\n\n## Related guides\n\n- [A tour of Notes for Android](/notes/blogs/a-tour-of-notes-for-android/)\n- [How to create a note](/notes/blogs/how-to-create-a-note-in-notes-for-android/)",
+      "date": "2026-11-14",
+      "published": true
+    },
+    {
+      "id": "1763340006000",
+      "type": "howto",
+      "title": "How to translate or summarize a note in Notes for Android",
+      "slug": "how-to-translate-or-summarize-a-note-in-notes-for-android",
+      "platforms": [
+        "android"
+      ],
+      "excerpt": "Find the extra actions hidden at the end of the editing toolbar.",
+      "thumbnail": "/assets/apps/notes/shot2.webp",
+      "youtubeUrl": "",
+      "body": "Notes keeps some of its most useful actions out of the way. They are at the far end of the editing toolbar.\n\n## Steps\n\n1. Open a note that already has some text in it.\n2. Look at the toolbar above the bottom tabs. It starts with **Bold**, **Italic** and **List**, then **Image**, **Draw**, **Record**, **Scan** and **Video**.\n3. Swipe the toolbar to the left. The extra actions appear: **Translate**, **Magic Format** and **Summarize**.\n4. Tap the action you want.\n\n## When to use each\n\n- **Translate** is for a note written in one language that you need in another.\n- **Summarize** is for a long note when you only need the short version.\n- **Magic Format** tidies how a note is laid out.\n\n## Tip\n\nRun these on a copy if the note matters, so you keep your original wording. Duplicate the text into a new note first.\n\n## Related guides\n\n- [How to create a note](/notes/blogs/how-to-create-a-note-in-notes-for-android/)\n- [How to record a voice note](/notes/blogs/how-to-record-a-voice-note-in-notes-for-android/)",
+      "date": "2026-11-15",
+      "published": true
+    },
+    {
+      "id": "1763340007000",
+      "type": "howto",
+      "title": "How to change the look of Notes on Android",
+      "slug": "how-to-change-the-look-of-notes-on-android",
+      "platforms": [
+        "android"
+      ],
+      "excerpt": "Pick a theme, text size, card height and more from Settings.",
+      "thumbnail": "/assets/apps/notes/shot1.webp",
+      "youtubeUrl": "",
+      "body": "Notes lets you set it up the way you like to read. All of it lives in **Settings**, the last tab on the bottom bar.\n\n## Steps\n\n1. Tap **Settings** on the bottom bar.\n2. Scroll to the option you want to change.\n\n## What you can change\n\n| Setting | What it does |\n| --- | --- |\n| **Visual Aesthetic** | Choose a theme for your notes, such as Parchment, Midnight or Forest. |\n| **Archive Layout** | Turn **List Layout** on to show notes as a list. |\n| **Time Format** | Switch the 12-hour clock on or off. |\n| **Recording Waveform** | Pick Flowing Wave, Equalizer Bars or Pulse Dots. |\n| **Note Appearance** | Set title size and body size (Small, Medium, Large) and note card height (Compact, Default, Tall). |\n| **Environment Canvas** | Choose a backdrop for your notes. |\n\n## Also in Settings\n\n- **Local Ink** shows how much storage your notes use.\n- **Export All Notes** saves a copy of your notes.\n- **Sync Now** is in the connectivity section at the top.\n\n## Tip\n\nIf your notes feel cramped, try Large body text and a Tall card height before changing the theme.\n\n## Related guides\n\n- [A tour of Notes for Android](/notes/blogs/a-tour-of-notes-for-android/)\n- [How to record a voice note](/notes/blogs/how-to-record-a-voice-note-in-notes-for-android/)",
+      "date": "2026-11-16",
+      "published": true
+    },
+    {
+      "id": "1763340008000",
+      "type": "blog",
+      "title": "Meet Notes: say it, snap it, find it",
+      "slug": "meet-notes-say-it-snap-it-find-it",
+      "platforms": [
+        "android"
+      ],
+      "excerpt": "What Notes is, who it is for, and the few ideas it is built on.",
+      "thumbnail": "/assets/apps/notes/shot1.webp",
+      "youtubeUrl": "",
+      "body": "Most notes apps ask you to be tidy. Notes asks you to be quick.\n\nIt is an app for Android and iPhone from Mobile1X, built around one idea: getting a thought down should take seconds, and finding it again should take less.\n\n## Three ways in\n\n- **Say it.** Dictate a note in Hindi, English, or both in the same sentence.\n- **Snap it.** Photograph handwriting or a whiteboard, and Notes reads the text so you can search and edit it.\n- **Type it.** Plain notes with bold, italics and lists, for the times when typing is fastest.\n\n## It files things for you\n\nMagic Sort categorizes your notes as you write them. You do not have to build a system of folders first, though you can make folders when you want them.\n\n## Your notes stay close\n\nNotes is offline-first: your notes live on your device. Notes you want to keep private can be locked behind your biometrics.\n\n## What else is in there\n\nReminders, a favourite star, read-aloud, sharing, and actions to translate or summarize a note. The [tour of Notes for Android](/notes/blogs/a-tour-of-notes-for-android/) shows where each one lives.\n\n## Get it\n\nNotes is on [Google Play](https://play.google.com/store/apps/details?id=com.rp.notes) and the [App Store](https://apps.apple.com/us/app/notes-voice-record-ai/id6798175378). If you are new, start with [how to create your first note](/notes/blogs/how-to-create-a-note-in-notes-for-android/).",
+      "date": "2026-11-17",
+      "published": true
+    },
+    {
+      "id": "1763340009000",
+      "type": "blog",
+      "title": "A tour of Notes for Android",
+      "slug": "a-tour-of-notes-for-android",
+      "platforms": [
+        "android"
+      ],
+      "excerpt": "A screen-by-screen look at Home, Search, Archive and Settings.",
+      "thumbnail": "/assets/apps/notes/shot3.webp",
+      "youtubeUrl": "",
+      "body": "Notes has four tabs along the bottom. Here is what each one is for.\n\n## Home\n\nHome is where your notes live. At the top you will find the **Magic Sort** wand, a **Filter by date** calendar, a **Create Folder** button and folder chips such as All, Personal, Work and Ideas. A short tip of the day sits above your notes.\n\nThe round **+** button opens a menu with **Recording**, **Drawing**, **Scan** and **Note**. Voice notes carry a **Play Note** button, and a star marks favourites. Locked notes show as **Protected Note**.\n\n## Search\n\nSearch is a single field that says \"Speak or type your thought...\". Use it to find a note by what is in it. If you have scanned handwriting, the text from the photo is searchable too.\n\n## Archive\n\nArchive is a timeline of your writing. It shows the current volume, and numbers such as your total characters and active days.\n\n## Settings\n\nSettings is where you shape the app: theme, list layout, time format, recording waveform, text size and card height. It also shows **Local Ink**, a meter of how much storage your notes use, and has **Export All Notes**.\n\n## Inside a note\n\nOpen any note to find **Share**, **Reminder** and **Lock** in the top bar, and a formatting toolbar along the bottom. Swipe that toolbar left for **Translate**, **Magic Format** and **Summarize**.\n\n## Where to go next\n\n- [How to create a note](/notes/blogs/how-to-create-a-note-in-notes-for-android/)\n- [How to record a voice note](/notes/blogs/how-to-record-a-voice-note-in-notes-for-android/)\n- [How to turn handwriting into text](/notes/blogs/how-to-turn-handwriting-into-text-in-notes-for-android/)\n- [How to change the look of Notes](/notes/blogs/how-to-change-the-look-of-notes-on-android/)",
+      "date": "2026-11-17",
       "published": true
     }
   ]

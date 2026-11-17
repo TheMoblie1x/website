@@ -1,6 +1,6 @@
 {
   "/": {
-    "hash": "7247c984ceeb",
+    "hash": "2598848106d1",
     "date": "2026-11-17"
   },
   "/services/mobile-app-development/": {
@@ -60,12 +60,12 @@
     "date": "2026-11-11"
   },
   "/notes/": {
-    "hash": "b129023b3c2c",
+    "hash": "5bf3d9737281",
     "date": "2026-11-17"
   },
   "/notes/blogs/": {
-    "hash": "f7c8de402959",
-    "date": "2026-10-11"
+    "hash": "8630194e2d50",
+    "date": "2026-11-17"
   },
   "/english/": {
     "hash": "2d1065c70b9b",
@@ -74,5 +74,45 @@
   "/ecommerce-store-platform/": {
     "hash": "6beedd389f62",
     "date": "2026-11-11"
+  },
+  "/notes/blogs/a-tour-of-notes-for-android/": {
+    "hash": "0424bb207da2",
+    "date": "2026-11-17"
+  },
+  "/notes/blogs/meet-notes-say-it-snap-it-find-it/": {
+    "hash": "b709596d4b43",
+    "date": "2026-11-17"
+  },
+  "/notes/blogs/how-to-change-the-look-of-notes-on-android/": {
+    "hash": "465d3c52e734",
+    "date": "2026-11-17"
+  },
+  "/notes/blogs/how-to-translate-or-summarize-a-note-in-notes-for-android/": {
+    "hash": "a907b47a8c89",
+    "date": "2026-11-17"
+  },
+  "/notes/blogs/how-to-organise-notes-with-folders-and-magic-sort/": {
+    "hash": "8b1ebf182e3c",
+    "date": "2026-11-17"
+  },
+  "/notes/blogs/how-to-set-a-reminder-on-a-note-in-notes-for-android/": {
+    "hash": "161c6714bccc",
+    "date": "2026-11-17"
+  },
+  "/notes/blogs/how-to-lock-a-note-in-notes-for-android/": {
+    "hash": "b4b8e62e1818",
+    "date": "2026-11-17"
+  },
+  "/notes/blogs/how-to-turn-handwriting-into-text-in-notes-for-android/": {
+    "hash": "be49dd75c673",
+    "date": "2026-11-17"
+  },
+  "/notes/blogs/how-to-create-a-note-in-notes-for-android/": {
+    "hash": "a5e14fe59d53",
+    "date": "2026-11-17"
+  },
+  "/notes/blogs/how-to-record-a-voice-note-in-notes-for-android/": {
+    "hash": "71dc270cbbc9",
+    "date": "2026-11-17"
   }
 }

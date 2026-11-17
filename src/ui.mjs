@@ -141,7 +141,7 @@ export const contactSection = ({ source, title = 'Have a product to build?', led
     });
 
 /** Hero side panel: the apps live in the stores, each with its store links. */
-export const heroApps = (products) => `<aside class="hero__apps" aria-label="Our apps in the stores"><p class="hero__apps-title">Live in the stores</p><ul>${products.map((p) => `<li class="app-row"><img src="${p.icon}" alt="${esc(p.name)} app icon" width="56" height="56" decoding="async"><div><strong>${esc(p.name)}</strong><span>${esc(p.summary)}</span><div class="app-row__links">${link({ href: p.play, label: 'Google Play', loc: 'hero' })}${link({ href: p.appStore, label: 'App Store', loc: 'hero' })}${p.web ? link({ href: p.web, label: 'Visit site', loc: 'hero' }) : ''}</div></div></li>`).join('')}</ul></aside>`;
+export const heroApps = (products) => `<aside class="hero__apps" aria-label="Our apps"><p class="hero__apps-title">Our apps</p><ul>${products.map((p) => `<li class="app-row"><img src="${p.icon}" alt="${esc(p.name)} app icon" width="56" height="56" decoding="async"><div><strong>${esc(p.name)}</strong><span>${esc(p.summary)}</span><div class="app-row__links">${p.web ? link({ href: p.web, label: 'Visit site', loc: 'hero' }) : ''}</div></div></li>`).join('')}</ul></aside>`;
 
 /** Hero showcase: a 3D product stage (rail, preview, rotating device, info panel). Slide 0 is the no-JS state; hero-stage.js animates it. */
 const SLICES = 9;
@@ -168,7 +168,7 @@ export const heroStage = (products) => `<div class="stage" id="stage" aria-roled
         <span class="badge">${esc(stageBadge(p))}</span>
         <h2 class="info__title">${esc(p.name)}</h2>
         <p class="info__text">${esc(p.summary)}</p>
-        <div class="info__row"><div class="info__meta"><span>Platform</span><strong>${esc(p.tag)}</strong></div>${btn({ href: p.play || p.web, label: p.play ? 'Get it on Google Play' : 'Visit the website', variant: 'primary', arrow: true, loc: 'hero' })}${p.appStore ? btn({ href: p.appStore, label: 'Download on the App Store', variant: 'primary', arrow: true, loc: 'hero' }) : ''}${p.play && p.web ? btn({ href: p.web, label: 'Visit site', variant: 'ghost', loc: 'hero' }) : ''}</div>
+        <div class="info__row"><div class="info__meta"><span>Platform</span><strong>${esc(p.tag)}</strong></div>${p.web ? btn({ href: p.web, label: 'Visit site', variant: 'primary', arrow: true, loc: 'hero' }) : ''}</div>
         ${p.case ? link({ href: p.case, label: 'Read the case study', loc: 'hero' }) : ''}
     </article>`).join('')}</div>
 </div>`;

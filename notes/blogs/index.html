@@ -1,103 +1,200 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <script src="../assets/js/analytics.js"></script>
-  <script defer src="../assets/js/track.js"></script>
-
-  <title>Blog &amp; How-To — Notes by Mobile1X</title>
-  <meta name="description" content="Guides, release notes, and short how-to videos for Notes by Mobile1X — filter by Android, iOS, or Web." />
+  <script src="/notes/assets/js/analytics.js"></script>
+  <script defer src="/notes/assets/js/track.js"></script>
+  <script>(function(){var t=null;try{t=localStorage.getItem('app-theme')}catch(e){}if(t!=='light'&&t!=='dark')t='dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add('js')})();</script>
+  <title>Notes guides and how-tos — Notes by Mobile1X</title>
+  <meta name="description" content="Step-by-step how-tos and short guides for Notes by Mobile1X: voice notes, handwriting scan, locking notes, reminders and more." />
   <link rel="canonical" href="https://mobile1x.com/notes/blogs/" />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="author" content="Mobile1X" />
-  <meta name="theme-color" content="#050811" />
+  <meta name="theme-color" content="#0D1013" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Blog &amp; How-To — Notes by Mobile1X" />
-  <meta property="og:description" content="Guides, release notes, and short how-to videos for Notes by Mobile1X." />
+  <meta property="og:title" content="Notes guides and how-tos — Notes by Mobile1X" />
+  <meta property="og:description" content="Step-by-step how-tos and short guides for Notes by Mobile1X: voice notes, handwriting scan, locking notes, reminders and more." />
   <meta property="og:url" content="https://mobile1x.com/notes/blogs/" />
   <meta property="og:site_name" content="Mobile1X" />
-  <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="https://mobile1x.com/assets/apps/notes/shot1.png" />
-  <meta property="og:image:alt" content="Mobile1X Notes app on an Android phone" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Blog &amp; How-To — Notes by Mobile1X" />
-  <meta name="twitter:description" content="Guides, release notes, and short how-to videos for Notes by Mobile1X." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Notes guides and how-tos — Notes by Mobile1X" />
+  <meta name="twitter:description" content="Step-by-step how-tos and short guides for Notes by Mobile1X: voice notes, handwriting scan, locking notes, reminders and more." />
   <meta name="twitter:image" content="https://mobile1x.com/assets/apps/notes/shot1.png" />
-  <meta name="twitter:image:alt" content="Mobile1X Notes app on an Android phone" />
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="assets/tw-config.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/gallery.css">
+  <link rel="icon" href="/assets/apps/notes/icon.webp" type="image/webp" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","name":"Notes guides and how-tos","url":"https://mobile1x.com/notes/blogs/","description":"Step-by-step how-tos and short guides for Notes by Mobile1X: voice notes, handwriting scan, locking notes, reminders and more.","isPartOf":{"@type":"WebSite","name":"Mobile1X","url":"https://mobile1x.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Notes","item":"https://mobile1x.com/notes/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://mobile1x.com/notes/blogs/"}]}]}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/notes/assets/css/notes.css">
 </head>
-<body class="bg-[#F8FAFC] dark:bg-[#050811] text-slate-900 dark:text-slate-100 antialiased min-h-screen">
-
-  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
-
-    <header class="flex items-start justify-between gap-4">
-      <div>
-        <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
-          <a href="../" class="hover:text-brand-500 transition">Notes</a>
-          <span>/</span>
-          <span class="text-slate-700 dark:text-slate-300">Blog &amp; How-To</span>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav" data-loc="nav">
+    <div class="wrap nav__in">
+      <a href="/notes/" class="brand" aria-label="Notes by Mobile1X, home">
+        <img src="/assets/apps/notes/icon.webp" alt="" width="36" height="36" class="brand__icon">
+        <span class="brand__name">Notes</span>
+        <span class="brand__by">by Mobile1X</span>
+      </a>
+      <nav class="nav__links" aria-label="Main">
+        <a href="/notes/#features">Features</a>
+        <a href="/notes/#how-it-works">How it works</a>
+        <a href="/notes/blogs/" aria-current="page">Guides</a>
+        <a href="/notes/#faq">FAQ</a>
+      </nav>
+      <div class="nav__actions">
+        <button type="button" class="theme" id="theme-toggle" aria-label="Switch colour theme"><span class="theme__dark">Light</span><span class="theme__light">Dark</span></button>
+        <a href="/notes/#download" class="btn btn--sm" data-store-cta>Get the app</a>
+      </div>
+    </div>
+  </header>
+  <main id="main">
+    <section class="section section--tight" id="blog-hero" data-loc="blog-hero">
+      <div class="wrap head">
+        <p class="eyebrow">Guides</p>
+        <h1 class="display display--sm">Get more out of Notes.</h1>
+        <p class="lead">Short, step-by-step how-tos for Android, plus a few longer reads. Each one takes a couple of minutes.</p>
+      </div>
+    </section>
+    <section class="section section--tight" id="posts" data-loc="posts" style="padding-top:0">
+      <div class="wrap">
+        <div class="filters" role="group" aria-label="Filter guides">
+          <button type="button" class="chip" data-filter="all" aria-pressed="true">All <span>10</span></button>
+          <button type="button" class="chip" data-filter="howto" aria-pressed="false">How-tos <span>8</span></button>
+          <button type="button" class="chip" data-filter="blog" aria-pressed="false">Articles <span>2</span></button>
         </div>
-        <h1 class="font-serif-custom text-4xl sm:text-5xl mt-3 leading-tight">Blog &amp; How-To</h1>
-        <p class="mt-3 text-slate-600 dark:text-slate-400 max-w-xl">Short how-to videos and written guides for Notes. Filter by the platform you use.</p>
+        <div class="post-grid" id="post-grid">
+      <article class="post-card reveal" data-type="blog" data-slug="a-tour-of-notes-for-android">
+        <a href="/notes/blogs/a-tour-of-notes-for-android/" class="post-card__link" data-track="blog_card_click" data-track-post-slug="a-tour-of-notes-for-android" data-track-post-type="blog" data-track-position="1">
+          <div class="post-card__img"><img src="/assets/apps/notes/shot3.webp" alt="" width="640" height="1331" loading="lazy"></div>
+          <div class="post-card__body">
+            <p class="post-card__meta"><span class="tag tag--blog">Article</span><span>Android</span></p>
+            <h3>A tour of Notes for Android</h3>
+            <p>A screen-by-screen look at Home, Search, Archive and Settings.</p>
+          </div>
+        </a>
+      </article>
+      <article class="post-card reveal" data-type="blog" data-slug="meet-notes-say-it-snap-it-find-it">
+        <a href="/notes/blogs/meet-notes-say-it-snap-it-find-it/" class="post-card__link" data-track="blog_card_click" data-track-post-slug="meet-notes-say-it-snap-it-find-it" data-track-post-type="blog" data-track-position="2">
+          <div class="post-card__img"><img src="/assets/apps/notes/shot1.webp" alt="" width="640" height="1331" loading="lazy"></div>
+          <div class="post-card__body">
+            <p class="post-card__meta"><span class="tag tag--blog">Article</span><span>Android</span></p>
+            <h3>Meet Notes: say it, snap it, find it</h3>
+            <p>What Notes is, who it is for, and the few ideas it is built on.</p>
+          </div>
+        </a>
+      </article>
+      <article class="post-card reveal" data-type="howto" data-slug="how-to-change-the-look-of-notes-on-android">
+        <a href="/notes/blogs/how-to-change-the-look-of-notes-on-android/" class="post-card__link" data-track="blog_card_click" data-track-post-slug="how-to-change-the-look-of-notes-on-android" data-track-post-type="howto" data-track-position="3">
+          <div class="post-card__img"><img src="/assets/apps/notes/shot1.webp" alt="" width="640" height="1331" loading="lazy"></div>
+          <div class="post-card__body">
+            <p class="post-card__meta"><span class="tag tag--howto">How-to</span><span>Android</span></p>
+            <h3>How to change the look of Notes on Android</h3>
+            <p>Pick a theme, text size, card height and more from Settings.</p>
+          </div>
+        </a>
+      </article>
+      <article class="post-card reveal" data-type="howto" data-slug="how-to-translate-or-summarize-a-note-in-notes-for-android">
+        <a href="/notes/blogs/how-to-translate-or-summarize-a-note-in-notes-for-android/" class="post-card__link" data-track="blog_card_click" data-track-post-slug="how-to-translate-or-summarize-a-note-in-notes-for-android" data-track-post-type="howto" data-track-position="4">
+          <div class="post-card__img"><img src="/assets/apps/notes/shot2.webp" alt="" width="640" height="1331" loading="lazy"></div>
+          <div class="post-card__body">
+            <p class="post-card__meta"><span class="tag tag--howto">How-to</span><span>Android</span></p>
+            <h3>How to translate or summarize a note in Notes for Android</h3>
+            <p>Find the extra actions hidden at the end of the editing toolbar.</p>
+          </div>
+        </a>
+      </article>
+      <article class="post-card reveal" data-type="howto" data-slug="how-to-organise-notes-with-folders-and-magic-sort">
+        <a href="/notes/blogs/how-to-organise-notes-with-folders-and-magic-sort/" class="post-card__link" data-track="blog_card_click" data-track-post-slug="how-to-organise-notes-with-folders-and-magic-sort" data-track-post-type="howto" data-track-position="5">
+          <div class="post-card__img"><img src="/assets/apps/notes/shot1.webp" alt="" width="640" height="1331" loading="lazy"></div>
+          <div class="post-card__body">
+            <p class="post-card__meta"><span class="tag tag--howto">How-to</span><span>Android</span></p>
+            <h3>How to organise notes with folders and Magic Sort in Notes for Android</h3>
+            <p>Use folders, the date filter and Magic Sort to keep a growing collection tidy.</p>
+          </div>
+        </a>
+      </article>
+      <article class="post-card reveal" data-type="howto" data-slug="how-to-set-a-reminder-on-a-note-in-notes-for-android">
+        <a href="/notes/blogs/how-to-set-a-reminder-on-a-note-in-notes-for-android/" class="post-card__link" data-track="blog_card_click" data-track-post-slug="how-to-set-a-reminder-on-a-note-in-notes-for-android" data-track-post-type="howto" data-track-position="6">
+          <div class="post-card__img"><img src="/assets/apps/notes/shot2.webp" alt="" width="640" height="1331" loading="lazy"></div>
+          <div class="post-card__body">
+            <p class="post-card__meta"><span class="tag tag--howto">How-to</span><span>Android</span></p>
+            <h3>How to set a reminder on a note in Notes for Android</h3>
+            <p>Attach a reminder to any note so it comes back to you when you need it.</p>
+          </div>
+        </a>
+      </article>
+      <article class="post-card reveal" data-type="howto" data-slug="how-to-lock-a-note-in-notes-for-android">
+        <a href="/notes/blogs/how-to-lock-a-note-in-notes-for-android/" class="post-card__link" data-track="blog_card_click" data-track-post-slug="how-to-lock-a-note-in-notes-for-android" data-track-post-type="howto" data-track-position="7">
+          <div class="post-card__img"><img src="/assets/apps/notes/shot1.webp" alt="" width="640" height="1331" loading="lazy"></div>
+          <div class="post-card__body">
+            <p class="post-card__meta"><span class="tag tag--howto">How-to</span><span>Android</span></p>
+            <h3>How to lock a note in Notes for Android</h3>
+            <p>Protect a private note so it opens only with your biometrics.</p>
+          </div>
+        </a>
+      </article>
+      <article class="post-card reveal" data-type="howto" data-slug="how-to-turn-handwriting-into-text-in-notes-for-android">
+        <a href="/notes/blogs/how-to-turn-handwriting-into-text-in-notes-for-android/" class="post-card__link" data-track="blog_card_click" data-track-post-slug="how-to-turn-handwriting-into-text-in-notes-for-android" data-track-post-type="howto" data-track-position="8">
+          <div class="post-card__img"><img src="/assets/apps/notes/shot2.webp" alt="" width="640" height="1331" loading="lazy"></div>
+          <div class="post-card__body">
+            <p class="post-card__meta"><span class="tag tag--howto">How-to</span><span>Android</span></p>
+            <h3>How to turn a photo of handwriting into text in Notes for Android</h3>
+            <p>Scan a page or whiteboard photo so the words become text you can search and edit.</p>
+          </div>
+        </a>
+      </article>
+      <article class="post-card reveal" data-type="howto" data-slug="how-to-create-a-note-in-notes-for-android">
+        <a href="/notes/blogs/how-to-create-a-note-in-notes-for-android/" class="post-card__link" data-track="blog_card_click" data-track-post-slug="how-to-create-a-note-in-notes-for-android" data-track-post-type="howto" data-track-position="9">
+          <div class="post-card__img"><img src="/assets/apps/notes/shot2.webp" alt="" width="640" height="1331" loading="lazy"></div>
+          <div class="post-card__body">
+            <p class="post-card__meta"><span class="tag tag--howto">How-to</span><span>Android</span></p>
+            <h3>How to create a note in Notes for Android</h3>
+            <p>Add a new note from the Home screen: tap +, choose Note, write, and save.</p>
+          </div>
+        </a>
+      </article>
+      <article class="post-card reveal" data-type="howto" data-slug="how-to-record-a-voice-note-in-notes-for-android">
+        <a href="/notes/blogs/how-to-record-a-voice-note-in-notes-for-android/" class="post-card__link" data-track="blog_card_click" data-track-post-slug="how-to-record-a-voice-note-in-notes-for-android" data-track-post-type="howto" data-track-position="10">
+          <div class="post-card__img"><img src="/assets/apps/notes/shot3.webp" alt="" width="640" height="1331" loading="lazy"></div>
+          <div class="post-card__body">
+            <p class="post-card__meta"><span class="tag tag--howto">How-to</span><span>Android</span></p>
+            <h3>How to record a voice note in Notes for Android</h3>
+            <p>Speak instead of typing, in Hindi, English or both in one sentence.</p>
+          </div>
+        </a>
+      </article>
+        </div>
       </div>
-      <button id="themeToggle" aria-label="Toggle theme"
-        class="glass rounded-full p-2.5 shrink-0 hover:text-brand-500 transition" title="Toggle light / dark">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg>
-      </button>
-    </header>
-
-    <!-- Filters -->
-    <div class="mt-9 flex flex-wrap items-center gap-3">
-      <div id="platformFilter" class="inline-flex glass rounded-full p-1" role="tablist" aria-label="Filter by platform">
-        <button data-platform="all"     class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">All platforms</button>
-        <button data-platform="android" class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">Android</button>
-        <button data-platform="ios"     class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">iOS</button>
-        <button data-platform="web"     class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">Web</button>
-      </div>
-      <div id="typeFilter" class="inline-flex glass rounded-full p-1" role="tablist" aria-label="Filter by type">
-        <button data-type="all"   class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">All</button>
-        <button data-type="howto" class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">How-To</button>
-        <button data-type="blog"  class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition">Articles</button>
-      </div>
-    </div>
-
-    <!-- Grid -->
-    <main id="grid" class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-live="polite"></main>
-
-    <p id="emptyState" class="hidden text-center text-slate-500 dark:text-slate-400 py-20">Nothing here yet for this filter.</p>
-
-    <footer class="mt-16 pt-8 border-t border-slate-200 dark:border-white/10 text-sm text-slate-500 dark:text-slate-400 flex flex-wrap gap-x-6 gap-y-2">
-      <a href="../" class="hover:text-brand-500 transition">&larr; Back to Notes</a>
-      <a href="https://mobile1x.com/" class="hover:text-brand-500 transition">Mobile1X</a>
-    </footer>
+    </section>
+    <section class="section section--cta" id="download" data-loc="blog-download">
+      <div class="wrap">
+        <div class="cta">
+          <img src="/assets/apps/notes/icon.webp" alt="Notes app icon" width="80" height="80" class="cta__icon" loading="lazy">
+          <h2 class="display display--sm">Try it on your phone.</h2>
+          <p class="lead">Notes is on Android and iPhone.</p>
+          <div class="badges badges--center" data-badges data-loc="blog-download">
+    <a class="badge badge--apple" href="https://apps.apple.com/us/app/notes-voice-record-ai/id6798175378" target="_blank" rel="noopener noreferrer" aria-label="Download Notes on the App Store"><img src="/notes/assets/img/app-store-badge.svg" alt="Download on the App Store" width="150" height="50" loading="lazy"></a>
+    <a class="badge badge--play" href="https://play.google.com/store/apps/details?id=com.rp.notes" target="_blank" rel="noopener noreferrer" aria-label="Get Notes on Google Play"><img src="/notes/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
   </div>
-
-  <!-- Video lightbox -->
-  <div id="lightbox" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="How-to video">
-    <div class="w-full max-w-4xl">
-      <div class="flex justify-between items-center mb-3">
-        <h2 id="lightboxTitle" class="text-white font-medium pr-4 truncate"></h2>
-        <button id="lightboxClose" aria-label="Close video" class="text-white/70 hover:text-white text-2xl leading-none shrink-0">&times;</button>
+        </div>
       </div>
-      <div class="relative w-full rounded-xl overflow-hidden bg-black" style="padding-top:56.25%">
-        <iframe id="lightboxFrame" class="absolute inset-0 w-full h-full" src="" title="How-to video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-      </div>
+    </section>
+  </main>
+  <footer class="foot" data-loc="footer">
+    <div class="wrap foot__in">
+      <p>&copy; 2026 Mobile1X. Notes is an app by <a href="/">Mobile1X</a>.</p>
+      <nav aria-label="Footer">
+        <a href="https://apps.apple.com/us/app/notes-voice-record-ai/id6798175378" target="_blank" rel="noopener noreferrer">App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.rp.notes" target="_blank" rel="noopener noreferrer">Google Play</a>
+        <a href="/notes/">Notes home</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+      </nav>
     </div>
-  </div>
-
-  <noscript>
-    <p style="padding:1rem">The Notes blog needs JavaScript to load posts. Visit <a href="https://mobile1x.com/">mobile1x.com</a>.</p>
-  </noscript>
-
-  <script src="assets/blog-common.js"></script>
-  <script src="assets/gallery.js"></script>
+  </footer>
+  <script defer src="/notes/assets/js/blog.js"></script>
 </body>
 </html>

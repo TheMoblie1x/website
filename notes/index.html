@@ -7,11 +7,11 @@
   <script src="assets/js/analytics.js"></script>
   <script defer src="assets/js/track.js"></script>
   <script>
-    /* Set the theme before first paint so there is no flash. Saved choice wins, then the device setting. */
+    /* Set the theme before first paint so there is no flash. A saved choice wins; the default is dark. */
     (function () {
       var t = null;
       try { t = localStorage.getItem('app-theme'); } catch (e) {}
-      if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      if (t !== 'light' && t !== 'dark') t = 'dark';
       document.documentElement.setAttribute('data-theme', t);
       document.documentElement.classList.add('js');
     })();
