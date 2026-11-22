@@ -1,11 +1,11 @@
 // Page renderers: each returns { path, html, indexable, lastmod? }.
-import { SITE, PRODUCTS, WHATSAPP_HREF, FOUNDER, storeLinks } from './site.mjs';
+import { SITE, PRODUCTS, TRACTION, WHATSAPP_HREF, FOUNDER, storeLinks } from './site.mjs';
 import { page, asset } from './layout.mjs';
 import { SERVICES, PROCESS, PRICING_NOTE, serviceBySlug } from './content/services.mjs';
 import { WORK } from './content/work.mjs';
 import { POSTS, postBySlug } from './content/posts.mjs';
 import { breadcrumbList, service as serviceSchema, faqPage, article, softwareApp } from './schema.mjs';
-import { esc, icon, btn, link, section, sectionHead, breadcrumbs, checks, serviceCard, productCard, pricingCard, faq, processSteps, archStack, contactSection, heroStage, heroApps, metricCard, phone } from './ui.mjs';
+import { esc, icon, btn, link, section, sectionHead, breadcrumbs, checks, serviceCard, productCard, pricingCard, faq, processSteps, archStack, contactSection, heroStage, heroApps, tractionStrip, metricCard, phone } from './ui.mjs';
 
 const CTA_TALK = (loc) => btn({ href: '#contact', label: 'Talk to an Engineer', arrow: true, loc });
 const CTA_CALL = (loc) => btn({ href: SITE.phoneHref, label: 'Call Mobile1X', variant: 'ghost', ic: 'phone', loc });
@@ -43,8 +43,9 @@ export function home() {
         <div class="hero__copy">
             <p class="eyebrow">Mobile and SI product engineering</p>
             <h1>Mobile &amp; SI products, built by <em>engineers who ship.</em></h1>
-            <p class="hero__lede">Mobile1X designs, builds and launches Android and iOS apps, SI products and MVPs, from idea to engineering to launch. Our own apps are live on Google Play and the App Store.</p>
+            <p class="hero__lede">Founder-led senior engineering for on-device AI and offline-first apps, global e-commerce and payment integrations, and end-to-end launches on the App Store, Google Play and the web. Our own apps and platforms are live in production.</p>
             <div class="hero__actions">${CTA_TALK('hero')}${btn({ href: '#portfolio', label: 'See Our Work', variant: 'ghost', loc: 'hero' })}</div>
+            ${tractionStrip(TRACTION)}
             <p class="hero__call"><a class="link-call" href="${SITE.phoneHref}" data-loc="hero">${icon('phone')}Call Mobile1X ${SITE.phone}</a><a class="link-call" href="${WHATSAPP_HREF}" target="_blank" rel="noopener noreferrer" data-loc="hero">${icon('whatsapp')}WhatsApp</a></p>
             <ul class="hero__facts"><li>7 shipped products</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
         </div>
@@ -87,7 +88,9 @@ export function home() {
     });
 
     const proof = section({
-        id: 'portfolio', loc: 'case-study', body: `${sectionHead({ eyebrow: 'Proof', title: 'Products we’ve actually shipped.', lede: 'Real products, live on the web. This is our track record, not a mock-up.' })}
+        id: 'portfolio', loc: 'case-study', body: `${sectionHead({ eyebrow: 'Proof', title: 'Shipped products & flagship platforms.', lede: 'We don’t just build for clients—we architect, ship, and scale our own global mobile apps and international commerce platforms, bringing that exact production discipline to your product.' })}
+        <div class="products products--flagship">${['a2z', 'dedup', 'notes'].map((k) => productCard(PRODUCTS[k])).join('')}</div>
+        <h3 class="products__more reveal">More products we’ve shipped</h3>
         <div class="products products--four">${['pos', 'pharma', 'auction', 'bhashasetu'].map((k) => productCard(PRODUCTS[k])).join('')}</div>`,
     });
 

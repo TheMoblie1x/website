@@ -282,6 +282,17 @@ ul, ol { padding: 0; }
 .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: var(--space-5); }
 .products--compact { margin-top: var(--space-5); }
 .products--four { grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+.products--flagship { grid-template-columns: repeat(3, 1fr); }
+.products__more { margin: var(--space-7, 3rem) 0 var(--space-4); font-size: 1rem; color: var(--muted); font-weight: 600; }
+.stat-badges { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; }
+.stat-badge { padding: 0.2rem 0.65rem; border: 1px solid var(--gold); border-radius: 999px; color: var(--gold-hi); font-family: var(--font-mono); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+.traction { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: var(--space-6); list-style: none; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
+.traction li { display: flex; flex-direction: column; gap: 0.15rem; padding: var(--space-4) var(--space-5); }
+.traction li + li { border-left: 1px solid var(--line); }
+.traction strong { font-size: 1.75rem; line-height: 1.1; color: var(--gold-hi); font-variant-numeric: tabular-nums; }
+.traction span { font-size: 0.8125rem; color: var(--muted); }
+@media (max-width: 960px) { .products--flagship { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .traction { grid-template-columns: 1fr; } .traction li + li { border-left: 0; border-top: 1px solid var(--line); } .traction li { flex-direction: row; align-items: baseline; gap: var(--space-3); } }
 .product { display: flex; flex-direction: column; overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease); }
 .product:hover { border-color: var(--gold); transform: translateY(-4px); }
 .product__shots { display: flex; justify-content: center; gap: var(--space-3); padding: var(--space-5) var(--space-5) 0; background: radial-gradient(70% 90% at 50% 100%, rgb(226 154 46 / 14%), transparent 70%), var(--surface-2); max-height: 340px; overflow: hidden; }
