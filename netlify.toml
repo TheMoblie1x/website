@@ -26,6 +26,20 @@
   status = 200
   force = true
 
+# Serve the Mobile1X CRM, its own Netlify site (m1xcrm), at mobile1x.com/crm. Status 200 + force proxies it so the URL
+# stays on mobile1x.com. The CRM is built with Vite `base: '/crm/'`, so its pages and assets are requested under /crm/.
+[[redirects]]
+  from = "/crm"
+  to = "https://m1xcrm.netlify.app/crm/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/crm/*"
+  to = "https://m1xcrm.netlify.app/crm/:splat"
+  status = 200
+  force = true
+
 # Serve the notes.mobile1x.com subdomain directly from /notes (no iframe,
 # no registrar masking). Requires notes.mobile1x.com to be added as a
 # domain alias on this Netlify site and its DNS pointed here (CNAME -> the
