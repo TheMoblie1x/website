@@ -29,7 +29,7 @@
   
   [[redirects]]
   from = "/crm/*"
-  to = "https://m1xcrm.netlify.app/crm/"
+  to = "https://m1xcrm.netlify.app/:splat"
   status = 200
   force = true
 
