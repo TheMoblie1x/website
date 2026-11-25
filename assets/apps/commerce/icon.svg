@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Commerce by Mobile1X">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1a1d"/><stop offset="1" stop-color="#0A0A0A"/></linearGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE45C"/><stop offset="1" stop-color="#C89B3C"/></linearGradient>
+  </defs>
+  <rect width="128" height="128" fill="url(#bg)"/>
+  <path d="M42 50V42a22 22 0 0 1 44 0v8" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M30 50h68l5 52a6 6 0 0 1-6 7H31a6 6 0 0 1-6-7z" fill="none" stroke="url(#g)" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M51 70l9-5v30" fill="none" stroke="#FFD600" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M68 74l16 20M84 74L68 94" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/>
+</svg>

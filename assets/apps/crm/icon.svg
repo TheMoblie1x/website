@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="CRM by Mobile1X">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1a1d"/><stop offset="1" stop-color="#0A0A0A"/></linearGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE45C"/><stop offset="1" stop-color="#C89B3C"/></linearGradient>
+  </defs>
+  <rect width="128" height="128" fill="url(#bg)"/>
+  <circle cx="48" cy="42" r="14" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 94c0-16 12-26 28-26s28 10 28 26" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M82 30a14 14 0 0 1 0 26M96 70c10 4 14 12 14 20" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M82 96l7-4v22" fill="none" stroke="#FFD600" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M96 98l12 15M108 98L96 113" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round"/>
+</svg>

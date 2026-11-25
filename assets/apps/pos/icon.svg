@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="POS System by Mobile1X">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1a1d"/><stop offset="1" stop-color="#0A0A0A"/></linearGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE45C"/><stop offset="1" stop-color="#C89B3C"/></linearGradient>
+  </defs>
+  <rect width="128" height="128" fill="url(#bg)"/>
+  <path d="M34 20h60v88l-10-7-10 7-10-7-10 7-10-7-10 7z" fill="none" stroke="url(#g)" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M48 40h32M48 54h20" fill="none" stroke="url(#g)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M50 70l8-4.5v26" fill="none" stroke="#FFD600" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M66 73l14 17M80 73L66 90" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+</svg>
