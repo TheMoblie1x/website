@@ -26,17 +26,10 @@
   status = 200
   force = true
 
-# Serve the Mobile1X CRM, its own Netlify site (m1xcrm), at mobile1x.com/crm. Status 200 + force proxies it so the URL
-# stays on mobile1x.com. The CRM is built with Vite `base: '/crm/'`, so its pages and assets are requested under /crm/.
-[[redirects]]
-  from = "/crm"
-  to = "https://m1xcrm.netlify.app/crm/"
-  status = 200
-  force = true
-
-[[redirects]]
+  
+  [[redirects]]
   from = "/crm/*"
-  to = "https://m1xcrm.netlify.app/crm/:splat"
+  to = "https://m1xcrm.netlify.app/:splat"
   status = 200
   force = true
 

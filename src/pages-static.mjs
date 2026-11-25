@@ -122,6 +122,8 @@ export const terms = () => legal('/terms/', 'Terms of Use | Mobile1X', 'Terms fo
     ['Intellectual property', 'The Mobile1X name, logo, site design and content belong to Mobile1X unless stated otherwise. Product names such as Notes and Dedup belong to their owners. Do not copy or reuse them without permission.'],
     ['Third-party links', 'This site links to third-party services such as Google Play, the App Store, Calendly and WhatsApp. We are not responsible for their content or practices.'],
     ['Liability', 'The site is provided “as is”. To the extent permitted by law, we are not liable for losses arising from use of this site.'],
+    ['Prohibited content and conduct', 'You may not use this site or any product or service we provide to upload, host, transmit, link to or request anything that is sexually explicit or pornographic, related to drugs, or depicts or facilitates child sexual abuse. We are not liable for any such content a user submits, and we take no responsibility for it. Where we provide a platform, account or service, we may suspend or terminate your access immediately and without notice if we believe this rule was broken, and you will have no claim against us for doing so.'],
+    ['Payments and refunds', 'Unless a separate written agreement says otherwise, payments made to Mobile1X are non-refundable.'],
     ['Contact', `Questions about these terms: <a href="mailto:${SITE.email}">${SITE.email}</a>.`],
 ]);
 

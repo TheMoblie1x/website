@@ -76,8 +76,15 @@ export const productCard = (p) => {
         p.appStore && link({ href: p.appStore, label: 'App Store', loc: 'case-study' }),
         !p.case && p.web && link({ href: p.web, label: 'View live', loc: 'case-study' }),
     ].filter(Boolean).join('');
-    return `<article class="product reveal">${shots}<div class="product__body"><span class="tag">${esc(p.tag)}</span><h3>${esc(p.name)}</h3><p>${esc(p.summary)}</p><div class="product__links">${links}</div></div></article>`;
+    const f = p.flagship;
+    const badges = f ? `<ul class="stat-badges" aria-label="Traction">${f.badges.map((b) => `<li class="stat-badge">${esc(b)}</li>`).join('')}</ul>` : '';
+    const visit = f && p.web ? link({ href: p.web, label: 'Visit site', loc: 'case-study' }) : '';
+    return `<article class="product reveal${f ? ' product--flagship' : ''}">${shots}<div class="product__body"><span class="tag">${esc(p.tag)}</span><h3>${esc(f?.title || p.name)}</h3>${badges}<p>${esc(f?.highlight || p.summary)}</p><div class="product__links">${links}${visit}</div></div></article>`;
 };
+
+/** Metrics strip: a list of { value, label } proof points. */
+export const tractionStrip = (items) =>
+    `<ul class="traction" aria-label="Mobile1X traction">${items.map((m) => `<li><strong>${esc(m.value)}</strong><span>${esc(m.label)}</span></li>`).join('')}</ul>`;
 
 export const pricingCard = ({ name, price, unit, text, items, cta, featured }) =>
     `<article class="card plan${featured ? ' plan--featured' : ''} reveal"><h3>${esc(name)}</h3><p class="plan__price">${esc(price)} <small>${esc(unit)}</small></p><p>${esc(text)}</p>${checks(items)}${cta}</article>`;

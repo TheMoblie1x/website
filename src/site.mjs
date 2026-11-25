@@ -45,6 +45,13 @@ export const storeLinks = (p) => [p.play && { name: 'Google Play', url: p.play }
 
 export const WHATSAPP_HREF = `https://wa.me/919754525494?text=${encodeURIComponent(SITE.whatsappText)}`;
 
+// Traction figures supplied by the founder (not independently verified in this repo). Update here only; the hero strip reads from this.
+export const TRACTION = [
+    { value: '4,900+', label: 'Global users' },
+    { value: '60+', label: 'Countries reached' },
+    { value: '3', label: 'Live production platforms & apps' },
+];
+
 export const PRODUCTS = {
     notes: {
         name: 'Notes',
@@ -55,6 +62,7 @@ export const PRODUCTS = {
         web: '/notes/',
         icon: '/assets/apps/notes/icon.webp',
         shots: ['/assets/apps/notes/shot1.webp', '/assets/apps/notes/shot2.webp', '/assets/apps/notes/shot3.webp'],
+        flagship: { badges: ['300+ Users', '30+ Countries'], highlight: 'Offline-first AI voice notes suite with on-device Whisper transcription, OCR, and biometric encryption.' },
         case: '/work/notes/',
     },
     dedup: {
@@ -66,6 +74,7 @@ export const PRODUCTS = {
         web: 'https://www.dedup.space',
         icon: '/assets/apps/dedup/icon.webp',
         shots: ['/assets/apps/dedup/shot1.webp', '/assets/apps/dedup/shot2.webp', '/assets/apps/dedup/shot3.webp'],
+        flagship: { badges: ['600+ Users', '60+ Countries'], highlight: '100% on-device ML duplicate photo & media cleaner for iOS & Android with zero telemetry.' },
         case: '/work/dedup/',
     },
     a2z: {
@@ -74,6 +83,7 @@ export const PRODUCTS = {
         summary: 'A full-featured e-commerce web app, from browse to checkout.',
         web: 'https://thea2zcollection.com',
         shots: ['/assets/a2z/home.webp', '/assets/a2z/product.webp', '/assets/a2z/listing.webp', '/assets/a2z/checkout.webp', '/assets/a2z/cart.webp', '/assets/a2z/reviews.webp', '/assets/a2z/footer.webp'],
+        flagship: { title: 'Commerce by Mobile1X', badges: ['4,000+ Users', '43 Countries'], highlight: 'High-volume production e-commerce platform built and powered by Mobile1X serving shoppers across 43 countries, featuring Razorpay checkout, Cloudflare R2 media delivery, OTP authentication, and automated logistics integration.' },
         case: '/work/a2z/',
     },
     pos: {
