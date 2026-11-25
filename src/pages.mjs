@@ -1,5 +1,5 @@
 // Page renderers: each returns { path, html, indexable, lastmod? }.
-import { SITE, PRODUCTS, TRACTION, WHATSAPP_HREF, FOUNDER, storeLinks } from './site.mjs';
+import { SITE, PRODUCTS, SUITE, TRACTION, WHATSAPP_HREF, FOUNDER, storeLinks } from './site.mjs';
 import { page, asset } from './layout.mjs';
 import { SERVICES, PROCESS, PRICING_NOTE, serviceBySlug } from './content/services.mjs';
 import { WORK } from './content/work.mjs';
@@ -47,7 +47,7 @@ export function home() {
             <div class="hero__actions">${CTA_TALK('hero')}${btn({ href: '#portfolio', label: 'See Our Work', variant: 'ghost', loc: 'hero' })}</div>
             ${tractionStrip(TRACTION)}
             <p class="hero__call"><a class="link-call" href="${SITE.phoneHref}" data-loc="hero">${icon('phone')}Call Mobile1X ${SITE.phone}</a><a class="link-call" href="${WHATSAPP_HREF}" target="_blank" rel="noopener noreferrer" data-loc="hero">${icon('whatsapp')}WhatsApp</a></p>
-            <ul class="hero__facts"><li>7 shipped products</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
+            <ul class="hero__facts"><li>12 years in Applications and AI Engineering</li><li>11 products shipped</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
         </div>
         ${heroApps(['notes', 'dedup'].map((k) => PRODUCTS[k]))}
         </div>
@@ -103,6 +103,11 @@ export function home() {
         loc: 'capabilities', body: `${sectionHead({ eyebrow: 'Engineering', title: 'One engineer across the whole stack.', lede: 'A typical product spans four layers. We design and build all of them, so the pieces fit.' })}${archStack(ARCH_LAYERS)}`,
     });
 
+    const suite = section({
+        id: 'products', loc: 'products', body: `${sectionHead({ eyebrow: 'Products', title: 'Eleven products. One studio.', lede: 'Everything Mobile1X has built and runs itself. Each one lives at its own address.' })}
+        <ul class="suite">${SUITE.map((a) => `<li class="suite__item reveal"><a class="suite__link" href="/${a.slug}/" data-loc="products"><img class="suite__icon" src="${a.icon}" alt="" width="56" height="56" loading="lazy"><span class="suite__cat">${esc(a.cat)}</span><span class="suite__name">${esc(a.name)}</span><span class="suite__text">${esc(a.text)}</span><span class="suite__url">mobile1x.com/${a.slug}</span></a></li>`).join('')}</ul>`,
+    });
+
     const cases = section({
         loc: 'case-study', cls: 'section--alt', body: `${sectionHead({ eyebrow: 'Case studies', title: 'How we built them.' })}
         <div class="grid grid--3">${WORK.map((w) => `<article class="card reveal"><span class="tag">${esc(PRODUCTS[w.product].tag)}</span><h3><a class="card__link" href="/work/${w.slug}/" data-loc="case-study">${esc(w.name)}</a></h3><p>${esc(w.lede)}</p>${link({ href: `/work/${w.slug}/`, label: 'Read the case study', loc: 'case-study' })}</article>`).join('')}</div>`,
@@ -124,21 +129,21 @@ export function home() {
     const faqSection = section({ id: 'faq', loc: 'faq', cls: 'section--alt', body: `${sectionHead({ eyebrow: 'FAQ', title: 'Questions, answered.', center: true })}${faq(HOME_FAQ)}` });
 
     return {
-        path: '/',
+        path: '/home/',
         html: page({
             title: 'Mobile & AI Product Engineering Studio | Mobile1X',
             description: 'Mobile1X designs, builds and launches Android and iOS apps, AI products, MVPs and fintech platforms. See our live apps and talk to an engineer.',
-            path: '/',
+            path: '/home/',
             preload: '<link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">',
             scripts: `<script defer src="${asset('/assets/js/hero-stage.js')}"></script>`,
             schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: 'Android, iOS', description: PRODUCTS[k].summary, installUrl: storeLinks(PRODUCTS[k]).map((s) => s.url) }))],
-            body: [hero, storePlatform, takemytest, proof, services, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
+            body: [hero, suite, storePlatform, takemytest, proof, services, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
         }),
     };
 }
 
 export function servicePage(s) {
-    const trail = [{ name: 'Home', href: '/' }, { name: 'Services', href: '/#services' }, { name: s.name, href: `/services/${s.slug}/` }];
+    const trail = [{ name: 'Home', href: '/' }, { name: 'Services', href: '/home/#services' }, { name: s.name, href: `/services/${s.slug}/` }];
     const hero = `<section class="page-hero" data-loc="hero"><div class="container">${breadcrumbs(trail)}<p class="eyebrow">${esc(s.category)}</p><h1>${esc(s.h1)}</h1><p class="lede lede--answer">${esc(s.answer)}</p><div class="hero__actions">${CTA_TALK('hero')}${CTA_CALL('hero')}</div></div></section>`;
     const problem = section({ loc: 'problem', body: `<div class="split"><div>${sectionHead({ eyebrow: 'The problem', title: 'Where projects go wrong.' })}<p class="prose">${esc(s.problem.text)}</p></div><div class="reveal">${checks(s.problem.points.map(esc))}</div></div>` });
     const solution = section({ loc: 'solution', cls: 'section--alt', body: `<div class="split"><div>${sectionHead({ eyebrow: 'Our approach', title: 'How we solve it.' })}<p class="prose">${esc(s.solution)}</p></div><div class="reveal"><h3 class="h3">What we build</h3>${checks(s.capabilities.map(esc))}</div></div>` });
@@ -160,7 +165,7 @@ export function servicePage(s) {
 
 export function workPage(w) {
     const p = PRODUCTS[w.product];
-    const trail = [{ name: 'Home', href: '/' }, { name: 'Work', href: '/#portfolio' }, { name: w.name, href: `/work/${w.slug}/` }];
+    const trail = [{ name: 'Home', href: '/' }, { name: 'Work', href: '/home/#portfolio' }, { name: w.name, href: `/work/${w.slug}/` }];
     const shots = p.icon ? `<div class="product__shots product__shots--hero">${p.shots.map((s, i) => phone(s, `${w.name} screenshot ${i + 1}`, { eager: i === 0 })).join('')}</div>` : `<div class="product__shots product__shots--wide">${p.shots.map((s, i) => `<img src="${s}" alt="${esc(w.name)} screenshot ${i + 1}" width="1200" height="662" loading="lazy">`).join('')}</div>`;
     const links = [p.play && btn({ href: p.play, label: 'Google Play', variant: 'ghost', loc: 'case-study' }), p.appStore && btn({ href: p.appStore, label: 'App Store', variant: 'ghost', loc: 'case-study' }), p.web && btn({ href: p.web, label: p.play ? 'Website' : 'View live', variant: 'ghost', loc: 'case-study' })].filter(Boolean).join('');
     const body = w.sections.map((sec) => `<section class="section" data-loc="case-study"><div class="container container--narrow"><h2 class="h2 reveal">${esc(sec.h)}</h2>${sec.p ? sec.p.map((t) => `<p class="prose reveal">${esc(t)}</p>`).join('') : ''}${sec.list ? checks(sec.list.map(esc)) : ''}</div></section>`).join('');

@@ -40,6 +40,13 @@ export const STACK = [
     { group: 'Web and desktop', items: ['React JS', 'ElectronJS', 'HTML', 'CSS', 'JavaScript'] },
 ];
 
+/** Logo file (assets/tech/*.svg) per STACK item. Logos are from Simple Icons (CC0); SQL and Objective-C are generic glyphs drawn for this site. */
+export const TECH_ICON = {
+    'Kotlin': 'kotlin', 'Java': 'java', 'Swift': 'swift', 'Objective-C': 'objc', 'Flutter': 'flutter', 'React Native': 'react',
+    'Spring Boot': 'springboot', 'SQL': 'sql', 'SQLite': 'sqlite', 'AWS': 'aws', 'Firebase': 'firebase', 'Cloudflare': 'cloudflare',
+    'React JS': 'react', 'ElectronJS': 'electron', 'HTML': 'html5', 'CSS': 'css3', 'JavaScript': 'javascript',
+};
+
 /** Store listings of a product, for structured data and llms.txt. */
 export const storeLinks = (p) => [p.play && { name: 'Google Play', url: p.play }, p.appStore && { name: 'App Store', url: p.appStore }].filter(Boolean);
 
@@ -50,6 +57,21 @@ export const TRACTION = [
     { value: '4,900+', label: 'Global users' },
     { value: '60+', label: 'Countries reached' },
     { value: '3', label: 'Live production platforms & apps' },
+];
+
+/** Every Mobile1X product, each at its own short URL: mobile1x.com/<slug>. Routing lives in netlify.toml (proxies/redirects) and the static folders. */
+export const SUITE = [
+    { slug: 'notes', name: 'Notes', cat: 'Android · iOS', text: 'A private, local-first AI notes app.', icon: '/assets/apps/notes/icon.webp' },
+    { slug: 'dedup', name: 'Dedup', cat: 'Android · iOS', text: 'Duplicate file remover and storage cleaner.', icon: '/assets/apps/dedup/icon.webp' },
+    { slug: 'commerce', name: 'Commerce by Mobile1X', cat: 'E-commerce', text: 'Full-featured e-commerce, browse to checkout.', icon: '/assets/apps/commerce/icon.svg' },
+    { slug: 'pos', name: 'POS System', cat: 'Billing', text: 'Fast billing, inventory and sales reporting.', icon: '/assets/apps/pos/icon.svg' },
+    { slug: 'pharma', name: 'B2B Pharma', cat: 'Marketplace', text: 'Connects pharma suppliers and buyers.', icon: '/assets/apps/pharma/icon.svg' },
+    { slug: 'auction', name: 'Auction Manager', cat: 'Real-time', text: 'Command centre for IPL-style player auctions.', icon: '/assets/apps/auction/icon.svg' },
+    { slug: 'bhashasetu', name: 'BhashaSetu', cat: 'Learning', text: 'Hindi-first spoken English practice.', icon: '/assets/apps/bhashasetu/icon.svg' },
+    { slug: 'crm', name: 'Mobile1X CRM', cat: 'CRM', text: 'Customer relationship management.', icon: '/assets/apps/crm/icon.svg' },
+    { slug: 'collab', name: 'Collab', cat: 'Tasks', text: 'Task and kanban collaboration.', icon: '/assets/apps/collab/icon.svg' },
+    { slug: 'resto', name: 'Resto by Mobile1X', cat: 'Restaurant', text: 'Restaurant software.', icon: '/assets/apps/resto/icon.svg' },
+    { slug: 'tmt', name: 'TakeMyTest', cat: 'Hiring', text: 'Online assessments for hiring.', icon: '/assets/apps/tmt/icon.svg' },
 ];
 
 export const PRODUCTS = {
@@ -116,8 +138,8 @@ export const SERVICE_ORDER = ['mobile-app-development', 'ai-development', 'mvp-d
 
 export const NAV = [
     { label: 'Store Platform', href: '/ecommerce-store-platform/' },
-    { label: 'Work', href: '/#portfolio' },
-    { label: 'Pricing', href: '/#pricing' },
+    { label: 'Work', href: '/home/#portfolio' },
+    { label: 'Pricing', href: '/home/#pricing' },
     { label: 'Blog', href: '/blog/' },
     { label: 'About', href: '/about/' },
 ];

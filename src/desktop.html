@@ -3,9 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mobile1X Desktop: everything we have built, one click away</title>
-<meta name="description" content="Mobile1X's apps, platforms and tools laid out like desktop icons. Click one to run it.">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<!--HEAD-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -59,6 +57,7 @@ body.leaving { transform:scale(1.35); opacity:0; }
 .bar a { color:var(--mute); text-decoration:none; }
 .bar a:hover { color:var(--ink); }
 .bar .sp { flex:1; }
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 .bar a, .bar time { font-family:var(--mono); }
 .bar time { color:var(--mute); font-variant-numeric:tabular-nums; }
 
@@ -130,6 +129,7 @@ body.leaving { transform:scale(1.35); opacity:0; }
 </style>
 </head>
 <body>
+<!--SEO-LINKS-->
 <div class="splash" id="splash" aria-hidden="true">
   <div class="sp-in">
     <svg class="sp-mark" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0A0A0A"/><rect x=".5" y=".5" width="31" height="31" rx="7.5" fill="none" stroke="rgb(255 255 255 / 14%)"/><path d="M9.5 12.2 13 10.4V22" fill="none" stroke="#FFD600" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 14l6.5 8M23 14l-6.5 8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>
@@ -137,12 +137,12 @@ body.leaving { transform:scale(1.35); opacity:0; }
     <div class="sp-tag">Build · Don’t talk</div>
   </div>
 </div>
-<link rel="prefetch" href="/">
+<link rel="prefetch" href="/home/">
 <div class="wall"></div>
 
 <header class="bar">
   <a class="brandmark" href="/" aria-label="Mobile1X"><img src="/assets/logo.svg" alt="" width="22" height="22"><strong>Mobile1X</strong></a>
-  <a href="/">Main site</a>
+  <a href="/home/">Main site</a>
   <a href="/services/mobile-app-development/">Services</a>
   <a href="/blog/">Guides</a>
   <a href="/about/">About</a>
@@ -229,7 +229,7 @@ function go(url) {
   leaving = true; document.body.classList.add('leaving');
   setTimeout(() => { location.href = url; }, 450);
 }
-const enterSite = () => go('/');
+const enterSite = () => go('/home/');
 const iconsAtEnd = () => { const c = $('#icons'); return c.scrollHeight - c.scrollTop - c.clientHeight < 4; };
 addEventListener('wheel', e => {
   if (e.deltaY <= 0 || !iconsAtEnd()) { acc = 0; return; }

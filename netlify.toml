@@ -1,3 +1,16 @@
+# The launcher now lives at the site root; keep the old /desktop URL working.
+[[redirects]]
+  from = "/desktop"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/desktop/"
+  to = "/"
+  status = 301
+  force = true
+
 # Proxy /Collab (and /collab) to the Collab task/kanban app, hosted as its
 # own Netlify site. Status 200 + force keeps the URL on mobile1x.com/Collab
 # instead of redirecting to the netlify.app domain. Netlify redirect
@@ -31,6 +44,70 @@
   from = "/crm/*"
   to = "https://m1xcrm.netlify.app/:splat"
   status = 200
+  force = true
+
+# One short URL per product: mobile1x.com/<app>.
+# POS and Auction load their files from the site root (/assets/...), so they
+# cannot be proxied under a sub-path; they redirect to their Netlify sites
+# until they are rebuilt with a base path. Remove these two rules and add a
+# proxy (status 200, like /crm and /Collab) once that is done.
+[[redirects]]
+  from = "/pos"
+  to = "https://a2zpos.netlify.app"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/auction"
+  to = "https://thempl.netlify.app"
+  status = 302
+  force = true
+
+# Resto's domain (priffr.com) is a frameset over priffr.netlify.app, so link out.
+[[redirects]]
+  from = "/resto"
+  to = "https://priffr.com"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/bhashasetu"
+  to = "/english/"
+  status = 301
+  force = true
+
+# Commerce and Dedup keep their case-study pages; the short URL serves the
+# same page (200 rewrite keeps the address) and the page's canonical points
+# at /work/...
+[[redirects]]
+  from = "/commerce"
+  to = "/work/a2z/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/dedup"
+  to = "/work/dedup/"
+  status = 200
+  force = true
+
+# Bare app roots without a trailing slash.
+[[redirects]]
+  from = "/crm"
+  to = "/crm/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/collab"
+  to = "/Collab/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Collab"
+  to = "/Collab/"
+  status = 301
   force = true
 
 # Serve the notes.mobile1x.com subdomain directly from /notes (no iframe,

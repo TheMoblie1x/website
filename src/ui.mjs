@@ -148,7 +148,7 @@ export const contactSection = ({ source, title = 'Have a product to build?', led
     });
 
 /** Hero side panel: the apps live in the stores, each with its store links. */
-export const heroApps = (products) => `<aside class="hero__apps" aria-label="Our apps"><p class="hero__apps-title">Our apps</p><ul>${products.map((p) => `<li class="app-row"><img src="${p.icon}" alt="${esc(p.name)} app icon" width="56" height="56" decoding="async"><div><strong>${esc(p.name)}</strong><span>${esc(p.summary)}</span><div class="app-row__links">${p.web ? link({ href: p.web, label: 'Visit site', loc: 'hero' }) : ''}</div></div></li>`).join('')}</ul></aside>`;
+export const heroApps = (products) => `<aside class="hero__apps" aria-label="Our apps"><p class="hero__apps-title">Our apps</p><ul>${products.map((p) => `<li class="app-row"><img src="${p.icon}" alt="${esc(p.name)} app icon" width="56" height="56" decoding="async"><div><strong>${esc(p.name)}</strong><span>${esc(p.summary)}</span><div class="app-row__links">${p.web ? link({ href: p.web, label: 'Visit site', loc: 'hero' }) : ''}</div></div></li>`).join('')}</ul>${link({ href: '/home/#products', label: 'All 11 products', loc: 'hero' })}</aside>`;
 
 /** Hero showcase: a 3D product stage (rail, preview, rotating device, info panel). Slide 0 is the no-JS state; hero-stage.js animates it. */
 const SLICES = 9;

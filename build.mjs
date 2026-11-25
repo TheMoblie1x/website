@@ -10,6 +10,8 @@ import { WORK } from './src/content/work.mjs';
 import { POSTS } from './src/content/posts.mjs';
 import { home, servicePage, workPage, blogIndex, postPage } from './src/pages.mjs';
 import { syncForm } from './src/google-form.mjs';
+import { analyticsSnippet } from './src/layout.mjs';
+import { graph, organization, website, founder } from './src/schema.mjs';
 import { notesBlogPages } from './src/notes-blog.mjs';
 import { about, privacy, terms, notFound, pharma, magnet, MAGNETS, storePlatform } from './src/pages-static.mjs';
 
@@ -24,6 +26,35 @@ const pages = [
 ];
 
 for (const p of pages) write(p.path === '/' ? 'index.html' : p.path.endsWith('.html') ? p.path.slice(1) : `${p.path.slice(1)}index.html`, p.html);
+
+// The launcher (src/desktop.html) is the home page; the full site's home lives at /home/.
+const LAUNCHER = {
+    title: 'Mobile1X | 12 years of Applications and AI Engineering',
+    description: 'Mobile1X builds Android, iOS and web apps and AI products. Explore what we built over the last year: Notes, Dedup, Commerce, POS, B2B Pharma, BhashaSetu and more.',
+};
+const launcherHtml = (() => {
+    const head = `<title>${LAUNCHER.title}</title>
+<meta name="description" content="${LAUNCHER.description}">
+<link rel="canonical" href="${SITE.url}/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Mobile1X">
+<meta name="theme-color" content="#050505">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mobile1X">
+<meta property="og:title" content="${LAUNCHER.title}">
+<meta property="og:description" content="${LAUNCHER.description}">
+<meta property="og:url" content="${SITE.url}/">
+<meta property="og:image" content="${SITE.url}${SITE.ogImage}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+${analyticsSnippet()}
+${graph(organization(), website(), founder())}`;
+    const links = [['Home (full site)', '/home/'], ...SERVICES.map((x) => [x.name, `/services/${x.slug}/`]), ...WORK.map((x) => [x.name, `/work/${x.slug}/`]), ['Blog', '/blog/'], ['About', '/about/'], ['Notes', '/notes/'], ['B2B Pharma', '/pharma/'], ['BhashaSetu', '/english/'], ['Store Platform', '/ecommerce-store-platform/']];
+    const nav = `<nav class="sr-only" aria-label="Mobile1X site links"><h1>Mobile1X: 12 years of experience in Applications and AI Engineering</h1><ul>${links.map(([n, h]) => `<li><a href="${h}">${n}</a></li>`).join('')}</ul></nav>`;
+    return readFileSync(join(root, 'src/desktop.html'), 'utf8').replace('<!--HEAD-->', head).replace('<!--SEO-LINKS-->', nav);
+})();
+write('index.html', launcherHtml);
 
 // The Notes pages are hand-written and also load the tracker; copy it so assets/js/track.js stays the only source.
 copyFileSync(join(root, 'assets/js/track.js'), join(root, 'notes/assets/js/track.js'));
@@ -43,6 +74,7 @@ const modified = (path, html) => {
     return lastmod[path].date;
 };
 const entries = [
+    ['/', launcherHtml],
     ...pages.filter((p) => p.indexable !== false).map((p) => [p.path, p.html]),
     ['/notes/', readFileSync(join(root, 'notes/index.html'), 'utf8')], // hand-written Notes pages
     ...notesBlog.map((p) => [p.path, p.html]),

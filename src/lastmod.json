@@ -1,62 +1,62 @@
 {
   "/": {
-    "hash": "66ee252f1de5",
+    "hash": "34afc4f6a8fa",
     "date": "2026-11-25"
   },
   "/services/mobile-app-development/": {
-    "hash": "8db4686f1efa",
+    "hash": "9224e591d0b5",
     "date": "2026-11-25"
   },
   "/services/ai-development/": {
-    "hash": "68ae829430c5",
+    "hash": "83578dbb4543",
     "date": "2026-11-25"
   },
   "/services/mvp-development/": {
-    "hash": "9b9757c6b237",
+    "hash": "eb2bbc4bdd31",
     "date": "2026-11-25"
   },
   "/services/fintech-development/": {
-    "hash": "f39c08ef8a39",
+    "hash": "1c9208b321fc",
     "date": "2026-11-25"
   },
   "/work/notes/": {
-    "hash": "abd35e9c2ec7",
+    "hash": "6d4e9cc11623",
     "date": "2026-11-25"
   },
   "/work/dedup/": {
-    "hash": "f849426d1aa8",
+    "hash": "e8aec82ad64e",
     "date": "2026-11-25"
   },
   "/work/a2z/": {
-    "hash": "d88a07e933f3",
+    "hash": "e64dbaf3382a",
     "date": "2026-11-25"
   },
   "/blog/": {
-    "hash": "c95ccfe89db4",
+    "hash": "b4602260eda1",
     "date": "2026-11-25"
   },
   "/blog/how-much-does-it-cost-to-build-a-mobile-app/": {
-    "hash": "88964665efbd",
+    "hash": "7a0debe75365",
     "date": "2026-11-25"
   },
   "/blog/native-vs-flutter-vs-react-native/": {
-    "hash": "b885d52efeee",
+    "hash": "7ed78d8fd769",
     "date": "2026-11-25"
   },
   "/about/": {
-    "hash": "30bca23c0d21",
+    "hash": "c623f46dfed2",
     "date": "2026-11-25"
   },
   "/privacy/": {
-    "hash": "e68d72fc902c",
+    "hash": "f3dd8d10b0f7",
     "date": "2026-11-25"
   },
   "/terms/": {
-    "hash": "7fee64137949",
+    "hash": "4eb91d656cde",
     "date": "2026-11-25"
   },
   "/pharma/": {
-    "hash": "b5f74b4cd4aa",
+    "hash": "53738db40e31",
     "date": "2026-11-25"
   },
   "/notes/": {
@@ -72,7 +72,7 @@
     "date": "2026-10-11"
   },
   "/ecommerce-store-platform/": {
-    "hash": "a73cf6d7dc1d",
+    "hash": "3f5d848a145c",
     "date": "2026-11-25"
   },
   "/notes/blogs/a-tour-of-notes-for-android/": {
@@ -113,6 +113,10 @@
   },
   "/notes/blogs/how-to-record-a-voice-note-in-notes-for-android/": {
     "hash": "71dc270cbbc9",
+    "date": "2026-11-25"
+  },
+  "/home/": {
+    "hash": "4e002f2e36de",
     "date": "2026-11-25"
   }
 }
