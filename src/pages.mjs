@@ -40,9 +40,7 @@ export function home() {
             <p class="eyebrow">Mobile and AI product engineering</p>
             <h1>Mobile &amp; AI products, built by <em>engineers who ship.</em></h1>
             <p class="hero__lede">We engineer on-device AI and offline-first apps, build global e-commerce and payment integrations, and launch end to end on the App Store, Google Play and the web. Our own apps and platforms run in production.</p>
-            <div class="hero__actions">${CTA_TALK('hero')}${btn({ href: '#portfolio', label: 'Explore Our Work', variant: 'ghost', loc: 'hero' })}</div>
             ${tractionStrip(TRACTION)}
-            <p class="hero__call"><a class="link-call" href="${SITE.phoneHref}" data-loc="hero">${icon('phone')}Call Mobile1X ${SITE.phone}</a><a class="link-call" href="${WHATSAPP_HREF}" target="_blank" rel="noopener noreferrer" data-loc="hero">${icon('whatsapp')}WhatsApp</a></p>
             <ul class="hero__facts"><li>12 years in Applications and AI Engineering</li><li>11 products shipped</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
         </div>
         <div class="win reveal" aria-label="Mobile1X products">

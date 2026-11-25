@@ -22,7 +22,6 @@ const header = () => `<header class="site-header" id="site-header" data-loc="hea
             <a class="btn btn--primary nav__cta-mobile" href="/home/#contact">Talk to an Engineer</a>
         </nav>
         <div class="site-header__actions">
-            <a class="header-call" href="${SITE.phoneHref}" aria-label="Call Mobile1X ${SITE.phone}">${icon('phone')}<span>Call</span></a>
             <a class="btn btn--primary btn--sm site-header__cta" href="/home/#contact">Talk to an Engineer</a>
             <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle menu">${icon('menu', 'i-open')}${icon('close', 'i-close')}</button>
         </div>
