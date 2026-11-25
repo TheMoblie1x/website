@@ -269,7 +269,7 @@ function show(n) {
   document.body.classList.toggle('story', n < 3);
   lock = true; setTimeout(() => { lock = false; }, 1000);
 }
-const reveal = () => { splash.classList.add('gone'); document.body.classList.add('go'); sessionStorage.setItem('m1x-splash', '1'); show(seen ? 3 : 0); };
+const reveal = () => { splash.classList.add('gone'); document.body.classList.add('go'); sessionStorage.setItem('m1x-splash', '1'); show(location.hash === '#apps' ? 3 : 0); };
 if (seen) { reveal(); } else { splash.addEventListener('animationend', e => { if (e.target === splash && e.animationName === 'splashOut') reveal(); }); setTimeout(() => { if (st < 0) reveal(); }, 4000); }
 dots.forEach((d, i) => d.addEventListener('click', () => show(i)));
 $('#slnext').addEventListener('click', () => show(st + 1));

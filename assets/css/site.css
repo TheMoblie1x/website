@@ -540,3 +540,9 @@ body { background: radial-gradient(70% 50% at 50% -10%, rgb(200 155 60 / 12%), t
 .mv__values { margin-top: var(--space-7); }
 .mv__values ul { list-style: none; }
 @media (max-width: 800px) { .mv { grid-template-columns: 1fr; } }
+
+/* Tighter vertical rhythm */
+.section { padding-block: clamp(var(--space-7), 5.5vw, 80px); }
+.section__head { margin-bottom: var(--space-6); }
+.svc__row { padding-block: var(--space-5); }
+.map iframe { height: clamp(200px, 26vw, 280px); }

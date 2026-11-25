@@ -105,7 +105,7 @@ export function home() {
     });
 
     const cases = section({
-        loc: 'case-study', cls: 'section--alt', body: `${sectionHead({ eyebrow: 'Case studies', title: 'How we engineered them.' })}
+        id: 'portfolio', loc: 'case-study', cls: 'section--alt', body: `${sectionHead({ eyebrow: 'Case studies', title: 'How we engineered them.' })}
         <div class="grid grid--3">${WORK.map((w) => `<article class="card reveal"><span class="tag">${esc(PRODUCTS[w.product].tag)}</span><h3><a class="card__link" href="/work/${w.slug}/" data-loc="case-study">${esc(w.name)}</a></h3><p>${esc(w.lede)}</p>${link({ href: `/work/${w.slug}/`, label: 'Dive into the case study', loc: 'case-study' })}</article>`).join('')}</div>`,
     });
 
@@ -132,7 +132,7 @@ export function home() {
             preload: '<link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">',
             scripts: `<script defer src="${asset('/assets/js/hero-stage.js')}"></script>`,
             schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: 'Android, iOS', description: PRODUCTS[k].summary, installUrl: storeLinks(PRODUCTS[k]).map((s) => s.url) }))],
-            body: [hero, suite, services, proof, storePlatform, takemytest, capabilities, cases, process, missionBlock(), trust, faqSection, contactSection({ source: '/' })].join('\n'),
+            body: [hero, suite, services, cases, process, faqSection, contactSection({ source: '/' })].join('\n'),
         }),
     };
 }
