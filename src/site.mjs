@@ -139,7 +139,6 @@ export const SERVICE_ORDER = ['mobile-app-development', 'ai-development', 'mvp-d
 export const NAV = [
     { label: 'Store Platform', href: '/ecommerce-store-platform/' },
     { label: 'Work', href: '/home/#portfolio' },
-    { label: 'Pricing', href: '/home/#pricing' },
     { label: 'Blog', href: '/blog/' },
     { label: 'About', href: '/about/' },
 ];

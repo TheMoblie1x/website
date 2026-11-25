@@ -6,10 +6,10 @@ Engagements typically range from $5,000 to $100,000+; standalone web performance
 
 ## Services
 
-- [Mobile App Development](https://mobile1x.com/services/mobile-app-development/): Android and iOS apps, designed, engineered and launched end to end.
-- [AI Development](https://mobile1x.com/services/ai-development/): AI applications, agents and integrations for mobile and web products.
-- [MVP Development](https://mobile1x.com/services/mvp-development/): From idea to a launched MVP, with scope and price agreed first.
-- [Fintech Engineering](https://mobile1x.com/services/fintech-development/): Payments, banking integrations and security-conscious architecture.
+- [Mobile App Development](https://mobile1x.com/services/mobile-app-development/): Design, engineer and launch Android and iOS apps end to end.
+- [AI Development](https://mobile1x.com/services/ai-development/): Build AI applications, agents and integrations for mobile and web products.
+- [MVP Development](https://mobile1x.com/services/mvp-development/): Take an idea to a launched MVP, with scope and price agreed first.
+- [Fintech Engineering](https://mobile1x.com/services/fintech-development/): Engineer payments, banking integrations and security-conscious architecture.
 
 ## Products and case studies
 

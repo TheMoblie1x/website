@@ -5,7 +5,7 @@ import { SERVICES, PROCESS, PRICING_NOTE, serviceBySlug } from './content/servic
 import { WORK } from './content/work.mjs';
 import { POSTS, postBySlug } from './content/posts.mjs';
 import { breadcrumbList, service as serviceSchema, faqPage, article, softwareApp } from './schema.mjs';
-import { esc, icon, btn, link, section, sectionHead, breadcrumbs, checks, serviceCard, productCard, pricingCard, faq, processSteps, archStack, contactSection, heroStage, heroApps, tractionStrip, metricCard, phone } from './ui.mjs';
+import { esc, icon, btn, link, section, sectionHead, breadcrumbs, checks, serviceCard, productCard, pricingCard, faq, processSteps, archStack, contactSection, heroStage, heroApps, missionBlock, tractionStrip, metricCard, phone } from './ui.mjs';
 
 const CTA_TALK = (loc) => btn({ href: '#contact', label: 'Talk to an Engineer', arrow: true, loc });
 const CTA_CALL = (loc) => btn({ href: SITE.phoneHref, label: 'Call Mobile1X', variant: 'ghost', ic: 'phone', loc });
@@ -30,10 +30,6 @@ const ARCH_LAYERS = [
     { name: 'Data and operations', items: ['SQL', 'SQLite', 'AWS', 'Cloudflare', 'Analytics and monitoring'] },
 ];
 
-const pricing = () => `<div class="grid grid--2">
-    ${pricingCard({ name: 'Performance Audit', price: '$500', unit: 'to about $5,000', text: 'For an existing web platform: find where it loses revenue or speed, with a prioritised fix list.', items: ['Speed and Core Web Vitals findings', 'Conversion and funnel leak review', 'Scaling risks and opportunities'], cta: btn({ href: '#contact', label: 'Request an audit', variant: 'ghost', loc: 'pricing' }) })}
-    ${pricingCard({ name: 'Product & Platform Build', price: '$5,000', unit: 'to $100,000+', text: 'Mobile, AI, MVP and fintech products designed, built and launched end to end.', items: ['Written scope and quote before work starts', 'Design, engineering, testing and launch', 'Security built in from the start'], cta: btn({ href: '#contact', label: 'Talk to an Engineer', arrow: true, loc: 'pricing' }), featured: true })}
-</div><p class="plan__note reveal">Prices are ranges. Your quote follows a 30-minute discovery call.</p>`;
 
 export function home() {
     const hero = `<section class="hero" data-loc="hero">
@@ -43,8 +39,8 @@ export function home() {
         <div class="hero__copy">
             <p class="eyebrow">Mobile and AI product engineering</p>
             <h1>Mobile &amp; AI products, built by <em>engineers who ship.</em></h1>
-            <p class="hero__lede">Founder-led senior engineering for on-device AI and offline-first apps, global e-commerce and payment integrations, and end-to-end launches on the App Store, Google Play and the web. Our own apps and platforms are live in production.</p>
-            <div class="hero__actions">${CTA_TALK('hero')}${btn({ href: '#portfolio', label: 'See Our Work', variant: 'ghost', loc: 'hero' })}</div>
+            <p class="hero__lede">We engineer on-device AI and offline-first apps, build global e-commerce and payment integrations, and launch end to end on the App Store, Google Play and the web. Our own apps and platforms run in production.</p>
+            <div class="hero__actions">${CTA_TALK('hero')}${btn({ href: '#portfolio', label: 'Explore Our Work', variant: 'ghost', loc: 'hero' })}</div>
             ${tractionStrip(TRACTION)}
             <p class="hero__call"><a class="link-call" href="${SITE.phoneHref}" data-loc="hero">${icon('phone')}Call Mobile1X ${SITE.phone}</a><a class="link-call" href="${WHATSAPP_HREF}" target="_blank" rel="noopener noreferrer" data-loc="hero">${icon('whatsapp')}WhatsApp</a></p>
             <ul class="hero__facts"><li>12 years in Applications and AI Engineering</li><li>11 products shipped</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
@@ -75,7 +71,7 @@ export function home() {
                 <p class="tmt__eyebrow">New from Mobile1X</p>
                 <h2 class="tmt__title">A timed test for every role you hire, <em>in the browser.</em></h2>
                 <p class="tmt__lede">TakeMyTest lets hiring teams build timed, role-based assessments, send candidates a link, and review and mark the results together. The waitlist opens soon.</p>
-                <div class="tmt__actions">${btn({ href: '/tmt/', label: 'See TakeMyTest', variant: 'primary', arrow: true, loc: 'product-takemytest' })}</div>
+                <div class="tmt__actions">${btn({ href: '/tmt/', label: 'Explore TakeMyTest', variant: 'primary', arrow: true, loc: 'product-takemytest' })}</div>
             </div>
             <p class="tmt__mark" aria-hidden="true"><span>Take</span><span>MyTest</span></p>
         </div>
@@ -87,37 +83,36 @@ export function home() {
     const storePlatform = section({
         id: 'store-platform', loc: 'product-store-platform', body: `${sectionHead({ eyebrow: 'New · E-commerce', title: 'Your own online store, built and ready to sell.', lede: 'A complete storefront and admin panel for Indian shops: Men and Women tabs, WhatsApp ordering, Razorpay payments, GST billing and SEO. Three memberships: Standard, Pro and Pro Max.' })}
         <div class="split"><div class="reveal"><img src="/assets/store-platform/home.jpg" alt="Online fashion store built on the Mobile1X store platform" loading="lazy" width="1563" height="784" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border,#2a2a2a)"></div>
-        <div class="reveal">${checks(['Storefront and admin panel on your own domain', 'Up to 20 colour-tagged photos per product', 'WhatsApp ordering and Razorpay payments', 'Plans from ₹5,00,000 one-time, with yearly maintenance'])}<div class="hero__actions">${btn({ href: '/ecommerce-store-platform/', label: 'See plans and screens', variant: 'primary', arrow: true, loc: 'product-store-platform' })}</div></div></div>`,
+        <div class="reveal">${checks(['Storefront and admin panel on your own domain', 'Up to 20 colour-tagged photos per product', 'WhatsApp ordering and Razorpay payments', 'Plans from ₹5,00,000 one-time, with yearly maintenance'])}<div class="hero__actions">${btn({ href: '/ecommerce-store-platform/', label: 'Explore plans and screens', variant: 'primary', arrow: true, loc: 'product-store-platform' })}</div></div></div>`,
     });
 
     const proof = section({
-        id: 'portfolio', loc: 'case-study', body: `${sectionHead({ eyebrow: 'Proof', title: 'Shipped products & flagship platforms.', lede: 'We don’t just build for clients—we architect, ship, and scale our own global mobile apps and international commerce platforms, bringing that exact production discipline to your product.' })}
+        id: 'portfolio', loc: 'case-study', body: `${sectionHead({ eyebrow: 'Proof', title: 'We ship our own products and platforms.', lede: 'We don’t just build for clients—we architect, ship, and scale our own global mobile apps and international commerce platforms, bringing that exact production discipline to your product.' })}
         <div class="products products--flagship">${['a2z', 'dedup', 'notes'].map((k) => productCard(PRODUCTS[k])).join('')}</div>
 `,
     });
 
     const services = section({
-        id: 'services', loc: 'service', cls: 'section--alt', body: `${sectionHead({ eyebrow: 'Services', title: 'What we build.', lede: 'Four focus areas, each with its own detailed page: approach, technology, pricing and proof.' })}
+        id: 'services', loc: 'service', cls: 'section--alt', body: `${sectionHead({ eyebrow: 'Services', title: 'We design, build and launch.', lede: 'Four focus areas, each with its own detailed page: approach, technology, pricing and proof.' })}
         <ol class="svc" id="fintech">${SERVICES.map((x, i) => `<li class="svc__row reveal"><span class="svc__n">${String(i + 1).padStart(2, '0')}</span><div class="svc__main"><h3><a class="card__link" href="/services/${x.slug}/" data-loc="service">${esc(x.name)}</a></h3><p>${esc(x.blurb)}</p></div><p class="svc__stack">${esc(x.stack)}</p><a class="svc__go" href="/services/${x.slug}/" data-loc="service" aria-label="${esc(x.name)}">${icon('arrow')}</a></li>`).join('')}</ol>`,
     });
 
     const capabilities = section({
-        loc: 'capabilities', body: `${sectionHead({ eyebrow: 'Engineering', title: 'One engineer across the whole stack.', lede: 'A typical product spans four layers. We design and build all of them, so the pieces fit.' })}${archStack(ARCH_LAYERS)}`,
+        loc: 'capabilities', body: `${sectionHead({ eyebrow: 'Engineering', title: 'We engineer the whole stack.', lede: 'A typical product spans four layers. We design and build all of them, so the pieces fit.' })}${archStack(ARCH_LAYERS)}`,
     });
 
     const suite = section({
-        id: 'products', loc: 'products', body: `${sectionHead({ eyebrow: 'Products', title: 'Eleven products. One studio.', lede: 'Everything Mobile1X has built and runs itself. Each one lives at its own address.' })}
+        id: 'products', loc: 'products', body: `${sectionHead({ eyebrow: 'Products', title: 'Eleven products. One studio.', lede: 'We designed, built and run all eleven ourselves. Open any one at its own address.' })}
         <ul class="suite">${SUITE.map((a) => `<li class="suite__item reveal"><a class="suite__link" href="/${a.slug}/" data-loc="products"><img class="suite__icon" src="${a.icon}" alt="" width="56" height="56" loading="lazy"><span class="suite__cat">${esc(a.cat)}</span><span class="suite__name">${esc(a.name)}</span><span class="suite__text">${esc(a.text)}</span><span class="suite__url">mobile1x.com/${a.slug}</span></a></li>`).join('')}</ul>`,
     });
 
     const cases = section({
-        loc: 'case-study', cls: 'section--alt', body: `${sectionHead({ eyebrow: 'Case studies', title: 'How we built them.' })}
-        <div class="grid grid--3">${WORK.map((w) => `<article class="card reveal"><span class="tag">${esc(PRODUCTS[w.product].tag)}</span><h3><a class="card__link" href="/work/${w.slug}/" data-loc="case-study">${esc(w.name)}</a></h3><p>${esc(w.lede)}</p>${link({ href: `/work/${w.slug}/`, label: 'Read the case study', loc: 'case-study' })}</article>`).join('')}</div>`,
+        loc: 'case-study', cls: 'section--alt', body: `${sectionHead({ eyebrow: 'Case studies', title: 'How we engineered them.' })}
+        <div class="grid grid--3">${WORK.map((w) => `<article class="card reveal"><span class="tag">${esc(PRODUCTS[w.product].tag)}</span><h3><a class="card__link" href="/work/${w.slug}/" data-loc="case-study">${esc(w.name)}</a></h3><p>${esc(w.lede)}</p>${link({ href: `/work/${w.slug}/`, label: 'Dive into the case study', loc: 'case-study' })}</article>`).join('')}</div>`,
     });
 
     const process = section({ id: 'process', loc: 'process', body: `${sectionHead({ eyebrow: 'How we work', title: 'Discover, architect, build, test, launch, improve.' })}${processSteps(PROCESS)}` });
 
-    const price = section({ id: 'pricing', loc: 'pricing', cls: 'section--alt', body: `${sectionHead({ eyebrow: 'Pricing', title: 'Transparent ranges, before the first call.', lede: 'Every project is scoped individually. These ranges show where to start.', center: true })}${pricing()}` });
 
     const trust = section({
         loc: 'trust', body: `${sectionHead({ eyebrow: 'Why Mobile1X', title: 'Evidence, not adjectives.' })}
@@ -139,7 +134,7 @@ export function home() {
             preload: '<link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">',
             scripts: `<script defer src="${asset('/assets/js/hero-stage.js')}"></script>`,
             schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: 'Android, iOS', description: PRODUCTS[k].summary, installUrl: storeLinks(PRODUCTS[k]).map((s) => s.url) }))],
-            body: [hero, suite, services, proof, storePlatform, takemytest, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
+            body: [hero, suite, services, proof, storePlatform, takemytest, capabilities, cases, process, missionBlock(), trust, faqSection, contactSection({ source: '/' })].join('\n'),
         }),
     };
 }
@@ -180,7 +175,7 @@ export function workPage(w) {
             body: `<section class="page-hero" data-loc="hero"><div class="container">${breadcrumbs(trail)}<p class="eyebrow">Case study</p><h1>${esc(w.h1)}</h1><p class="lede lede--answer">${esc(w.lede)}</p><div class="hero__actions">${links}</div></div></section>
 <section class="section section--tight" data-loc="case-study"><div class="container">${shots}</div></section>
 ${metrics}${body}
-${contactSection({ source: `/work/${w.slug}/`, title: 'Have a similar project?', lede: 'Talk to an engineer about what you want to build. We reply within one business day.' })}`,
+${contactSection({ source: `/work/${w.slug}/`, title: 'Ready to build something similar?', lede: 'Talk to an engineer about what you want to build. We reply within one business day.' })}`,
         }),
     };
 }

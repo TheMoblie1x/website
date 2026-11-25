@@ -56,7 +56,7 @@ export const breadcrumbs = (trail) =>
 export const checks = (items) => `<ul class="checks">${items.map((t) => `<li>${icon('check')}<span>${t}</span></li>`).join('')}</ul>`;
 
 export const serviceCard = (s) =>
-    `<article class="card reveal"><span class="icon-badge">${icon(s.icon)}</span><h3><a class="card__link" href="/services/${s.slug}/" data-loc="service">${esc(s.name)}</a></h3><p>${esc(s.blurb)}</p><p class="card__meta">${esc(s.stack)}</p>${link({ href: `/services/${s.slug}/`, label: 'Learn more', loc: 'service' })}</article>`;
+    `<article class="card reveal"><span class="icon-badge">${icon(s.icon)}</span><h3><a class="card__link" href="/services/${s.slug}/" data-loc="service">${esc(s.name)}</a></h3><p>${esc(s.blurb)}</p><p class="card__meta">${esc(s.stack)}</p>${link({ href: `/services/${s.slug}/`, label: 'Explore', loc: 'service' })}</article>`;
 
 const picture = (src, alt, w, h, lazy = true, extra = '') =>
     `<img src="${src}" alt="${esc(alt)}" width="${w}" height="${h}"${lazy ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"'}${extra}>`;
@@ -78,7 +78,7 @@ export const productCard = (p) => {
     ].filter(Boolean).join('');
     const f = p.flagship;
     const badges = f ? `<ul class="stat-badges" aria-label="Traction">${f.badges.map((b) => `<li class="stat-badge">${esc(b)}</li>`).join('')}</ul>` : '';
-    const visit = f && p.web ? link({ href: p.web, label: 'Visit site', loc: 'case-study' }) : '';
+    const visit = f && p.web ? link({ href: p.web, label: 'Launch site', loc: 'case-study' }) : '';
     return `<article class="product reveal${f ? ' product--flagship' : ''}">${shots}<div class="product__body"><span class="tag">${esc(p.tag)}</span><h3>${esc(f?.title || p.name)}</h3>${badges}<p>${esc(f?.highlight || p.summary)}</p><div class="product__links">${links}${visit}</div></div></article>`;
 };
 
@@ -151,7 +151,7 @@ export const contactSection = ({ source, title = 'Have a product to build?', led
     });
 
 /** Hero side panel: the apps live in the stores, each with its store links. */
-export const heroApps = (products) => `<aside class="hero__apps" aria-label="Our apps"><p class="hero__apps-title">Our apps</p><ul>${products.map((p) => `<li class="app-row"><img src="${p.icon}" alt="${esc(p.name)} app icon" width="56" height="56" decoding="async"><div><strong>${esc(p.name)}</strong><span>${esc(p.summary)}</span><div class="app-row__links">${p.web ? link({ href: p.web, label: 'Visit site', loc: 'hero' }) : ''}</div></div></li>`).join('')}</ul>${link({ href: '/home/#products', label: 'All 11 products', loc: 'hero' })}</aside>`;
+export const heroApps = (products) => `<aside class="hero__apps" aria-label="Our apps"><p class="hero__apps-title">Our apps</p><ul>${products.map((p) => `<li class="app-row"><img src="${p.icon}" alt="${esc(p.name)} app icon" width="56" height="56" decoding="async"><div><strong>${esc(p.name)}</strong><span>${esc(p.summary)}</span><div class="app-row__links">${p.web ? link({ href: p.web, label: 'Launch site', loc: 'hero' }) : ''}</div></div></li>`).join('')}</ul>${link({ href: '/home/#products', label: 'All 11 products', loc: 'hero' })}</aside>`;
 
 /** Hero showcase: a 3D product stage (rail, preview, rotating device, info panel). Slide 0 is the no-JS state; hero-stage.js animates it. */
 const SLICES = 9;
@@ -178,7 +178,16 @@ export const heroStage = (products) => `<div class="stage" id="stage" aria-roled
         <span class="badge">${esc(stageBadge(p))}</span>
         <h2 class="info__title">${esc(p.name)}</h2>
         <p class="info__text">${esc(p.summary)}</p>
-        <div class="info__row"><div class="info__meta"><span>Platform</span><strong>${esc(p.tag)}</strong></div>${p.web ? btn({ href: p.web, label: 'Visit site', variant: 'primary', arrow: true, loc: 'hero' }) : ''}</div>
-        ${p.case ? link({ href: p.case, label: 'Read the case study', loc: 'hero' }) : ''}
+        <div class="info__row"><div class="info__meta"><span>Platform</span><strong>${esc(p.tag)}</strong></div>${p.web ? btn({ href: p.web, label: 'Launch site', variant: 'primary', arrow: true, loc: 'hero' }) : ''}</div>
+        ${p.case ? link({ href: p.case, label: 'Dive into the case study', loc: 'hero' }) : ''}
     </article>`).join('')}</div>
 </div>`;
+
+/** Mission, vision and values. Copy supplied by the founder. */
+export const missionBlock = () => section({
+    id: 'mission', loc: 'mission', cls: 'section--alt', body: `<div class="mv">
+        <article class="mv__big reveal"><p class="eyebrow">Our mission</p><p class="mv__text">To simplify human life with the power of technology.</p></article>
+        <article class="mv__big reveal"><p class="eyebrow">Our vision</p><p class="mv__text">Technology making every life simple.</p></article>
+    </div>
+    <div class="mv__values"><p class="eyebrow reveal">Our values</p><ul class="grid grid--3">${[['Integrity', 'We do what we say, and we say what is true.'], ['Empathy', 'We build for the person using the product, not just the spec.'], ['Customer centricity', 'Every decision starts from what the customer needs.']].map(([t, d]) => `<li class="card reveal"><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('')}</ul></div>`,
+});

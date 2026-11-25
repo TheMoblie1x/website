@@ -1,62 +1,62 @@
 {
   "/": {
-    "hash": "34afc4f6a8fa",
+    "hash": "794a54001375",
     "date": "2026-11-25"
   },
   "/services/mobile-app-development/": {
-    "hash": "560c7245f614",
+    "hash": "b9d193ce4452",
     "date": "2026-11-25"
   },
   "/services/ai-development/": {
-    "hash": "ebc7c3d86371",
+    "hash": "3d44ad4aea81",
     "date": "2026-11-25"
   },
   "/services/mvp-development/": {
-    "hash": "ff06a6cc8e6b",
+    "hash": "463dd52d8fbc",
     "date": "2026-11-25"
   },
   "/services/fintech-development/": {
-    "hash": "9ac2b59d794e",
+    "hash": "b40dd905769a",
     "date": "2026-11-25"
   },
   "/work/notes/": {
-    "hash": "d4e7b65d9274",
+    "hash": "a92471c72976",
     "date": "2026-11-25"
   },
   "/work/dedup/": {
-    "hash": "65acf73f1b3d",
+    "hash": "e381e0b99e9f",
     "date": "2026-11-25"
   },
   "/work/a2z/": {
-    "hash": "e6a5c9cdb330",
+    "hash": "e53eb1d162e4",
     "date": "2026-11-25"
   },
   "/blog/": {
-    "hash": "516fa49423dc",
+    "hash": "0259b28edb64",
     "date": "2026-11-25"
   },
   "/blog/how-much-does-it-cost-to-build-a-mobile-app/": {
-    "hash": "641c098ecc8f",
+    "hash": "dc23ddacf29b",
     "date": "2026-11-25"
   },
   "/blog/native-vs-flutter-vs-react-native/": {
-    "hash": "d2a0a01eff21",
+    "hash": "aa7c61c62beb",
     "date": "2026-11-25"
   },
   "/about/": {
-    "hash": "ce7aba6221c0",
+    "hash": "2d2d0c8ecb12",
     "date": "2026-11-25"
   },
   "/privacy/": {
-    "hash": "f3dd8d10b0f7",
+    "hash": "af620c4feba2",
     "date": "2026-11-25"
   },
   "/terms/": {
-    "hash": "4eb91d656cde",
+    "hash": "25f2aeae070b",
     "date": "2026-11-25"
   },
   "/pharma/": {
-    "hash": "30056124d5f7",
+    "hash": "4c6fd47822e4",
     "date": "2026-11-25"
   },
   "/notes/": {
@@ -72,7 +72,7 @@
     "date": "2026-10-11"
   },
   "/ecommerce-store-platform/": {
-    "hash": "d42991e025dc",
+    "hash": "0e6dbd3db1b5",
     "date": "2026-11-25"
   },
   "/notes/blogs/a-tour-of-notes-for-android/": {
@@ -116,7 +116,7 @@
     "date": "2026-11-25"
   },
   "/home/": {
-    "hash": "8e404ab0fb62",
+    "hash": "9cc1c82c6e38",
     "date": "2026-11-25"
   }
 }

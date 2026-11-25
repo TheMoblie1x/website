@@ -532,3 +532,11 @@ body { background: radial-gradient(70% 50% at 50% -10%, rgb(200 155 60 / 12%), t
 .map iframe { display: block; width: 100%; height: clamp(240px, 34vw, 360px); border: 0; }
 .map figcaption { padding: var(--space-3) var(--space-5); font-size: 0.875rem; color: var(--muted); }
 .map figcaption a { color: var(--gold-hi); text-underline-offset: 3px; }
+
+/* Mission, vision, values */
+.mv { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+.mv__big { padding: var(--space-7) var(--space-6); border: 1px solid var(--line-hi); border-radius: var(--radius-lg); background: radial-gradient(80% 90% at 0% 0%, rgb(200 155 60 / 12%), transparent 70%), var(--surface); }
+.mv__text { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; text-wrap: balance; }
+.mv__values { margin-top: var(--space-7); }
+.mv__values ul { list-style: none; }
+@media (max-width: 800px) { .mv { grid-template-columns: 1fr; } }

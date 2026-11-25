@@ -36,7 +36,7 @@ const footer = () => `<footer class="site-footer" data-loc="footer">
             <p class="footer__about">Mobile and AI product engineering studio. We design, build and launch apps that ship.</p>
         </div>
         <nav aria-label="Services"><h2 class="footer__h">Services</h2><ul>${SERVICES.map((s) => `<li><a href="/services/${s.slug}/">${esc(s.name)}</a></li>`).join('')}</ul></nav>
-        <nav aria-label="Company"><h2 class="footer__h">Company</h2><ul><li><a href="/about/">About</a></li><li><a href="/home/#portfolio">Work</a></li><li><a href="/blog/">Blog</a></li><li><a href="/home/#pricing">Pricing</a></li><li><a href="/home/#faq">FAQ</a></li></ul></nav>
+        <nav aria-label="Company"><h2 class="footer__h">Company</h2><ul><li><a href="/about/">About</a></li><li><a href="/home/#portfolio">Work</a></li><li><a href="/blog/">Blog</a></li><li><a href="/home/#faq">FAQ</a></li></ul></nav>
         <div><h2 class="footer__h">Contact</h2><ul>
             <li><a href="${SITE.phoneHref}">${SITE.phone}</a></li>
             <li><a href="${WHATSAPP_HREF}" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>

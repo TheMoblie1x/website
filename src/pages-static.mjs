@@ -3,7 +3,7 @@ import { SITE, PRODUCTS, WHATSAPP_HREF, FOUNDER, STACK, TECH_ICON } from './site
 import { page } from './layout.mjs';
 import { SERVICES } from './content/services.mjs';
 import { breadcrumbList, aboutPage } from './schema.mjs';
-import { esc, btn, link, section, sectionHead, breadcrumbs, checks, contactSection, contactChannels, leadForm, icon } from './ui.mjs';
+import { esc, btn, link, section, sectionHead, breadcrumbs, checks, contactSection, contactChannels, leadForm, icon, missionBlock } from './ui.mjs';
 
 const NOINDEX = 'noindex, follow';
 const hero = (trail, eyebrow, h1, lede) => `<section class="page-hero" data-loc="hero"><div class="container">${trail ? breadcrumbs(trail) : ''}<p class="eyebrow">${esc(eyebrow)}</p><h1>${esc(h1)}</h1>${lede ? `<p class="lede lede--answer">${esc(lede)}</p>` : ''}</div></section>`;
@@ -23,11 +23,12 @@ export function about() {
         html: page({
             title: 'About Mobile1X | Mobile & AI Product Engineering Studio', description: 'Mobile1X is a mobile and AI product engineering studio based in India. Learn who we are, what we have shipped and how to reach us.', path: '/about/', schema: [aboutPage(), breadcrumbList(trail)],
             body: `${hero(trail, 'About', 'We design, build and launch apps that ship.', 'Mobile1X is a mobile and AI product engineering studio based in Indore, India, working with startups, agencies and enterprises worldwide.')}
+${missionBlock()}
 ${prose(`${h2('What we do')}${p('We design, engineer and launch Android and iOS apps, AI products, MVPs and fintech platforms. You can read the detail on each service page: ' + SERVICES.map((s) => `<a href="/services/${s.slug}/">${esc(s.name)}</a>`).join(', ') + '.')}
 ${h2('Founder')}${p(`Mobile1X is founded and led by <strong>${FOUNDER.name}</strong>, a software engineer with ${FOUNDER.years} years of experience, based in ${SITE.city}, ${SITE.country}. Find ${FOUNDER.name.split(' ')[0]} on <a href="${FOUNDER.github}" target="_blank" rel="noopener noreferrer">GitHub</a>${FOUNDER.linkedin ? ` and <a href="${FOUNDER.linkedin}" target="_blank" rel="noopener noreferrer">LinkedIn</a>` : ''}, and the company on <a href="${SITE.linkedin}" target="_blank" rel="noopener noreferrer">LinkedIn</a> and <a href="${SITE.github}" target="_blank" rel="noopener noreferrer">GitHub</a>.`)}
 ${h2('Our engineering stack')}${p('The work spans mobile, backend, cloud and web:')}<div class="grid grid--2">${STACK.map((g) => `<div class="card"><h3>${esc(g.group)}</h3><ul class="chips chips--tech">${g.items.map((i) => `<li>${TECH_ICON[i] ? `<span class="tech-ico" style="--ico:url(/assets/tech/${TECH_ICON[i]}.svg)" aria-hidden="true"></span>` : ''}${esc(i)}</li>`).join('')}</ul></div>`).join('')}</div>
 ${h2('What we have shipped')}${p('The clearest evidence of what we do is the products we run ourselves. Notes and Dedup have each reached 200 downloads:')}<ul class="plain">${live}</ul>
-${h2('How we work')}${p('You work directly with the founder-engineer who builds your product. Every project starts with a 30-minute discovery call and a written scope and quote before work begins. Published price ranges are on the <a href="/home/#pricing">pricing section</a>.')}
+${h2('How we work')}${p('You work directly with the founder-engineer who builds your product. Every project starts with a 30-minute discovery call and a written scope and quote before work begins.')}
 ${h2('Company information')}<ul class="plain"><li>Name: Mobile1X</li><li>Location: ${SITE.city}, ${SITE.country}, working worldwide</li><li>Email: <a href="mailto:${SITE.email}">${SITE.email}</a></li><li>Phone and WhatsApp: <a href="${SITE.phoneHref}">${SITE.phone}</a></li><li>Discovery call: <a href="${SITE.calendly}" target="_blank" rel="noopener noreferrer">book 30 minutes</a></li></ul>`)}
 ${contactSection({ source: '/about/' })}`,
         }),
