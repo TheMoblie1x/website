@@ -142,7 +142,7 @@ ul, ol { padding: 0; }
 }
 
 /* ---------- Hero (lighting: deep black, one warm key light, faint grid, vignette) ---------- */
-.hero { position: relative; overflow: hidden; padding-block: clamp(var(--space-7), 8vw, var(--space-9)) clamp(var(--space-7), 8vw, 96px); }
+.hero { position: relative; overflow: hidden; padding-block: clamp(var(--space-5), 3vw, var(--space-7)) clamp(var(--space-7), 8vw, 96px); }
 .hero__light { position: absolute; inset: 0; overflow: hidden; pointer-events: none; background: radial-gradient(30% 40% at 12% 90%, rgb(200 155 60 / 9%), transparent 70%); }
 .hero__light i { position: absolute; display: block; }
 /* Key light: slow "breathing" glow. Transform and opacity only, so it stays on the compositor. */
