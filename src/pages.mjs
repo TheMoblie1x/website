@@ -49,9 +49,12 @@ export function home() {
             <p class="hero__call"><a class="link-call" href="${SITE.phoneHref}" data-loc="hero">${icon('phone')}Call Mobile1X ${SITE.phone}</a><a class="link-call" href="${WHATSAPP_HREF}" target="_blank" rel="noopener noreferrer" data-loc="hero">${icon('whatsapp')}WhatsApp</a></p>
             <ul class="hero__facts"><li>12 years in Applications and AI Engineering</li><li>11 products shipped</li><li>Android · iOS · Web</li><li>Based in Indore, India</li></ul>
         </div>
-        ${heroApps(['notes', 'dedup'].map((k) => PRODUCTS[k]))}
+        <div class="win reveal" aria-label="Mobile1X products">
+            <div class="win__bar" aria-hidden="true"><i></i><i></i><i></i><span>mobile1x.com</span></div>
+            <ul class="win__grid">${SUITE.map((a) => `<li><a class="win__app" href="/${a.slug}/" data-loc="hero"><img src="${a.icon}" alt="" width="52" height="52" decoding="async"><span>${esc(a.name.replace(' by Mobile1X', ''))}</span></a></li>`).join('')}</ul>
+            <p class="win__foot">11 products · click any icon</p>
         </div>
-    ${heroStage(['notes', 'dedup', 'a2z'].map((k) => PRODUCTS[k]))}
+        </div>
 </div>
 </section>`;
 
@@ -90,13 +93,12 @@ export function home() {
     const proof = section({
         id: 'portfolio', loc: 'case-study', body: `${sectionHead({ eyebrow: 'Proof', title: 'Shipped products & flagship platforms.', lede: 'We don’t just build for clients—we architect, ship, and scale our own global mobile apps and international commerce platforms, bringing that exact production discipline to your product.' })}
         <div class="products products--flagship">${['a2z', 'dedup', 'notes'].map((k) => productCard(PRODUCTS[k])).join('')}</div>
-        <h3 class="products__more reveal">More products we’ve shipped</h3>
-        <div class="products products--four">${['pos', 'pharma', 'auction', 'bhashasetu'].map((k) => productCard(PRODUCTS[k])).join('')}</div>`,
+`,
     });
 
     const services = section({
         id: 'services', loc: 'service', cls: 'section--alt', body: `${sectionHead({ eyebrow: 'Services', title: 'What we build.', lede: 'Four focus areas, each with its own detailed page: approach, technology, pricing and proof.' })}
-        <div class="grid grid--4" id="fintech">${SERVICES.map(serviceCard).join('')}</div>`,
+        <ol class="svc" id="fintech">${SERVICES.map((x, i) => `<li class="svc__row reveal"><span class="svc__n">${String(i + 1).padStart(2, '0')}</span><div class="svc__main"><h3><a class="card__link" href="/services/${x.slug}/" data-loc="service">${esc(x.name)}</a></h3><p>${esc(x.blurb)}</p></div><p class="svc__stack">${esc(x.stack)}</p><a class="svc__go" href="/services/${x.slug}/" data-loc="service" aria-label="${esc(x.name)}">${icon('arrow')}</a></li>`).join('')}</ol>`,
     });
 
     const capabilities = section({
@@ -137,7 +139,7 @@ export function home() {
             preload: '<link rel="preload" as="image" href="/assets/apps/notes/shot1.webp" fetchpriority="high">',
             scripts: `<script defer src="${asset('/assets/js/hero-stage.js')}"></script>`,
             schema: [faqPage(HOME_FAQ), ...['notes', 'dedup'].map((k) => softwareApp({ slug: k, name: PRODUCTS[k].name, category: k === 'notes' ? 'ProductivityApplication' : 'UtilitiesApplication', os: 'Android, iOS', description: PRODUCTS[k].summary, installUrl: storeLinks(PRODUCTS[k]).map((s) => s.url) }))],
-            body: [hero, suite, storePlatform, takemytest, proof, services, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
+            body: [hero, suite, services, proof, storePlatform, takemytest, capabilities, cases, process, price, trust, faqSection, contactSection({ source: '/' })].join('\n'),
         }),
     };
 }

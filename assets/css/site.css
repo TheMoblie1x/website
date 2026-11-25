@@ -497,3 +497,38 @@ body { background: radial-gradient(70% 50% at 50% -10%, rgb(200 155 60 / 12%), t
 .nav > a:hover::after { transform: scaleX(1); }
 .prose h2, .h2--post { position: relative; }
 @media (prefers-reduced-motion: reduce) { .brand img, .nav > a::after { transition: none; } }
+
+/* Redesign layer 3: launcher-window hero, numbered services */
+.hero__top { grid-template-columns: minmax(0, 1fr) minmax(300px, 440px); }
+.win { position: relative; z-index: 1; border: 1px solid var(--line-hi); border-radius: 20px; background: linear-gradient(180deg, rgb(255 255 255 / 5%), rgb(255 255 255 / 1.5%)); box-shadow: 0 40px 90px rgb(0 0 0 / 55%), 0 0 80px rgb(200 155 60 / 10%); overflow: hidden; backdrop-filter: blur(10px); }
+.win__bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.win__bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-hi); }
+.win__bar i:first-child { background: var(--gold); }
+.win__bar span { margin-left: auto; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.win__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; list-style: none; padding: var(--space-4); }
+.win__app { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 4px; border-radius: 14px; text-decoration: none; text-align: center; font-size: 0.72rem; line-height: 1.2; color: var(--muted); transition: background 220ms var(--ease), transform 220ms var(--ease), color 220ms var(--ease); }
+.win__app img { width: 52px; height: 52px; border-radius: 13px; object-fit: cover; transition: transform 260ms var(--ease), box-shadow 260ms var(--ease); }
+.win__app:hover { background: rgb(200 155 60 / 10%); color: var(--ink); }
+.win__app:hover img { transform: translateY(-3px) scale(1.06); box-shadow: 0 10px 24px rgb(226 154 46 / 30%); }
+.win__foot { padding: 0 var(--space-4) var(--space-4); font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); text-align: center; }
+@media (max-width: 900px) { .hero__top { grid-template-columns: 1fr; } }
+
+.svc { list-style: none; padding: 0; border-top: 1px solid var(--line); }
+.svc__row { position: relative; display: grid; grid-template-columns: 64px minmax(0, 1.4fr) minmax(0, 1fr) 44px; align-items: center; gap: var(--space-5); padding: var(--space-6) var(--space-3); border-bottom: 1px solid var(--line); transition: background 260ms var(--ease), padding-left 260ms var(--ease); }
+.svc__row:hover { background: linear-gradient(90deg, rgb(200 155 60 / 8%), transparent 70%); padding-left: var(--space-5); }
+.svc__n { font-family: var(--font-mono); font-size: 0.9rem; color: var(--gold-hi); }
+.svc__main h3 { font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-weight: 600; }
+.svc__main h3 a { text-decoration: none; }
+.svc__main h3 a::after { content: ""; position: absolute; inset: 0; }
+.svc__main p { margin-top: var(--space-2); color: var(--muted); max-width: 52ch; }
+.svc__stack { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); }
+.svc__go { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line-hi); border-radius: 50%; color: var(--gold-hi); transition: background 220ms var(--ease), color 220ms var(--ease), transform 220ms var(--ease); }
+.svc__row:hover .svc__go { background: var(--gold-grad); color: var(--on-gold); transform: translateX(4px); }
+@media (max-width: 760px) { .svc__row { grid-template-columns: 40px 1fr 44px; } .svc__stack { display: none; } }
+@media (prefers-reduced-motion: reduce) { .svc__row, .win__app, .win__app img { transition: none; } }
+
+/* Location map (Google Maps embed, pinned on Indore) */
+.map { margin: 0 0 var(--space-7); border: 1px solid var(--line-hi); border-radius: var(--radius-lg); overflow: hidden; background: var(--surface); }
+.map iframe { display: block; width: 100%; height: clamp(240px, 34vw, 360px); border: 0; }
+.map figcaption { padding: var(--space-3) var(--space-5); font-size: 0.875rem; color: var(--muted); }
+.map figcaption a { color: var(--gold-hi); text-underline-offset: 3px; }

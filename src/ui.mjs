@@ -142,9 +142,12 @@ export const leadForm = ({ source, heading, button = 'Talk to an Engineer' }) =>
 </form>`;
 
 /** Closing CTA + form. Present on every page so a visitor is never more than one scroll from contact. */
+/** Google Maps embed (no API key): pinned marker on Indore. Lazy-loaded so it costs nothing until scrolled near. */
+const mapBlock = `<figure class="map reveal"><iframe title="Mobile1X location: Indore, Madhya Pradesh, India" src="https://www.google.com/maps?q=Indore,+Madhya+Pradesh,+India&amp;z=12&amp;output=embed" width="600" height="360" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><figcaption>Mobile1X is based in <a href="https://www.google.com/maps/search/?api=1&amp;query=Indore%2C+Madhya+Pradesh%2C+India" target="_blank" rel="noopener noreferrer">Indore, Madhya Pradesh, India</a>.</figcaption></figure>`;
+
 export const contactSection = ({ source, title = 'Have a product to build?', lede = 'Tell us what you are building. An engineer replies within one business day, or skip the form and call.', form = {} }) =>
     section({
-        id: 'contact', loc: 'contact', cls: 'section--contact', body: `<div class="contact"><div class="reveal"><p class="eyebrow">Talk to an engineer</p><h2 class="h2">${esc(title)}</h2><p class="lede">${esc(lede)}</p>${contactChannels()}</div>${leadForm({ source, ...form })}</div>`,
+        id: 'contact', loc: 'contact', cls: 'section--contact', body: `${mapBlock}<div class="contact"><div class="reveal"><p class="eyebrow">Talk to an engineer</p><h2 class="h2">${esc(title)}</h2><p class="lede">${esc(lede)}</p>${contactChannels()}</div>${leadForm({ source, ...form })}</div>`,
     });
 
 /** Hero side panel: the apps live in the stores, each with its store links. */
