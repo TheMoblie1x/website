@@ -70,7 +70,7 @@ const abs = (u) => (u.startsWith('http') ? u : SITE.url + u);
 const where = (p) => [...storeLinks(p).map((s) => `[${s.name}](${s.url})`), p.web && `[website](${abs(p.web)})`].filter(Boolean).join(', ');
 write('llms.txt', `# Mobile1X
 
-> Mobile1X is a mobile and SI product engineering studio based in Indore, India, founded by Rahul Pahuja. It designs, builds and launches Android, iOS and web apps, SI products, MVPs and fintech platforms for clients worldwide, and ships its own apps including Notes and Dedup.
+> Mobile1X is a mobile and AI product engineering studio based in Indore, India, founded by Rahul Pahuja. It designs, builds and launches Android, iOS and web apps, AI products, MVPs and fintech platforms for clients worldwide, and ships its own apps including Notes and Dedup.
 
 Engagements typically range from $5,000 to $100,000+; standalone web performance audits start at $500. Every project has a written scope and quote before work starts.
 
